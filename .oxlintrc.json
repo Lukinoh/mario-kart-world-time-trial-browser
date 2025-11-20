@@ -1,0 +1,72 @@
+{
+  "globals": {
+    "console": true,
+    "performance": true,
+    "document": true,
+    "ImageData": true,
+    "OffscreenCanvas": true,
+    "HTMLElement": true,
+    "navigator": true,
+    "Image": true
+  },
+  "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "error",
+    "perf": "error",
+    "style": "error",
+    "restriction": "error",
+    "nursery": "error"
+  },
+  "rules": {
+    "eslint/func-style": "off",
+    "eslint/id-length": [
+      "error",
+      {
+        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P"]
+      }
+    ],
+    "eslint/max-params": ["error", 4],
+    "eslint/no-await-in-loop": "off",
+    "eslint/no-console": ["error", { "allow": ["info", "error"] }],
+    "eslint/no-empty-function": ["error", { "allow": ["privateConstructors"] }],
+    "eslint/no-magic-numbers": "off",
+    "eslint/no-ternary": "off",
+    "eslint/no-empty-pattern": "off",
+    "eslint/no-undefined": "off",
+    "eslint/sort-keys": "off",
+    "eslint/operator-assignment": "off",
+
+    "import/consistent-type-specifier-style": "off",
+    "import/group-exports": "off",
+    "import/no-default-export": "off",
+    "import/no-named-export": "off",
+    "import/no-unassigned-import": ["error", { "allow": ["solid-devtools"] }],
+    "import/prefer-default-export": "off",
+    "import/unambiguous": "off",
+    "import/exports-last": "off",
+    "import/max-dependencies": ["error", { "max": 15 }],
+
+    // The rule affects also Playwright test files. So it is disabled to avoid false positive errors.
+    "jest/require-hook": "off",
+
+    "oxc/no-async-await": "off",
+    "oxc/no-map-spread": "off",
+    "oxc/no-optional-chaining": "off",
+    "oxc/no-rest-spread-properties": "off",
+
+    "promise/prefer-await-to-callbacks": "off",
+
+    "typescript/array-type": ["error", { "default": "generic" }],
+    "typescript/promise-function-async": "off",
+    "typescript/no-unsafe-type-assertion": "warn",
+    // Ideally, we should ignoreStatic, however, it seems the rule does not work as expected
+    "typescript/unbound-method": ["off", { "ignoreStatic": true }],
+
+    "unicorn/no-array-for-each": "off",
+    "unicorn/no-useless-undefined": "off",
+
+    "vitest/consistent-test-it": ["error", { "fn": "test" }]
+  }
+}
