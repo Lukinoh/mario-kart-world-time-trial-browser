@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@prettier/plugin-oxc": "0.0.5",
+    "git-conventional-commits": "2.8.0",
     "husky": "9.1.7",
     "oxlint": "1.28.0",
     "oxlint-tsgolint": "0.5.1",
