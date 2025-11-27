@@ -17,6 +17,9 @@ importers:
       remeda:
         specifier: 2.32.0
         version: 2.32.0
+      simpledotcss:
+        specifier: 2.3.7
+        version: 2.3.7
       solid-js:
         specifier: 1.9.10
         version: 1.9.10
@@ -902,6 +905,9 @@ packages:
     resolution: {integrity: sha512-RbcPH1n5cfwKrru7v7+zrZvjLurgHhGyso3HTyGtRivGWgYjbOmGuivCQaORNELjNONoK35nj28EoWul9sb1zQ==}
     engines: {node: '>=10'}
 
+  simpledotcss@2.3.7:
+    resolution: {integrity: sha512-Ag3TpigN7725AnvgwyGkErd50SuYmlDQRU+9LLNHUIK8T4DUEWPHut6GpD1ivxARrBd8eYGTL8vzKazVFYUpQg==}
+
   solid-devtools@0.34.4:
     resolution: {integrity: sha512-/s/pPTLvTkuXGZhLfsuvp7ge/cdpEwrUPoRwoJPYgz74GTUSb5Ozi2V6Z6HkO0ILT7hXB04j16HbH1aaP5VFOA==}
     peerDependencies:
@@ -1763,6 +1769,8 @@ snapshots:
       seroval: 1.3.2
 
   seroval@1.3.2: {}
+
+  simpledotcss@2.3.7: {}
 
   solid-devtools@0.34.4(solid-js@1.9.10)(vite@7.2.4):
     dependencies:

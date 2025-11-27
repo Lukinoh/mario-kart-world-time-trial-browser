@@ -19,6 +19,7 @@
     "@blazediff/gmsd": "1.7.0",
     "@blazediff/ssim": "1.7.0",
     "remeda": "2.32.0",
+    "simpledotcss": "2.3.7",
     "solid-js": "1.9.10"
   },
   "devDependencies": {

@@ -43,7 +43,7 @@
     "import/group-exports": "off",
     "import/no-default-export": "off",
     "import/no-named-export": "off",
-    "import/no-unassigned-import": ["error", { "allow": ["solid-devtools"] }],
+    "import/no-unassigned-import": ["error", { "allow": ["solid-devtools", "simpledotcss/simple.min.css"] }],
     "import/prefer-default-export": "off",
     "import/unambiguous": "off",
     "import/exports-last": "off",

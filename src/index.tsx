@@ -1,5 +1,6 @@
 /* @refresh reload */
 import "solid-devtools";
+import "simpledotcss/simple.min.css";
 import { App } from "./app";
 import { assert } from "./tools/utils";
 import { render } from "solid-js/web";
