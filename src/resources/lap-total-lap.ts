@@ -17,9 +17,9 @@ const TotalLapsRecognition = createRecognitionRegionImage(images, BOX, {
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getTotalLaps(image: EnhancedImageData, context?: CanvasRenderingContext2D): string {
+export function getTotalLaps(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
   return pipe(TotalLapsRecognition.getMatch(image, BOX), (match) => {
-    context?.putImageData(match.value, ...BOX.putImageData());
+    putImageData?.(match.value, ...BOX.putImageData());
     return match.filename;
   });
 }

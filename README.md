@@ -28,3 +28,4 @@ npm run preview
   To reduce these issues, we can add screenshots with these exceptions.
 - Add more screenshot for the start of each maps
 - // CanvasImageData & CanvasDrawImage
+- Try to use webworker to improve performance

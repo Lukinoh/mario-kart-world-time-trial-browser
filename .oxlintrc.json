@@ -27,6 +27,7 @@
         "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P"]
       }
     ],
+    "eslint/max-lines-per-function": "off",
     "eslint/max-params": ["error", 4],
     "eslint/no-await-in-loop": "off",
     "eslint/no-console": ["error", { "allow": ["info", "error"] }],

@@ -14,7 +14,7 @@ export function getFilename(path: string): string {
   return filename;
 }
 
-export function defineComponent<P extends Record<string, unknown>>(component: Component<P>): Component<P> {
+export function defineComponent<P extends Record<keyof P, unknown>>(component: Component<P>): Component<P> {
   return component;
 }
 

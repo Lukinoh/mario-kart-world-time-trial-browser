@@ -20,16 +20,16 @@ export function useResources() {
     map: "None",
   });
 
-  const update = (image: EnhancedImageData, context?: CanvasRenderingContext2D): void => {
+  const update = (image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): void => {
     setState({
-      time: getTime(image, context),
+      time: getTime(image, putImageData),
       lap: {
-        current: getCurrentLap(image, context),
-        total: getTotalLaps(image, context),
+        current: getCurrentLap(image, putImageData),
+        total: getTotalLaps(image, putImageData),
       },
-      shrooms: getShrooms(image, context),
-      coins: getCoins(image, context),
-      map: getMap(image, context),
+      shrooms: getShrooms(image, putImageData),
+      coins: getCoins(image, putImageData),
+      map: getMap(image, putImageData),
     });
   };
 

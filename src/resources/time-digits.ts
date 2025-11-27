@@ -24,17 +24,17 @@ const CoinsRecognition = createRecognitionRegionImage(images, BOXES.second01, {
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getTime(image: EnhancedImageData, context?: CanvasRenderingContext2D): string {
+export function getTime(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
   return pipe(
     BOXES,
     mapValues((box) => CoinsRecognition.getMatch(image, box)),
     (matches) => {
-      context?.putImageData(matches.minute.value, ...BOXES.minute.putImageData());
-      context?.putImageData(matches.second10.value, ...BOXES.second10.putImageData());
-      context?.putImageData(matches.second01.value, ...BOXES.second01.putImageData());
-      context?.putImageData(matches.milisecond100.value, ...BOXES.milisecond100.putImageData());
-      context?.putImageData(matches.milisecond010.value, ...BOXES.milisecond010.putImageData());
-      context?.putImageData(matches.milisecond001.value, ...BOXES.milisecond001.putImageData());
+      putImageData?.(matches.minute.value, ...BOXES.minute.putImageData());
+      putImageData?.(matches.second10.value, ...BOXES.second10.putImageData());
+      putImageData?.(matches.second01.value, ...BOXES.second01.putImageData());
+      putImageData?.(matches.milisecond100.value, ...BOXES.milisecond100.putImageData());
+      putImageData?.(matches.milisecond010.value, ...BOXES.milisecond010.putImageData());
+      putImageData?.(matches.milisecond001.value, ...BOXES.milisecond001.putImageData());
       return `${matches.minute.filename}:${matches.second10.filename}${matches.second01.filename}.${matches.milisecond100.filename}${matches.milisecond010.filename}${matches.milisecond001.filename}`;
     },
   );

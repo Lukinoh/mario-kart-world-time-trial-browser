@@ -17,9 +17,9 @@ const ShroomsRecognition = createRecognitionRegionImage(images, BOX, {
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getShrooms(image: EnhancedImageData, context?: CanvasRenderingContext2D): string {
+export function getShrooms(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
   return pipe(ShroomsRecognition.getMatch(image, BOX), (match) => {
-    context?.putImageData(match.value, ...BOX.putImageData());
+    putImageData?.(match.value, ...BOX.putImageData());
     return match.filename;
   });
 }

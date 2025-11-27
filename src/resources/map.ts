@@ -15,9 +15,9 @@ const MapRecognition = createRecognitionRegionImage(images, BOX, {
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getMap(image: EnhancedImageData, context?: CanvasRenderingContext2D): string {
+export function getMap(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
   return pipe(MapRecognition.getMatch(image, BOX), (match) => {
-    context?.putImageData(match.value, ...BOX.putImageData());
+    putImageData?.(match.value, ...BOX.putImageData());
     return match.filename;
   });
 }

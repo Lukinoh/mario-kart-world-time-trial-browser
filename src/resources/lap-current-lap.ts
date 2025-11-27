@@ -17,9 +17,9 @@ const CurrentLapRecognition = createRecognitionRegionImage(images, BOX, {
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getCurrentLap(image: EnhancedImageData, context?: CanvasRenderingContext2D): string {
+export function getCurrentLap(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
   return pipe(CurrentLapRecognition.getMatch(image, BOX), (match) => {
-    context?.putImageData(match.value, ...BOX.putImageData());
+    putImageData?.(match.value, ...BOX.putImageData());
     return match.filename;
   });
 }
