@@ -1,10 +1,12 @@
 import type { EnhancedImageData } from "./enhanced-image-data";
+import { PixelComparison } from "../pixel/pixel-comparison";
 import { gmsd } from "@blazediff/gmsd";
 import { hitchhikersSSIM } from "@blazediff/ssim/hitchhikers-ssim";
 import { msssim } from "@blazediff/ssim/msssim";
 import { ssim } from "@blazediff/ssim/ssim";
 
-export type ImageComparisonFunction = (imageData1: EnhancedImageData, imageData2: EnhancedImageData) => number;
+export type ImageSimilarityFunction = (imageData1: EnhancedImageData, imageData2: EnhancedImageData) => number;
+export type ImageBooleanFunction = (imageData: EnhancedImageData) => boolean;
 
 export const ImageComparison = {
   gmsd(imageData1: EnhancedImageData, imageData2: EnhancedImageData): number {
@@ -23,19 +25,15 @@ export const ImageComparison = {
       // covPooling: false
     });
   },
-  // isYellowish(image: ImageHandler) {
-  //     let yellowPixel = 0;
-  //
-  //     for (let i = 0; i < image.pixelCount; i++) {
-  //         const pixel = image.getPixel(i);
-  //         if (pixel.r > 200 && pixel.g > 170 && pixel.b < 105) {
-  //             yellowPixel++;
-  //         }
-  //         if (yellowPixel > (image.pixelCount / 3)) {
-  //             return true
-  //         }
-  //     }
-  //
-  //     return false;
-  // }
-} satisfies Record<string, ImageComparisonFunction>;
+  hasOneYellowishPixel(imageData: EnhancedImageData): boolean {
+    for (let index = 0; index < imageData.pixelCount; index = index + 1) {
+      const pixel = imageData.getPixel(index);
+
+      if (PixelComparison.isYellowish(pixel)) {
+        return true;
+      }
+    }
+
+    return false;
+  },
+} satisfies Record<string, ImageSimilarityFunction | ImageBooleanFunction>;

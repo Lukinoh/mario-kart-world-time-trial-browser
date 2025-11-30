@@ -1,7 +1,6 @@
 import { Box } from "../box/box";
 import type { Pixel } from "../pixel/pixel";
 import type { PixelFiltersFunction } from "../pixel/pixel-filters";
-import { assert } from "../utils";
 
 export class EnhancedImageData extends ImageData {
   readonly box: Box;
@@ -20,15 +19,28 @@ export class EnhancedImageData extends ImageData {
     });
   }
 
+  /**
+   * Extract a sub-region of an image
+   *
+   * Previous implementation was using OffscreenCanvas (2d) with getImageData.
+   * However, the function was way slower.
+   *
+   * @param imageData An image data
+   * @param region A box that defines the zone to extract from the imageData
+   */
   static extract(imageData: ImageData, region: Box): EnhancedImageData {
-    const canvas = new OffscreenCanvas(imageData.width, imageData.height);
-    const context = canvas.getContext("2d");
-    assert(
-      context,
-      "context identifier is not supported, or the canvas has already been set to a different context mode",
-    );
-    context.putImageData(imageData, 0, 0);
-    return EnhancedImageData.from(context.getImageData(...region.getImageData()));
+    const data = new Uint8ClampedArray(region.width * region.height * 4);
+    const pixelStart = imageData.width * region.y + region.x;
+
+    for (let line = 0; line < region.height; line = line + 1) {
+      const pixelOffset = line * imageData.width;
+      const positionStart = (pixelStart + pixelOffset) * 4;
+      const positionEnd = positionStart + region.width * 4;
+      const positionOffset = line * region.width * 4;
+      data.set(imageData.data.subarray(positionStart, positionEnd), positionOffset);
+    }
+
+    return EnhancedImageData.from(new ImageData(data, region.width, region.height));
   }
 
   private constructor(data: ImageDataArray, sw: number, sh?: number, settings?: ImageDataSettings) {

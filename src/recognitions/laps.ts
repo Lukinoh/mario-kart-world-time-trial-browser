@@ -7,19 +7,21 @@ import { loadImages } from "../tools/image/image-loader";
 import { pipe } from "remeda";
 
 const images = await loadImages(
-  import.meta.glob<string>("../assets/sources/extract-lap-total-digits/*.png", { eager: true, import: `default` }),
+  import.meta.glob<string>("../assets/extractors/laps/*.png", { eager: true, import: `default` }),
 );
 
 const BOX = new Box(661, 245, 684, 227);
 
-const TotalLapsRecognition = createRecognitionRegionImage(images, BOX, {
+const LapsRecognition = createRecognitionRegionImage(images, BOX, {
   filter: ImageFilters.blackAndWhite,
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getTotalLaps(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
-  return pipe(TotalLapsRecognition.getMatch(image, BOX), (match) => {
-    putImageData?.(match.value, ...BOX.putImageData());
-    return match.filename;
-  });
-}
+export const Laps = {
+  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
+    return pipe(LapsRecognition.getMatch(image, BOX), (match) => {
+      putImageData?.(match.value, ...BOX.putImageData());
+      return match.filename;
+    });
+  },
+};

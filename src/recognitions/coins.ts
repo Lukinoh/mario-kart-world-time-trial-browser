@@ -7,7 +7,7 @@ import { createRecognitionRegionImage } from "../tools/image/image-recognition";
 import { loadImages } from "../tools/image/image-loader";
 
 const images = await loadImages(
-  import.meta.glob<string>("../assets/sources/extract-coins-digits/*.png", {
+  import.meta.glob<string>("../assets/extractors/coins/*.png", {
     eager: true,
     import: `default`,
   }),
@@ -23,14 +23,16 @@ const CoinsRecognition = createRecognitionRegionImage(images, BOXES.coin01, {
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getCoins(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
-  return pipe(
-    BOXES,
-    mapValues((box) => CoinsRecognition.getMatch(image, box)),
-    (matches) => {
-      putImageData?.(matches.coin01.value, ...BOXES.coin01.putImageData());
-      putImageData?.(matches.coin10.value, ...BOXES.coin10.putImageData());
-      return `${matches.coin10.filename.at(1)}${matches.coin01.filename.at(1)}`;
-    },
-  );
-}
+export const Coins = {
+  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
+    return pipe(
+      BOXES,
+      mapValues((box) => CoinsRecognition.getMatch(image, box)),
+      (matches) => {
+        putImageData?.(matches.coin01.value, ...BOXES.coin01.putImageData());
+        putImageData?.(matches.coin10.value, ...BOXES.coin10.putImageData());
+        return `${matches.coin10.filename.at(1)}${matches.coin01.filename.at(1)}`;
+      },
+    );
+  },
+};

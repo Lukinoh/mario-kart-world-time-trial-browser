@@ -26,6 +26,8 @@ npm run preview
 
 - Live update has some issues, for instance, when you get a new coin, there is animation that move the number up.
   To reduce these issues, we can add screenshots with these exceptions.
-- Add more screenshot for the start of each maps
 - // CanvasImageData & CanvasDrawImage
 - Try to use webworker to improve performance
+- Add support to determine that there is not more shrooms
+- Replace Split by Split and RawSplit and transform RawSplit into Split (shrooms by split, coins by splits).
+- Add total coins in Attempt

@@ -7,19 +7,21 @@ import { loadImages } from "../tools/image/image-loader";
 import { pipe } from "remeda";
 
 const images = await loadImages(
-  import.meta.glob<string>("../assets/sources/extract-shrooms/*.png", { eager: true, import: `default` }),
+  import.meta.glob<string>("../assets/extractors/lap/*.png", { eager: true, import: `default` }),
 );
 
-const BOX = new Box(43, 153, 143, 43);
+const BOX = new Box(655, 212, 684, 189);
 
-const ShroomsRecognition = createRecognitionRegionImage(images, BOX, {
+const LapRecognition = createRecognitionRegionImage(images, BOX, {
   filter: ImageFilters.blackAndWhite,
   comparison: ImageComparison.hitchhikersSSIM,
 });
 
-export function getShrooms(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
-  return pipe(ShroomsRecognition.getMatch(image, BOX), (match) => {
-    putImageData?.(match.value, ...BOX.putImageData());
-    return match.filename;
-  });
-}
+export const Lap = {
+  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
+    return pipe(LapRecognition.getMatch(image, BOX), (match) => {
+      putImageData?.(match.value, ...BOX.putImageData());
+      return match.filename;
+    });
+  },
+};

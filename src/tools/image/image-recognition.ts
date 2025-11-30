@@ -1,12 +1,12 @@
 import { type Image, transformImageData } from "./image-loader";
-import { ImageComparison, type ImageComparisonFunction } from "./image-comparison";
+import { ImageComparison, type ImageSimilarityFunction } from "./image-comparison";
 import { ImageFilters, type ImageFiltersFunction } from "./image-filters";
 import type { Box } from "../box/box";
 import { EnhancedImageData } from "./enhanced-image-data";
 
 export interface ImageRecognitionOptions {
   filter?: ImageFiltersFunction;
-  comparison?: ImageComparisonFunction;
+  comparison?: ImageSimilarityFunction;
 }
 
 export interface MatchedImage extends Image {
