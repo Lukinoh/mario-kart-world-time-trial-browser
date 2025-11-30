@@ -5,55 +5,70 @@ interface Attempt {
   timestamp: number;
   track: string;
   time?: string;
-  laps: string;
+  coins?: number;
+  laps: number;
   splits: Array<Split>;
 }
 
-interface Split {
-  lap: string;
+interface RawSplit {
   shrooms: string;
   time: string;
   coins: string;
 }
 
+interface Split {
+  lap: number;
+  shrooms: string;
+  time: string;
+  coins: number;
+}
+
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useAttempt(track: string, laps: string) {
+export function useAttempt(track: string, rawLaps: string) {
   const [store, setStore] = createStore<Attempt>({
     timestamp: Date.now(),
     track,
-    laps,
+    laps: Number(rawLaps),
     splits: [],
   });
 
-  const addSplit = (split: Omit<Split, "lap">): void => {
+  const addSplit = (rawSplit: RawSplit): void => {
+    const coins = store.splits.reduce((coins, split) => coins - split.coins, Number(rawSplit.coins));
+
     setStore(
       "splits",
       store.splits.length,
+      // If you do not use reconcile, if you remove "lap" there is no type error
       reconcile({
-        ...split,
-        lap: `${store.splits.length + 1}`,
+        ...rawSplit,
+        lap: store.splits.length + 1,
+        coins: coins,
       }),
     );
   };
 
-  const addFinalSplit = (split: Omit<Split, "lap">): void => {
-    // The final split has the particularity that the time is the final time and not the split time.
-    const totalTime = Time.parse(split.time);
+  const addFinalSplit = (rawSplit: RawSplit): void => {
+    // The final raw split has the particularity that the time is not the split time, but the total time.
+    const totalTime = Time.parse(rawSplit.time);
     const splitTime = store.splits.reduce(
       (time, split): number => time - Time.parse(split.time).getTime(),
       totalTime.getTime(),
     );
 
-    setStore("time", split.time);
+    setStore("time", rawSplit.time);
     addSplit({
-      ...split,
+      ...rawSplit,
       time: Time.format(splitTime),
     });
+    setStore(
+      "coins",
+      store.splits.reduce((acc, split) => acc + split.coins, 0),
+    );
   };
 
   const isEqualToLastSplit = (time: string): boolean => store.splits.at(-1)?.time === time;
 
-  const isLastLap = (lap: string): boolean => store.laps === lap;
+  const isLastLap = (rawLap: string): boolean => store.laps === Number(rawLap);
 
   return {
     isEqualToLastSplit,
