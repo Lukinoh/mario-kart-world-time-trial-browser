@@ -29,5 +29,4 @@ npm run preview
 - // CanvasImageData & CanvasDrawImage
 - Try to use webworker to improve performance
 - Add support to determine that there is not more shrooms
-- Replace Split by Split and RawSplit and transform RawSplit into Split (shrooms by split, coins by splits).
-- Add total coins in Attempt
+- Make function parametrizable and improve shroom detection

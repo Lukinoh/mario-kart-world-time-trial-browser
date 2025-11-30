@@ -13,15 +13,18 @@ const images = await loadImages(
 const BOX = new Box(43, 153, 143, 43);
 
 const ShroomsRecognition = createRecognitionRegionImage(images, BOX, {
-  filter: ImageFilters.blackAndWhite,
-  comparison: ImageComparison.hitchhikersSSIM,
+  filter: ImageFilters.invert,
+  comparison: ImageComparison.ssim,
 });
 
 export const Shrooms = {
   get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
     return pipe(ShroomsRecognition.getMatch(image, BOX), (match) => {
+      if (match.score < 0.3) {
+        return "0";
+      }
       putImageData?.(match.value, ...BOX.putImageData());
-      return match.filename;
+      return `${match.filename.at(0)}`;
     });
   },
 };

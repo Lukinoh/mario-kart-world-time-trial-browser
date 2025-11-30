@@ -1,6 +1,7 @@
 import { type Image, transformImageData } from "./image-loader";
 import { ImageComparison, type ImageSimilarityFunction } from "./image-comparison";
 import { ImageFilters, type ImageFiltersFunction } from "./image-filters";
+import { map, pipe } from "remeda";
 import type { Box } from "../box/box";
 import { EnhancedImageData } from "./enhanced-image-data";
 
@@ -22,14 +23,17 @@ function createMutativeRecognitionImage(images: Array<Image>, options?: ImageRec
     processing(image.value);
   });
 
-  const getMatch = (inputImage: EnhancedImageData): Image => {
+  const getMatch = (inputImage: EnhancedImageData): MatchedImage => {
     processing(inputImage);
-    // oxlint-disable-next-line no-array-reduce
-    return images.reduce((best, current) => {
-      const bestScore = comparison(inputImage, best.value);
-      const currentScore = comparison(inputImage, current.value);
-      return currentScore > bestScore ? current : best;
-    });
+    return pipe(
+      images,
+      map((image) => ({
+        ...image,
+        score: comparison(inputImage, image.value),
+      })),
+      // oxlint-disable-next-line no-array-reduce
+      (images) => images.reduce((best, current) => (current.score > best.score ? current : best)),
+    );
   };
 
   return { getMatch };
@@ -41,7 +45,7 @@ export function createRecognitionImage(images: Array<Image>, options?: ImageReco
   const clonedImages = transformImageData(images, (imageData) => clone(imageData));
   const mutative = createMutativeRecognitionImage(clonedImages, options);
 
-  const getMatch = (inputImage: EnhancedImageData): Image => {
+  const getMatch = (inputImage: EnhancedImageData): MatchedImage => {
     const inputImageClone = clone(inputImage);
     return mutative.getMatch(inputImageClone);
   };
@@ -56,7 +60,7 @@ export function createRecognitionRegionImage(images: Array<Image>, region: Box, 
   const regionImages = transformImageData(images, (imageData) => extractRegion(imageData, region));
   const mutative = createMutativeRecognitionImage(regionImages, options);
 
-  const getMatch = (inputImage: EnhancedImageData, region: Box): Image => {
+  const getMatch = (inputImage: EnhancedImageData, region: Box): MatchedImage => {
     const inputRegionImage = extractRegion(inputImage, region);
     return mutative.getMatch(inputRegionImage);
   };
