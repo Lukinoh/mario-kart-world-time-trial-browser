@@ -50,10 +50,7 @@ export function useAttempt(track: string, rawLaps: string) {
   const addFinalSplit = (rawSplit: RawSplit): void => {
     // The final raw split has the particularity that the time is not the split time, but the total time.
     const totalTime = Time.parse(rawSplit.time);
-    const splitTime = store.splits.reduce(
-      (time, split): number => time - Time.parse(split.time).getTime(),
-      totalTime.getTime(),
-    );
+    const splitTime = store.splits.reduce((time, split): number => time - Time.parse(split.time), totalTime);
 
     setStore("time", rawSplit.time);
     addSplit({

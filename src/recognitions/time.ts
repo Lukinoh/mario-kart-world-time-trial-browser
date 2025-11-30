@@ -51,8 +51,8 @@ export const Time = {
       (values) => values.every(Boolean),
     );
   },
-  parse(time: string): Date {
-    return parse(time, compiledTime);
+  parse(time: string): number {
+    return parse(time, compiledTime).getTime();
   },
   format(timestamp: number): string {
     return format(new Date(timestamp), compiledTime);
