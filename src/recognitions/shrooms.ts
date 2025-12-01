@@ -1,7 +1,7 @@
 import { Box } from "../tools/box/box";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
-import { ImageComparison } from "../tools/image/image-comparison";
 import { ImageFilters } from "../tools/image/image-filters";
+import { ImageSimilarity } from "../tools/image/image-similarity";
 import { createRecognitionRegionImage } from "../tools/image/image-recognition";
 import { loadImages } from "../tools/image/image-loader";
 import { pipe } from "remeda";
@@ -14,7 +14,7 @@ const BOX = new Box(43, 153, 143, 43);
 
 const ShroomsRecognition = createRecognitionRegionImage(images, BOX, {
   filter: ImageFilters.invert,
-  comparison: ImageComparison.ssim,
+  comparison: ImageSimilarity.ssim(),
 });
 
 export const Shrooms = {

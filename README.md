@@ -29,4 +29,7 @@ npm run preview
 - // CanvasImageData & CanvasDrawImage
 - Try to use webworker to improve performance
 - Add support to determine that there is not more shrooms
-- Make function parametrizable and improve shroom detection
+- Improve shroom detection
+- Do no check image size are the same
+- add solidjs router
+- add vitest (may need jsdom or something similar)

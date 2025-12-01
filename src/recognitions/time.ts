@@ -2,8 +2,9 @@ import { compile, format, parse } from "date-and-time";
 import { mapValues, pipe, values } from "remeda";
 import { Box } from "../tools/box/box";
 import { EnhancedImageData } from "../tools/image/enhanced-image-data";
-import { ImageComparison } from "../tools/image/image-comparison";
+import { ImageAssert } from "../tools/image/image-assert";
 import { ImageFilters } from "../tools/image/image-filters";
+import { ImageSimilarity } from "../tools/image/image-similarity";
 import { createRecognitionRegionImage } from "../tools/image/image-recognition";
 import { loadImages } from "../tools/image/image-loader";
 
@@ -22,7 +23,7 @@ const BOXES = {
 
 const TimeRecognition = createRecognitionRegionImage(images, BOXES.second01, {
   filter: ImageFilters.blackAndWhite,
-  comparison: ImageComparison.hitchhikersSSIM,
+  comparison: ImageSimilarity.hitchhikersSSIM(),
 });
 
 const compiledTime = compile("m:ss.SSS");
@@ -46,7 +47,7 @@ export const Time = {
   isYellowish(image: EnhancedImageData): boolean {
     return pipe(
       BOXES,
-      mapValues((box) => ImageComparison.hasOneYellowishPixel(EnhancedImageData.extract(image, box))),
+      mapValues((box) => ImageAssert.hasOneYellowishPixel(EnhancedImageData.extract(image, box))),
       values(),
       (values) => values.every(Boolean),
     );

@@ -1,6 +1,6 @@
 import { type Image, transformImageData } from "./image-loader";
-import { ImageComparison, type ImageSimilarityFunction } from "./image-comparison";
 import { ImageFilters, type ImageFiltersFunction } from "./image-filters";
+import { ImageSimilarity, type ImageSimilarityFunction } from "./image-similarity";
 import { map, pipe } from "remeda";
 import type { Box } from "../box/box";
 import { EnhancedImageData } from "./enhanced-image-data";
@@ -17,7 +17,7 @@ export interface MatchedImage extends Image {
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function createMutativeRecognitionImage(images: Array<Image>, options?: ImageRecognitionOptions) {
   const processing = options?.filter ?? ImageFilters.identity;
-  const comparison = options?.comparison ?? ImageComparison.hitchhikersSSIM;
+  const comparison = options?.comparison ?? ImageSimilarity.hitchhikersSSIM();
 
   images.forEach((image) => {
     processing(image.value);

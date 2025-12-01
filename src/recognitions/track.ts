@@ -1,6 +1,6 @@
 import { Box } from "../tools/box/box";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
-import { ImageComparison } from "../tools/image/image-comparison";
+import { ImageSimilarity } from "../tools/image/image-similarity";
 import { createRecognitionRegionImage } from "../tools/image/image-recognition";
 import { loadImages } from "../tools/image/image-loader";
 import { pipe } from "remeda";
@@ -12,7 +12,7 @@ const images = await loadImages(
 );
 
 const TrackRecognition = createRecognitionRegionImage(images, BOX, {
-  comparison: ImageComparison.hitchhikersSSIM,
+  comparison: ImageSimilarity.hitchhikersSSIM(),
 });
 
 export const Track = {
