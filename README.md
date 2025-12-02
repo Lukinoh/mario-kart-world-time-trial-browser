@@ -33,3 +33,7 @@ npm run preview
 - Do no check image size are the same
 - add solidjs router
 - add vitest (may need jsdom or something similar)
+- optimise image by precompiling them
+- empeach opening twice the webpage
+- counter of attempts
+- keep 100 attemps

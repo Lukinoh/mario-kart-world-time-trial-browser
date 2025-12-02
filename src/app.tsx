@@ -1,23 +1,7 @@
-import { createSignal, onMount } from "solid-js";
-import { Coins } from "./recognitions/coins";
-import { EnhancedImageData } from "./tools/image/enhanced-image-data";
-import { Lap } from "./recognitions/lap";
-import { Laps } from "./recognitions/laps";
-import { Shrooms } from "./recognitions/shrooms";
-import { Time } from "./recognitions/time";
-import { Track } from "./recognitions/track";
-import { createStore } from "solid-js/store";
+import { PROCESS_FRAME_MODE, useTimeTrial } from "./compositions/use-time-trial";
 import { css } from "@emotion/css";
 import { defineComponent } from "./tools/utils";
-import { useAttempt } from "./compositions/use-attempt";
-import { useIsFinalTime } from "./compositions/use-is-final-time";
-import { useVideoCanvas } from "./tools/video/video-canvas";
-
-export enum STATE {
-  WAITING_ATTEMPT = "WAITING_ATTEMPT",
-  WAITING_SPLIT = "WAITING_SPLIT",
-  WAITING_LAST_SPLIT = "WAITING_LAST_SPLIT",
-}
+import { onMount } from "solid-js";
 
 const sDebug = css({
   display: "grid",
@@ -26,80 +10,11 @@ const sDebug = css({
 });
 
 export const App = defineComponent(() => {
-  const [getState, setState] = createSignal<STATE>(STATE.WAITING_ATTEMPT);
-  const { redraw, getImageData, onTimeUpdate, videoElement, putImageData, canvasElement } = useVideoCanvas("DEBUG");
-  const [attempt, setAttempt] = createStore<ReturnType<typeof useAttempt>>(useAttempt("null", "null"));
-  const { isFinalTime } = useIsFinalTime();
+  const { start, videoElement, canvasElement, getState, attempt } = useTimeTrial();
 
   onMount(() => {
-    onTimeUpdate(() => {
-      const start = performance.now();
-      processFrame();
-      const end = performance.now() - start;
-      console.info(`Time spend to process a frame: ${end}`);
-    });
-
-    // const reframe= (() => {
-    //   const start = performance.now();
-    //   processFrame();
-    //   const end = performance.now() - start;
-    //   console.info(`Time spend to process a frame: ${end}`);
-    //   requestAnimationFrame(reframe)
-    // });
-    // reframe()
+    start(PROCESS_FRAME_MODE.TIME_UPDATE);
   });
-
-  const processFrame = (): void => {
-    redraw();
-    const image = EnhancedImageData.from(getImageData());
-
-    const time = Time.get(image, putImageData);
-    const lap = Lap.get(image, putImageData);
-    const coins = Coins.get(image, putImageData);
-    const shrooms = Shrooms.get(image, putImageData);
-
-    const state = getState();
-
-    // RESET ATTEMPT
-    if (lap === "1" && coins === "00" && time === "0:00.000" && shrooms === "3") {
-      const track = Track.get(image, putImageData);
-      const laps = Laps.get(image, putImageData);
-      setAttempt(useAttempt(track, laps));
-      setState(STATE.WAITING_SPLIT);
-      // Add last attempt to history
-    }
-
-    if (state === STATE.WAITING_SPLIT) {
-      const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
-      const isYellow = Time.isYellowish(image);
-
-      if (isNotEqualToLastSplit && isYellow) {
-        attempt.addSplit({
-          shrooms: shrooms,
-          time: time,
-          coins: coins,
-        });
-
-        if (attempt.isLastLap(lap)) {
-          setState(STATE.WAITING_LAST_SPLIT);
-        }
-      }
-    }
-
-    if (state === STATE.WAITING_LAST_SPLIT) {
-      const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
-      const isFinished = isFinalTime(time);
-
-      if (isNotEqualToLastSplit && isFinished) {
-        attempt.addFinalSplit({
-          shrooms: shrooms,
-          time: time,
-          coins: coins,
-        });
-        setState(STATE.WAITING_ATTEMPT);
-      }
-    }
-  };
 
   return (
     <>

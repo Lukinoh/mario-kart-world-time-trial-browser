@@ -7,7 +7,8 @@
     "OffscreenCanvas": true,
     "HTMLElement": true,
     "navigator": true,
-    "Image": true
+    "Image": true,
+    "requestAnimationFrame": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {

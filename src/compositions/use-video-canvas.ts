@@ -1,5 +1,5 @@
-import { assert } from "../utils";
-import demoVideoSrc from "../../assets/demo/demo.webm";
+import { assert } from "../tools/utils";
+import demoVideoSrc from "../assets/demo/demo.webm";
 import { onMount } from "solid-js";
 
 const VIDEO_WIDTH = 1280;
