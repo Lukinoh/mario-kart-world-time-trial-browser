@@ -8,7 +8,8 @@
     "HTMLElement": true,
     "navigator": true,
     "Image": true,
-    "requestAnimationFrame": true
+    "requestAnimationFrame": true,
+    "cancelAnimationFrame": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {
@@ -63,6 +64,7 @@
     "typescript/array-type": ["error", { "default": "generic" }],
     "typescript/promise-function-async": "off",
     "typescript/no-unsafe-type-assertion": "warn",
+    "typescript/no-misused-promises": ["error", { "checksVoidReturn": false }],
     // Ideally, we should ignoreStatic, however, it seems the rule does not work as expected
     "typescript/unbound-method": ["off", { "ignoreStatic": true }],
 

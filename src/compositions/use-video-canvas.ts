@@ -45,15 +45,10 @@ export function useVideoCanvas(mode?: "DEBUG") {
     context.putImageData(imageData, dx, dy);
   };
 
-  const onTimeUpdate = (listener: () => void): void => {
-    videoElement.addEventListener("timeupdate", listener);
-  };
-
   return {
     redraw,
     getImageData,
     putImageData,
-    onTimeUpdate,
     canvasElement,
     videoElement,
   };

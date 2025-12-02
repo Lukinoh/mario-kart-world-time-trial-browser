@@ -1,5 +1,6 @@
 import { Box } from "../tools/box/box";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
+import { ImageFilters } from "../tools/image/image-filters";
 import { ImageSimilarity } from "../tools/image/image-similarity";
 import { createRecognitionRegionImage } from "../tools/image/image-recognition";
 import { loadImages } from "../tools/image/image-loader";
@@ -12,6 +13,7 @@ const images = await loadImages(
 );
 
 const TrackRecognition = createRecognitionRegionImage(images, BOX, {
+  filter: ImageFilters.invert,
   comparison: ImageSimilarity.hitchhikersSSIM(),
 });
 

@@ -37,3 +37,6 @@ npm run preview
 - empeach opening twice the webpage
 - counter of attempts
 - keep 100 attemps
+- image invert is used for debugging
+- add metadata for images (box position maybe, help to build without th need to access timecoins etc..?
+- add loading optimisation

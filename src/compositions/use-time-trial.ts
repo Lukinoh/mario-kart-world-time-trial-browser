@@ -1,32 +1,39 @@
 import { EnhancedImageData } from "../tools/image/enhanced-image-data";
+import { onMount } from "solid-js";
 import { useTimeTrialState } from "./use-time-trial-state";
 import { useVideoCanvas } from "./use-video-canvas";
 
-export enum PROCESS_FRAME_MODE {
-  TIME_UPDATE = "TIME_UPDATE",
-  REQUEST_ANIMATION_FRAME = "REQUEST_ANIMATION_FRAME",
-}
+type Mode = "TIME_UPDATE" | "REQUEST_ANIMATION_FRAME";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useTimeTrial() {
-  const { redraw, getImageData, onTimeUpdate, videoElement, canvasElement, putImageData } = useVideoCanvas("DEBUG");
+export function useTimeTrial(mode: Mode) {
+  const { redraw, getImageData, videoElement, canvasElement, putImageData } = useVideoCanvas("DEBUG");
   const { update, attempt, getState } = useTimeTrialState();
 
-  const start = (mode: PROCESS_FRAME_MODE): void => {
-    if (mode === PROCESS_FRAME_MODE.TIME_UPDATE) {
-      onTimeUpdate((): void => {
+  onMount(() => {
+    if (mode === "TIME_UPDATE") {
+      videoElement.addEventListener("timeupdate", () => {
         processFrame();
       });
     }
 
-    if (mode === PROCESS_FRAME_MODE.REQUEST_ANIMATION_FRAME) {
+    if (mode === "REQUEST_ANIMATION_FRAME") {
+      let cancelId = -1;
       const loop = (): void => {
         processFrame();
-        requestAnimationFrame(loop);
+        cancelId = requestAnimationFrame(loop);
       };
-      loop();
+      videoElement.addEventListener("play", () => {
+        loop();
+      });
+
+      videoElement.addEventListener("pause", () => {
+        cancelAnimationFrame(cancelId);
+      });
     }
-  };
+  });
+
+  const start = (): Promise<void> => videoElement.play();
 
   const processFrame = (): void => {
     const start = performance.now();
