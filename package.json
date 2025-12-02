@@ -18,7 +18,7 @@
   "dependencies": {
     "@blazediff/gmsd": "1.7.0",
     "@blazediff/ssim": "1.7.0",
-    "@emotion/css": "11.13.4",
+    "@emotion/css": "11.13.5",
     "date-and-time": "4.1.1",
     "remeda": "2.32.0",
     "simpledotcss": "2.3.7",
@@ -30,11 +30,11 @@
     "husky": "9.1.7",
     "oxlint": "1.31.0",
     "oxlint-tsgolint": "0.8.3",
-    "prettier": "3.6.2",
-    "prettier-plugin-packagejson": "2.5.19",
+    "prettier": "3.7.3",
+    "prettier-plugin-packagejson": "2.5.20",
     "solid-devtools": "0.34.4",
     "typescript": "5.9.3",
-    "vite": "7.2.4",
+    "vite": "7.2.6",
     "vite-plugin-solid": "2.11.10"
   }
 }
