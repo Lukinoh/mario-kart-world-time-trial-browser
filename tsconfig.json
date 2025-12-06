@@ -16,6 +16,12 @@
     // Type Checking & Safety
     "strict": true,
     "types": ["vite/client"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    // Additional
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
   }
 }

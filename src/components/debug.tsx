@@ -19,17 +19,17 @@ export const Debug = defineComponent<DebugProps>((props) => (
     <div class={sDebug}>
       <div>
         <h2>Video</h2>
-        {props.timeTrial.videoElement}
-        {props.timeTrial.canvasElement}
+        {props.timeTrial.video}
+        {props.timeTrial.canvas}
       </div>
       <div>
         <h2>State</h2>
         <pre>
-          <code>{props.timeTrial.getState()}</code>
+          <code>{JSON.stringify(props.timeTrial.attempt(), undefined, 2)}</code>
         </pre>
         <h2>Raw data</h2>
         <pre>
-          <code>{JSON.stringify(props.timeTrial.attempt.data, undefined, 2)}</code>
+          <code>{JSON.stringify(props.timeTrial.attempts(), undefined, 2)}</code>
         </pre>
       </div>
     </div>

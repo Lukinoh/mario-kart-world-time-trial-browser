@@ -3,7 +3,7 @@ import { defineComponent } from "./tools/utils";
 import { useTimeTrial } from "./compositions/use-time-trial";
 
 export const App = defineComponent(() => {
-  const timeTrial = useTimeTrial("TIME_UPDATE");
+  const timeTrial = useTimeTrial("TIME_UPDATE", true);
 
   return (
     <>

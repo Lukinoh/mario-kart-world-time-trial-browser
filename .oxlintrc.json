@@ -22,6 +22,7 @@
     "nursery": "error"
   },
   "rules": {
+    "eslint/arrow-body-style": ["off"],
     "eslint/func-style": "off",
     "eslint/id-length": [
       "error",
@@ -32,7 +33,7 @@
     "eslint/max-lines-per-function": "off",
     "eslint/max-params": ["error", 4],
     "eslint/no-await-in-loop": "off",
-    "eslint/no-console": ["error", { "allow": ["info", "error"] }],
+    "eslint/no-console": ["error", { "allow": ["info", "warn", "error"] }],
     "eslint/no-empty-function": ["error", { "allow": ["privateConstructors"] }],
     "eslint/no-magic-numbers": "off",
     "eslint/no-ternary": "off",

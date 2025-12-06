@@ -1,15 +1,15 @@
-import { assert } from "../tools/utils";
-import demoVideoSrc from "../assets/demo/demo.webm";
+import { assert } from "../../tools/utils";
+import demoVideoSrc from "../../assets/demo/demo.webm";
 import { onMount } from "solid-js";
 
 const VIDEO_WIDTH = 1280;
 const VIDEO_HEIGHT = 720;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useVideoCanvas(mode?: "DEBUG") {
+export function useVideoCanvas(debug = false) {
   const videoElement = document.createElement("video");
   const canvasElement = document.createElement("canvas");
-  const context = canvasElement.getContext("2d");
+  const context = canvasElement.getContext("2d", { willReadFrequently: true, alpha: false });
   assert(context, "Context is null");
 
   videoElement.width = VIDEO_WIDTH;
@@ -21,7 +21,7 @@ export function useVideoCanvas(mode?: "DEBUG") {
 
   // oxlint-disable-next-line no-misused-promises
   onMount(async () => {
-    if (mode === "DEBUG") {
+    if (debug) {
       videoElement.src = demoVideoSrc;
       videoElement.currentTime = 0.1; // Display thumbnail on canvas
     } else {
@@ -35,21 +35,19 @@ export function useVideoCanvas(mode?: "DEBUG") {
     }
   });
 
-  const redraw = (): void => {
+  const getImageData = (): ImageData => {
     context.drawImage(videoElement, 0, 0);
+    return context.getImageData(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   };
-
-  const getImageData = (): ImageData => context.getImageData(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
 
   const putImageData = (imageData: ImageData, dx: number, dy: number): void => {
     context.putImageData(imageData, dx, dy);
   };
 
   return {
-    redraw,
     getImageData,
     putImageData,
-    canvasElement,
-    videoElement,
+    canvas: canvasElement,
+    video: videoElement,
   };
 }

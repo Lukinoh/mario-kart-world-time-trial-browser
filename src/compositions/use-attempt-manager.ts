@@ -1,3 +1,5 @@
+import type { Attempt } from "../core/types/attempt";
+import { AttemptHandler } from "../core/attempt-handler";
 import { Coins } from "../recognitions/coins";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
 import { Lap } from "../recognitions/lap";
@@ -5,10 +7,7 @@ import { Laps } from "../recognitions/laps";
 import { Shrooms } from "../recognitions/shrooms";
 import { Time } from "../recognitions/time";
 import { Track } from "../recognitions/track";
-import { createSignal } from "solid-js";
-import { createStore } from "solid-js/store";
-import { useAttempt } from "./use-attempt";
-import { useIsFinalTime } from "./use-is-final-time";
+import { useIsFinalTime } from "./utils/use-is-final-time";
 
 export enum STATE {
   WAITING_ATTEMPT = "WAITING_ATTEMPT",
@@ -16,27 +15,38 @@ export enum STATE {
   WAITING_LAST_SPLIT = "WAITING_LAST_SPLIT",
 }
 
+const MINIMUM_TIME_BEFORE_NEXT_RESET_MS = 4500;
+
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useTimeTrialState() {
-  const [getState, setState] = createSignal<STATE>(STATE.WAITING_ATTEMPT);
-  const [attempt, setAttempt] = createStore<ReturnType<typeof useAttempt>>(useAttempt("Searching for...", "?"));
+export function useAttemptManager() {
+  let state: STATE = STATE.WAITING_ATTEMPT;
+  let attempt = new AttemptHandler("Search for...", "?");
   const { isFinalTime } = useIsFinalTime();
 
-  const update = (image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): void => {
+  /**
+   * Returns an Attempt object only if there was a creation or an update of an Attempt
+   */
+  const update = (image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): Attempt | undefined => {
     const time = Time.get(image, putImageData);
     const lap = Lap.get(image, putImageData);
     const coins = Coins.get(image, putImageData);
     const shrooms = Shrooms.get(image, putImageData);
 
-    const state = getState();
-
     // RESET ATTEMPT
-    if (lap === "1" && coins === "00" && time === "0:00.000" && shrooms === "3") {
+    if (
+      lap === "1" &&
+      coins === "00" &&
+      time === "0:00.000" &&
+      shrooms === "3" &&
+      attempt.isOlderThan(MINIMUM_TIME_BEFORE_NEXT_RESET_MS)
+    ) {
       const track = Track.get(image, putImageData);
       const laps = Laps.get(image, putImageData);
-      setAttempt(useAttempt(track, laps));
-      setState(STATE.WAITING_SPLIT);
-      // Add last attempt to history
+
+      attempt = new AttemptHandler(track, laps);
+      state = STATE.WAITING_SPLIT;
+
+      return attempt.unwrap();
     }
 
     if (state === STATE.WAITING_SPLIT) {
@@ -51,8 +61,10 @@ export function useTimeTrialState() {
         });
 
         if (attempt.isLastLap(lap)) {
-          setState(STATE.WAITING_LAST_SPLIT);
+          state = STATE.WAITING_LAST_SPLIT;
         }
+
+        return attempt.unwrap();
       }
     }
 
@@ -60,16 +72,18 @@ export function useTimeTrialState() {
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
       const isFinished = isFinalTime(time);
 
+      // False positive if the player press start to pause the game
       if (isNotEqualToLastSplit && isFinished) {
         attempt.addFinalSplit({
           shrooms: shrooms,
           time: time,
           coins: coins,
         });
-        setState(STATE.WAITING_ATTEMPT);
+        state = STATE.WAITING_ATTEMPT;
+        return attempt.unwrap();
       }
     }
   };
 
-  return { getState, update, attempt };
+  return { update };
 }
