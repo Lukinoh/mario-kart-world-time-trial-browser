@@ -1,6 +1,6 @@
 export interface Split {
   lap: number;
-  shrooms: string;
+  shrooms: number;
   time: string;
   coins: number;
 }

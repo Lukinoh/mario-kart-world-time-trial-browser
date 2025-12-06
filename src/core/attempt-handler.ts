@@ -22,11 +22,13 @@ export class AttemptHandler extends DestructurableClass {
 
   addSplit(rawSplit: RawSplit): void {
     const coins = this.splits.reduce((coins, split) => coins - split.coins, Number(rawSplit.coins));
+    const shrooms = 3 - this.splits.reduce((shrooms, split) => shrooms + split.shrooms, Number(rawSplit.shrooms));
 
     this.splits.push({
       ...rawSplit,
       lap: this.splits.length + 1,
       coins: coins,
+      shrooms: shrooms,
     });
   }
 
