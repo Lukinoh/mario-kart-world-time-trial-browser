@@ -6,8 +6,13 @@ export function useIsFinalTime() {
   let lastTime: string | undefined = undefined;
   let lastTimestamp = Number.POSITIVE_INFINITY;
 
-  const isFinalTime = (newTime: string): boolean => {
+  const isFinalTime = (newTime: string, isPause: boolean): boolean => {
     const now = Date.now();
+
+    if (isPause) {
+      lastTimestamp = now;
+      return false;
+    }
 
     // If time has changed, update and return false
     if (lastTime !== newTime) {

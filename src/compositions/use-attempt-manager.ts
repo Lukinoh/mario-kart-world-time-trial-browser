@@ -4,6 +4,7 @@ import { Coins } from "../recognitions/coins";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
 import { Lap } from "../recognitions/lap";
 import { Laps } from "../recognitions/laps";
+import { Pause } from "../recognitions/pause";
 import { Shrooms } from "../recognitions/shrooms";
 import { Time } from "../recognitions/time";
 import { Track } from "../recognitions/track";
@@ -69,8 +70,9 @@ export function useAttemptManager() {
     }
 
     if (state === STATE.WAITING_LAST_SPLIT) {
+      const isPause = Pause.isPause(image, putImageData);
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
-      const isFinished = isFinalTime(time);
+      const isFinished = isFinalTime(time, isPause);
 
       // False positive if the player press start to pause the game
       if (isNotEqualToLastSplit && isFinished) {
