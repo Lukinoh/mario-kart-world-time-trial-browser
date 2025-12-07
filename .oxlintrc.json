@@ -9,7 +9,10 @@
     "navigator": true,
     "Image": true,
     "requestAnimationFrame": true,
-    "cancelAnimationFrame": true
+    "cancelAnimationFrame": true,
+    "location": true,
+    "URL": true,
+    "Blob": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {

@@ -48,6 +48,10 @@ export function useTimeTrial(mode: Mode, debug = false) {
     return vc.video.play();
   };
 
+  const pause = (): void => {
+    vc.video.pause();
+  };
+
   const processFrame = (): void => {
     const start = performance.now();
     const image = EnhancedImageData.from(vc.getImageData());
@@ -60,5 +64,5 @@ export function useTimeTrial(mode: Mode, debug = false) {
     console.info(`Time spend to process a frame: ${performance.now() - start}`);
   };
 
-  return { start, video: vc.video, canvas: vc.canvas, attempt: storage.lastAttempt, attempts: storage.attempts };
+  return { start, pause, video: vc.video, canvas: vc.canvas, attempt: storage.lastAttempt, attempts: storage.attempts };
 }

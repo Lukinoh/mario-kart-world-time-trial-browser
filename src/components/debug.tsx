@@ -1,6 +1,7 @@
 import { AttemptsTable } from "./attempts-table";
 import { css } from "@emotion/css";
 import { defineComponent } from "../tools/utils";
+import { useIndexedDatabaseSnapshot } from "../compositions/utils/use-indexed-database-snapshot";
 import type { useTimeTrial } from "../compositions/use-time-trial";
 
 const sDebug = css({
@@ -13,35 +14,44 @@ interface DebugProps {
   timeTrial: ReturnType<typeof useTimeTrial>;
 }
 
-export const Debug = defineComponent<DebugProps>((props) => (
-  <>
-    <h2>Debug</h2>
-    <button onClick={props.timeTrial.start}>Start capture</button>
-    <div>
-      <h2>Video</h2>
+export const Debug = defineComponent<DebugProps>((props) => {
+  const snapshot = useIndexedDatabaseSnapshot();
+
+  return (
+    <>
+      <h2>Debug</h2>
       <div class={sDebug}>
-        {props.timeTrial.video}
-        {props.timeTrial.canvas}
+        <button onClick={props.timeTrial.start}>Start capture</button>
+        <button onClick={props.timeTrial.pause}>Pause capture</button>
+        <button onClick={snapshot.downloadAsJson}>Extract data</button>
+        <button onClick={snapshot.restoreFromJson}>Restore data</button>
       </div>
-
-      <AttemptsTable attempts={props.timeTrial.attempts()}></AttemptsTable>
-
-      <h2>Raw data</h2>
-      <div class={sDebug}>
-        <div>
-          <h3>Last Attempt</h3>
-          <pre>
-            <code>{JSON.stringify(props.timeTrial.attempt(), undefined, 2)}</code>
-          </pre>
+      <div>
+        <h2>Video</h2>
+        <div class={sDebug}>
+          {props.timeTrial.video}
+          {props.timeTrial.canvas}
         </div>
 
-        <div>
-          <h3>All</h3>
-          <pre>
-            <code>{JSON.stringify(props.timeTrial.attempts(), undefined, 2)}</code>
-          </pre>
+        <AttemptsTable attempts={props.timeTrial.attempts()}></AttemptsTable>
+
+        <h2>Raw data</h2>
+        <div class={sDebug}>
+          <div>
+            <h3>Last Attempt</h3>
+            <pre>
+              <code>{JSON.stringify(props.timeTrial.attempt(), undefined, 2)}</code>
+            </pre>
+          </div>
+
+          <div>
+            <h3>All</h3>
+            <pre>
+              <code>{JSON.stringify(props.timeTrial.attempts(), undefined, 2)}</code>
+            </pre>
+          </div>
         </div>
       </div>
-    </div>
-  </>
-));
+    </>
+  );
+});

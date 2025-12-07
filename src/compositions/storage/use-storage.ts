@@ -3,7 +3,7 @@ import { createStore, produce, unwrap } from "solid-js/store";
 import type { Attempt } from "../../core/types/attempt";
 import type { AttemptsStorage } from "./attempts-storage";
 import { newQueue } from "@henrygd/queue";
-import { useIndexedDatabaseValue } from "../utils/use-indexed-key-val";
+import { useIndexedDatabaseValue } from "../utils/use-indexed-database-value";
 
 const queue = newQueue(1);
 const database = useIndexedDatabaseValue<AttemptsStorage>("attempts");
