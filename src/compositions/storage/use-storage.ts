@@ -1,3 +1,5 @@
+import * as v from "valibot";
+import { type StorageOutput, StorageSchema } from "../../core/domain/types/storage";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
 import { createSingletonRoot } from "@solid-primitives/rootless";
@@ -13,17 +15,14 @@ function useStorageSingleton() {
 
   const restore = async (): Promise<void> => {
     const text = await JSONUtils.upload();
-    // Use Validbot or Zod to remove the rule exception
-    // oxlint-disable no-unsafe-argument no-unsafe-member-access no-unsafe-assignment
-    const data = JSON.parse(text);
+    const data = v.parse(StorageSchema, JSON.parse(text));
     personal.setStore(data.personal);
     friends.setStore(data.friends);
     worldRecords.setStore(data.worldRecords);
-    // oxlint-enable no-unsafe-argument no-unsafe-member-access no-unsafe-assignment
   };
 
   const download = (): void => {
-    JSONUtils.download("all", {
+    JSONUtils.download<StorageOutput>("all", {
       personal: personal.store,
       friends: friends.store,
       worldRecords: worldRecords.store,

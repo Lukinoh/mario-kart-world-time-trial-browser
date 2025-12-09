@@ -25,7 +25,8 @@
     "idb-keyval": "6.2.2",
     "remeda": "2.32.0",
     "simpledotcss": "2.3.7",
-    "solid-js": "1.9.10"
+    "solid-js": "1.9.10",
+    "valibot": "1.2.0"
   },
   "devDependencies": {
     "@prettier/plugin-oxc": "0.1.2",

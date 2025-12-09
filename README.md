@@ -36,12 +36,10 @@ npm run preview
 - avoid having two pages open as the same time
 - versioning
 - tab focus or not
-- Add validbot/Zod to handle export/import validation
 - Add username support
 - Database cleanup feature (keep only meaningful time)
 - check I do not use anymore the name "map", but only "track" (file name too)
 - add counters of attemps that is not affected by the database cleanup
-- add validation
 - Page 1 Start/Stop + video + table of différence
 - Page 2 History with export/import and cleanup
 - Page 3 Worlds records and Friends times
@@ -52,3 +50,4 @@ npm run preview
 - Add better logging for debugging
 - Fix bug see comment in use-attempt-manager
 - Transform attemptHandler in createAttemptHandler
+- Add internal validation maybe (for instance to give a Time type to the time)

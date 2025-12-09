@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import { type StoreSetter, createStore, unwrap } from "solid-js/store";
 import type { Brand } from "../../../core/helpers/brand";
 import { JSONUtils } from "../../../core/helpers/json-utils";
@@ -5,9 +6,13 @@ import { createIndexedValue } from "./create-indexed-value";
 import { onMount } from "solid-js";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function createIndexedStoreFactory<T extends object>(key: string, storeInit: T) {
-  const database = createIndexedValue<T>(key);
-  const [store, setStoreInternal] = createStore<T>(storeInit);
+function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<unknown, O>>(
+  key: string,
+  schema: S,
+  storeInit: v.InferOutput<S>,
+) {
+  const database = createIndexedValue<v.InferOutput<S>>(key);
+  const [store, setStoreInternal] = createStore<v.InferOutput<S>>(storeInit);
 
   onMount(async () => {
     const persistent = await navigator.storage.persist();
@@ -20,7 +25,7 @@ function createIndexedStoreFactory<T extends object>(key: string, storeInit: T) 
     setStoreInternal((await database.get()) ?? store);
   });
 
-  const setStore = (newStore: StoreSetter<T>): void => {
+  const setStore = (newStore: StoreSetter<v.InferOutput<S>>): void => {
     setStoreInternal(newStore);
     // database is asynchronous
     // oxlint-disable-next-line no-floating-promises
@@ -29,8 +34,7 @@ function createIndexedStoreFactory<T extends object>(key: string, storeInit: T) 
 
   const restore = async (): Promise<void> => {
     const text = await JSONUtils.upload();
-    // oxlint-disable no-unsafe-argument no-unsafe-member-access no-unsafe-assignment
-    const data = JSON.parse(text);
+    const data = v.parse(schema, JSON.parse(text));
     setStore(data);
   };
 
@@ -47,8 +51,10 @@ function createIndexedStoreFactory<T extends object>(key: string, storeInit: T) 
   };
 }
 
-type IndexedStore<T extends object> = Brand<ReturnType<typeof createIndexedStoreFactory<T>>>;
-type IndexedStoreFactory = <T extends object>(
-  ...args: Parameters<typeof createIndexedStoreFactory<T>>
-) => IndexedStore<T>;
+type IndexedStore<O extends object, S extends v.GenericSchema<unknown, O>> = Brand<
+  ReturnType<typeof createIndexedStoreFactory<O, S>>
+>;
+type IndexedStoreFactory = <O extends object, S extends v.GenericSchema<unknown, O>>(
+  ...args: Parameters<typeof createIndexedStoreFactory<O, S>>
+) => IndexedStore<O, S>;
 export const createIndexedStore: IndexedStoreFactory = createIndexedStoreFactory;

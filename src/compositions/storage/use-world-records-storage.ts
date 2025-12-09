@@ -1,5 +1,5 @@
 import { CORS_PROXY_URL, WORLD_RECORD_URL } from "../../core/external-urls";
-import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
+import { AttemptsStorageSchema } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
 import { MkwWrs } from "../../core/domain/mkw-wrs";
@@ -9,10 +9,14 @@ import { createSingletonRoot } from "@solid-primitives/rootless";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useWorldRecordsStorageSingleton() {
-  const { store, setStore, restore, download, key } = createIndexedStore<AttemptsStorage>("world-records-attempts", {
-    version: 1,
-    attempts: [],
-  });
+  const { store, setStore, restore, download, key } = createIndexedStore(
+    "world-records-attempts",
+    AttemptsStorageSchema,
+    {
+      version: 1,
+      attempts: [],
+    },
+  );
   const attempts = createMemo(() => store.attempts);
 
   const automaticProcessForMkrws = async (): Promise<void> => {

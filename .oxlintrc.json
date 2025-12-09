@@ -33,7 +33,7 @@
     "eslint/id-length": [
       "error",
       {
-        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T"]
+        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T", "v", "S", "O"]
       }
     ],
     "eslint/max-lines-per-function": "off",
@@ -52,6 +52,7 @@
     "import/group-exports": "off",
     "import/no-default-export": "off",
     "import/no-named-export": "off",
+    "import/no-namespace": ["error", { "ignore": ["valibot"] }],
     "import/no-unassigned-import": ["error", { "allow": ["solid-devtools", "simpledotcss/simple.min.css"] }],
     "import/prefer-default-export": "off",
     "import/unambiguous": "off",

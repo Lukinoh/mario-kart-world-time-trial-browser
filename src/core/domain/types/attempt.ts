@@ -1,10 +1,14 @@
-import type { Split } from "./split";
+import * as v from "valibot";
+import { SplitSchema } from "./split";
+import { TimeSchema } from "./time";
 
-export interface Attempt {
-  timestamp: number;
-  track: string;
-  time?: string;
-  coins?: number;
-  laps: number;
-  splits: Array<Split>;
-}
+export const AttemptSchema = v.object({
+  timestamp: v.number(),
+  track: v.string(),
+  time: v.optional(TimeSchema),
+  coins: v.optional(v.number()),
+  laps: v.number(),
+  splits: v.array(SplitSchema),
+});
+
+export type Attempt = v.InferOutput<typeof AttemptSchema>;
