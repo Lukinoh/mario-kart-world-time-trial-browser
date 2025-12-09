@@ -1,4 +1,4 @@
-import type { Attempt } from "../../core/types/attempt";
+import type { Attempt } from "./attempt";
 
 export interface AttemptsStorage {
   version: number;

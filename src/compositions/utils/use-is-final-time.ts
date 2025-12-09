@@ -1,8 +1,9 @@
-// oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
+import type { Brand } from "../../core/helpers/brand";
+
 const ELAPSED_BEFORE_BEING_FINAL_MS = 900;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useIsFinalTime() {
+function useIsFinalTimeFactory() {
   let lastTime: string | undefined = undefined;
   let lastTimestamp = Number.POSITIVE_INFINITY;
 
@@ -37,3 +38,7 @@ export function useIsFinalTime() {
     isFinalTime,
   };
 }
+
+type IsFinalTime = Brand<ReturnType<typeof useIsFinalTimeFactory>>;
+type IsFinalTimeFactory = (...args: Parameters<typeof useIsFinalTimeFactory>) => IsFinalTime;
+export const useIsFinalTime: IsFinalTimeFactory = useIsFinalTimeFactory;

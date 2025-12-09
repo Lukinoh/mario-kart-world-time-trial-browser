@@ -1,5 +1,5 @@
 import { For, createMemo } from "solid-js";
-import type { Attempt } from "../core/types/attempt";
+import type { Attempt } from "../core/domain/types/attempt";
 import { css } from "@emotion/css";
 import { defineComponent } from "../tools/utils";
 import { format } from "date-and-time";

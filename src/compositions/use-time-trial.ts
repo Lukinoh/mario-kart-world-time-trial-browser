@@ -1,16 +1,17 @@
+import type { Brand } from "../core/helpers/brand";
 import { EnhancedImageData } from "../tools/image/enhanced-image-data";
 import { onMount } from "solid-js";
 import { useAttemptManager } from "./use-attempt-manager";
-import { useStorage } from "./storage/use-storage";
+import { usePersonalStorage } from "./storage/use-personal-storage";
 import { useVideoCanvas } from "./utils/use-video-canvas";
 
 type Mode = "TIME_UPDATE" | "REQUEST_ANIMATION_FRAME";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useTimeTrial(mode: Mode, debug = false) {
+function useTimeTrialFactory(mode: Mode, debug = false) {
   const vc = useVideoCanvas(debug);
   const manager = useAttemptManager();
-  const storage = useStorage();
+  const personalStorage = usePersonalStorage();
 
   onMount(() => {
     if (mode === "TIME_UPDATE") {
@@ -58,11 +59,15 @@ export function useTimeTrial(mode: Mode, debug = false) {
     const attempt = manager.update(image, vc.putImageData);
 
     if (attempt) {
-      storage.createOrUpdateAttempt(attempt);
+      personalStorage.upsertAttempt(attempt);
     }
 
     console.info(`Time spend to process a frame: ${performance.now() - start}`);
   };
 
-  return { start, pause, video: vc.video, canvas: vc.canvas, attempt: storage.lastAttempt, attempts: storage.attempts };
+  return { start, pause, video: vc.video, canvas: vc.canvas };
 }
+
+type TimeTrial = Brand<ReturnType<typeof useTimeTrialFactory>>;
+type TimeTrialFactory = (...args: Parameters<typeof useTimeTrialFactory>) => TimeTrial;
+export const useTimeTrial: TimeTrialFactory = useTimeTrialFactory;

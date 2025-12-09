@@ -35,6 +35,20 @@ npm run preview
 - add metadata for images (box position maybe, help to build without th need to access timecoins etc..?
 - avoid having two pages open as the same time
 - versioning
-- automatically parse the best record of mkwrs and add it to the list (not possible cors, either ask enter a bypass cors or function to copy paste)
 - tab focus or not
 - Add validbot/Zod to handle export/import validation
+- Add username support
+- Database cleanup feature (keep only meaningful time)
+- check I do not use anymore the name "map", but only "track" (file name too)
+- add counters of attemps that is not affected by the database cleanup
+- add validation
+- Page 1 Start/Stop + video + table of différence
+- Page 2 History with export/import and cleanup
+- Page 3 Worlds records and Friends times
+- Page 4 FAQ
+- Add name feature
+- USe a monoscaped font "Maple mono?"
+- The code contains experimental useless stuff to try to type inferred function without having to defined their interface explicitely
+- Add better logging for debugging
+- Fix bug see comment in use-attempt-manager
+- Transform attemptHandler in createAttemptHandler

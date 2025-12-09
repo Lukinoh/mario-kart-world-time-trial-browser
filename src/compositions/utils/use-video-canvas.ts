@@ -1,3 +1,4 @@
+import type { Brand } from "../../core/helpers/brand";
 import { assert } from "../../tools/utils";
 import demoVideoSrc from "../../assets/demo/demo.webm";
 import { onMount } from "solid-js";
@@ -6,7 +7,7 @@ const VIDEO_WIDTH = 1280;
 const VIDEO_HEIGHT = 720;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useVideoCanvas(debug = false) {
+function useVideoCanvasFactory(debug = false) {
   const videoElement = document.createElement("video");
   const canvasElement = document.createElement("canvas");
   const context = canvasElement.getContext("2d", { willReadFrequently: true, alpha: false });
@@ -14,6 +15,7 @@ export function useVideoCanvas(debug = false) {
 
   videoElement.width = VIDEO_WIDTH;
   videoElement.height = VIDEO_HEIGHT;
+  videoElement.style.width = "100%";
   videoElement.controls = true;
   canvasElement.width = VIDEO_WIDTH;
   canvasElement.height = VIDEO_HEIGHT;
@@ -51,3 +53,7 @@ export function useVideoCanvas(debug = false) {
     video: videoElement,
   };
 }
+
+type VideoCanvas = Brand<ReturnType<typeof useVideoCanvasFactory>>;
+type VideoCanvasFactory = (...args: Parameters<typeof useVideoCanvasFactory>) => VideoCanvas;
+export const useVideoCanvas: VideoCanvasFactory = useVideoCanvasFactory;

@@ -20,6 +20,9 @@ importers:
       '@henrygd/queue':
         specifier: 1.2.0
         version: 1.2.0
+      '@solid-primitives/rootless':
+        specifier: 1.5.2
+        version: 1.5.2(solid-js@1.9.10)
       date-and-time:
         specifier: 4.1.1
         version: 4.1.1

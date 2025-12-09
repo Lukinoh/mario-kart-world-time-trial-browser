@@ -1,53 +1,43 @@
-import { createMemo, onMount } from "solid-js";
-import { createStore, produce, unwrap } from "solid-js/store";
-import type { Attempt } from "../../core/types/attempt";
-import type { AttemptsStorage } from "./attempts-storage";
-import { newQueue } from "@henrygd/queue";
-import { useIndexedDatabaseValue } from "../utils/use-indexed-database-value";
-
-const queue = newQueue(1);
-const database = useIndexedDatabaseValue<AttemptsStorage>("attempts");
-const [store, setStore] = createStore<AttemptsStorage>({
-  version: 1,
-  attempts: [],
-});
+import type { Brand } from "../../core/helpers/brand";
+import { JSONUtils } from "../../core/helpers/json-utils";
+import { createSingletonRoot } from "@solid-primitives/rootless";
+import { useFriendsStorage } from "./use-friends-storage";
+import { usePersonalStorage } from "./use-personal-storage";
+import { useWorldRecordStorage } from "./use-world-records-storage";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useStorage() {
-  const attempts = createMemo(() => store.attempts);
-  const lastAttempt = createMemo(() => store.attempts.at(0));
+function useStorageSingleton() {
+  const personal = usePersonalStorage();
+  const friends = useFriendsStorage();
+  const worldRecords = useWorldRecordStorage();
 
-  onMount(async () => {
-    const persistent = await navigator.storage.persist();
-    if (persistent) {
-      console.info("Storage will not be cleared except by explicit user action.");
-    } else {
-      console.warn("Storage may be cleared by the UA under storage pressure.");
-    }
+  const restore = async (): Promise<void> => {
+    const text = await JSONUtils.upload();
+    // Use Validbot or Zod to remove the rule exception
+    // oxlint-disable no-unsafe-argument no-unsafe-member-access no-unsafe-assignment
+    const data = JSON.parse(text);
+    personal.setStore(data.personal);
+    friends.setStore(data.friends);
+    worldRecords.setStore(data.worldRecords);
+    // oxlint-enable no-unsafe-argument no-unsafe-member-access no-unsafe-assignment
+  };
 
-    setStore((await database.get()) ?? store);
-  });
-
-  const createOrUpdateAttempt = (newAttempt: Attempt): void => {
-    const index = store.attempts.findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
-
-    setStore(
-      produce((store) => {
-        if (index === -1) {
-          store.attempts.unshift(newAttempt);
-        } else {
-          store.attempts[index] = newAttempt;
-        }
-      }),
-    );
-
-    // oxlint-disable-next-line no-floating-promises
-    queue.add(() => database.set(unwrap(store)));
+  const download = (): void => {
+    JSONUtils.download("all", {
+      personal: personal.store,
+      friends: friends.store,
+      worldRecords: worldRecords.store,
+    });
   };
 
   return {
-    createOrUpdateAttempt,
-    attempts,
-    lastAttempt,
+    personal,
+    friends,
+    worldRecords,
+    restore,
+    download,
   };
 }
+
+type Storage = Brand<ReturnType<typeof useStorageSingleton>>;
+export const useStorage = createSingletonRoot<Storage>(useStorageSingleton);

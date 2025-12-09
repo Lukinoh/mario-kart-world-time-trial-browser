@@ -12,7 +12,10 @@
     "cancelAnimationFrame": true,
     "location": true,
     "URL": true,
-    "Blob": true
+    "Blob": true,
+    "open": true,
+    "DOMParser": true,
+    "fetch": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {
@@ -30,7 +33,7 @@
     "eslint/id-length": [
       "error",
       {
-        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P"]
+        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T"]
       }
     ],
     "eslint/max-lines-per-function": "off",
