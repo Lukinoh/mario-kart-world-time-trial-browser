@@ -3,6 +3,7 @@ import { ImageFilters, type ImageFiltersFunction } from "./image-filters";
 import { ImageSimilarity, type ImageSimilarityFunction } from "./image-similarity";
 import { map, pipe } from "remeda";
 import type { Box } from "../box/box";
+import type { Brand } from "../../core/helpers/brand";
 import { EnhancedImageData } from "./enhanced-image-data";
 
 export interface ImageRecognitionOptions {
@@ -15,7 +16,7 @@ export interface MatchedImage extends Image {
 }
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function createMutativeRecognitionImage(images: Array<Image>, options?: ImageRecognitionOptions) {
+function createMutativeRecognitionImageFactory(images: Array<Image>, options?: ImageRecognitionOptions) {
   const processing = options?.filter ?? ImageFilters.identity;
   const comparison = options?.comparison ?? ImageSimilarity.hitchhikersSSIM();
 
@@ -39,8 +40,14 @@ function createMutativeRecognitionImage(images: Array<Image>, options?: ImageRec
   return { getMatch };
 }
 
+type MutativeRecognitionImage = Brand<ReturnType<typeof createMutativeRecognitionImageFactory>>;
+type MutativeRecognitionImageFactory = (
+  ...args: Parameters<typeof createMutativeRecognitionImageFactory>
+) => MutativeRecognitionImage;
+const createMutativeRecognitionImage: MutativeRecognitionImageFactory = createMutativeRecognitionImageFactory;
+
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function createRecognitionImage(images: Array<Image>, options?: ImageRecognitionOptions) {
+export function createRecognitionImageFactory(images: Array<Image>, options?: ImageRecognitionOptions) {
   const { clone } = EnhancedImageData;
   const clonedImages = transformImageData(images, (imageData) => clone(imageData));
   const mutative = createMutativeRecognitionImage(clonedImages, options);
@@ -53,8 +60,12 @@ export function createRecognitionImage(images: Array<Image>, options?: ImageReco
   return { getMatch };
 }
 
+type RecognitionImage = Brand<ReturnType<typeof createRecognitionImageFactory>>;
+type RecognitionImageFactory = (...args: Parameters<typeof createRecognitionImageFactory>) => RecognitionImage;
+export const createRecognitionImage: RecognitionImageFactory = createRecognitionImageFactory;
+
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function createRecognitionRegionImage(images: Array<Image>, region: Box, options?: ImageRecognitionOptions) {
+function createRecognitionRegionImageFactory(images: Array<Image>, region: Box, options?: ImageRecognitionOptions) {
   const extractRegion = (imageData: EnhancedImageData, region: Box): EnhancedImageData =>
     EnhancedImageData.extract(imageData, region);
   const regionImages = transformImageData(images, (imageData) => extractRegion(imageData, region));
@@ -67,3 +78,9 @@ export function createRecognitionRegionImage(images: Array<Image>, region: Box, 
 
   return { getMatch };
 }
+
+type RecognitionRegionImage = Brand<ReturnType<typeof createRecognitionRegionImageFactory>>;
+type RecognitionRegionImageFactory = (
+  ...args: Parameters<typeof createRecognitionRegionImageFactory>
+) => RecognitionRegionImage;
+export const createRecognitionRegionImage: RecognitionRegionImageFactory = createRecognitionRegionImageFactory;
