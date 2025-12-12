@@ -1,36 +1,37 @@
-import { type Image, transformImageData } from "./image-loader";
-import { ImageFilters, type ImageFiltersFunction } from "./image-filters";
-import { ImageSimilarity, type ImageSimilarityFunction } from "./image-similarity";
+import { type ImageNormaliserOptions, normaliseImageData } from "./image-normaliser";
 import { map, pipe } from "remeda";
 import type { Box } from "../box/box";
 import type { Brand } from "../../core/helpers/brand";
-import { EnhancedImageData } from "./enhanced-image-data";
-
-export interface ImageRecognitionOptions {
-  filter?: ImageFiltersFunction;
-  comparison?: ImageSimilarityFunction;
-}
+import type { EnhancedImageData } from "./enhanced-image-data";
+import type { Image } from "./image-loader";
+import type { ImageSimilarityFunction } from "./image-similarity";
 
 export interface MatchedImage extends Image {
   score: number;
 }
 
+export interface ImageRecognitionOptions extends ImageNormaliserOptions {
+  identifier: string;
+  comparison: ImageSimilarityFunction;
+}
+
+/**
+ * Be careful, if the options.filter does not create a new EnhancedImageData, the function is mutative.
+ * @param normalisedImages A set of images that have been already preprocessed (= extract, and filter already applied)
+ * @param options
+ */
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function createMutativeRecognitionImageFactory(images: Array<Image>, options?: ImageRecognitionOptions) {
-  const processing = options?.filter ?? ImageFilters.identity;
-  const comparison = options?.comparison ?? ImageSimilarity.hitchhikersSSIM();
-
-  images.forEach((image) => {
-    processing(image.value);
-  });
-
-  const getMatch = (inputImage: EnhancedImageData): MatchedImage => {
-    processing(inputImage);
+function createImageRecognitionFactory(normalisedImages: Array<Image>, options: ImageRecognitionOptions) {
+  const getMatch = (inputImageData: EnhancedImageData, box?: Box): MatchedImage => {
+    const normalisedInputImageData = normaliseImageData(inputImageData, {
+      ...options,
+      region: box ?? options.region,
+    });
     return pipe(
-      images,
+      normalisedImages,
       map((image) => ({
         ...image,
-        score: comparison(inputImage, image.value),
+        score: options.comparison(normalisedInputImageData, image.value),
       })),
       // oxlint-disable-next-line no-array-reduce
       (images) => images.reduce((best, current) => (current.score > best.score ? current : best)),
@@ -40,47 +41,6 @@ function createMutativeRecognitionImageFactory(images: Array<Image>, options?: I
   return { getMatch };
 }
 
-type MutativeRecognitionImage = Brand<ReturnType<typeof createMutativeRecognitionImageFactory>>;
-type MutativeRecognitionImageFactory = (
-  ...args: Parameters<typeof createMutativeRecognitionImageFactory>
-) => MutativeRecognitionImage;
-const createMutativeRecognitionImage: MutativeRecognitionImageFactory = createMutativeRecognitionImageFactory;
-
-// oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function createRecognitionImageFactory(images: Array<Image>, options?: ImageRecognitionOptions) {
-  const { clone } = EnhancedImageData;
-  const clonedImages = transformImageData(images, (imageData) => clone(imageData));
-  const mutative = createMutativeRecognitionImage(clonedImages, options);
-
-  const getMatch = (inputImage: EnhancedImageData): MatchedImage => {
-    const inputImageClone = clone(inputImage);
-    return mutative.getMatch(inputImageClone);
-  };
-
-  return { getMatch };
-}
-
-type RecognitionImage = Brand<ReturnType<typeof createRecognitionImageFactory>>;
-type RecognitionImageFactory = (...args: Parameters<typeof createRecognitionImageFactory>) => RecognitionImage;
-export const createRecognitionImage: RecognitionImageFactory = createRecognitionImageFactory;
-
-// oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function createRecognitionRegionImageFactory(images: Array<Image>, region: Box, options?: ImageRecognitionOptions) {
-  const extractRegion = (imageData: EnhancedImageData, region: Box): EnhancedImageData =>
-    EnhancedImageData.extract(imageData, region);
-  const regionImages = transformImageData(images, (imageData) => extractRegion(imageData, region));
-  const mutative = createMutativeRecognitionImage(regionImages, options);
-
-  const getMatch = (inputImage: EnhancedImageData, region: Box): MatchedImage => {
-    const inputRegionImage = extractRegion(inputImage, region);
-    return mutative.getMatch(inputRegionImage);
-  };
-
-  return { getMatch };
-}
-
-type RecognitionRegionImage = Brand<ReturnType<typeof createRecognitionRegionImageFactory>>;
-type RecognitionRegionImageFactory = (
-  ...args: Parameters<typeof createRecognitionRegionImageFactory>
-) => RecognitionRegionImage;
-export const createRecognitionRegionImage: RecognitionRegionImageFactory = createRecognitionRegionImageFactory;
+type ImageRecognition = Brand<ReturnType<typeof createImageRecognitionFactory>>;
+type ImageRecognitionFactory = (...args: Parameters<typeof createImageRecognitionFactory>) => ImageRecognition;
+export const createImageRecognition: ImageRecognitionFactory = createImageRecognitionFactory;

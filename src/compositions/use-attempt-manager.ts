@@ -1,14 +1,14 @@
 import type { Attempt } from "../core/domain/types/attempt";
 import { AttemptHandler } from "../core/domain/attempt-handler";
 import type { Brand } from "../core/helpers/brand";
-import { Coins } from "../recognitions/coins";
+import { Coins } from "../recognitions/coins/coins";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
-import { Lap } from "../recognitions/lap";
-import { Laps } from "../recognitions/laps";
-import { Pause } from "../recognitions/pause";
-import { Shrooms } from "../recognitions/shrooms";
-import { Time } from "../recognitions/time";
-import { Track } from "../recognitions/track";
+import { Lap } from "../recognitions/lap/lap";
+import { Laps } from "../recognitions/laps/laps";
+import { Pause } from "../recognitions/pause/pause";
+import { Shrooms } from "../recognitions/shrooms/shrooms";
+import { Time } from "../recognitions/time/time";
+import { Track } from "../recognitions/track/track";
 import { useIsFinalTime } from "./utils/use-is-final-time";
 
 export enum STATE {

@@ -22,6 +22,12 @@ npm run build
 npm run preview
 ```
 
+## Information
+
+What you start the development server, the images stored in `./src/assets/recognitions/raw/` are normalised.
+A normalised image is an image where the valuable information was extracted and a filter (i.e. black and white, invert, etc.) was applied.
+If you do a change in this folder, you have to restart the server.
+
 ## TODO
 
 - Live update has some issues, for instance, when you get a new coin, there is animation that move the number up.
@@ -29,8 +35,6 @@ npm run preview
 - Do no check image size are the same
 - add solidjs router
 - add vitest (may need jsdom or something similar) Use the images I have to detect the values for instances- v
-- optimise image by precompiling them (or sharp it)
-- counter of attempts
 - image invert is used for debugging
 - add metadata for images (box position maybe, help to build without th need to access timecoins etc..?
 - avoid having two pages open as the same time
@@ -38,16 +42,17 @@ npm run preview
 - tab focus or not
 - Add username support
 - Database cleanup feature (keep only meaningful time)
-- check I do not use anymore the name "map", but only "track" (file name too)
 - add counters of attemps that is not affected by the database cleanup
 - Page 1 Start/Stop + video + table of différence
 - Page 2 History with export/import and cleanup
 - Page 3 Worlds records and Friends times
 - Page 4 FAQ
-- Add name feature
 - USe a monoscaped font "Maple mono?"
-- The code contains experimental useless stuff to try to type inferred function without having to defined their interface explicitely
 - Add better logging for debugging
 - Fix bug see comment in use-attempt-manager
 - Transform attemptHandler in createAttemptHandler
 - Add internal validation maybe (for instance to give a Time type to the time)
+- To reduce false/positive on time detection for all lap except the last instead of check isYelloish, it should be yellowish and blackish
+- normalize arrow function
+- We could implement a comparison method specifically for the time digits using key pixels to recognize the number.
+  It should be more performant than relying on some image similarity algorithm.

@@ -2,7 +2,7 @@ import type { Attempt } from "./types/attempt";
 import { DestructurableClass } from "../helpers/destructurable-class";
 import type { RawSplit } from "./types/raw-split";
 import type { Split } from "./types/split";
-import { Time } from "../../recognitions/time";
+import { Time } from "../../recognitions/time/time";
 
 export class AttemptHandler extends DestructurableClass {
   private timestamp: number;
