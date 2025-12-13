@@ -57,11 +57,9 @@ export function useAttemptManagerFactory() {
 
     if (state === STATE.WAITING_SPLIT) {
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
-      // If we pause and the time is on a yellowish background we may get a false positive.
-      // For instance, in Dino Dino Jungle on the long neck dinosaur.
-      const isYellow = Time.isYellowish(image);
+      const isBlackAndYellow = Time.isBlackAndYellow(image);
 
-      if (isNotEqualToLastSplit && isYellow) {
+      if (isNotEqualToLastSplit && isBlackAndYellow) {
         attempt.addSplit({
           shrooms: shrooms,
           time: time,

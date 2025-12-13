@@ -52,7 +52,6 @@ If you do a change in this folder, you have to restart the server.
 - Fix bug see comment in use-attempt-manager
 - Transform attemptHandler in createAttemptHandler
 - Add internal validation maybe (for instance to give a Time type to the time)
-- To reduce false/positive on time detection for all lap except the last instead of check isYelloish, it should be yellowish and blackish
 - normalize arrow function
 - We could implement a comparison method specifically for the time digits using key pixels to recognize the number.
   It should be more performant than relying on some image similarity algorithm.
