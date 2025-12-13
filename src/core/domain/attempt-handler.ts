@@ -49,8 +49,10 @@ export class AttemptHandler extends DestructurableClass {
     return this.splits.at(-1)?.time === time;
   }
 
-  isLastLap(rawLap: string): boolean {
-    return this.laps === Number(rawLap);
+  // We cannot rely on Lap.get(), because when you pass the line, the lap counter does a little bump.
+  // and the detection algorithm may return a wrong number. Safer to be based on the number of splits
+  isLastLap(): boolean {
+    return this.laps === this.splits.length + 1;
   }
 
   isOlderThan(timeMs: number): boolean {

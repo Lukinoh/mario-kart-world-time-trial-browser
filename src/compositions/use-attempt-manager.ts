@@ -68,7 +68,7 @@ export function useAttemptManagerFactory() {
           coins: coins,
         });
 
-        if (attempt.isLastLap(lap)) {
+        if (attempt.isLastLap()) {
           state = STATE.WAITING_LAST_SPLIT;
         }
 
@@ -76,8 +76,6 @@ export function useAttemptManagerFactory() {
       }
     }
 
-    // Last lap not correctly detected when I play on Dino Dino Jungle (didn't try on other map)
-    // However, WRs video seems fine.
     if (state === STATE.WAITING_LAST_SPLIT) {
       const isPause = Pause.isPause(image, putImageData);
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
