@@ -20,6 +20,15 @@ export const Debug = defineComponent<DebugProps>((props) => {
   return (
     <>
       <h2>Debug</h2>
+      <label for="input_name">Name:</label>
+      <input
+        id="input_name"
+        type="text"
+        value={storage.configuration.name()}
+        onInput={(event) => {
+          storage.configuration.setName(event.target.value);
+        }}
+      />
       <div class={sDebug}>
         <button onClick={props.timeTrial.start}>Start capture</button>
         <button onClick={props.timeTrial.pause}>Pause capture</button>
@@ -74,6 +83,8 @@ export const Debug = defineComponent<DebugProps>((props) => {
           <button onClick={storage.friends.restore}>Restore Friends</button>
           <button onClick={storage.worldRecords.download}>Extract World Records</button>
           <button onClick={storage.worldRecords.restore}>Restore Worlds Records</button>
+          <button onClick={storage.configuration.download}>Extract configuration</button>
+          <button onClick={storage.configuration.restore}>Restore configuration</button>
           <button onClick={storage.download}>Extract All</button>
           <button onClick={storage.restore}>Restore All</button>
         </div>

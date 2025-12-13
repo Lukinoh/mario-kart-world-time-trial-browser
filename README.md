@@ -40,7 +40,6 @@ If you do a change in this folder, you have to restart the server.
 - avoid having two pages open as the same time
 - versioning
 - tab focus or not
-- Add username support
 - Database cleanup feature (keep only meaningful time)
 - add counters of attemps that is not affected by the database cleanup
 - Page 1 Start/Stop + video + table of différence

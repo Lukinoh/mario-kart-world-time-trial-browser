@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { type StoreSetter, createStore, unwrap } from "solid-js/store";
+import { type StoreSetter, createStore, reconcile, unwrap } from "solid-js/store";
 import type { Brand } from "../../../core/helpers/brand";
 import { JSONUtils } from "../../../core/helpers/json-utils";
 import { createIndexedValue } from "./create-indexed-value";
@@ -35,7 +35,7 @@ function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<u
   const restore = async (): Promise<void> => {
     const text = await JSONUtils.upload();
     const data = v.parse(schema, JSON.parse(text));
-    setStore(data);
+    setStore(reconcile(data));
   };
 
   const download = (): void => {

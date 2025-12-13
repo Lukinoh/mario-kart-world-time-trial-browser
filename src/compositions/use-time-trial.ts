@@ -2,6 +2,7 @@ import type { Brand } from "../core/helpers/brand";
 import { EnhancedImageData } from "../tools/image/enhanced-image-data";
 import { onMount } from "solid-js";
 import { useAttemptManager } from "./use-attempt-manager";
+import { useConfigurationStorage } from "./storage/use-configuration-storage";
 import { usePersonalStorage } from "./storage/use-personal-storage";
 import { useVideoCanvas } from "./utils/use-video-canvas";
 
@@ -12,6 +13,7 @@ function useTimeTrialFactory(mode: Mode, debug = false) {
   const vc = useVideoCanvas(debug);
   const manager = useAttemptManager();
   const personalStorage = usePersonalStorage();
+  const configurationStorage = useConfigurationStorage();
 
   onMount(() => {
     if (mode === "TIME_UPDATE") {
@@ -59,6 +61,7 @@ function useTimeTrialFactory(mode: Mode, debug = false) {
     const attempt = manager.update(image, vc.putImageData);
 
     if (attempt) {
+      attempt.name = configurationStorage.name();
       personalStorage.upsertAttempt(attempt);
     }
 

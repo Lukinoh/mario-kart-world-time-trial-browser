@@ -25,6 +25,9 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
             Date
           </th>
           <th rowspan="2" class={sTextAlignCenter}>
+            Name
+          </th>
+          <th rowspan="2" class={sTextAlignCenter}>
             Map
           </th>
           <th colspan="2" class={sTextAlignCenter}>
@@ -58,6 +61,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
           {(attempt) => (
             <tr>
               <td class={sTextAlignCenter}>{format(new Date(attempt.timestamp), "YYYY.MM.DD | HH:mm:ss")}</td>
+              <td>{attempt.name}</td>
               <td>{attempt.track}</td>
               <td class={sTextAlignCenter}>{attempt.time ?? "-"}</td>
               <td class={sTextAlignCenter}>{attempt.coins ?? "-"}</td>

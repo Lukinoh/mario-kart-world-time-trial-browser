@@ -12,6 +12,7 @@ const parse = (doc: Document): AttemptsStorage => {
     .map((line, index) => {
       const track = line.children.item(0)?.textContent.replace("?", "؟") ?? "Not found";
       const time = line.children.item(1)?.textContent.replace('"', ":").replace("'", ".");
+      const name = line.children.item(2)?.textContent ?? "Not found";
       // Shift by index to avoid timestamp conflicts
       const timestamp = new Date(line.children.item(4)?.textContent ?? 0).getTime() + index;
 
@@ -36,6 +37,7 @@ const parse = (doc: Document): AttemptsStorage => {
         }) ?? [];
 
       return {
+        name: name,
         track: track,
         laps: splits.length,
         coins: splits.reduce((acc, split) => acc + split.coins, 0),
