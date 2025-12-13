@@ -50,7 +50,6 @@ If you do a change in this folder, you have to restart the server.
 - USe a monoscaped font "Maple mono?"
 - Add better logging for debugging
 - Fix bug see comment in use-attempt-manager
-- Transform attemptHandler in createAttemptHandler
 - Add internal validation maybe (for instance to give a Time type to the time)
 - normalize arrow function
 - We could implement a comparison method specifically for the time digits using key pixels to recognize the number.

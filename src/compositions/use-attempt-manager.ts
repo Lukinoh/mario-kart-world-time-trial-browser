@@ -1,5 +1,4 @@
 import type { Attempt } from "../core/domain/types/attempt";
-import { AttemptHandler } from "../core/domain/attempt-handler";
 import type { Brand } from "../core/helpers/brand";
 import { Coins } from "../recognitions/coins/coins";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
@@ -9,6 +8,7 @@ import { Pause } from "../recognitions/pause/pause";
 import { Shrooms } from "../recognitions/shrooms/shrooms";
 import { Time } from "../recognitions/time/time";
 import { Track } from "../recognitions/track/track";
+import { createAttemptHandler } from "../core/domain/attempt-handler";
 import { useIsFinalTime } from "./utils/use-is-final-time";
 
 export enum STATE {
@@ -22,7 +22,7 @@ const MINIMUM_TIME_BEFORE_NEXT_RESET_MS = 4500;
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 export function useAttemptManagerFactory() {
   let state: STATE = STATE.WAITING_ATTEMPT;
-  let attempt = new AttemptHandler("Search for...", "?");
+  let attempt = createAttemptHandler("Search for...", "?");
   const { isFinalTime } = useIsFinalTime();
 
   /**
@@ -49,7 +49,7 @@ export function useAttemptManagerFactory() {
       const track = Track.get(image, putImageData);
       const laps = Laps.get(image, putImageData);
 
-      attempt = new AttemptHandler(track, laps);
+      attempt = createAttemptHandler(track, laps);
       state = STATE.WAITING_SPLIT;
 
       return attempt.unwrap();
