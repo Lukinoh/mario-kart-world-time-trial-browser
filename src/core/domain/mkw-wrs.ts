@@ -7,14 +7,18 @@ const parse = (doc: Document): AttemptsStorage => {
   const lines = [...(tableLines ?? [])]
     // Remove Header and Total line
     .slice(1, -1)
-    // Remove line where there are several ties for a track (to be improved).
-    .filter((line) => line.children.length === 9)
     .map((line, index) => {
+      // Handle cases where you have two or more WRs with the same time (we take the track name of the previous line).
+      if (line.children.length === 8) {
+        const td = document.createElement("td");
+        td.textContent = tableLines?.item(index - 1)?.children.item(0)?.textContent ?? "Not found";
+        line.prepend(td);
+      }
+
       const track = line.children.item(0)?.textContent.replace("?", "؟") ?? "Not found";
       const time = line.children.item(1)?.textContent.replace('"', ":").replace("'", ".");
       const name = line.children.item(2)?.textContent ?? "Not found";
-      // Shift by index to avoid timestamp conflicts
-      const timestamp = new Date(line.children.item(4)?.textContent ?? 0).getTime() + index;
+      const timestamp = new Date(line.children.item(4)?.textContent ?? 0).getTime();
 
       const mixedSplitsText = line.children.item(8)?.children.item(0)?.getAttribute("onmouseover");
       const regex = /^show_splits_dynamic\('ttipid_splits', ([^)]+)\);$/;
