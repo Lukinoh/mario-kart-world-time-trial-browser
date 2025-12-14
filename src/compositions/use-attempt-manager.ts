@@ -79,7 +79,8 @@ export function useAttemptManagerFactory() {
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
       const isFinished = isFinalTime(time, isPause);
 
-      if (isNotEqualToLastSplit && isFinished) {
+      // If you restart a game during the last lap you could have false detection, hence the conditions on coins and lap
+      if (isNotEqualToLastSplit && isFinished && coins !== "11" && lap !== "1") {
         attempt.addFinalSplit({
           shrooms: shrooms,
           time: time,
