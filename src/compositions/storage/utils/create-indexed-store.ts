@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { type StoreSetter, createStore, reconcile, unwrap } from "solid-js/store";
+import { type SetStoreFunction, createStore, reconcile, unwrap } from "solid-js/store";
 import type { Brand } from "../../../core/helpers/brand";
 import { JSONUtils } from "../../../core/helpers/json-utils";
 import { createIndexedValue } from "./create-indexed-value";
@@ -25,8 +25,10 @@ function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<u
     setStoreInternal((await database.get()) ?? store);
   });
 
-  const setStore = (newStore: StoreSetter<v.InferOutput<S>>): void => {
-    setStoreInternal(newStore);
+  const setStore: SetStoreFunction<v.InferOutput<S>> = (...params: Array<unknown>) => {
+    // @ts-expect-error Not possible to wrap without using ts-expect-error or using any
+    setStoreInternal(...params);
+
     // database is asynchronous
     // oxlint-disable-next-line no-floating-promises
     database.set(unwrap(store));

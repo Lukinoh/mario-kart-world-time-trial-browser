@@ -55,7 +55,7 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
 
   const unwrap = (): Attempt => {
     return {
-      name: "Who knows?",
+      player: "Who knows?",
       timestamp: timestamp,
       track: track,
       laps: laps,

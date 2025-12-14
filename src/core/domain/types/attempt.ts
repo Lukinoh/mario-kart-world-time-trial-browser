@@ -3,7 +3,7 @@ import { SplitSchema } from "./split";
 import { TimeSchema } from "./time";
 
 export const AttemptSchema = v.object({
-  name: v.optional(v.string(), "Empty"),
+  player: v.optional(v.string(), "Empty"),
   timestamp: v.number(),
   track: v.string(),
   time: v.optional(TimeSchema),

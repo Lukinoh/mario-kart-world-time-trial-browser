@@ -3,7 +3,6 @@ import { type StorageOutput, StorageSchema } from "../../core/domain/types/stora
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
 import { createSingletonRoot } from "@solid-primitives/rootless";
-import { useConfigurationStorage } from "./use-configuration-storage";
 import { useFriendsStorage } from "./use-friends-storage";
 import { usePersonalStorage } from "./use-personal-storage";
 import { useWorldRecordStorage } from "./use-world-records-storage";
@@ -13,7 +12,6 @@ function useStorageSingleton() {
   const personal = usePersonalStorage();
   const friends = useFriendsStorage();
   const worldRecords = useWorldRecordStorage();
-  const configuration = useConfigurationStorage();
 
   const restore = async (): Promise<void> => {
     const text = await JSONUtils.upload();
@@ -21,7 +19,6 @@ function useStorageSingleton() {
     personal.setStore(data.personal);
     friends.setStore(data.friends);
     worldRecords.setStore(data.worldRecords);
-    configuration.setStore(data.configuration);
   };
 
   const download = (): void => {
@@ -29,7 +26,6 @@ function useStorageSingleton() {
       personal: personal.store,
       friends: friends.store,
       worldRecords: worldRecords.store,
-      configuration: configuration.store,
     });
   };
 
@@ -37,7 +33,6 @@ function useStorageSingleton() {
     personal,
     friends,
     worldRecords,
-    configuration,
     restore,
     download,
   };

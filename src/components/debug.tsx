@@ -20,13 +20,13 @@ export const Debug = defineComponent<DebugProps>((props) => {
   return (
     <>
       <h2>Debug</h2>
-      <label for="input_name">Name:</label>
+      <label for="input_player">Player:</label>
       <input
-        id="input_name"
+        id="input_player"
         type="text"
-        value={storage.configuration.name()}
+        value={storage.personal.player()}
         onInput={(event) => {
-          storage.configuration.setName(event.target.value);
+          storage.personal.setPlayer(event.target.value);
         }}
       />
       <div class={sDebug}>
@@ -40,7 +40,7 @@ export const Debug = defineComponent<DebugProps>((props) => {
           {props.timeTrial.canvas}
         </div>
 
-        <h3>All attempts</h3>
+        <h3>All attempts ({storage.personal.attemptsNumber()})</h3>
         <AttemptsTable attempts={storage.personal.attempts()}></AttemptsTable>
 
         <h3>World Records</h3>
@@ -83,8 +83,6 @@ export const Debug = defineComponent<DebugProps>((props) => {
           <button onClick={storage.friends.restore}>Restore Friends</button>
           <button onClick={storage.worldRecords.download}>Extract World Records</button>
           <button onClick={storage.worldRecords.restore}>Restore Worlds Records</button>
-          <button onClick={storage.configuration.download}>Extract configuration</button>
-          <button onClick={storage.configuration.restore}>Restore configuration</button>
           <button onClick={storage.download}>Extract All</button>
           <button onClick={storage.restore}>Restore All</button>
         </div>

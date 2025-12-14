@@ -42,10 +42,10 @@ function useWorldRecordsStorageSingleton() {
     store,
     setStore,
     attempts,
+    automaticProcessForMkrws,
+    manualProcessForMkwrs,
     restore,
     download,
-    manualProcessForMkwrs,
-    automaticProcessForMkrws,
   };
 }
 
