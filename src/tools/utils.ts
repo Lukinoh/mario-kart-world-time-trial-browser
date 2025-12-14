@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { isDefined } from "remeda";
+import { isEmptyish } from "remeda";
 
 export function assert(condition: unknown, msg?: string): asserts condition {
   // oxlint-disable-next-line strict-boolean-expressions
@@ -9,8 +9,8 @@ export function assert(condition: unknown, msg?: string): asserts condition {
 }
 
 export function getFilename(path: string): string {
-  const filename = path.split("/").pop()?.split(".").at(0);
-  assert(isDefined(filename), `An error happened while trying to extract the filename from ${path}`);
+  const filename = path.split("/").pop()?.split(".").slice(0, -1).join(".");
+  assert(!isEmptyish(filename), `An error happened while trying to extract the filename from ${path}`);
   return filename;
 }
 

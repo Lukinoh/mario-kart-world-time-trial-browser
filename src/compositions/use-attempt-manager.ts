@@ -57,9 +57,9 @@ export function useAttemptManagerFactory() {
 
     if (state === STATE.WAITING_SPLIT) {
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
-      const isBlackAndYellow = Time.isBlackAndYellow(image);
+      const isTimeYellow = Time.isYellow(image);
 
-      if (isNotEqualToLastSplit && isBlackAndYellow) {
+      if (isNotEqualToLastSplit && isTimeYellow) {
         attempt.addSplit({
           shrooms: shrooms,
           time: time,

@@ -12,8 +12,9 @@
     "fix": "pnpm run --stream /^fix:/",
     "fix:format": "prettier . --cache --write --experimental-cli",
     "fix:lint": "oxlint --type-aware --fix",
-    "prepare": "husky",
-    "serve": "vite preview"
+    "prepare": "husky && playwright install",
+    "serve": "vite preview",
+    "test": "vitest run"
   },
   "dependencies": {
     "@blazediff/gmsd": "1.7.0",
@@ -31,17 +32,21 @@
   "devDependencies": {
     "@prettier/plugin-oxc": "0.1.2",
     "@types/node": "24.1.0",
+    "@vitest/browser-playwright": "4.0.15",
     "canvas": "3.2.0",
     "git-conventional-commits": "2.8.0",
     "husky": "9.1.7",
+    "jsdom": "27.3.0",
     "oxlint": "1.31.0",
     "oxlint-tsgolint": "0.8.3",
+    "playwright": "1.57.0",
     "prettier": "3.7.3",
     "prettier-plugin-packagejson": "2.5.20",
     "sharp": "0.34.5",
     "solid-devtools": "0.34.4",
     "typescript": "5.9.3",
     "vite": "7.2.6",
-    "vite-plugin-solid": "2.11.10"
+    "vite-plugin-solid": "2.11.10",
+    "vitest": "4.0.15"
   }
 }

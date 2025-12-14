@@ -34,7 +34,6 @@ If you do a change in this folder, you have to restart the server.
   To reduce these issues, we can add screenshots with these exceptions.
 - Do no check image size are the same
 - add solidjs router
-- add vitest (may need jsdom or something similar) Use the images I have to detect the values for instances- v
 - image invert is used for debugging
 - add metadata for images (box position maybe, help to build without th need to access timecoins etc..?
 - avoid having two pages open as the same time

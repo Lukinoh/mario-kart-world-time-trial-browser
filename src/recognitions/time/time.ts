@@ -33,7 +33,7 @@ export const Time = {
       },
     );
   },
-  isBlackAndYellow(image: EnhancedImageData): boolean {
+  isYellow(image: EnhancedImageData): boolean {
     return pipe(
       TimeRegions,
       mapValues((box) => ImageAssert.hasOneYellowishAndBlackishPixel(EnhancedImageData.extract(image, box))),

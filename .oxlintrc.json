@@ -36,6 +36,7 @@
         "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T", "v", "S", "O"]
       }
     ],
+    "eslint/max-lines": "off",
     "eslint/max-lines-per-function": "off",
     "eslint/max-params": ["error", 4],
     "eslint/no-await-in-loop": "off",
@@ -62,8 +63,11 @@
     "import/exports-last": "off",
     "import/max-dependencies": ["error", { "max": 15 }],
 
-    // The rule affects also Playwright test files. So it is disabled to avoid false positive errors.
+    // Jest is not used in this repository
     "jest/require-hook": "off",
+    "jest/max-expects": "off",
+    "jest/no-standalone-expect": "off",
+    "jest/require-to-throw-message": "off",
 
     "oxc/no-async-await": "off",
     "oxc/no-map-spread": "off",
