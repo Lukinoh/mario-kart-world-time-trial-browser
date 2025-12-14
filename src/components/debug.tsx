@@ -78,6 +78,7 @@ export const Debug = defineComponent<DebugProps>((props) => {
         <h2>Extractors</h2>
         <div class={sDebug}>
           <button onClick={storage.personal.download}>Extract Personal</button>
+          <button onClick={storage.personal.downloadForFriends}>Extract Personal for Friends</button>
           <button onClick={storage.personal.restore}>Restore Personal</button>
           <button onClick={storage.friends.download}>Extract Friends</button>
           <button onClick={storage.friends.restore}>Restore Friends</button>

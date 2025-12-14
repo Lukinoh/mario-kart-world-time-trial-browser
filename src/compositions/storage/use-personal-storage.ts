@@ -1,5 +1,7 @@
 import type { Attempt } from "../../core/domain/types/attempt";
+import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
+import { JSONUtils } from "../../core/helpers/json-utils";
 import { PersonalStorageSchema } from "../../core/domain/types/personal-storage";
 import { createIndexedStore } from "./utils/create-indexed-store";
 import { createMemo } from "solid-js";
@@ -8,7 +10,7 @@ import { produce } from "solid-js/store";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function usePersonalStorageSingleton() {
-  const { store, setStore, restore, download } = createIndexedStore("personal-attempts", PersonalStorageSchema, {
+  const { key, store, setStore, restore, download } = createIndexedStore("personal-attempts", PersonalStorageSchema, {
     version: 1,
     attempts: [],
     attemptsNumber: 0,
@@ -38,6 +40,13 @@ function usePersonalStorageSingleton() {
   };
   const attemptsNumber = createMemo(() => store.attemptsNumber);
 
+  const downloadForFriends = (): void => {
+    JSONUtils.download<AttemptsStorage>(key, {
+      version: store.version,
+      attempts: store.attempts,
+    });
+  };
+
   return {
     store,
     setStore,
@@ -49,6 +58,7 @@ function usePersonalStorageSingleton() {
     attemptsNumber,
     restore,
     download,
+    downloadForFriends,
   };
 }
 

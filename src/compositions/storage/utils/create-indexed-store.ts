@@ -41,7 +41,8 @@ function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<u
   };
 
   const download = (): void => {
-    JSONUtils.download(key, store);
+    // Later we should download only meaningful data (i.e. completed track best time)
+    JSONUtils.download<v.InferOutput<S>>(key, store);
   };
 
   return {

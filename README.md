@@ -53,4 +53,3 @@ If you do a change in this folder, you have to restart the server.
 - normalize arrow function
 - We could implement a comparison method specifically for the time digits using key pixels to recognize the number.
   It should be more performant than relying on some image similarity algorithm.
-- Add an extract for friends, and an import from friends
