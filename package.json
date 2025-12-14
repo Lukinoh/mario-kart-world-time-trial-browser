@@ -22,6 +22,7 @@
     "@emotion/css": "11.13.5",
     "@henrygd/queue": "1.2.0",
     "@solid-primitives/rootless": "1.5.2",
+    "@solidjs/router": "0.15.4",
     "date-and-time": "4.1.1",
     "idb-keyval": "6.2.2",
     "remeda": "2.32.0",
