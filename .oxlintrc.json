@@ -56,7 +56,7 @@
     "import/no-namespace": ["error", { "ignore": ["valibot"] }],
     "import/no-unassigned-import": [
       "error",
-      { "allow": ["solid-devtools", "simpledotcss/simple.min.css", "./canvas-shim"] }
+      { "allow": ["solid-devtools", "simpledotcss/simple.min.css", "./canvas-shim", "./core/global-styles"] }
     ],
     "import/prefer-default-export": "off",
     "import/unambiguous": "off",

@@ -1,4 +1,4 @@
-import { AttemptsTable } from "../components/attempts-table";
+import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { css } from "@emotion/css";
 import { defineComponent } from "../tools/utils";
 import { useStorage } from "../compositions/storage/use-storage";
