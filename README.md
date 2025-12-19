@@ -45,7 +45,6 @@ If you do a change in this folder, you have to restart the server.
 - Page 2 History with export/import and cleanup
 - Page 3 Worlds records and Friends times
 - Page 4 FAQ
-- USe a monoscaped font "Maple mono?"
 - Add better logging for debugging
 - Fix bug see comment in use-attempt-manager
 - Add internal validation maybe (for instance to give a Time type to the time)

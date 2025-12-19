@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch } from "solid-js";
+import { For, Match, Show, Switch, createMemo } from "solid-js";
 import type { Attempt } from "../../core/domain/types/attempt";
 import { Cell } from "./components/cell";
 import { ForAttempts } from "./components/for-attempts";
@@ -8,17 +8,19 @@ import { css } from "@emotion/css";
 import { defineComponent } from "../../tools/utils";
 import { isDefined } from "remeda";
 
-const sGrid = css({
-  display: "grid",
-  gridTemplateColumns: "repeat(16, max-content)",
-  textAlign: "center",
-  "*": {
-    padding: "var(--mk-spacing-medium)",
-  },
-});
+const sGrid = (column: number): string =>
+  css({
+    display: "grid",
+    gridTemplateColumns: `repeat(${column}, max-content)`,
+    textAlign: "center",
+    "*": {
+      padding: "var(--mk-spacing-medium)",
+    },
+  });
 
 interface AttemptsTableProps {
   attempts: Array<Attempt>;
+  showTime?: boolean;
 }
 
 export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
@@ -27,14 +29,19 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const GRID_RESULT_COLUMNS = 3;
   const GRID_SEPARATION_TICKNESS = 2;
 
+  const showTime = createMemo(() => props.showTime ?? true);
+  const gridColumns = createMemo(() => GRID_COLUMNS - Number(!showTime()));
+
   return (
-    <div class={sGrid}>
+    <div class={sGrid(gridColumns())}>
       <ForAttempts each={props.attempts}>
         {(attempt, aIndex) => (
           <>
             <Show when={aIndex() % 7 === 0}>
               <Cell bold align="left" text="Date" extraPadding="left" />
-              <Cell bold align="left" text="Time" />
+              <Show when={showTime()}>
+                <Cell bold align="left" text="Time" />
+              </Show>
               <Cell bold align="left" text="Player" />
               <Cell bold align="left" text="Track" />
               <VerticalDivider />
@@ -49,11 +56,13 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
               <Cell bold text="⏱️" />
               <VerticalDivider />
               <Cell bold text="️🟡" extraPadding="right" />
-              <HorizontalDivider column={GRID_COLUMNS} thicknessFactor={GRID_SEPARATION_TICKNESS} />
+              <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_TICKNESS} />
             </Show>
 
             <Cell align="left" row={attempt().gridRows} text={attempt().date} />
-            <Cell align="left" row={attempt().gridRows} text={attempt().datetime} />
+            <Show when={showTime()}>
+              <Cell align="left" row={attempt().gridRows} text={attempt().datetime} />
+            </Show>
             <Cell align="left" row={attempt().gridRows} text={attempt().player} />
             <Cell align="left" row={attempt().gridRows} text={attempt().track} />
             <VerticalDivider row={attempt().gridRows} />
@@ -110,7 +119,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                 <Cell row={attempt().gridRows} column={GRID_RESULT_COLUMNS} extraPadding="right" />
               </Match>
             </Switch>
-            <HorizontalDivider column={GRID_COLUMNS} thicknessFactor={GRID_SEPARATION_TICKNESS} />
+            <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_TICKNESS} />
           </>
         )}
       </ForAttempts>

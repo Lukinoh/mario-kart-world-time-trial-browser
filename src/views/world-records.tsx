@@ -8,7 +8,7 @@ export const WorldRecords = defineComponent(() => {
   return (
     <>
       <h1>World Records</h1>
-      <AttemptsTable attempts={storage.worldRecords.attempts()} />
+      <AttemptsTable attempts={storage.worldRecords.attempts()} showTime={false} />
     </>
   );
 });

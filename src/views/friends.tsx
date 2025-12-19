@@ -8,7 +8,7 @@ export const Friends = defineComponent(() => {
   return (
     <>
       <h1>Friends</h1>
-      <AttemptsTable attempts={storage.friends.attempts()} />
+      <AttemptsTable attempts={storage.friends.attempts()} showTime={false} />
     </>
   );
 });
