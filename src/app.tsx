@@ -1,4 +1,5 @@
 import { Navigate, Route, Router } from "@solidjs/router";
+import { Show, createSignal } from "solid-js";
 import { Debug } from "./views/debug";
 import { FAQ } from "./views/faq";
 import { Friends } from "./views/friends";
@@ -10,6 +11,7 @@ import { useTimeTrial } from "./compositions/use-time-trial";
 
 export const App = defineComponent(() => {
   const timeTrial = useTimeTrial("TIME_UPDATE", true);
+  const [isDebug, setIsDebug] = createSignal(false);
 
   return (
     <>
@@ -20,6 +22,9 @@ export const App = defineComponent(() => {
           <a href="/friends">Friends</a>
           <a href="/world-records">World Records</a>
           <a href="/faq">FAQ</a>
+          <Show when={isDebug()}>
+            <a href="/debug">Debug</a>
+          </Show>
         </nav>
       </header>
       <Router>
@@ -30,7 +35,13 @@ export const App = defineComponent(() => {
         <Route path="/world-records" component={WorldRecords} />
         <Route path="/faq" component={FAQ} />
         <Route path="*404" component={() => <Navigate href="/live" />} />
-        <Route path="/debug" component={() => <Debug timeTrial={timeTrial}></Debug>} />
+        <Route
+          path="/debug"
+          component={() => {
+            setIsDebug(true);
+            return <Debug timeTrial={timeTrial}></Debug>;
+          }}
+        />
       </Router>
     </>
   );

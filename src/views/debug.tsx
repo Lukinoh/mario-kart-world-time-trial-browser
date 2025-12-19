@@ -1,4 +1,3 @@
-import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { css } from "@emotion/css";
 import { defineComponent } from "../tools/utils";
 import { useStorage } from "../compositions/storage/use-storage";
@@ -39,12 +38,6 @@ export const Debug = defineComponent<DebugProps>((props) => {
           {props.timeTrial.video}
           {props.timeTrial.canvas}
         </div>
-
-        <h3>All attempts ({storage.personal.attemptsNumber()})</h3>
-        <AttemptsTable attempts={storage.personal.attempts()}></AttemptsTable>
-
-        <h3>World Records</h3>
-        <AttemptsTable attempts={storage.worldRecords.attempts()}></AttemptsTable>
 
         <h2>MKWorld WR</h2>
         <div>
