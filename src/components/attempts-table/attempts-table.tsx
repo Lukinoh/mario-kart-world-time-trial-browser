@@ -27,7 +27,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const GRID_COLUMNS = 16;
   const GRID_SPLITS_COLUMNS = 7;
   const GRID_RESULT_COLUMNS = 3;
-  const GRID_SEPARATION_TICKNESS = 2;
+  const GRID_SEPARATION_THICKNESS = 2;
 
   const showTime = createMemo(() => props.showTime ?? true);
   const gridColumns = createMemo(() => GRID_COLUMNS - Number(!showTime()));
@@ -56,7 +56,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
               <Cell bold text="⏱️" />
               <VerticalDivider />
               <Cell bold text="️🟡" extraPadding="right" />
-              <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_TICKNESS} />
+              <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
             </Show>
 
             <Cell align="left" row={attempt().gridRows} text={attempt().date} />
@@ -119,7 +119,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                 <Cell row={attempt().gridRows} column={GRID_RESULT_COLUMNS} extraPadding="right" />
               </Match>
             </Switch>
-            <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_TICKNESS} />
+            <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
           </>
         )}
       </ForAttempts>

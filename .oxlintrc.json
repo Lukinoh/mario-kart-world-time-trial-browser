@@ -75,6 +75,7 @@
     "oxc/no-rest-spread-properties": "off",
 
     "promise/prefer-await-to-callbacks": "off",
+    "promise/spec-only": ["error", { "allowedMethods": ["try"] }],
 
     "typescript/array-type": ["error", { "default": "generic" }],
     "typescript/promise-function-async": "off",

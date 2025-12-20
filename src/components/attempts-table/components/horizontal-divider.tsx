@@ -17,7 +17,8 @@ export const HorizontalDivider = defineComponent<HorizontalDelimiterProps>((prop
         borderBottomStyle: "solid",
         borderBottomWidth: borderWidth(),
         borderBottomColor: "var(--border)",
-        padding: "0",
+        // Important is needed, because when we import a JSON, the padding of the grid has sometimes priority over this one (non-deterministic).
+        padding: "0 !important",
         margin: "var(--mk-spacing-medium) 0",
       })}
     ></div>

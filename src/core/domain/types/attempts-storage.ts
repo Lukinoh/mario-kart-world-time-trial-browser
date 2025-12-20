@@ -7,3 +7,4 @@ export const AttemptsStorageSchema = v.object({
 });
 
 export type AttemptsStorage = v.InferOutput<typeof AttemptsStorageSchema>;
+export type AttemptsStorageIssue = v.InferIssue<typeof AttemptsStorageSchema>;

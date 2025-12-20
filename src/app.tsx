@@ -27,22 +27,24 @@ export const App = defineComponent(() => {
           </Show>
         </nav>
       </header>
-      <Router>
-        <Route path="/" component={() => <Navigate href="/live" />} />
-        <Route path="/live" component={Live} />
-        <Route path="/history" component={History} />
-        <Route path="/friends" component={Friends} />
-        <Route path="/world-records" component={WorldRecords} />
-        <Route path="/faq" component={FAQ} />
-        <Route path="*404" component={() => <Navigate href="/live" />} />
-        <Route
-          path="/debug"
-          component={() => {
-            setIsDebug(true);
-            return <Debug timeTrial={timeTrial}></Debug>;
-          }}
-        />
-      </Router>
+      <main>
+        <Router>
+          <Route path="/" component={() => <Navigate href="/live" />} />
+          <Route path="/live" component={Live} />
+          <Route path="/history" component={History} />
+          <Route path="/friends" component={Friends} />
+          <Route path="/world-records" component={WorldRecords} />
+          <Route path="/faq" component={FAQ} />
+          <Route path="*404" component={() => <Navigate href="/live" />} />
+          <Route
+            path="/debug"
+            component={() => {
+              setIsDebug(true);
+              return <Debug timeTrial={timeTrial}></Debug>;
+            }}
+          />
+        </Router>
+      </main>
     </>
   );
 });

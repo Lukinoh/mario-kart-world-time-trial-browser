@@ -9,4 +9,7 @@ injectGlobal({
   body: {
     gridTemplateColumns: "1fr 90% 1fr",
   },
+  dialog: {
+    maxWidth: "80%",
+  },
 });

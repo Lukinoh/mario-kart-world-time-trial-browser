@@ -29,56 +29,14 @@ export const Debug = defineComponent<DebugProps>((props) => {
         }}
       />
       <div class={sDebug}>
-        <button onClick={props.timeTrial.start}>Start capture</button>
-        <button onClick={props.timeTrial.pause}>Pause capture</button>
+        <button onclick={props.timeTrial.start}>Start capture</button>
+        <button onclick={props.timeTrial.pause}>Pause capture</button>
       </div>
       <div>
         <h2>Video</h2>
         <div class={sDebug}>
           {props.timeTrial.video}
           {props.timeTrial.canvas}
-        </div>
-
-        <h2>MKWorld WR</h2>
-        <div>
-          <div class={sDebug}>
-            <div>
-              <p>
-                First, try the automatic progress to import the World Records. If it does not work, try the manual way.
-              </p>
-            </div>
-            <div>
-              <p>The World Records must be imported manually.</p>
-              <ol>
-                <li>
-                  Click on <strong>Manually way</strong>
-                </li>
-                <li>Open the Dev Tools</li>
-                <li>Paste on the console, it will download a file</li>
-                <li>Import the file in the World records</li>
-              </ol>
-            </div>
-          </div>
-
-          <div class={sDebug}>
-            <button onClick={storage.worldRecords.automaticProcessForMkrws}>
-              Automatic way (powered by codetabs.com)
-            </button>
-            <button onClick={storage.worldRecords.manualProcessForMkwrs}>Manual way</button>
-          </div>
-        </div>
-
-        <h2>Extractors</h2>
-        <div class={sDebug}>
-          <button onClick={storage.personal.download}>Extract Personal</button>
-          <button onClick={storage.personal.downloadForFriends}>Extract Personal for Friends</button>
-          <button onClick={storage.personal.restore}>Restore Personal</button>
-          <button onClick={storage.friends.download}>Extract Friends</button>
-          <button onClick={storage.friends.restore}>Restore Friends</button>
-          <button onClick={storage.worldRecords.download}>Extract World Records</button>
-          <button onClick={storage.worldRecords.restore}>Restore Worlds Records</button>
-          <button onClick={storage.download}>Extract All</button>
-          <button onClick={storage.restore}>Restore All</button>
         </div>
 
         <h2>Raw data</h2>
