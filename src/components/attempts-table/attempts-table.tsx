@@ -2,21 +2,11 @@ import { For, Match, Show, Switch, createMemo } from "solid-js";
 import type { Attempt } from "../../core/domain/types/attempt";
 import { Cell } from "../grid-utilities/cell";
 import { ForAttempts } from "./for-attempts";
+import { GridColumn } from "../grid-utilities/grid-column";
 import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
 import { VerticalDivider } from "../grid-utilities/vertical-divider";
-import { css } from "@emotion/css";
 import { defineComponent } from "../../tools/utils";
 import { isDefined } from "remeda";
-
-const sGrid = (column: number): string =>
-  css({
-    display: "grid",
-    gridTemplateColumns: `repeat(${column}, max-content)`,
-    textAlign: "center",
-    "*": {
-      padding: "var(--mk-spacing-medium)",
-    },
-  });
 
 interface AttemptsTableProps {
   attempts: Array<Attempt>;
@@ -33,7 +23,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const gridColumns = createMemo(() => GRID_COLUMNS - Number(!showTime()));
 
   return (
-    <div class={sGrid(gridColumns())}>
+    <GridColumn template={`repeat(${gridColumns()}, max-content)`} align="center">
       <ForAttempts each={props.attempts}>
         {(attempt, aIndex) => (
           <>
@@ -123,6 +113,6 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
           </>
         )}
       </ForAttempts>
-    </div>
+    </GridColumn>
   );
 });

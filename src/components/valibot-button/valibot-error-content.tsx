@@ -1,18 +1,9 @@
 import * as v from "valibot";
 import { Cell } from "../grid-utilities/cell";
 import { For } from "solid-js";
+import { GridColumn } from "../grid-utilities/grid-column";
 import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
-import { css } from "@emotion/css";
 import { defineComponent } from "../../tools/utils";
-
-const sGrid = css({
-  display: "grid",
-  gridTemplateColumns: `repeat(3, max-content)`,
-  textAlign: "center",
-  "*": {
-    padding: "var(--mk-spacing-medium)",
-  },
-});
 
 interface ValibotErrorContentProps {
   issues: Array<v.BaseIssue<unknown>>;
@@ -24,7 +15,7 @@ export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((pr
       <h2>An error happened during import</h2>
       <p>The imported file contains errors.</p>
       <p>Fix them and try to re-import your file.</p>
-      <div class={sGrid}>
+      <GridColumn template="repeat(3, max-content)" align="center">
         <Cell align="left" bold text="JSON Path" />
         <Cell text="" />
         <Cell align="left" bold text="Error" />
@@ -39,7 +30,7 @@ export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((pr
             </>
           )}
         </For>
-      </div>
+      </GridColumn>
     </>
   );
 });
