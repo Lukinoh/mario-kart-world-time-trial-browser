@@ -1,7 +1,7 @@
 import * as v from "valibot";
-import { Cell } from "../attempts-table/components/cell";
+import { Cell } from "../grid-utilities/cell";
 import { For } from "solid-js";
-import { HorizontalDivider } from "../attempts-table/components/horizontal-divider";
+import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../tools/utils";
 

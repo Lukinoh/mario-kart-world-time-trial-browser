@@ -1,8 +1,8 @@
 import type { CSSInterpolation } from "@emotion/css/create-instance";
 import { capitalize } from "remeda";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../../tools/utils";
-import { span } from "../../../core/helpers/css";
+import { defineComponent } from "../../tools/utils";
+import { span } from "../../core/helpers/css";
 
 interface CellProps {
   text?: string | number;

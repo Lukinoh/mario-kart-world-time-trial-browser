@@ -1,9 +1,9 @@
 import { type Accessor, For, type JSX, createMemo } from "solid-js";
-import type { Attempt } from "../../../core/domain/types/attempt";
-import type { Split } from "../../../core/domain/types/split";
-import { defineComponent } from "../../../tools/utils";
+import type { Attempt } from "../../core/domain/types/attempt";
+import type { Split } from "../../core/domain/types/split";
+import { defineComponent } from "../../tools/utils";
 import { format } from "date-and-time";
-import { generateArray } from "../../../core/helpers/generate-array";
+import { generateArray } from "../../core/helpers/generate-array";
 
 interface FormattedAttempt {
   date: string;

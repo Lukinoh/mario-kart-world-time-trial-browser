@@ -1,9 +1,9 @@
 import { For, Match, Show, Switch, createMemo } from "solid-js";
 import type { Attempt } from "../../core/domain/types/attempt";
-import { Cell } from "./components/cell";
-import { ForAttempts } from "./components/for-attempts";
-import { HorizontalDivider } from "./components/horizontal-divider";
-import { VerticalDivider } from "./components/vertical-divider";
+import { Cell } from "../grid-utilities/cell";
+import { ForAttempts } from "./for-attempts";
+import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
+import { VerticalDivider } from "../grid-utilities/vertical-divider";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../tools/utils";
 import { isDefined } from "remeda";

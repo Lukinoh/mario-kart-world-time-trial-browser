@@ -1,5 +1,5 @@
 import { AttemptsTable } from "../components/attempts-table/attempts-table";
-import { Cell } from "../components/attempts-table/components/cell";
+import { Cell } from "../components/grid-utilities/cell";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
 import { css } from "@emotion/css";
 import { defineComponent } from "../tools/utils";
