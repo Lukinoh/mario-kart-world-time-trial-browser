@@ -43,7 +43,7 @@ export const WorldRecords = defineComponent(() => {
             </dd>
           </dl>
         </GridColumn>
-        <AttemptsTable attempts={storage.attempts()} showTime={false} />
+        <AttemptsTable attempts={storage.attempts()} showTime={false} showFilters={false} />
       </div>
     </>
   );
