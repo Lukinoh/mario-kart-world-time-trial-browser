@@ -33,7 +33,7 @@
     "eslint/id-length": [
       "error",
       {
-        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T", "v", "S", "O"]
+        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T", "v", "S", "O", "K"]
       }
     ],
     "eslint/max-lines": "off",
@@ -61,7 +61,7 @@
     "import/prefer-default-export": "off",
     "import/unambiguous": "off",
     "import/exports-last": "off",
-    "import/max-dependencies": ["error", { "max": 15 }],
+    "import/max-dependencies": ["error", { "max": 17 }],
 
     // Jest is not used in this repository
     "jest/require-hook": "off",
@@ -86,6 +86,7 @@
 
     "unicorn/no-array-for-each": "off",
     "unicorn/no-useless-undefined": "off",
+    "unicorn/no-array-reduce": "off",
 
     "vitest/consistent-test-it": ["error", { "fn": "test" }]
   }

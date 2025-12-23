@@ -33,7 +33,6 @@ function createImageRecognitionFactory(normalisedImages: Array<Image>, options: 
         ...image,
         score: options.comparison(normalisedInputImageData, image.value),
       })),
-      // oxlint-disable-next-line no-array-reduce
       (images) => images.reduce((best, current) => (current.score > best.score ? current : best)),
     );
   };

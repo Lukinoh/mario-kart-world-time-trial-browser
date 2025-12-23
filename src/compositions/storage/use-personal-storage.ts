@@ -1,5 +1,6 @@
 import type { Attempt } from "../../core/domain/types/attempt";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
+import { AttemptsUtils } from "../../core/helpers/attempts-utils";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
 import { PersonalStorageSchema } from "../../core/domain/types/personal-storage";
@@ -16,6 +17,7 @@ function usePersonalStorageSingleton() {
     attemptsNumber: 0,
     player: "Noname",
   });
+  const records = createMemo(() => AttemptsUtils.getData(store.attempts));
 
   const upsertAttempt = (newAttempt: Attempt): void => {
     const index = store.attempts.findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
@@ -47,6 +49,15 @@ function usePersonalStorageSingleton() {
     });
   };
 
+  const clean = (): void => {
+    const cleaned = AttemptsUtils.flattenRecords(records());
+    setStore(
+      produce((store) => {
+        store.attempts = cleaned;
+      }),
+    );
+  };
+
   return {
     store,
     setStore,
@@ -59,6 +70,8 @@ function usePersonalStorageSingleton() {
     restore,
     download,
     downloadForFriends,
+    records,
+    clean,
   };
 }
 

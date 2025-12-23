@@ -1,5 +1,6 @@
 import { CORS_PROXY_URL, WORLD_RECORD_URL } from "../../core/external-urls";
 import { AttemptsStorageSchema } from "../../core/domain/types/attempts-storage";
+import { AttemptsUtils } from "../../core/helpers/attempts-utils";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
 import { MkwWrs } from "../../core/domain/mkw-wrs";
@@ -18,6 +19,7 @@ function useWorldRecordsStorageSingleton() {
     },
   );
   const attempts = createMemo(() => store.attempts);
+  const records = createMemo(() => AttemptsUtils.getRecords(store.attempts));
 
   const automaticProcessForMkrws = async (): Promise<void> => {
     const response = await fetch(`${CORS_PROXY_URL}${WORLD_RECORD_URL}`);
@@ -42,6 +44,7 @@ function useWorldRecordsStorageSingleton() {
     store,
     setStore,
     attempts,
+    records,
     automaticProcessForMkrws,
     manualProcessForMkwrs,
     restore,

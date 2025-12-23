@@ -1,4 +1,5 @@
 import { AttemptsStorageSchema } from "../../core/domain/types/attempts-storage";
+import { AttemptsUtils } from "../../core/helpers/attempts-utils";
 import type { Brand } from "../../core/helpers/brand";
 import { createIndexedStore } from "./utils/create-indexed-store";
 import { createMemo } from "solid-js";
@@ -11,6 +12,7 @@ function useFriendsStorageSingleton() {
     attempts: [],
   });
   const attempts = createMemo(() => store.attempts);
+  const records = createMemo(() => AttemptsUtils.getRecords(store.attempts));
 
   return {
     store,
@@ -18,6 +20,7 @@ function useFriendsStorageSingleton() {
     attempts,
     restore,
     download,
+    records,
   };
 }
 

@@ -21,6 +21,7 @@ export const History = defineComponent(() => {
         <button onclick={storage.download}>Export</button>
         <button onclick={storage.downloadForFriends}>Export for friends</button>
         <ValibotImportButton onclick={storage.restore}>Import</ValibotImportButton>
+        <button onclick={storage.clean}>Clean data</button>
       </div>
       <AttemptsTable attempts={storage.attempts()} />
     </>
