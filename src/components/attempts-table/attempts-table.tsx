@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch, createMemo, createSignal } from "solid-js";
+import { For, Match, Show, Switch, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
 import type { Attempt } from "../../core/domain/types/attempt";
 import { Cell } from "../grid-utilities/cell";
@@ -12,6 +12,7 @@ interface AttemptsTableProps {
   attempts: Array<Attempt>;
   showTime?: boolean;
   showFilters?: boolean;
+  defaultTrack?: string;
 }
 
 export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
@@ -25,27 +26,32 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const showFilters = createMemo(() => props.showFilters ?? true);
   const gridColumns = createMemo(() => GRID_COLUMNS - Number(!showTime()));
 
-  const [selectedTrack, setSelectedTrack] = createSignal(ALL_TRACKS);
-  const tracks = createMemo(() => [ALL_TRACKS, ...unique(props.attempts.map((attempt) => attempt.track))]);
+  const [selectedTrack, setSelectedTrack] = createSignal();
+  const isSelectedTrack = createSelector(
+    selectedTrack,
+    (a, selectedTrack) => a === (selectedTrack ?? props.defaultTrack ?? ALL_TRACKS),
+  );
+  const tracks = createMemo(() => [ALL_TRACKS, ...unique(props.attempts.map((attempt) => attempt.track)).toSorted()]);
 
   const attempts = createMemo(() =>
-    props.attempts.filter((attempt) => {
-      if (selectedTrack() === ALL_TRACKS) {
-        return true;
-      }
-      return attempt.track === selectedTrack();
-    }),
+    props.attempts.filter((attempt) => isSelectedTrack(attempt.track) || isSelectedTrack(ALL_TRACKS)),
   );
 
   return (
     <>
       <Show when={showFilters()}>
-        <div>
+        <>
           <label for="filter_track">Filter by</label>
           <select id="filter_track" onchange={(event) => setSelectedTrack(event.target.value)}>
-            <For each={tracks()}>{(track) => <option value={track}>{track}</option>}</For>
+            <For each={tracks()}>
+              {(track) => (
+                <option selected={isSelectedTrack(track)} value={track}>
+                  {track}
+                </option>
+              )}
+            </For>
           </select>
-        </div>
+        </>
       </Show>
       <GridColumn template={`repeat(${gridColumns()}, max-content)`} align="center">
         <ForAttempts each={attempts()}>
