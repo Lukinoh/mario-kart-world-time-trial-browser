@@ -49,6 +49,10 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
     return laps === splits.length + 1;
   };
 
+  const isRawLastLap = (rawLap: string): boolean => {
+    return laps === Number(rawLap);
+  };
+
   const isOlderThan = (timeMs: number): boolean => {
     return Date.now() - timestamp > timeMs;
   };
@@ -70,6 +74,7 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
     addFinalSplit,
     isEqualToLastSplit,
     isLastLap,
+    isRawLastLap,
     isOlderThan,
     unwrap,
   };

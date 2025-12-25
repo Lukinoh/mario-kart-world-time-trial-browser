@@ -79,8 +79,9 @@ export function useAttemptManagerFactory() {
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
       const isFinished = isFinalTime(time, isPause);
 
-      // If you restart a game during the last lap you could have false detection, hence the conditions on coins and lap
-      if (isNotEqualToLastSplit && isFinished && coins !== "11" && lap !== "1") {
+      // If you restart a game during the last lap you could have false detection, hence the conditions on the last lap.
+      // The bump should not be problematic in this context (we rely on the fact that pause trigger a 1 as lap)
+      if (isNotEqualToLastSplit && isFinished && attempt.isRawLastLap(lap)) {
         attempt.addFinalSplit({
           shrooms: shrooms,
           time: time,
