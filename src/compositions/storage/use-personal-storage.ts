@@ -1,6 +1,5 @@
 import type { Attempt } from "../../core/domain/types/attempt";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
-import { AttemptsUtils } from "../../core/helpers/attempts-utils";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
 import { PersonalStorageSchema } from "../../core/domain/types/personal-storage";
@@ -8,6 +7,7 @@ import { createIndexedStore } from "./utils/create-indexed-store";
 import { createMemo } from "solid-js";
 import { createSingletonRoot } from "@solid-primitives/rootless";
 import { produce } from "solid-js/store";
+import { useAttempts } from "../utils/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function usePersonalStorageSingleton() {
@@ -17,10 +17,10 @@ function usePersonalStorageSingleton() {
     attemptsNumber: 0,
     player: "Noname",
   });
-  const records = createMemo(() => AttemptsUtils.getData(store.attempts));
+  const { attempts, lastAttempt, getFlattenRecords, getTimeRecords } = useAttempts(store);
 
   const upsertAttempt = (newAttempt: Attempt): void => {
-    const index = store.attempts.findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
+    const index = attempts().findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
 
     setStore(
       produce((store) => {
@@ -34,8 +34,6 @@ function usePersonalStorageSingleton() {
     );
   };
 
-  const attempts = createMemo(() => store.attempts);
-  const lastAttempt = createMemo(() => store.attempts.at(0));
   const player = createMemo(() => store.player);
   const setPlayer = (player: string): void => {
     setStore("player", player);
@@ -43,17 +41,17 @@ function usePersonalStorageSingleton() {
   const attemptsNumber = createMemo(() => store.attemptsNumber);
 
   const downloadForFriends = (): void => {
-    JSONUtils.download<AttemptsStorage>(key, {
+    JSONUtils.download<AttemptsStorage>(`${key}-for-friends`, {
       version: store.version,
-      attempts: store.attempts,
+      attempts: getTimeRecords(),
     });
   };
 
   const clean = (): void => {
-    const cleaned = AttemptsUtils.flattenRecords(records());
+    const flattenRecords = getFlattenRecords();
     setStore(
       produce((store) => {
-        store.attempts = cleaned;
+        store.attempts = flattenRecords;
       }),
     );
   };
@@ -70,7 +68,6 @@ function usePersonalStorageSingleton() {
     restore,
     download,
     downloadForFriends,
-    records,
     clean,
   };
 }

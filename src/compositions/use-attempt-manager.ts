@@ -20,7 +20,7 @@ export enum STATE {
 const MINIMUM_TIME_BEFORE_NEXT_RESET_MS = 4500;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useAttemptManagerFactory() {
+function useAttemptManagerFactory() {
   let state: STATE = STATE.WAITING_ATTEMPT;
   let attempt = createAttemptHandler("Search for...", "?");
   const { isFinalTime } = useIsFinalTime();
