@@ -37,12 +37,10 @@ Moreover, after the tests, the normalised images are deleted. Hence, if you have
 - Do no check image size are the same
 - image invert is used for debugging
 - add metadata for images (box position maybe, help to build without th need to access timecoins etc..?
-- avoid having two pages open as the same time
 - versioning
-- tab focus or not
 - Database cleanup feature (keep only meaningful time)
-- add counters of attemps that is not affected by the database cleanup
-- Page 1 Start/Stop + video + table of différence
+- add counters of attempts that is not affected by the database cleanup
+- table of différence
 - Add better logging for debugging
 - Fix bug see comment in use-attempt-manager
 - Add internal validation maybe (for instance to give a Time type to the time)

@@ -1,4 +1,4 @@
-import type { JSX } from "solid-js";
+import { type JSX, Show, createMemo } from "solid-js";
 import { Portal } from "solid-js/web";
 import { css } from "@emotion/css";
 import { defineComponent } from "../core/helpers/solid-js";
@@ -9,9 +9,14 @@ const sClose = css({
   marginBottom: 0,
 });
 
-export const Dialog = defineComponent<JSX.CustomAttributes<HTMLDialogElement>>((props) => {
+interface DialogProps extends JSX.CustomAttributes<HTMLDialogElement> {
+  showFooter?: boolean;
+}
+
+export const Dialog = defineComponent<DialogProps>((props) => {
   // oxlint-disable-next-line init-declarations
   let dialog!: HTMLDialogElement;
+  const showFooter = createMemo(() => props.showFooter ?? true);
 
   const setDialog = (element: HTMLDialogElement): void => {
     dialog = element;
@@ -28,11 +33,13 @@ export const Dialog = defineComponent<JSX.CustomAttributes<HTMLDialogElement>>((
     <Portal>
       <dialog ref={setDialog}>
         {props.children}
-        <footer>
-          <button class={sClose} onclick={onClose}>
-            Close
-          </button>
-        </footer>
+        <Show when={showFooter()}>
+          <footer>
+            <button class={sClose} onClick={onClose}>
+              Close
+            </button>
+          </footer>
+        </Show>
       </dialog>
     </Portal>
   );

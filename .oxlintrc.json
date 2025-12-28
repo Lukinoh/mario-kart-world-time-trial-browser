@@ -15,7 +15,9 @@
     "Blob": true,
     "open": true,
     "DOMParser": true,
-    "fetch": true
+    "fetch": true,
+    "crypto": true,
+    "BroadcastChannel": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {
