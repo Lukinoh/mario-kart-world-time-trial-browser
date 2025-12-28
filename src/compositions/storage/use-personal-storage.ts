@@ -5,7 +5,7 @@ import { JSONUtils } from "../../core/helpers/json-utils";
 import { PersonalStorageSchema } from "../../core/domain/types/personal-storage";
 import { createIndexedStore } from "./utils/create-indexed-store";
 import { createMemo } from "solid-js";
-import { createSingletonRoot } from "@solid-primitives/rootless";
+import { createSingletonRoot } from "../../core/helpers/solid-js";
 import { produce } from "solid-js/store";
 import { useAttempts } from "../utils/use-attempts";
 

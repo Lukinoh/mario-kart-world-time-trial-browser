@@ -9,7 +9,7 @@ And all you need is a browser.
 git clone git@github.com:Lukinoh/mario-kart-world-time-trial-browser.git
 cd mario-kart-world-time-trial-browser
 pnpm install
-pnpm run serve
+npm run serve
 # Open http://localhost:4400
 ```
 
@@ -27,6 +27,8 @@ npm run preview
 What you start the development server, the images stored in `./src/assets/recognitions/raw/` are normalised.
 A normalised image is an image where the valuable information was extracted and a filter (i.e. black and white, invert, etc.) was applied.
 If you do a change in this folder, you have to restart the server.
+
+Moreover, after the tests, the normalised images are deleted. Hence, if you have a `npm run dev` running, you have to restart it manually.
 
 ## TODO
 
@@ -49,6 +51,5 @@ If you do a change in this folder, you have to restart the server.
   It should be more performant than relying on some image similarity algorithm.
 - Add/Replace imports (with cleanup behind to avoid duplication)
 - remove remeda ?
-- if you run test, you must rerun "dev"
-- Remove the createSingletonRoo, because if it is not used anymore on a page, the singleton is unload, and in our case, we want to always have it there.
-- Or make singleton in a another way
+- somehow maintanable code
+- add limitation of the concept in FAQ

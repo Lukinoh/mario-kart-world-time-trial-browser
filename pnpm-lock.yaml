@@ -20,9 +20,6 @@ importers:
       '@henrygd/queue':
         specifier: 1.2.0
         version: 1.2.0
-      '@solid-primitives/rootless':
-        specifier: 1.5.2
-        version: 1.5.2(solid-js@1.9.10)
       '@solidjs/router':
         specifier: 0.15.4
         version: 0.15.4(solid-js@1.9.10)

@@ -4,7 +4,7 @@ import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
 import { MkwWrs } from "../../core/domain/mkw-wrs";
 import { createIndexedStore } from "./utils/create-indexed-store";
-import { createSingletonRoot } from "@solid-primitives/rootless";
+import { createSingletonRoot } from "../../core/helpers/solid-js";
 import { useAttempts } from "../utils/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types

@@ -1,4 +1,4 @@
-import type { Component, JSX } from "solid-js";
+import { type Component, type JSX, createRoot } from "solid-js";
 
 export function defineComponent<P extends { [key in keyof P]: unknown }>(component: Component<P>): Component<P> {
   return component;
@@ -23,4 +23,10 @@ export function ci<P extends ViewProps>(
     onBeforeEnter?.();
     return component({ ...props });
   };
+}
+
+// We do not use createSingletonRoot from @solid-primitives/rootless, because we want to keep it created even if not used.
+export function createSingletonRoot<T>(useAsSingleton: () => T): () => T {
+  const instance = createRoot(useAsSingleton);
+  return () => instance;
 }

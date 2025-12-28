@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { type StorageOutput, StorageSchema } from "../../core/domain/types/storage";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
-import { createSingletonRoot } from "@solid-primitives/rootless";
+import { createSingletonRoot } from "../../core/helpers/solid-js";
 import { useFriendsStorage } from "./use-friends-storage";
 import { usePersonalStorage } from "./use-personal-storage";
 import { useWorldRecordStorage } from "./use-world-records-storage";
