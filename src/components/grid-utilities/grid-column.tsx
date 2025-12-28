@@ -8,7 +8,7 @@ const sGrid = (params: GridColumnProps): string =>
     display: "grid",
     gridTemplateColumns: params.template,
     textAlign: params.align,
-    "*": {
+    "> *": {
       padding: "var(--mk-spacing-medium)",
     },
   });

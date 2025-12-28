@@ -1,17 +1,36 @@
-import { Navigate, Route, Router } from "@solidjs/router";
-import { Show, createSignal } from "solid-js";
+import { Navigate, Route, type RouteSectionProps, Router, useLocation } from "@solidjs/router";
+import { Show, createMemo, createSignal } from "solid-js";
+import { ci, defineComponent } from "./tools/utils";
 import { Debug } from "./views/debug";
 import { FAQ } from "./views/faq";
 import { Friends } from "./views/friends";
 import { History } from "./views/history";
 import { Live } from "./views/live";
+import { TimeTrialPlayer } from "./components/time-trial-player/time-trial-player";
 import { WorldRecords } from "./views/world-records";
-import { defineComponent } from "./tools/utils";
 import { useTimeTrial } from "./compositions/use-time-trial";
 
 export const App = defineComponent(() => {
-  const timeTrial = useTimeTrial("TIME_UPDATE", true);
+  const timeTrial = useTimeTrial("TIME_UPDATE");
+  const [title, setTitle] = createSignal("Nothing yet");
   const [isDebug, setIsDebug] = createSignal(false);
+
+  const RouterWrapper = defineComponent<RouteSectionProps>((props) => {
+    const location = useLocation();
+    const showTimeTrialPlayer = createMemo(() => {
+      return ["/live", "/debug"].includes(location.pathname) ? "" : "display: none";
+    });
+
+    return (
+      <>
+        <h1>{title()}</h1>
+        <div style={showTimeTrialPlayer()}>
+          <TimeTrialPlayer timeTrial={timeTrial} isDebug={isDebug()} />
+        </div>
+        {props.children}
+      </>
+    );
+  });
 
   return (
     <>
@@ -28,21 +47,15 @@ export const App = defineComponent(() => {
         </nav>
       </header>
       <main>
-        <Router>
+        <Router root={RouterWrapper}>
           <Route path="/" component={() => <Navigate href="/live" />} />
-          <Route path="/live" component={Live} />
-          <Route path="/history" component={History} />
-          <Route path="/friends" component={Friends} />
-          <Route path="/world-records" component={WorldRecords} />
-          <Route path="/faq" component={FAQ} />
+          <Route path="/live" component={ci(Live, { setTitle })} />
+          <Route path="/history" component={ci(History, { setTitle })} />
+          <Route path="/friends" component={ci(Friends, { setTitle })} />
+          <Route path="/world-records" component={ci(WorldRecords, { setTitle })} />
+          <Route path="/faq" component={ci(FAQ, { setTitle })} />
           <Route path="*404" component={() => <Navigate href="/live" />} />
-          <Route
-            path="/debug"
-            component={() => {
-              setIsDebug(true);
-              return <Debug timeTrial={timeTrial}></Debug>;
-            }}
-          />
+          <Route path="/debug" component={ci(Debug, { setTitle, timeTrial }, () => setIsDebug(true))} />
         </Router>
       </main>
     </>

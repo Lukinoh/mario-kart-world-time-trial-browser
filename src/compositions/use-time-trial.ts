@@ -1,19 +1,34 @@
+import { createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../core/helpers/brand";
 import { EnhancedImageData } from "../tools/image/enhanced-image-data";
-import { onMount } from "solid-js";
 import { useAttemptManager } from "./use-attempt-manager";
 import { usePersonalStorage } from "./storage/use-personal-storage";
 import { useVideoCanvas } from "./utils/use-video-canvas";
 
 type Mode = "TIME_UPDATE" | "REQUEST_ANIMATION_FRAME";
+type State = "STARTED" | "PAUSED";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function useTimeTrialFactory(mode: Mode, debug = false) {
-  const vc = useVideoCanvas(debug);
+function useTimeTrialFactory(mode: Mode) {
+  const [state, setState] = createSignal<State>("PAUSED");
+  const isState = createSelector(state);
+  const vc = useVideoCanvas();
   const manager = useAttemptManager();
   const personalStorage = usePersonalStorage();
 
   onMount(() => {
+    vc.addEventListener("canplay", () => {
+      setState("PAUSED");
+    });
+
+    vc.addEventListener("play", () => {
+      setState("STARTED");
+    });
+
+    vc.addEventListener("pause", () => {
+      setState("PAUSED");
+    });
+
     if (mode === "TIME_UPDATE") {
       onModeTimeUpdate();
     }
@@ -24,7 +39,7 @@ function useTimeTrialFactory(mode: Mode, debug = false) {
   });
 
   const onModeTimeUpdate = (): void => {
-    vc.video.addEventListener("timeupdate", () => {
+    vc.addEventListener("timeupdate", () => {
       processFrame();
     });
   };
@@ -36,21 +51,13 @@ function useTimeTrialFactory(mode: Mode, debug = false) {
       cancelId = requestAnimationFrame(loop);
     };
 
-    vc.video.addEventListener("play", () => {
+    vc.addEventListener("play", () => {
       loop();
     });
 
-    vc.video.addEventListener("pause", () => {
+    vc.addEventListener("pause", () => {
       cancelAnimationFrame(cancelId);
     });
-  };
-
-  const start = (): Promise<void> => {
-    return vc.video.play();
-  };
-
-  const pause = (): void => {
-    vc.video.pause();
   };
 
   const processFrame = (): void => {
@@ -66,9 +73,18 @@ function useTimeTrialFactory(mode: Mode, debug = false) {
     console.info(`Time spend to process a frame: ${performance.now() - start}`);
   };
 
-  return { start, pause, video: vc.video, canvas: vc.canvas };
+  return {
+    isState,
+    start: vc.start,
+    pause: vc.pause,
+    video: vc.video,
+    canvas: vc.canvas,
+    fromCamera: vc.setSourceCamera,
+    fromUrl: vc.setSourceUrl,
+    fromFile: vc.setSourceFile,
+  };
 }
 
-type TimeTrial = Brand<ReturnType<typeof useTimeTrialFactory>>;
+export type TimeTrial = Brand<ReturnType<typeof useTimeTrialFactory>>;
 type TimeTrialFactory = (...args: Parameters<typeof useTimeTrialFactory>) => TimeTrial;
 export const useTimeTrial: TimeTrialFactory = useTimeTrialFactory;

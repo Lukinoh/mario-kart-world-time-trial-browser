@@ -1,16 +1,20 @@
+import { createMemo, onMount } from "solid-js";
 import { AttemptsTable } from "../components/attempts-table/attempts-table";
-import { createMemo } from "solid-js";
+import type { ViewProps } from "../core/view-props";
 import { defineComponent } from "../tools/utils";
 import { useStorage } from "../compositions/storage/use-storage";
 
-export const Live = defineComponent(() => {
+export const Live = defineComponent<ViewProps>((props) => {
   const storage = useStorage();
 
   const selectedTrack = createMemo(() => storage.personal.lastAttempt()?.track);
 
+  onMount(() => {
+    props.setTitle("Live");
+  });
+
   return (
     <>
-      <h1>Live</h1>
       <h2>Quick view</h2>
       <AttemptsTable attempts={storage.personal.attempts()} defaultTrack={selectedTrack()} />
     </>

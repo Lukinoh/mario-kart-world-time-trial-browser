@@ -11,7 +11,7 @@ import { Track } from "../recognitions/track/track";
 import { createAttemptHandler } from "../core/domain/attempt-handler";
 import { useIsFinalTime } from "./utils/use-is-final-time";
 
-export enum STATE {
+enum STATE {
   WAITING_ATTEMPT = "WAITING_ATTEMPT",
   WAITING_SPLIT = "WAITING_SPLIT",
   WAITING_LAST_SPLIT = "WAITING_LAST_SPLIT",

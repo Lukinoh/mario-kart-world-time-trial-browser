@@ -1,4 +1,5 @@
-import type { Component } from "solid-js";
+import type { Component, JSX } from "solid-js";
+import type { ViewProps } from "../core/view-props";
 import { isEmptyish } from "remeda";
 
 export function assert(condition: unknown, msg?: string): asserts condition {
@@ -16,6 +17,17 @@ export function getFilename(path: string): string {
 
 export function defineComponent<P extends { [key in keyof P]: unknown }>(component: Component<P>): Component<P> {
   return component;
+}
+
+export function ci<P extends ViewProps>(
+  component: Component<P>,
+  props: P,
+  onInstantiation?: () => void,
+): () => JSX.Element {
+  return () => {
+    onInstantiation?.();
+    return component({ ...props });
+  };
 }
 
 // // ImageData to Document to see result

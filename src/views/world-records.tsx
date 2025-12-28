@@ -2,20 +2,25 @@ import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { Cell } from "../components/grid-utilities/cell";
 import { GridColumn } from "../components/grid-utilities/grid-column";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
+import type { ViewProps } from "../core/view-props";
 import { css } from "@emotion/css";
 import { defineComponent } from "../tools/utils";
+import { onMount } from "solid-js";
 import { useWorldRecordStorage } from "../compositions/storage/use-world-records-storage";
 
 const sWrapper = css({
   width: "min-content",
 });
 
-export const WorldRecords = defineComponent(() => {
+export const WorldRecords = defineComponent<ViewProps>((props) => {
   const storage = useWorldRecordStorage();
+
+  onMount(() => {
+    props.setTitle("Worlds Records");
+  });
 
   return (
     <>
-      <h1>World Records</h1>
       <div class={sWrapper}>
         <p>The refresh of the world records can be either be done automatically or manually.</p>
         <GridColumn template="1fr 2fr" align="left">
