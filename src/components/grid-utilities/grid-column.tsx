@@ -1,7 +1,7 @@
 import type { CSSObject } from "@emotion/css/create-instance";
 import type { JSX } from "solid-js";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../tools/utils";
+import { defineComponent } from "../../core/helpers/solid-js";
 
 const sGrid = (params: GridColumnProps): string =>
   css({

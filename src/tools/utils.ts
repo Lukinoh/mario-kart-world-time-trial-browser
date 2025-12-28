@@ -1,33 +1,10 @@
-import type { Component, JSX } from "solid-js";
-import type { ViewProps } from "../core/view-props";
+import { assert } from "../core/helpers/assert";
 import { isEmptyish } from "remeda";
-
-export function assert(condition: unknown, msg?: string): asserts condition {
-  // oxlint-disable-next-line strict-boolean-expressions
-  if (!condition) {
-    throw new Error(msg);
-  }
-}
 
 export function getFilename(path: string): string {
   const filename = path.split("/").pop()?.split(".").slice(0, -1).join(".");
   assert(!isEmptyish(filename), `An error happened while trying to extract the filename from ${path}`);
   return filename;
-}
-
-export function defineComponent<P extends { [key in keyof P]: unknown }>(component: Component<P>): Component<P> {
-  return component;
-}
-
-export function ci<P extends ViewProps>(
-  component: Component<P>,
-  props: P,
-  onInstantiation?: () => void,
-): () => JSX.Element {
-  return () => {
-    onInstantiation?.();
-    return component({ ...props });
-  };
 }
 
 // // ImageData to Document to see result

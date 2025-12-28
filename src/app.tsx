@@ -1,6 +1,6 @@
 import { Navigate, Route, type RouteSectionProps, Router, useLocation } from "@solidjs/router";
 import { Show, createMemo, createSignal } from "solid-js";
-import { ci, defineComponent } from "./tools/utils";
+import { ci, defineComponent } from "./core/helpers/solid-js";
 import { Debug } from "./views/debug";
 import { FAQ } from "./views/faq";
 import { Friends } from "./views/friends";

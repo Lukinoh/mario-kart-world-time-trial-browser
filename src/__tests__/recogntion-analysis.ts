@@ -5,7 +5,7 @@ import { Pause } from "../recognitions/pause/pause";
 import { Shrooms } from "../recognitions/shrooms/shrooms";
 import { Time } from "../recognitions/time/time";
 import { Track } from "../recognitions/track/track";
-import { assert } from "../tools/utils";
+import { assert } from "../core/helpers/assert";
 import { expect } from "vitest";
 import { loadImages } from "../tools/image/image-loader";
 

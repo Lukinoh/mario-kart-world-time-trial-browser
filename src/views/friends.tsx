@@ -1,8 +1,7 @@
+import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
 import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
-import type { ViewProps } from "../core/view-props";
 import { css } from "@emotion/css";
-import { defineComponent } from "../tools/utils";
 import { onMount } from "solid-js";
 import { useFriendsStorage } from "../compositions/storage/use-friends-storage";
 

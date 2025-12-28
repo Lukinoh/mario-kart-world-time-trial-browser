@@ -1,6 +1,5 @@
+import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
-import type { ViewProps } from "../core/view-props";
-import { defineComponent } from "../tools/utils";
 import { onMount } from "solid-js";
 import { useStorage } from "../compositions/storage/use-storage";
 

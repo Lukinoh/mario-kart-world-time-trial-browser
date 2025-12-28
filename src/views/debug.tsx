@@ -1,7 +1,6 @@
+import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
 import type { TimeTrial } from "../compositions/use-time-trial";
-import type { ViewProps } from "../core/view-props";
 import { css } from "@emotion/css";
-import { defineComponent } from "../tools/utils";
 import { onMount } from "solid-js";
 import { useStorage } from "../compositions/storage/use-storage";
 

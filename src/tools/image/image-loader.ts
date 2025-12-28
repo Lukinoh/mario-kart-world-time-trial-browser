@@ -1,6 +1,7 @@
-import { assert, getFilename } from "../utils";
 import { entries, map, pipe } from "remeda";
 import { EnhancedImageData } from "./enhanced-image-data";
+import { assert } from "../../core/helpers/assert";
+import { getFilename } from "../utils";
 
 export interface Image {
   filename: string;

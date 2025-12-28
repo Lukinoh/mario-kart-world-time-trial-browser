@@ -6,7 +6,7 @@ import { ForAttempts } from "./for-attempts";
 import { GridColumn } from "../grid-utilities/grid-column";
 import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
 import { VerticalDivider } from "../grid-utilities/vertical-divider";
-import { defineComponent } from "../../tools/utils";
+import { defineComponent } from "../../core/helpers/solid-js";
 
 interface AttemptsTableProps {
   attempts: Array<Attempt>;

@@ -52,4 +52,3 @@ If you do a change in this folder, you have to restart the server.
 - if you run test, you must rerun "dev"
 - Remove the createSingletonRoo, because if it is not used anymore on a page, the singleton is unload, and in our case, we want to always have it there.
 - Or make singleton in a another way
-- More tools/utils.ts to core

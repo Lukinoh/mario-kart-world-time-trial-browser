@@ -1,7 +1,6 @@
+import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
 import { createMemo, onMount } from "solid-js";
 import { AttemptsTable } from "../components/attempts-table/attempts-table";
-import type { ViewProps } from "../core/view-props";
-import { defineComponent } from "../tools/utils";
 import { useStorage } from "../compositions/storage/use-storage";
 
 export const Live = defineComponent<ViewProps>((props) => {

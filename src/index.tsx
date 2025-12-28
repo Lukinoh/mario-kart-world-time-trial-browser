@@ -3,7 +3,7 @@ import "solid-devtools";
 import "simpledotcss/simple.min.css";
 import "./core/global-styles";
 import { App } from "./app";
-import { assert } from "./tools/utils";
+import { assert } from "./core/helpers/assert";
 import { render } from "solid-js/web";
 
 const root = document.querySelector("#root");

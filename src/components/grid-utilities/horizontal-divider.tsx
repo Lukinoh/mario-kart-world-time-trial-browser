@@ -1,6 +1,6 @@
 import { createMemo } from "solid-js";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../tools/utils";
+import { defineComponent } from "../../core/helpers/solid-js";
 import { span } from "../../core/helpers/css";
 
 interface HorizontalDelimiterProps {

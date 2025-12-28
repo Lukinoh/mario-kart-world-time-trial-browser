@@ -1,6 +1,6 @@
 import { Match, Switch } from "solid-js";
 import type { TimeTrial } from "../../compositions/use-time-trial";
-import { defineComponent } from "../../tools/utils";
+import { defineComponent } from "../../core/helpers/solid-js";
 
 interface CaptureButtonProps {
   timeTrial: TimeTrial;

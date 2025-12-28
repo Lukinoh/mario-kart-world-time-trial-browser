@@ -1,7 +1,7 @@
 import type { JSX } from "solid-js";
 import { Portal } from "solid-js/web";
 import { css } from "@emotion/css";
-import { defineComponent } from "../tools/utils";
+import { defineComponent } from "../core/helpers/solid-js";
 import { isFunction } from "remeda";
 
 const sClose = css({

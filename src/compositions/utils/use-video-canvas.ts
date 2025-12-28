@@ -1,6 +1,6 @@
 import type { Brand } from "../../core/helpers/brand";
 import type { JSX } from "solid-js";
-import { assert } from "../../tools/utils";
+import { assert } from "../../core/helpers/assert";
 
 const VIDEO_WIDTH = 1280;
 const VIDEO_HEIGHT = 720;

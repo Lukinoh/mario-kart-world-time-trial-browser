@@ -3,7 +3,7 @@ import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../core/dom
 import { type JSX, Match, Switch, createMemo, createSignal } from "solid-js";
 import { Dialog } from "../dialog";
 import { ValibotErrorContent } from "./valibot-error-content";
-import { defineComponent } from "../../tools/utils";
+import { defineComponent } from "../../core/helpers/solid-js";
 import { isFunction } from "remeda";
 
 interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {

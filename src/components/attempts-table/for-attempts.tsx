@@ -1,7 +1,7 @@
 import { type Accessor, For, type JSX, createMemo } from "solid-js";
 import type { Attempt } from "../../core/domain/types/attempt";
 import type { Split } from "../../core/domain/types/split";
-import { defineComponent } from "../../tools/utils";
+import { defineComponent } from "../../core/helpers/solid-js";
 import { format } from "date-and-time";
 import { generateArray } from "../../core/helpers/generate-array";
 
