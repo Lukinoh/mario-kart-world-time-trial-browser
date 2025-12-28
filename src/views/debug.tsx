@@ -23,19 +23,6 @@ export const Debug = defineComponent<DebugProps>((props) => {
 
   return (
     <>
-      <label for="input_player">Player:</label>
-      <input
-        id="input_player"
-        type="text"
-        value={storage.personal.player()}
-        onInput={(event) => {
-          storage.personal.setPlayer(event.target.value);
-        }}
-      />
-      <div class={sDebug}>
-        <button onclick={props.timeTrial.start}>Start capture</button>
-        <button onclick={props.timeTrial.pause}>Pause capture</button>
-      </div>
       <div>
         <h2>Raw data</h2>
         <div class={sDebug}>
@@ -45,7 +32,6 @@ export const Debug = defineComponent<DebugProps>((props) => {
               <code>{JSON.stringify(storage.personal.lastAttempt(), undefined, 2)}</code>
             </pre>
           </div>
-
           <div>
             <h3>All</h3>
             <pre>

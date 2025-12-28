@@ -15,7 +15,7 @@ function usePersonalStorageSingleton() {
     version: 1,
     attempts: [],
     attemptsNumber: 0,
-    player: "Noname",
+    player: "",
   });
   const { attempts, lastAttempt, getFlattenRecords, getTimeRecords } = useAttempts(store);
 

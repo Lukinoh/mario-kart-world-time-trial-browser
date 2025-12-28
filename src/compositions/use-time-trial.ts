@@ -82,6 +82,8 @@ function useTimeTrialFactory(mode: Mode) {
     fromCamera: vc.setSourceCamera,
     fromUrl: vc.setSourceUrl,
     fromFile: vc.setSourceFile,
+    setPlayer: personalStorage.setPlayer,
+    player: personalStorage.player,
   };
 }
 

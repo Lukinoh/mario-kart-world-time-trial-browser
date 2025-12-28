@@ -1,11 +1,18 @@
 import { Show, onMount } from "solid-js";
 import { CaptureButton } from "./capture-button";
 import { GridColumn } from "../grid-utilities/grid-column";
+import { TextInput } from "../text-input";
 import type { TimeTrial } from "../../compositions/use-time-trial";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../core/helpers/solid-js";
 import demoVideo from "../../assets/demo/demo.webm";
 import { fileUpload } from "../../core/helpers/file-upload";
+
+const sOptionsZone = css({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+});
 
 const sVideoZone = css({
   position: "relative",
@@ -68,23 +75,26 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
 
   return (
     <GridColumn template={"10rem 1fr 1fr"} align="left">
-      <div>
+      <div class={sOptionsZone}>
         <CaptureButton timeTrial={props.timeTrial}></CaptureButton>
-        <label for="camera-radio">
-          <input
-            ref={cameraRadio}
-            id="camera-radio"
-            checked={true}
-            onClick={onCameraRadio}
-            name="video-mode"
-            type="radio"
-          />
-          <span>Capture Card</span>
-        </label>
-        <label for="file-radio">
-          <input ref={fileRadio} id="file-radio" onClick={onFileRadio} name="video-mode" type="radio" />
-          <span>File</span>
-        </label>
+        <div>
+          <label for="camera-radio">
+            <input
+              ref={cameraRadio}
+              id="camera-radio"
+              checked={true}
+              onClick={onCameraRadio}
+              name="video-mode"
+              type="radio"
+            />
+            <span>Capture Card</span>
+          </label>
+          <label for="file-radio">
+            <input ref={fileRadio} id="file-radio" onClick={onFileRadio} name="video-mode" type="radio" />
+            <span>File</span>
+          </label>
+        </div>
+        <TextInput label={"Player"} value={props.timeTrial.player()} setValue={props.timeTrial.setPlayer} />
       </div>
       <div class={sVideoZone}>{props.timeTrial.video}</div>
       <Show when={props.isDebug}>
