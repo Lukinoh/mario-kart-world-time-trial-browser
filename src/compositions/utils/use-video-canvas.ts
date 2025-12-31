@@ -14,10 +14,10 @@ function useVideoCanvasFactory() {
 
   videoElement.width = VIDEO_WIDTH;
   videoElement.height = VIDEO_HEIGHT;
-  videoElement.style.width = "100%";
+  videoElement.style.aspectRatio = `${VIDEO_WIDTH} / ${VIDEO_HEIGHT}`;
   canvasElement.width = VIDEO_WIDTH;
   canvasElement.height = VIDEO_HEIGHT;
-  canvasElement.style.width = "100%";
+  canvasElement.style.aspectRatio = `${VIDEO_WIDTH} / ${VIDEO_HEIGHT}`;
 
   const resetSource = (): void => {
     URL.revokeObjectURL(videoElement.src);

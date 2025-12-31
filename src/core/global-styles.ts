@@ -8,13 +8,18 @@ injectGlobal({
   },
   body: {
     gridTemplateColumns: "1fr 90% 1fr",
-    video: {
-      // Otherwise, the text "Capture Video" is slightly visible.
-      opacity: 1,
-    },
-    canvas: {
-      borderRadius: "var(--standard-border-radius)",
-    },
+  },
+  video: {
+    // Otherwise, the text "Capture Video" is slightly visible.
+    opacity: 1,
+  },
+  canvas: {
+    borderRadius: "var(--standard-border-radius)",
+    objectFit: "contain",
+    overflowClipMargin: "content-box",
+    overflow: "clip",
+    maxWidth: "100%",
+    height: "auto",
   },
   dialog: {
     maxWidth: "80%",

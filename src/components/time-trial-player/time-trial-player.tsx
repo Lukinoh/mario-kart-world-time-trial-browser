@@ -12,31 +12,37 @@ const sOptionsZone = css({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  gap: "var(--mk-spacing-large)",
 });
 
-const sVideoZone = css({
-  position: "relative",
-  "> video": {
+const sVideoCanvas = css({
+  "> div, > canvas": {
+    position: "relative",
+    width: "49%",
+    minWidth: "15rem",
+    height: "fit-content",
+    lineHeight: 0,
     border: "var(--mk-border)",
+    borderRadius: "var(--standard-border-radius)",
   },
-  "::before": {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: -1,
-    content: "'Capture Video'",
+  "> div": {
+    "::before": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: -1,
+      content: "'Capture Video'",
+    },
   },
-});
-
-const sCanvasZone = css({
-  "> canvas": {
-    border: "var(--mk-border)",
-  },
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "center",
+  gap: "var(--mk-spacing-medium)",
 });
 
 interface TimeTrialPlayerProps {
@@ -74,7 +80,7 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
   };
 
   return (
-    <GridColumn template={"10rem 1fr 1fr"}>
+    <GridColumn template={"10rem 1fr"}>
       <div class={sOptionsZone}>
         <CaptureButton timeTrial={props.timeTrial}></CaptureButton>
         <div>
@@ -94,12 +100,12 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
             <span>File</span>
           </label>
         </div>
-        <TextInput label={"Player"} value={props.timeTrial.player()} setValue={props.timeTrial.setPlayer} />
+        <TextInput label="Player" value={props.timeTrial.player()} setValue={props.timeTrial.setPlayer} />
       </div>
-      <div class={sVideoZone}>{props.timeTrial.video}</div>
-      <Show when={props.isDebug}>
-        <div class={sCanvasZone}>{props.timeTrial.canvas}</div>
-      </Show>
+      <div class={sVideoCanvas}>
+        <div>{props.timeTrial.video}</div>
+        <Show when={props.isDebug}>{props.timeTrial.canvas}</Show>
+      </div>
     </GridColumn>
   );
 });
