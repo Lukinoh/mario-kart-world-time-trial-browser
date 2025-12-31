@@ -53,17 +53,17 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
           </select>
         </>
       </Show>
-      <GridColumn template={`repeat(${gridColumns()}, max-content)`} align="center">
+      <GridColumn template={`repeat(${gridColumns()}, max-content)`} xAlign="center">
         <ForAttempts each={attempts()}>
           {(attempt, aIndex) => (
             <>
               <Show when={aIndex() % 7 === 0}>
-                <Cell bold align="left" text="Date" extraPadding="left" />
+                <Cell bold xAlign="left" text="Date" extraPadding="left" />
                 <Show when={showTime()}>
-                  <Cell bold align="left" text="Time" />
+                  <Cell bold xAlign="left" text="Time" />
                 </Show>
-                <Cell bold align="left" text="Player" />
-                <Cell bold align="left" text="Track" />
+                <Cell bold xAlign="left" text="Player" />
+                <Cell bold xAlign="left" text="Track" />
                 <VerticalDivider />
                 <Cell bold text="Split" />
                 <VerticalDivider />
@@ -79,12 +79,12 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                 <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
               </Show>
 
-              <Cell align="left" row={attempt().gridRows} text={attempt().date} />
+              <Cell xAlign="left" row={attempt().gridRows} text={attempt().date} />
               <Show when={showTime()}>
-                <Cell align="left" row={attempt().gridRows} text={attempt().datetime} />
+                <Cell xAlign="left" row={attempt().gridRows} text={attempt().datetime} />
               </Show>
-              <Cell align="left" row={attempt().gridRows} text={attempt().player} />
-              <Cell align="left" row={attempt().gridRows} text={attempt().track} />
+              <Cell xAlign="left" row={attempt().gridRows} text={attempt().player} />
+              <Cell xAlign="left" row={attempt().gridRows} text={attempt().track} />
               <VerticalDivider row={attempt().gridRows} />
               <Switch>
                 <Match when={attempt().splits.length > 0}>

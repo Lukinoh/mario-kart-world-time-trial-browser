@@ -15,17 +15,17 @@ export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((pr
       <h2>An error happened during import</h2>
       <p>The imported file contains errors.</p>
       <p>Fix them and try to re-import your file.</p>
-      <GridColumn template="repeat(3, max-content)" align="center">
-        <Cell align="left" bold text="JSON Path" />
+      <GridColumn template="repeat(3, max-content)" xAlign="center">
+        <Cell xAlign="left" bold text="JSON Path" />
         <Cell text="" />
-        <Cell align="left" bold text="Error" />
+        <Cell xAlign="left" bold text="Error" />
         <HorizontalDivider column={3} thicknessFactor={2} />
         <For each={props.issues}>
           {(issue) => (
             <>
-              <Cell align="left" text={JSON.stringify(v.getDotPath(issue)?.split("."), undefined, 2)} />
+              <Cell xAlign="left" text={JSON.stringify(v.getDotPath(issue)?.split("."), undefined, 2)} />
               <Cell text="➔" />
-              <Cell align="left" text={issue.message} />
+              <Cell xAlign="left" text={issue.message} />
               <HorizontalDivider column={3}></HorizontalDivider>
             </>
           )}

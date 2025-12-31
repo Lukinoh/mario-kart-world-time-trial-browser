@@ -22,7 +22,7 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
     <>
       <div class={sWrapper}>
         <p>The refresh of the world records can be either be done automatically or manually.</p>
-        <GridColumn template="1fr 2fr" align="left">
+        <GridColumn template="1fr 2fr" xAlign="left">
           <Cell bold text="Automatic" />
           <Cell bold text="Manual" />
           <div>

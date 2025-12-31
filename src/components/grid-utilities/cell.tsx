@@ -1,4 +1,4 @@
-import type { CSSInterpolation } from "@emotion/css/create-instance";
+import type { CSSInterpolation, CSSObject } from "@emotion/css/create-instance";
 import { capitalize } from "remeda";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../core/helpers/solid-js";
@@ -8,7 +8,8 @@ interface CellProps {
   text?: string | number;
   row?: number;
   column?: number;
-  align?: "left" | "center" | "right";
+  xAlign?: CSSObject["justifySelf"];
+  yAlign?: CSSObject["alignSelf"];
   bold?: boolean;
   mono?: boolean;
   extraPadding?: "left" | "right";
@@ -18,7 +19,8 @@ export const Cell = defineComponent<CellProps>((props) => {
   const cssList: Array<CSSInterpolation> = [
     span(props.column ?? 1, props.row ?? 1),
     {
-      textAlign: props.align,
+      justifySelf: props.xAlign,
+      alignSelf: props.yAlign,
     },
   ];
 

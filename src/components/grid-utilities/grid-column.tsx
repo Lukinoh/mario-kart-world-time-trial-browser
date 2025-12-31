@@ -7,7 +7,8 @@ const sGrid = (params: GridColumnProps): string =>
   css({
     display: "grid",
     gridTemplateColumns: params.template,
-    textAlign: params.align,
+    justifyItems: params.xAlign,
+    alignItems: params.yAlign,
     "> *": {
       padding: "var(--mk-spacing-medium)",
     },
@@ -15,7 +16,8 @@ const sGrid = (params: GridColumnProps): string =>
 
 interface GridColumnProps {
   template: CSSObject["gridTemplateColumns"];
-  align: CSSObject["textAlign"];
+  xAlign?: CSSObject["justifyItems"];
+  yAlign?: CSSObject["alignItems"];
   children: JSX.Element;
 }
 

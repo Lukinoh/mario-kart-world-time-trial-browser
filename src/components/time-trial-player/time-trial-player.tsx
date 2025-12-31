@@ -74,7 +74,7 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
   };
 
   return (
-    <GridColumn template={"10rem 1fr 1fr"} align="left">
+    <GridColumn template={"10rem 1fr 1fr"}>
       <div class={sOptionsZone}>
         <CaptureButton timeTrial={props.timeTrial}></CaptureButton>
         <div>
