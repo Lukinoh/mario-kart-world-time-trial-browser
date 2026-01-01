@@ -14,13 +14,13 @@ import {
   uniqueWith,
   values,
 } from "remeda";
-import type { Attempt } from "../../core/domain/types/attempt";
+import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
 import type { Store } from "solid-js/store";
 import { createMemo } from "solid-js";
 
-function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
+function getRecordsBy<T extends AttemptStorage>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
   return pipe(
     attempts,
     groupBy(by),
@@ -32,10 +32,10 @@ function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<type
   );
 }
 
-const getRecordsByTime = (attempts: Array<Attempt>): Array<Attempt> =>
+const getRecordsByTime = (attempts: Array<AttemptStorage>): Array<AttemptStorage> =>
   getRecordsBy(attempts, (attempt) => attempt.time);
 
-const getRecordsBySplitTime = (attempts: Array<Attempt>, split: number): Array<Attempt> =>
+const getRecordsBySplitTime = (attempts: Array<AttemptStorage>, split: number): Array<AttemptStorage> =>
   getRecordsBy(attempts, (attempt) => attempt.splits.at(split - 1)?.time);
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAttemptsFactory(store: Store<AttemptsStorage>) {
@@ -50,7 +50,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
     ),
   );
 
-  const getTimeRecords = (): Array<Attempt> =>
+  const getTimeRecords = (): Array<AttemptStorage> =>
     pipe(
       attempts(),
       groupBy((attempt) => attempt.track),
@@ -58,27 +58,27 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
       flatMap((attempts) => getRecordsByTime(attempts)),
     );
 
-  const getTimeRecordsByTrack = (track: string): Array<Attempt> =>
+  const getTimeRecordsByTrack = (track: string): Array<AttemptStorage> =>
     pipe(
       attempts(),
       filter((attempt) => attempt.track === track),
       (attempts) => getRecordsByTime(attempts),
     );
 
-  const getSplitRecordsByTrack = (track: string, split: number): Array<Attempt> =>
+  const getSplitRecordsByTrack = (track: string, split: number): Array<AttemptStorage> =>
     pipe(
       attempts(),
       filter((attempt) => attempt.track === track),
       (attempts) => getRecordsBySplitTime(attempts, split),
     );
 
-  const getFlattenRecords = (): Array<Attempt> =>
+  const getFlattenRecords = (): Array<AttemptStorage> =>
     pipe(
       attempts(),
       groupBy((attempt) => attempt.track),
       values(),
       flatMap((attempts) => {
-        const meaningfullyAttempts: Array<Attempt> = [];
+        const meaningfullyAttempts: Array<AttemptStorage> = [];
         const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.laps), 0);
         meaningfullyAttempts.push(...getRecordsByTime(attempts));
 

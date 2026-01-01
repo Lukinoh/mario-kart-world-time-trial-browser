@@ -1,13 +1,13 @@
 import { describe, expect, test } from "vitest";
 import { map, pipe } from "remeda";
-import type { Attempt } from "../../core/domain/types/attempt";
-import type { Split } from "../../core/domain/types/split";
+import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
+import type { SplitStorage } from "../../core/domain/types/split-storage";
 import { createRoot } from "solid-js";
 import { useAttempts } from "./use-attempts";
 
 describe("attempts", () => {
   test("returns the lists of attempts", () => {
-    const input: Array<Attempt> = [];
+    const input: Array<AttemptStorage> = [];
     const { attempts } = createRoot(() => useAttempts({ version: 1, attempts: input }));
     expect(attempts()).toBe(input);
   });
@@ -305,7 +305,7 @@ describe("getFlattenRecords", () => {
 
 let timestamp = 0;
 
-function createAttempt(attempt: Partial<Attempt>): Attempt {
+function createAttempt(attempt: Partial<AttemptStorage>): AttemptStorage {
   timestamp = timestamp + 1;
   return {
     player: "Noname",
@@ -317,14 +317,14 @@ function createAttempt(attempt: Partial<Attempt>): Attempt {
   };
 }
 
-function createAttempts(...attempts: Array<Partial<Attempt>>): Array<Attempt> {
+function createAttempts(...attempts: Array<Partial<AttemptStorage>>): Array<AttemptStorage> {
   return pipe(
     attempts,
     map((attempt) => createAttempt(attempt)),
   );
 }
 
-function createSplits(...splits: Array<Partial<Split>>): Array<Split> {
+function createSplits(...splits: Array<Partial<SplitStorage>>): Array<SplitStorage> {
   let lap = 0;
   return pipe(
     splits,

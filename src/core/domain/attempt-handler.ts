@@ -1,7 +1,7 @@
-import type { Attempt } from "./types/attempt";
+import type { AttemptStorage } from "./types/attempt-storage";
 import type { Brand } from "../helpers/brand";
 import type { RawSplit } from "./types/raw-split";
-import type { Split } from "./types/split";
+import type { SplitStorage } from "./types/split-storage";
 import { Time } from "../../recognitions/time/time";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
@@ -9,7 +9,7 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
   const timestamp = Date.now();
   const track = pTrack;
   const laps = Number(pRawLaps);
-  const splits: Array<Split> = [];
+  const splits: Array<SplitStorage> = [];
   let time: string | undefined = undefined;
   let coins: number | undefined = undefined;
 
@@ -57,7 +57,7 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
     return Date.now() - timestamp > timeMs;
   };
 
-  const unwrap = (): Attempt => {
+  const unwrap = (): AttemptStorage => {
     return {
       player: "Who knows?",
       timestamp: timestamp,

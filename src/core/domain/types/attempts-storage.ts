@@ -1,9 +1,9 @@
 import * as v from "valibot";
-import { AttemptSchema } from "./attempt";
+import { AttemptStorageSchema } from "./attempt-storage";
 
 export const AttemptsStorageSchema = v.object({
   version: v.literal(1),
-  attempts: v.array(AttemptSchema),
+  attempts: v.array(AttemptStorageSchema),
 });
 
 export type AttemptsStorage = v.InferOutput<typeof AttemptsStorageSchema>;

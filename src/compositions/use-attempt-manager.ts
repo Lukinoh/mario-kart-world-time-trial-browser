@@ -1,4 +1,4 @@
-import type { Attempt } from "../core/domain/types/attempt";
+import type { AttemptStorage } from "../core/domain/types/attempt-storage";
 import type { Brand } from "../core/helpers/brand";
 import { Coins } from "../recognitions/coins/coins";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
@@ -26,9 +26,12 @@ function useAttemptManagerFactory() {
   const { isFinalTime } = useIsFinalTime();
 
   /**
-   * Returns an Attempt object only if there was a creation or an update of an Attempt
+   * Returns an AttemptStorage object only if there was a creation or an update of an AttemptStorage
    */
-  const update = (image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): Attempt | undefined => {
+  const update = (
+    image: EnhancedImageData,
+    putImageData?: CanvasImageData["putImageData"],
+  ): AttemptStorage | undefined => {
     const time = Time.get(image, putImageData);
     const lap = Lap.get(image, putImageData);
     const coins = Coins.get(image, putImageData);

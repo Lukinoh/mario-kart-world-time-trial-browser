@@ -1,6 +1,6 @@
 import { For, Match, Show, Switch, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
-import type { Attempt } from "../../core/domain/types/attempt";
+import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import { Cell } from "../grid-utilities/cell";
 import { ForAttempts } from "./for-attempts";
 import { GridColumn } from "../grid-utilities/grid-column";
@@ -9,7 +9,7 @@ import { VerticalDivider } from "../grid-utilities/vertical-divider";
 import { defineComponent } from "../../core/helpers/solid-js";
 
 interface AttemptsTableProps {
-  attempts: Array<Attempt>;
+  attempts: Array<AttemptStorage>;
   showTime?: boolean;
   showFilters?: boolean;
   defaultTrack?: string;

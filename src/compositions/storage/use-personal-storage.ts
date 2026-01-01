@@ -1,4 +1,4 @@
-import type { Attempt } from "../../core/domain/types/attempt";
+import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
@@ -19,7 +19,7 @@ function usePersonalStorageSingleton() {
   });
   const { attempts, lastAttempt, getFlattenRecords, getTimeRecords } = useAttempts(store);
 
-  const upsertAttempt = (newAttempt: Attempt): void => {
+  const upsertAttempt = (newAttempt: AttemptStorage): void => {
     const index = attempts().findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
 
     setStore(
