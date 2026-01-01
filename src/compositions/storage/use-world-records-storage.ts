@@ -17,7 +17,7 @@ function useWorldRecordsStorageSingleton() {
       attempts: [],
     },
   );
-  const { attempts } = useAttempts(store);
+  const { attempts, getTimeRecordsByTrack } = useAttempts(store);
 
   const automaticProcessForMkrws = async (): Promise<void> => {
     const response = await fetch(`${CORS_PROXY_URL}${WORLD_RECORD_URL}`);
@@ -46,6 +46,7 @@ function useWorldRecordsStorageSingleton() {
     manualProcessForMkwrs,
     restore,
     download,
+    getTimeRecordsByTrack,
   };
 }
 

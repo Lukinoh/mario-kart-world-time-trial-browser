@@ -1,10 +1,11 @@
 import type { CSSInterpolation, CSSObject } from "@emotion/css/create-instance";
 import { capitalize, isDefined, isTruthy } from "remeda";
+import { createMemo } from "solid-js";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../core/helpers/solid-js";
 import { span } from "../../core/helpers/css";
 
-interface CellProps {
+export interface CellProps {
   text?: string | number;
   row?: number;
   column?: number;
@@ -16,38 +17,44 @@ interface CellProps {
 }
 
 export const Cell = defineComponent<CellProps>((props) => {
-  const cssList: Array<CSSInterpolation> = [
-    span(props.column ?? 1, props.row ?? 1),
-    {
-      justifySelf: props.xAlign,
-      alignSelf: props.yAlign,
-    },
-  ];
+  const cssList = createMemo(() => {
+    const list: Array<CSSInterpolation> = [
+      span(props.column ?? 1, props.row ?? 1),
+      {
+        justifySelf: props.xAlign,
+        alignSelf: props.yAlign,
+      },
+    ];
 
-  if (isTruthy(props.bold)) {
-    cssList.push({
-      fontWeight: "bold",
-    });
-  }
+    if (isTruthy(props.bold)) {
+      list.push({
+        fontWeight: "bold",
+      });
+    }
 
-  if (props.extraPadding) {
-    cssList.push({
-      [`padding${capitalize(props.extraPadding)}`]: "var(--mk-spacing-large)",
-    });
-  }
+    if (props.extraPadding) {
+      list.push({
+        // We have to add !important, because sometimes the style does not apply in the good order.
+        // On the attempts-comparison-table, we need it, on the attempts-table it seems fine.
+        [`padding${capitalize(props.extraPadding)}`]: "var(--mk-spacing-large) !important",
+      });
+    }
 
-  if (isTruthy(props.mono)) {
-    cssList.push({
-      fontFamily: "var(--mono-font)",
-    });
-  }
+    if (isTruthy(props.mono)) {
+      list.push({
+        fontFamily: "var(--mono-font)",
+      });
+    }
 
-  if (!isDefined(props.text)) {
-    cssList.push({
-      justifySelf: "center",
-      alignSelf: "center",
-    });
-  }
+    if (!isDefined(props.text)) {
+      list.push({
+        justifySelf: "center",
+        alignSelf: "center",
+      });
+    }
 
-  return <div class={css(...cssList)}>{props.text ?? "-"}</div>;
+    return list;
+  });
+
+  return <div class={css(...cssList())}>{props.text ?? "-"}</div>;
 });

@@ -11,7 +11,7 @@ function useFriendsStorageSingleton() {
     attempts: [],
   });
 
-  const { attempts } = useAttempts(store);
+  const { attempts, getTimeRecordsByTrack } = useAttempts(store);
 
   return {
     store,
@@ -19,6 +19,7 @@ function useFriendsStorageSingleton() {
     attempts,
     restore,
     download,
+    getTimeRecordsByTrack,
   };
 }
 

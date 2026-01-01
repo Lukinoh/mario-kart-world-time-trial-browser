@@ -81,7 +81,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                 <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
               </Show>
 
-              <Cell xAlign="left" row={attempt.rowSplits} text={attempt.date} />
+              <Cell xAlign="left" row={attempt.rowSplits} text={attempt.date} extraPadding="left" />
               <Show when={showTime()}>
                 <Cell xAlign="left" row={attempt.rowSplits} text={attempt.datetime} />
               </Show>

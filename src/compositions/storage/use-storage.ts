@@ -2,6 +2,7 @@ import * as v from "valibot";
 import { type StorageOutput, StorageSchema } from "../../core/domain/types/storage";
 import type { Brand } from "../../core/helpers/brand";
 import { JSONUtils } from "../../core/helpers/json-utils";
+import type { ReferenceRecords } from "../../core/domain/types/reference-records";
 import { createSingletonRoot } from "../../core/helpers/solid-js";
 import { useFriendsStorage } from "./use-friends-storage";
 import { usePersonalStorage } from "./use-personal-storage";
@@ -29,10 +30,19 @@ function useStorageSingleton() {
     });
   };
 
+  const getReferenceRecords = (track: string): ReferenceRecords => {
+    return [
+      ["PB", personal.getTimeRecordsByTrack(track)],
+      ["WR", worldRecords.getTimeRecordsByTrack(track)],
+      ["FB", friends.getTimeRecordsByTrack(track)],
+    ];
+  };
+
   return {
     personal,
     friends,
     worldRecords,
+    getReferenceRecords,
     restore,
     download,
   };

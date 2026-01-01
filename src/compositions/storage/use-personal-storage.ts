@@ -17,7 +17,7 @@ function usePersonalStorageSingleton() {
     attemptsNumber: 0,
     player: "",
   });
-  const { attempts, lastAttempt, getFlattenRecords, getTimeRecords } = useAttempts(store);
+  const { attempts, lastAttempt, getFlattenRecords, getTimeRecords, getTimeRecordsByTrack } = useAttempts(store);
 
   const upsertAttempt = (newAttempt: AttemptStorage): void => {
     const index = store.attempts.findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
@@ -69,6 +69,7 @@ function usePersonalStorageSingleton() {
     download,
     downloadForFriends,
     clean,
+    getTimeRecordsByTrack,
   };
 }
 

@@ -26,7 +26,7 @@ export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((pr
               <Cell xAlign="left" text={JSON.stringify(v.getDotPath(issue)?.split("."), undefined, 2)} />
               <Cell text="➔" />
               <Cell xAlign="left" text={issue.message} />
-              <HorizontalDivider column={3}></HorizontalDivider>
+              <HorizontalDivider column={3} />
             </>
           )}
         </For>
