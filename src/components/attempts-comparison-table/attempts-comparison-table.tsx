@@ -2,6 +2,7 @@ import { Cell, type CellProps } from "../grid-utilities/cell";
 import { For, Show, createMemo } from "solid-js";
 import { MINUS, PLUS, PLUS_OR_MINUS } from "../../core/characters";
 import type { Attempt } from "../../core/domain/local/attempt";
+import { DeltaCell } from "./delta-cell";
 import { GridColumn } from "../grid-utilities/grid-column";
 import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
 import type { ReferenceRecords } from "../../core/domain/types/reference-records";
@@ -39,7 +40,6 @@ interface AttemptsComparisonTableProps {
 }
 
 export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTableProps>((props) => {
-  const GRID_HEADER_FULL_ROW = 2;
   const GRID_FULL_ROW = 6;
   const GRID_HALF_ROW = GRID_FULL_ROW / 2;
   const GRID_THIRD_ROW = GRID_FULL_ROW / 3;
@@ -91,18 +91,36 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
       <Cell {...aLastColumn} text="⏱️" />
 
       {/* Line 1 */}
-      <Cell {...aFirstColumn} text={props.last.date} />
-      <Cell {...aType} row={GRID_HEADER_FULL_ROW} text="Last" />
-      <VerticalDivider row={GRID_HEADER_FULL_ROW} />
-      <Cell row={GRID_HEADER_FULL_ROW} text="️️⏱️" />
+      <Cell {...aFirstColumn} row={GRID_HALF_ROW} text={props.last.date} />
+      <Cell {...aType} row={GRID_FULL_ROW} text="Last" />
+      <VerticalDivider row={GRID_FULL_ROW} />
+      <Cell row={GRID_THIRD_ROW} text="️️S" />
       <For each={props.last.laps}>
-        {(_, sIndex) => <Cell {...aTime} row={GRID_HEADER_FULL_ROW} text={props.last.splits.at(sIndex())?.raw.time} />}
+        {(_, sIndex) => (
+          <Cell
+            {...aTime}
+            row={sIndex() === 0 ? GRID_FULL_ROW : GRID_THIRD_ROW}
+            text={props.last.splits.at(sIndex())?.raw.time}
+          />
+        )}
       </For>
-      <VerticalDivider row={GRID_HEADER_FULL_ROW} />
-      <Cell {...aLastColumn} {...aTime} row={GRID_HEADER_FULL_ROW} text={props.last.raw.time} />
+      <VerticalDivider row={GRID_FULL_ROW} />
+      <Cell {...aLastColumn} {...aTime} row={GRID_FULL_ROW} text={props.last.raw.time} />
 
       {/* Line 2 */}
-      <Cell {...aFirstColumn} text={props.last.datetime} />
+      <HorizontalDivider row={GRID_THIRD_ROW} />
+      <HorizontalDivider row={GRID_THIRD_ROW} column={laps() - 1} />
+
+      {/* Line 3 */}
+      <Cell {...aFirstColumn} row={GRID_HALF_ROW} text={props.last.datetime} />
+      <Cell row={GRID_THIRD_ROW} text="️️ΣS" />
+      <For each={props.last.laps}>
+        {(_, sIndex) => (
+          <Show when={sIndex() > 0}>
+            <Cell {...aTime} row={GRID_THIRD_ROW} text={props.last.splits.at(sIndex())?.prettyAccumulatedTime} />
+          </Show>
+        )}
+      </For>
 
       <HorizontalDivider column={gridColumns()} thicknessFactor={2} />
 
@@ -118,7 +136,7 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
                 <Cell row={GRID_THIRD_ROW} text="ΔS" />
                 <For each={reference.laps}>
                   {(_, sIndex) => (
-                    <Cell
+                    <DeltaCell
                       {...aTime}
                       row={sIndex() === 0 ? GRID_FULL_ROW : GRID_THIRD_ROW}
                       text={delta(props.last, reference, sIndex(), "time")}
@@ -138,7 +156,7 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
                 <For each={reference.laps}>
                   {(_, sIndex) => (
                     <Show when={sIndex() > 0}>
-                      <Cell
+                      <DeltaCell
                         {...aTime}
                         row={GRID_THIRD_ROW}
                         text={delta(props.last, reference, sIndex(), "accumulatedTime")}

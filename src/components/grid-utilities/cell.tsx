@@ -9,6 +9,8 @@ export interface CellProps {
   text?: string | number;
   row?: number;
   column?: number;
+  color?: CSSObject["color"];
+  textStroke?: string;
   xAlign?: CSSObject["justifySelf"];
   yAlign?: CSSObject["alignSelf"];
   bold?: boolean;
@@ -23,6 +25,8 @@ export const Cell = defineComponent<CellProps>((props) => {
       {
         justifySelf: props.xAlign,
         alignSelf: props.yAlign,
+        color: props.color,
+        "-webkit-text-stroke": props.textStroke,
       },
     ];
 

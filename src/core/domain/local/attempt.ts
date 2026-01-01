@@ -23,6 +23,7 @@ export const AttemptSchema = v.pipe(
         raw: splitStorage,
         time: Time.parse(splitStorage.time),
         accumulatedTime: accumulatedTime,
+        prettyAccumulatedTime: Time.format(accumulatedTime),
       };
     });
 
