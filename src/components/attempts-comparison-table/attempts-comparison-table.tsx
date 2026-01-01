@@ -10,6 +10,29 @@ import { VerticalDivider } from "../grid-utilities/vertical-divider";
 import { defineComponent } from "../../core/helpers/solid-js";
 import { isDefined } from "remeda";
 
+const aTime: Partial<CellProps> = {
+  mono: true,
+  xAlign: "right",
+};
+
+const aLastColumn: Partial<CellProps> = {
+  extraPadding: "right",
+};
+
+const aFirstColumn: Partial<CellProps> = {
+  xAlign: "left",
+  extraPadding: "left",
+};
+
+const aTitle: Partial<CellProps> = {
+  bold: true,
+};
+
+const aType: Partial<CellProps> = {
+  xAlign: "center",
+  bold: true,
+};
+
 interface AttemptsComparisonTableProps {
   last: Attempt;
   referenceRecords: ReferenceRecords;
@@ -24,29 +47,6 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
   const track = createMemo(() => props.last.raw.track ?? "No track");
   const laps = createMemo(() => props.last.raw.laps ?? 0);
   const gridColumns = createMemo(() => laps() + 6);
-
-  const aTime: Partial<CellProps> = {
-    mono: true,
-    xAlign: "right",
-  };
-
-  const aLastColumn: Partial<CellProps> = {
-    extraPadding: "right",
-  };
-
-  const aFirstColumn: Partial<CellProps> = {
-    xAlign: "left",
-    extraPadding: "left",
-  };
-
-  const aTitle: Partial<CellProps> = {
-    bold: true,
-  };
-
-  const aType: Partial<CellProps> = {
-    xAlign: "center",
-    bold: true,
-  };
 
   const delta = (
     last: Attempt,
