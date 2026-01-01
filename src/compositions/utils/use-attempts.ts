@@ -20,6 +20,7 @@ import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
 import type { Store } from "solid-js/store";
+import { Time } from "../../recognitions/time/time";
 import { createMemo } from "solid-js";
 
 function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
@@ -68,11 +69,43 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
       (attempts) => getRecordsByTime(attempts),
     );
 
-  const getSplitRecordsByTrack = (track: string, split: number): Array<Attempt> =>
+  const getSplitRecordByTrack = (track: string): Array<Attempt> =>
     pipe(
       attempts(),
       filter((attempt) => attempt.raw.track === track),
-      (attempts) => getRecordsBySplitTime(attempts, split),
+      (attempts) => {
+        const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
+
+        const attemptStorage: AttemptStorage = {
+          timestamp: 0,
+          player: "🫵🏻 Splits Best",
+          splits: [],
+          laps: laps,
+          track: track,
+        };
+
+        for (let sIndex = 0; sIndex < laps; sIndex = sIndex + 1) {
+          // Take the first, this is an arbitrary choice.
+          const record = getRecordsBySplitTime(attempts, sIndex + 1).at(0)?.raw;
+          const splitRecord = record?.splits.at(sIndex);
+          if (record && splitRecord) {
+            attemptStorage.splits.push(splitRecord);
+            attemptStorage.timestamp = attemptStorage.timestamp + record.timestamp;
+          }
+        }
+
+        attemptStorage.coins = attemptStorage.splits.reduce((acc, split) => acc + split.coins, 0);
+        attemptStorage.time = Time.format(
+          attemptStorage.splits.reduce((acc, split) => acc + Time.parse(split.time), 0),
+        );
+        attemptStorage.timestamp = Math.round(attemptStorage.timestamp / 3);
+
+        if (attemptStorage.splits.length === 0) {
+          return [];
+        }
+
+        return [v.parse(AttemptSchema, attemptStorage)];
+      },
     );
 
   const getFlattenRecords = (): Array<AttemptStorage> =>
@@ -102,7 +135,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
     tracks,
     getTimeRecords,
     getTimeRecordsByTrack,
-    getSplitRecordsByTrack,
+    getSplitRecordByTrack,
     getFlattenRecords,
   };
 }

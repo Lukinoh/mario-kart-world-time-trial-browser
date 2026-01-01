@@ -32,9 +32,10 @@ function useStorageSingleton() {
 
   const getReferenceRecords = (track: string): ReferenceRecords => {
     return [
-      ["PB", personal.getTimeRecordsByTrack(track)],
+      ["SB", personal.getSplitRecordByTrack(track)],
       ["WR", worldRecords.getTimeRecordsByTrack(track)],
-      ["FB", friends.getTimeRecordsByTrack(track)],
+      ["FR", friends.getTimeRecordsByTrack(track)],
+      ["PB", personal.getTimeRecordsByTrack(track)],
     ];
   };
 

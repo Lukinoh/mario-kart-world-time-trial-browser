@@ -175,21 +175,23 @@ describe("getTimeRecordsByTrack", () => {
   });
 });
 
-describe("getSplitRecordsByTrack", () => {
+describe("getSplitRecordByTrack", () => {
   test("returns empty array if no split records by track is found", () => {
-    const { getSplitRecordsByTrack } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
-    expect(getSplitRecordsByTrack("A", 1)).toStrictEqual([]);
+    const { getSplitRecordByTrack } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
+    expect(getSplitRecordByTrack("A")).toStrictEqual([]);
   });
 
   test("returns the split records for a specific track", () => {
     const splitRecordAttempt_1 = createAttempt({
       track: "A",
+      laps: 2,
       splits: createSplits({
         time: "1:10.000",
       }),
     });
     const splitRecordAttempt_2 = createAttempt({
       track: "A",
+      laps: 2,
       splits: createSplits(
         {
           time: "9:00.000",
@@ -201,6 +203,7 @@ describe("getSplitRecordsByTrack", () => {
     });
     const splitRecordAttempt_3 = createAttempt({
       track: "A",
+      laps: 2,
       splits: createSplits(
         {
           time: "1:10.000",
@@ -211,7 +214,7 @@ describe("getSplitRecordsByTrack", () => {
       ),
     });
 
-    const { getSplitRecordsByTrack } = createRoot(() =>
+    const { getSplitRecordByTrack } = createRoot(() =>
       useAttempts({
         version: 1,
         attempts: createAttempts(
@@ -244,12 +247,9 @@ describe("getSplitRecordsByTrack", () => {
       }),
     );
 
-    const splitRecordsByTrack_A1 = toStorage(getSplitRecordsByTrack("A", 1));
-    const splitRecordsByTrack_A2 = toStorage(getSplitRecordsByTrack("A", 2));
-    const splitRecordsByTrack_A3 = toStorage(getSplitRecordsByTrack("A", 3));
-    expect(splitRecordsByTrack_A1).toStrictEqual([splitRecordAttempt_1, splitRecordAttempt_3]);
-    expect(splitRecordsByTrack_A2).toStrictEqual([splitRecordAttempt_2]);
-    expect(splitRecordsByTrack_A3).toStrictEqual([]);
+    const splitRecordsByTrack = toStorage(getSplitRecordByTrack("A")).at(0);
+    expect(splitRecordsByTrack?.splits.at(0)).toStrictEqual(splitRecordAttempt_1.splits.at(0));
+    expect(splitRecordsByTrack?.splits.at(1)).toStrictEqual(splitRecordAttempt_2.splits.at(1));
   });
 });
 
