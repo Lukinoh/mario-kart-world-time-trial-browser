@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { map, pipe } from "remeda";
+import type { Attempt } from "../../core/domain/local/attempt";
 import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import type { SplitStorage } from "../../core/domain/types/split-storage";
 import { createRoot } from "solid-js";
@@ -9,7 +10,7 @@ describe("attempts", () => {
   test("returns the lists of attempts", () => {
     const input: Array<AttemptStorage> = [];
     const { attempts } = createRoot(() => useAttempts({ version: 1, attempts: input }));
-    expect(attempts()).toBe(input);
+    expect(attempts()).toStrictEqual(input);
   });
 });
 
@@ -67,7 +68,7 @@ describe("lastAttempt", () => {
         ),
       }),
     );
-    expect(lastAttempt()?.player).toBe("Last Attempt");
+    expect(lastAttempt()?.raw.player).toBe("Last Attempt");
   });
 });
 
@@ -106,7 +107,7 @@ describe("getTimeRecords", () => {
         ),
       }),
     );
-    const timeRecords = getTimeRecords();
+    const timeRecords = toStorage(getTimeRecords());
     expect(timeRecords).toStrictEqual([recordAttempt_A, recordAttempt_B]);
   });
 
@@ -115,7 +116,7 @@ describe("getTimeRecords", () => {
     const attemptTwo = createAttempt({ track: "A", time: "1:00.000", player: "Attempt Two" });
 
     const { getTimeRecords } = createRoot(() => useAttempts({ version: 1, attempts: [attemptOne, attemptTwo] }));
-    const timeRecords = getTimeRecords();
+    const timeRecords = toStorage(getTimeRecords());
 
     expect(timeRecords).toStrictEqual([attemptOne, attemptTwo]);
   });
@@ -158,7 +159,8 @@ describe("getTimeRecordsByTrack", () => {
         ),
       }),
     );
-    expect(getTimeRecordsByTrack("A")).toStrictEqual([recordAttempt_A1, recordAttempt_A2]);
+    const timeRecordsByTrack = toStorage(getTimeRecordsByTrack("A"));
+    expect(timeRecordsByTrack).toStrictEqual([recordAttempt_A1, recordAttempt_A2]);
   });
 
   test("returns two time records if same time, but not same attempt", () => {
@@ -166,7 +168,7 @@ describe("getTimeRecordsByTrack", () => {
     const attemptTwo = createAttempt({ track: "A", time: "1:00.000", player: "Attempt Two" });
 
     const { getTimeRecordsByTrack } = createRoot(() => useAttempts({ version: 1, attempts: [attemptOne, attemptTwo] }));
-    const timeRecords = getTimeRecordsByTrack("A");
+    const timeRecords = toStorage(getTimeRecordsByTrack("A"));
 
     expect(timeRecords).toStrictEqual([attemptOne, attemptTwo]);
     expect(timeRecords).length(2);
@@ -242,9 +244,12 @@ describe("getSplitRecordsByTrack", () => {
       }),
     );
 
-    expect(getSplitRecordsByTrack("A", 1)).toStrictEqual([splitRecordAttempt_1, splitRecordAttempt_3]);
-    expect(getSplitRecordsByTrack("A", 2)).toStrictEqual([splitRecordAttempt_2]);
-    expect(getSplitRecordsByTrack("A", 3)).toStrictEqual([]);
+    const splitRecordsByTrack_A1 = toStorage(getSplitRecordsByTrack("A", 1));
+    const splitRecordsByTrack_A2 = toStorage(getSplitRecordsByTrack("A", 2));
+    const splitRecordsByTrack_A3 = toStorage(getSplitRecordsByTrack("A", 3));
+    expect(splitRecordsByTrack_A1).toStrictEqual([splitRecordAttempt_1, splitRecordAttempt_3]);
+    expect(splitRecordsByTrack_A2).toStrictEqual([splitRecordAttempt_2]);
+    expect(splitRecordsByTrack_A3).toStrictEqual([]);
   });
 });
 
@@ -339,4 +344,8 @@ function createSplits(...splits: Array<Partial<SplitStorage>>): Array<SplitStora
       };
     }),
   );
+}
+
+function toStorage(attempts: Array<Attempt>): Array<AttemptStorage> {
+  return attempts.map((attempt) => attempt.raw);
 }

@@ -1,3 +1,5 @@
+import * as v from "valibot";
+import { type Attempt, AttemptSchema } from "../../core/domain/local/attempt";
 import {
   entries,
   filter,
@@ -20,66 +22,67 @@ import type { Brand } from "../../core/helpers/brand";
 import type { Store } from "solid-js/store";
 import { createMemo } from "solid-js";
 
-function getRecordsBy<T extends AttemptStorage>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
+function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
   return pipe(
     attempts,
     groupBy(by),
     entries(),
-    firstBy(([time]) => time),
+    firstBy(([value]) => value),
     (best) => best ?? [],
     last(),
     (result) => result ?? [],
   );
 }
 
-const getRecordsByTime = (attempts: Array<AttemptStorage>): Array<AttemptStorage> =>
-  getRecordsBy(attempts, (attempt) => attempt.time);
+const getRecordsByTime = (attempts: Array<Attempt>): Array<Attempt> =>
+  getRecordsBy(attempts, (attempt) => attempt.raw.time);
 
-const getRecordsBySplitTime = (attempts: Array<AttemptStorage>, split: number): Array<AttemptStorage> =>
-  getRecordsBy(attempts, (attempt) => attempt.splits.at(split - 1)?.time);
+const getRecordsBySplitTime = (attempts: Array<Attempt>, split: number): Array<Attempt> =>
+  getRecordsBy(attempts, (attempt) => attempt.splits.at(split - 1)?.raw.time);
+
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAttemptsFactory(store: Store<AttemptsStorage>) {
-  const attempts = createMemo(() => store.attempts);
+  const attempts = createMemo(() => store.attempts.map((attempt) => v.parse(AttemptSchema, attempt)));
   const lastAttempt = createMemo(() => attempts().at(0));
   const tracks = createMemo(() =>
     pipe(
       attempts(),
-      map((attempt) => attempt.track),
+      map((attempt) => attempt.raw.track),
       unique(),
       sortBy(String),
     ),
   );
 
-  const getTimeRecords = (): Array<AttemptStorage> =>
+  const getTimeRecords = (): Array<Attempt> =>
     pipe(
       attempts(),
-      groupBy((attempt) => attempt.track),
+      groupBy((attempt) => attempt.raw.track),
       values(),
       flatMap((attempts) => getRecordsByTime(attempts)),
     );
 
-  const getTimeRecordsByTrack = (track: string): Array<AttemptStorage> =>
+  const getTimeRecordsByTrack = (track: string): Array<Attempt> =>
     pipe(
       attempts(),
-      filter((attempt) => attempt.track === track),
+      filter((attempt) => attempt.raw.track === track),
       (attempts) => getRecordsByTime(attempts),
     );
 
-  const getSplitRecordsByTrack = (track: string, split: number): Array<AttemptStorage> =>
+  const getSplitRecordsByTrack = (track: string, split: number): Array<Attempt> =>
     pipe(
       attempts(),
-      filter((attempt) => attempt.track === track),
+      filter((attempt) => attempt.raw.track === track),
       (attempts) => getRecordsBySplitTime(attempts, split),
     );
 
   const getFlattenRecords = (): Array<AttemptStorage> =>
     pipe(
       attempts(),
-      groupBy((attempt) => attempt.track),
+      groupBy((attempt) => attempt.raw.track),
       values(),
       flatMap((attempts) => {
-        const meaningfullyAttempts: Array<AttemptStorage> = [];
-        const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.laps), 0);
+        const meaningfullyAttempts: Array<Attempt> = [];
+        const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
         meaningfullyAttempts.push(...getRecordsByTime(attempts));
 
         for (let split = 1; split <= laps; split = split + 1) {
@@ -88,6 +91,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
 
         return meaningfullyAttempts;
       }),
+      map((attempt) => attempt.raw),
       uniqueWith(isDeepEqual),
       sortBy((attempt) => attempt.timestamp),
     );

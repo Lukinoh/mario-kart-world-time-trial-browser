@@ -20,7 +20,7 @@ function usePersonalStorageSingleton() {
   const { attempts, lastAttempt, getFlattenRecords, getTimeRecords } = useAttempts(store);
 
   const upsertAttempt = (newAttempt: AttemptStorage): void => {
-    const index = attempts().findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
+    const index = store.attempts.findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
 
     setStore(
       produce((store) => {
@@ -43,7 +43,7 @@ function usePersonalStorageSingleton() {
   const downloadForFriends = (): void => {
     JSONUtils.download<AttemptsStorage>(`${key}-for-friends`, {
       version: store.version,
-      attempts: getTimeRecords(),
+      attempts: getTimeRecords().map((attempt) => attempt.raw),
     });
   };
 

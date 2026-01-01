@@ -6,7 +6,7 @@ import { useStorage } from "../compositions/storage/use-storage";
 export const Live = defineComponent<ViewProps>((props) => {
   const storage = useStorage();
 
-  const selectedTrack = createMemo(() => storage.personal.lastAttempt()?.track);
+  const selectedTrack = createMemo(() => storage.personal.lastAttempt()?.raw.track);
 
   onMount(() => {
     props.setTitle("Live");
