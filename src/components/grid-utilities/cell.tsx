@@ -1,5 +1,5 @@
 import type { CSSInterpolation, CSSObject } from "@emotion/css/create-instance";
-import { capitalize } from "remeda";
+import { capitalize, isDefined, isTruthy } from "remeda";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../core/helpers/solid-js";
 import { span } from "../../core/helpers/css";
@@ -24,7 +24,7 @@ export const Cell = defineComponent<CellProps>((props) => {
     },
   ];
 
-  if (props.bold ?? false) {
+  if (isTruthy(props.bold)) {
     cssList.push({
       fontWeight: "bold",
     });
@@ -36,9 +36,16 @@ export const Cell = defineComponent<CellProps>((props) => {
     });
   }
 
-  if (props.mono ?? false) {
+  if (isTruthy(props.mono)) {
     cssList.push({
       fontFamily: "var(--mono-font)",
+    });
+  }
+
+  if (!isDefined(props.text)) {
+    cssList.push({
+      justifySelf: "center",
+      alignSelf: "center",
     });
   }
 

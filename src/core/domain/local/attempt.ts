@@ -3,13 +3,14 @@ import { AttemptStorageSchema } from "../types/attempt-storage";
 import { Time } from "../../../recognitions/time/time";
 import { format } from "date-and-time";
 import { generateArray } from "../../helpers/generate-array";
+import { isDefined } from "remeda";
 
 export const AttemptSchema = v.pipe(
   AttemptStorageSchema,
   v.transform((attemptStorage) => {
     const date = format(new Date(attemptStorage.timestamp), "YYYY.MM.DD");
     const datetime = format(new Date(attemptStorage.timestamp), "HH:mm:ss");
-    const time = attemptStorage.time === undefined ? undefined : Time.parse(attemptStorage.time);
+    const time = isDefined(attemptStorage.time) ? Time.parse(attemptStorage.time) : undefined;
     const laps = generateArray(attemptStorage.laps);
     const rowSplits = attemptStorage.laps * 2 - 1;
 
