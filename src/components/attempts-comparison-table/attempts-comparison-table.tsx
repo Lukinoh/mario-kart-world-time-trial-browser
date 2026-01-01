@@ -1,15 +1,13 @@
 import { Cell, type CellProps } from "../grid-utilities/cell";
 import { For, Show, createMemo } from "solid-js";
-import { MINUS, PLUS, PLUS_OR_MINUS } from "../../core/characters";
 import type { Attempt } from "../../core/domain/local/attempt";
 import { DeltaCell } from "./delta-cell";
 import { GridColumn } from "../grid-utilities/grid-column";
 import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
 import type { ReferenceRecords } from "../../core/domain/types/reference-records";
-import { Time } from "../../recognitions/time/time";
 import { VerticalDivider } from "../grid-utilities/vertical-divider";
 import { defineComponent } from "../../core/helpers/solid-js";
-import { isDefined } from "remeda";
+import { delta } from "../../core/helpers/delta";
 
 const aTime: Partial<CellProps> = {
   mono: true,
@@ -47,40 +45,6 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
   const track = createMemo(() => props.last.raw.track ?? "No track");
   const laps = createMemo(() => props.last.raw.laps ?? 0);
   const gridColumns = createMemo(() => laps() + 6);
-
-  const delta = (
-    last: Attempt,
-    reference: Attempt,
-    sIndex: number,
-    type: "time" | "accumulatedTime",
-  ): string | undefined => {
-    const lastTime = last.splits.at(sIndex)?.[type];
-    const referenceTime = reference.splits.at(sIndex)?.[type];
-
-    return diffCalc(lastTime, referenceTime);
-  };
-
-  const diffCalc = (lastTime: number | undefined, referenceTime: number | undefined): string | undefined => {
-    if (!isDefined(lastTime) || !isDefined(referenceTime)) {
-      return undefined;
-    }
-
-    const difference = lastTime - referenceTime;
-    const sign = Math.sign(difference);
-    const value = Math.abs(difference);
-
-    let signCharacter = PLUS_OR_MINUS;
-
-    if (sign < 0) {
-      signCharacter = MINUS;
-    }
-
-    if (sign > 0) {
-      signCharacter = PLUS;
-    }
-
-    return signCharacter + Time.format(value);
-  };
 
   return (
     <GridColumn template={`repeat(${gridColumns()}, max-content)`} xAlign="center" yAlign="center">
