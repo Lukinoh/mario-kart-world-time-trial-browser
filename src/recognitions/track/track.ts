@@ -1,4 +1,5 @@
 import { TrackRecognitionOptions, TrackRegion } from "./track-configuration";
+import type { DebugPutImageData } from "../../core/domain/types/debug-put-image-data";
 import type { EnhancedImageData } from "../../tools/image/enhanced-image-data";
 import { createImageRecognition } from "../../tools/image/image-recognition";
 import { loadImages } from "../../tools/image/image-loader";
@@ -11,9 +12,9 @@ const images = await loadImages(
 const TrackRecognition = createImageRecognition(images, TrackRecognitionOptions);
 
 export const Track = {
-  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
+  get(image: EnhancedImageData, putImageData?: DebugPutImageData): string {
     return pipe(TrackRecognition.getMatch(image, TrackRegion), (match) => {
-      putImageData?.(match.value, ...TrackRegion.putImageData());
+      putImageData?.(TrackRecognitionOptions, match.value, ...TrackRegion.putImageData());
       return match.filename;
     });
   },

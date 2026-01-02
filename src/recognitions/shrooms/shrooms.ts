@@ -1,4 +1,5 @@
 import { ShroomsRecognitionOptions, ShroomsRegion } from "./shrooms-configuration";
+import type { DebugPutImageData } from "../../core/domain/types/debug-put-image-data";
 import type { EnhancedImageData } from "../../tools/image/enhanced-image-data";
 import { createImageRecognition } from "../../tools/image/image-recognition";
 import { loadImages } from "../../tools/image/image-loader";
@@ -11,12 +12,12 @@ const images = await loadImages(
 const ShroomsRecognition = createImageRecognition(images, ShroomsRecognitionOptions);
 
 export const Shrooms = {
-  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
+  get(image: EnhancedImageData, putImageData?: DebugPutImageData): string {
     return pipe(ShroomsRecognition.getMatch(image, ShroomsRegion), (match) => {
       if (match.score < 0.3) {
         return "0";
       }
-      putImageData?.(match.value, ...ShroomsRegion.putImageData());
+      putImageData?.(ShroomsRecognitionOptions, match.value, ...ShroomsRegion.putImageData());
       return `${match.filename.at(0)}`;
     });
   },

@@ -1,4 +1,5 @@
 import "./canvas-shim";
+import "./location-shim";
 import { type NormaliseOptions, normalise } from "./normalise";
 import { map, pipe } from "remeda";
 import { mkdirSync, readdirSync, rmSync } from "node:fs";
@@ -35,3 +36,11 @@ export function normaliseImages(options: NormaliseImagesOptions): Plugin {
     },
   };
 }
+
+export { CoinsRecognitionOptions } from "../../src/recognitions/coins/coins-configuration";
+export { LapRecognitionOptions } from "../../src/recognitions/lap/lap-configuration";
+export { LapsRecognitionOptions } from "../../src/recognitions/laps/laps-configuration";
+export { PauseRecognitionOptions } from "../../src/recognitions/pause/pause-configuration";
+export { ShroomsRecognitionOptions } from "../../src/recognitions/shrooms/shrooms-configuration";
+export { TimeRecognitionOptions } from "../../src/recognitions/time/time-configuration";
+export { TrackRecognitionOptions } from "../../src/recognitions/track/track-configuration";

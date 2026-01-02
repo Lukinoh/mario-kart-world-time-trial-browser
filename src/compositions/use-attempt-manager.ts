@@ -1,6 +1,7 @@
 import type { AttemptStorage } from "../core/domain/types/attempt-storage";
 import type { Brand } from "../core/helpers/brand";
 import { Coins } from "../recognitions/coins/coins";
+import type { DebugPutImageData } from "../core/domain/types/debug-put-image-data";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
 import { Lap } from "../recognitions/lap/lap";
 import { Laps } from "../recognitions/laps/laps";
@@ -29,10 +30,7 @@ function useAttemptManagerFactory() {
   /**
    * Returns an AttemptStorage object only if there was a creation or an update of an AttemptStorage
    */
-  const update = (
-    image: EnhancedImageData,
-    putImageData?: CanvasImageData["putImageData"],
-  ): AttemptStorage | undefined => {
+  const update = (image: EnhancedImageData, putImageData?: DebugPutImageData): AttemptStorage | undefined => {
     const time = Time.get(image, putImageData);
     const lap = Lap.get(image, putImageData);
     const coins = Coins.get(image, putImageData);

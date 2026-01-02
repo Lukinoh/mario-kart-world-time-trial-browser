@@ -1,7 +1,11 @@
 import { clearTimeout, setTimeout } from "worker-timers";
 import { createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../core/helpers/brand";
+import type { DebugPutImageData } from "../core/domain/types/debug-put-image-data";
 import { EnhancedImageData } from "../tools/image/enhanced-image-data";
+import { Environment } from "../core/environment";
+import { ImageFilters } from "../tools/image/image-filters";
+import type { ImageNormaliserOptions } from "../tools/image/image-normaliser";
 import { useAttemptManager } from "./use-attempt-manager";
 import { usePersonalStorage } from "./storage/use-personal-storage";
 import { useVideoCanvas } from "./utils/use-video-canvas";
@@ -15,8 +19,26 @@ function useTimeTrialFactory() {
   const vc = useVideoCanvas();
   const manager = useAttemptManager();
   const personalStorage = usePersonalStorage();
+  let debugPutImageData: undefined | DebugPutImageData = undefined;
 
   onMount(() => {
+    if (Environment.isDebug) {
+      debugPutImageData = (
+        imageNormaliserOptions: ImageNormaliserOptions,
+        imageData: ImageData,
+        dx: number,
+        dy: number,
+      ): void => {
+        let image = EnhancedImageData.from(imageData);
+        if (imageNormaliserOptions.filter === ImageFilters.identity) {
+          image = EnhancedImageData.clone(imageData);
+          ImageFilters.invert(image);
+        }
+
+        vc.putImageData(image, dx, dy);
+      };
+    }
+
     vc.addEventListener("canplay", () => {
       setState("PAUSED");
     });
@@ -51,7 +73,7 @@ function useTimeTrialFactory() {
   const processFrame = (): void => {
     const start = performance.now();
     const image = EnhancedImageData.from(vc.getImageData());
-    const attempt = manager.update(image, vc.putImageData);
+    const attempt = manager.update(image, debugPutImageData);
 
     if (attempt) {
       attempt.player = personalStorage.player();

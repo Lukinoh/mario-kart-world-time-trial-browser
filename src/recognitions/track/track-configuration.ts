@@ -8,6 +8,6 @@ export const TrackRegion = new Box(325, 1280, 680, 977);
 export const TrackRecognitionOptions: ImageRecognitionOptions = {
   identifier: "track",
   region: TrackRegion,
-  filter: ImageFilters.invert,
+  filter: ImageFilters.identity,
   comparison: ImageSimilarity.hitchhikersSSIM(),
 };

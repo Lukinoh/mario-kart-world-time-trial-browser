@@ -1,11 +1,11 @@
 import { Show, onMount } from "solid-js";
 import { CaptureButton } from "./capture-button";
+import { Environment } from "../../core/environment";
 import { GridColumn } from "../grid-utilities/grid-column";
 import { TextInput } from "../text-input";
 import type { TimeTrial } from "../../compositions/use-time-trial";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../core/helpers/solid-js";
-import demoVideo from "../../assets/demo/demo.webm";
 import { fileUpload } from "../../core/helpers/file-upload";
 
 const sOptionsZone = css({
@@ -47,7 +47,6 @@ const sVideoCanvas = css({
 
 interface TimeTrialPlayerProps {
   timeTrial: TimeTrial;
-  isDebug: boolean;
 }
 
 export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => {
@@ -57,8 +56,9 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
   let fileRadio!: HTMLInputElement;
 
   onMount(async () => {
-    if (props.isDebug) {
-      props.timeTrial.fromUrl(demoVideo);
+    if (import.meta.env.DEV && Environment.isDebug) {
+      const demoVideo = await import("../../assets/demo/demo.webm");
+      props.timeTrial.fromUrl(demoVideo.default);
     } else {
       await onCameraRadio();
     }
@@ -104,7 +104,7 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
       </div>
       <div class={sVideoCanvas}>
         <div>{props.timeTrial.video}</div>
-        <Show when={props.isDebug}>{props.timeTrial.canvas}</Show>
+        <Show when={Environment.isDebug}>{props.timeTrial.canvas}</Show>
       </div>
     </GridColumn>
   );
