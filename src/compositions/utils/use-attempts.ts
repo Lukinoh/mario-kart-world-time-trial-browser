@@ -97,15 +97,18 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
           }
         }
 
-        attemptStorage.coins = attemptStorage.splits.reduce((acc, split) => acc + split.coins, 0);
-        attemptStorage.time = Time.format(
-          attemptStorage.splits.reduce((acc, split) => acc + Time.parse(split.time), 0),
-        );
-        attemptStorage.timestamp = Math.round(attemptStorage.timestamp / 3);
-
         if (attemptStorage.splits.length === 0) {
           return [];
         }
+
+        if (attemptStorage.splits.length === laps) {
+          attemptStorage.coins = attemptStorage.splits.reduce((acc, split) => acc + split.coins, 0);
+          attemptStorage.time = Time.format(
+            attemptStorage.splits.reduce((acc, split) => acc + Time.parse(split.time), 0),
+          );
+        }
+
+        attemptStorage.timestamp = Math.round(attemptStorage.timestamp / attemptStorage.splits.length);
 
         return [v.parse(AttemptSchema, attemptStorage)];
       },
