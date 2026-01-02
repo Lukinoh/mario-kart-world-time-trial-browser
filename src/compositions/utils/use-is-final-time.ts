@@ -1,9 +1,7 @@
 import type { Brand } from "../../core/helpers/brand";
 
-const ELAPSED_BEFORE_BEING_FINAL_MS = 900;
-
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function useIsFinalTimeFactory() {
+function useIsFinalTimeFactory(beforeFinalMs: number) {
   let lastTime: string | undefined = undefined;
   let lastTimestamp = Number.POSITIVE_INFINITY;
 
@@ -25,7 +23,7 @@ function useIsFinalTimeFactory() {
     // If time is the same, check if 1 second has passed
     const elapsed = now - lastTimestamp;
     // The value should not be hardcode, but depends on the speed of the video
-    if (elapsed > ELAPSED_BEFORE_BEING_FINAL_MS) {
+    if (elapsed > beforeFinalMs) {
       lastTime = undefined;
       lastTimestamp = Number.POSITIVE_INFINITY;
       return true;

@@ -18,12 +18,13 @@ enum STATE {
 }
 
 const MINIMUM_TIME_BEFORE_NEXT_RESET_MS = 4500;
+const ELAPSED_BEFORE_BEING_FINAL_MS = 1000;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAttemptManagerFactory() {
   let state: STATE = STATE.WAITING_ATTEMPT;
   let attempt = createAttemptHandler("Search for...", "?");
-  const { isFinalTime } = useIsFinalTime();
+  const { isFinalTime } = useIsFinalTime(ELAPSED_BEFORE_BEING_FINAL_MS);
 
   /**
    * Returns an AttemptStorage object only if there was a creation or an update of an AttemptStorage
