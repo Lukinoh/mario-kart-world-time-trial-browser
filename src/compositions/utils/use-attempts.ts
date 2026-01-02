@@ -78,7 +78,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
 
         const attemptStorage: AttemptStorage = {
           timestamp: 0,
-          player: "🫵🏻 Splits Best",
+          player: "Best 🫵🏻 Splits",
           splits: [],
           laps: laps,
           track: track,
