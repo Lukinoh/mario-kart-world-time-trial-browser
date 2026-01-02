@@ -31,12 +31,12 @@ function useStorageSingleton() {
   };
 
   const getReferenceRecords = (track: string): ReferenceRecords => {
-    return [
-      ["BPS", personal.getSplitRecordByTrack(track)],
-      ["WR", worldRecords.getTimeRecordsByTrack(track)],
-      ["FR", friends.getTimeRecordsByTrack(track)],
-      ["PB", personal.getTimeRecordsByTrack(track)],
-    ];
+    return {
+      BPS: personal.getSplitRecordByTrack(track, true),
+      WR: worldRecords.getTimeRecordsByTrack(track),
+      FR: friends.getTimeRecordsByTrack(track),
+      PB: personal.getTimeRecordsByTrack(track, true),
+    };
   };
 
   return {

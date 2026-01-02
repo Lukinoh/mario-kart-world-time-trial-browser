@@ -1,6 +1,7 @@
 import * as v from "valibot";
 import { type Attempt, AttemptSchema } from "../../core/domain/local/attempt";
 import {
+  drop,
   entries,
   filter,
   firstBy,
@@ -62,16 +63,18 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
       flatMap((attempts) => getRecordsByTime(attempts)),
     );
 
-  const getTimeRecordsByTrack = (track: string): Array<Attempt> =>
+  const getTimeRecordsByTrack = (track: string, ignoreFirst?: boolean): Array<Attempt> =>
     pipe(
       attempts(),
+      drop(Number(ignoreFirst ?? false)),
       filter((attempt) => attempt.raw.track === track),
       (attempts) => getRecordsByTime(attempts),
     );
 
-  const getSplitRecordByTrack = (track: string): Array<Attempt> =>
+  const getSplitRecordByTrack = (track: string, ignoreFirst?: boolean): Array<Attempt> =>
     pipe(
       attempts(),
+      drop(Number(ignoreFirst ?? false)),
       filter((attempt) => attempt.raw.track === track),
       (attempts) => {
         const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);

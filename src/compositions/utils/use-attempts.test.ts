@@ -161,6 +161,9 @@ describe("getTimeRecordsByTrack", () => {
     );
     const timeRecordsByTrack = toStorage(getTimeRecordsByTrack("A"));
     expect(timeRecordsByTrack).toStrictEqual([recordAttempt_A1, recordAttempt_A2]);
+
+    const timeRecordsByTrackIgnoreFirst = toStorage(getTimeRecordsByTrack("A", true));
+    expect(timeRecordsByTrackIgnoreFirst).toStrictEqual([recordAttempt_A2]);
   });
 
   test("returns two time records if same time, but not same attempt", () => {
@@ -187,6 +190,7 @@ describe("getSplitRecordByTrack", () => {
       laps: 2,
       splits: createSplits({
         time: "1:10.000",
+        coins: 1,
       }),
     });
     const splitRecordAttempt_2 = createAttempt({
@@ -207,6 +211,7 @@ describe("getSplitRecordByTrack", () => {
       splits: createSplits(
         {
           time: "1:10.000",
+          coins: 2,
         },
         {
           time: "9:00.000",
@@ -250,6 +255,10 @@ describe("getSplitRecordByTrack", () => {
     const splitRecordsByTrack = toStorage(getSplitRecordByTrack("A")).at(0);
     expect(splitRecordsByTrack?.splits.at(0)).toStrictEqual(splitRecordAttempt_1.splits.at(0));
     expect(splitRecordsByTrack?.splits.at(1)).toStrictEqual(splitRecordAttempt_2.splits.at(1));
+
+    const splitRecordsByTrackIgnoreFirst = toStorage(getSplitRecordByTrack("A", true)).at(0);
+    expect(splitRecordsByTrackIgnoreFirst?.splits.at(0)).toStrictEqual(splitRecordAttempt_3.splits.at(0));
+    expect(splitRecordsByTrackIgnoreFirst?.splits.at(1)).toStrictEqual(splitRecordAttempt_2.splits.at(1));
   });
 });
 

@@ -16,7 +16,8 @@ export const Live = defineComponent<ViewProps>((props) => {
 
   return (
     <>
-      <h2>Comparison</h2>
+      <h2>{selectedTrack()}</h2>
+      <h3>Comparison</h3>
       <Switch>
         <Match when={storage.personal.lastAttempt()}>
           {(last) => (
@@ -30,7 +31,7 @@ export const Live = defineComponent<ViewProps>((props) => {
           <p>You need at least one attempt to display the comparison table.</p>
         </Match>
       </Switch>
-      <h2>Last 7 attempts</h2>
+      <h3>Last 7 attempts</h3>
       <AttemptsTable
         attempts={storage.personal.attempts()}
         defaultTrack={selectedTrack()}

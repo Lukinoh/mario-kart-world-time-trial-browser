@@ -2,12 +2,14 @@ import { Cell, type CellProps } from "../grid-utilities/cell";
 import { For, Show, createMemo } from "solid-js";
 import type { Attempt } from "../../core/domain/local/attempt";
 import { DeltaCell } from "./delta-cell";
+import { F1Cell } from "./f1-cell";
 import { GridColumn } from "../grid-utilities/grid-column";
 import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
 import type { ReferenceRecords } from "../../core/domain/types/reference-records";
 import { VerticalDivider } from "../grid-utilities/vertical-divider";
 import { defineComponent } from "../../core/helpers/solid-js";
 import { delta } from "../../core/helpers/delta";
+import { entries } from "remeda";
 
 const aTime: Partial<CellProps> = {
   mono: true,
@@ -61,10 +63,13 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
       <Cell row={GRID_THIRD_ROW} text="️️S" />
       <For each={props.last.laps}>
         {(_, sIndex) => (
-          <Cell
+          <F1Cell
             {...aTime}
             row={sIndex() === 0 ? GRID_FULL_ROW : GRID_THIRD_ROW}
-            text={props.last.splits.at(sIndex())?.raw.time}
+            attempt={props.last}
+            sIndex={sIndex()}
+            type="time"
+            referencesRecords={props.referenceRecords}
           />
         )}
       </For>
@@ -81,14 +86,21 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
       <For each={props.last.laps}>
         {(_, sIndex) => (
           <Show when={sIndex() > 0}>
-            <Cell {...aTime} row={GRID_THIRD_ROW} text={props.last.splits.at(sIndex())?.prettyAccumulatedTime} />
+            <F1Cell
+              {...aTime}
+              row={GRID_THIRD_ROW}
+              attempt={props.last}
+              sIndex={sIndex()}
+              type="accumulatedTime"
+              referencesRecords={props.referenceRecords}
+            />
           </Show>
         )}
       </For>
 
       <HorizontalDivider column={gridColumns()} thicknessFactor={2} />
 
-      <For each={props.referenceRecords}>
+      <For each={entries(props.referenceRecords)}>
         {([type, references]) => (
           <For each={references}>
             {(reference) => (

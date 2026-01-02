@@ -1,3 +1,8 @@
 import type { Attempt } from "../local/attempt";
 
-export type ReferenceRecords = Array<[type: string, references: Array<Attempt>]>;
+export interface ReferenceRecords {
+  BPS?: Array<Attempt>;
+  WR?: Array<Attempt>;
+  FR?: Array<Attempt>;
+  PB?: Array<Attempt>;
+}
