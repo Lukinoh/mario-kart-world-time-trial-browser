@@ -39,8 +39,8 @@ function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<type
 const getRecordsByTime = (attempts: Array<Attempt>): Array<Attempt> =>
   getRecordsBy(attempts, (attempt) => attempt.raw.time);
 
-const getRecordsBySplitTime = (attempts: Array<Attempt>, split: number): Array<Attempt> =>
-  getRecordsBy(attempts, (attempt) => attempt.splits.at(split - 1)?.raw.time);
+const getRecordsBySplitTime = (attempts: Array<Attempt>, sIndex: number): Array<Attempt> =>
+  getRecordsBy(attempts, (attempt) => attempt.splits.at(sIndex)?.raw.time);
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAttemptsFactory(store: Store<AttemptsStorage>) {
@@ -89,7 +89,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
 
         for (let sIndex = 0; sIndex < laps; sIndex = sIndex + 1) {
           // Take the first, this is an arbitrary choice.
-          const record = getRecordsBySplitTime(attempts, sIndex + 1).at(0)?.raw;
+          const record = getRecordsBySplitTime(attempts, sIndex).at(0)?.raw;
           const splitRecord = record?.splits.at(sIndex);
           if (record && splitRecord) {
             attemptStorage.splits.push(splitRecord);
@@ -124,8 +124,8 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
         const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
         meaningfullyAttempts.push(...getRecordsByTime(attempts));
 
-        for (let split = 1; split <= laps; split = split + 1) {
-          meaningfullyAttempts.push(...getRecordsBySplitTime(attempts, split));
+        for (let sIndex = 0; sIndex < laps; sIndex = sIndex + 1) {
+          meaningfullyAttempts.push(...getRecordsBySplitTime(attempts, sIndex));
         }
 
         return meaningfullyAttempts;
