@@ -8,8 +8,6 @@
     "HTMLElement": true,
     "navigator": true,
     "Image": true,
-    "requestAnimationFrame": true,
-    "cancelAnimationFrame": true,
     "location": true,
     "URL": true,
     "Blob": true,

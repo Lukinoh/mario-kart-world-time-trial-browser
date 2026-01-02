@@ -1,3 +1,4 @@
+import { clearTimeout, setTimeout } from "worker-timers";
 import { createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../core/helpers/brand";
 import { EnhancedImageData } from "../tools/image/enhanced-image-data";
@@ -5,11 +6,10 @@ import { useAttemptManager } from "./use-attempt-manager";
 import { usePersonalStorage } from "./storage/use-personal-storage";
 import { useVideoCanvas } from "./utils/use-video-canvas";
 
-type Mode = "TIME_UPDATE" | "REQUEST_ANIMATION_FRAME";
 type State = "STARTED" | "PAUSED";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function useTimeTrialFactory(mode: Mode) {
+function useTimeTrialFactory() {
   const [state, setState] = createSignal<State>("PAUSED");
   const isState = createSelector(state);
   const vc = useVideoCanvas();
@@ -29,26 +29,14 @@ function useTimeTrialFactory(mode: Mode) {
       setState("PAUSED");
     });
 
-    if (mode === "TIME_UPDATE") {
-      onModeTimeUpdate();
-    }
-
-    if (mode === "REQUEST_ANIMATION_FRAME") {
-      onModeRequestAnimationFrame();
-    }
+    startProcessFrameLoop();
   });
 
-  const onModeTimeUpdate = (): void => {
-    vc.addEventListener("timeupdate", () => {
-      processFrame();
-    });
-  };
-
-  const onModeRequestAnimationFrame = (): void => {
+  const startProcessFrameLoop = (): void => {
     let cancelId = -1;
     const loop = (): void => {
       processFrame();
-      cancelId = requestAnimationFrame(loop);
+      cancelId = setTimeout(loop, 200);
     };
 
     vc.addEventListener("play", () => {
@@ -56,7 +44,7 @@ function useTimeTrialFactory(mode: Mode) {
     });
 
     vc.addEventListener("pause", () => {
-      cancelAnimationFrame(cancelId);
+      clearTimeout(cancelId);
     });
   };
 

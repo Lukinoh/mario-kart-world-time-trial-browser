@@ -12,7 +12,7 @@ import { WorldRecords } from "./views/world-records";
 import { useTimeTrial } from "./compositions/use-time-trial";
 
 export const App = defineComponent(() => {
-  const timeTrial = useTimeTrial("TIME_UPDATE");
+  const timeTrial = useTimeTrial();
   const [title, setTitle] = createSignal("Nothing yet");
   const [isDebug, setIsDebug] = createSignal(false);
 
