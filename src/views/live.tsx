@@ -1,5 +1,6 @@
 import { Match, Switch, createMemo, onMount } from "solid-js";
 import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
+import { A } from "@solidjs/router";
 import { AttemptsComparisonTable } from "../components/attempts-comparison-table/attempts-comparison-table";
 import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { useStorage } from "../compositions/storage/use-storage";
@@ -23,14 +24,18 @@ export const Live = defineComponent<ViewProps>((props) => {
           )}
         </Match>
         <Match when={true}>
-          <p>You need at least one attempts to display the comparison table.</p>
+          <p>
+            First time here? Probably, you should give a look at the <A href="/faq">FAQ</A>.
+          </p>
+          <p>You need at least one attempt to display the comparison table.</p>
         </Match>
       </Switch>
-      <h2>Last 10 attempts</h2>
+      <h2>Last 7 attempts</h2>
       <AttemptsTable
-        attempts={storage.personal.attempts().slice(0, 10)}
+        attempts={storage.personal.attempts()}
         defaultTrack={selectedTrack()}
         showFilters={false}
+        limit={7}
       />
     </>
   );

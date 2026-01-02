@@ -32,6 +32,7 @@ interface AttemptsTableProps {
   showTime?: boolean;
   showFilters?: boolean;
   defaultTrack?: string;
+  limit?: number;
 }
 
 export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
@@ -56,7 +57,9 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   ]);
 
   const attempts = createMemo(() =>
-    props.attempts.filter((attempt) => isSelectedTrack(attempt.raw.track) || isSelectedTrack(ALL_TRACKS)),
+    props.attempts
+      .filter((attempt) => isSelectedTrack(attempt.raw.track) || isSelectedTrack(ALL_TRACKS))
+      .slice(0, props.limit),
   );
 
   return (
@@ -75,97 +78,104 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
           </select>
         </>
       </Show>
-      <GridColumn template={`repeat(${gridColumns()}, max-content)`} xAlign="center">
-        <For each={attempts()}>
-          {(attempt, aIndex) => (
-            <>
-              <Show when={aIndex() % 7 === 0}>
-                <Cell {...aTitle} {...aFirstColumn} {...aInfo} text="Date" />
-                <Show when={showTime()}>
-                  <Cell {...aTitle} {...aInfo} text="Time" />
-                </Show>
-                <Cell {...aTitle} {...aInfo} text="Player" />
-                <Cell {...aTitle} {...aInfo} text="Track" />
-                <VerticalDivider />
-                <Cell {...aTitle} text="Split" />
-                <VerticalDivider />
-                <Cell {...aTitle} text="⏱️" />
-                <VerticalDivider />
-                <Cell {...aTitle} text="️🟡" />
-                <VerticalDivider />
-                <Cell {...aTitle} text="🍄" />
-                <VerticalDivider />
-                <Cell {...aTitle} text="⏱️" />
-                <VerticalDivider />
-                <Cell {...aTitle} {...aLastColumn} text="️🟡" />
-                <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
-              </Show>
+      <Switch>
+        <Match when={attempts().length}>
+          <GridColumn template={`repeat(${gridColumns()}, max-content)`} xAlign="center">
+            <For each={attempts()}>
+              {(attempt, aIndex) => (
+                <>
+                  <Show when={aIndex() % 7 === 0}>
+                    <Cell {...aTitle} {...aFirstColumn} {...aInfo} text="Date" />
+                    <Show when={showTime()}>
+                      <Cell {...aTitle} {...aInfo} text="Time" />
+                    </Show>
+                    <Cell {...aTitle} {...aInfo} text="Player" />
+                    <Cell {...aTitle} {...aInfo} text="Track" />
+                    <VerticalDivider />
+                    <Cell {...aTitle} text="Split" />
+                    <VerticalDivider />
+                    <Cell {...aTitle} text="⏱️" />
+                    <VerticalDivider />
+                    <Cell {...aTitle} text="️🟡" />
+                    <VerticalDivider />
+                    <Cell {...aTitle} text="🍄" />
+                    <VerticalDivider />
+                    <Cell {...aTitle} text="⏱️" />
+                    <VerticalDivider />
+                    <Cell {...aTitle} {...aLastColumn} text="️🟡" />
+                    <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
+                  </Show>
 
-              <Cell {...aFirstColumn} {...aInfo} row={attempt.rowSplits} text={attempt.date} />
-              <Show when={showTime()}>
-                <Cell {...aInfo} row={attempt.rowSplits} text={attempt.datetime} />
-              </Show>
-              <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.player} />
-              <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.track} />
-              <VerticalDivider row={attempt.rowSplits} />
-              <Switch>
-                <Match when={attempt.splits.length > 0}>
-                  <For each={attempt.laps}>
-                    {(_, sIndex) => (
-                      <>
-                        <Switch>
-                          <Match when={attempt.splits.at(sIndex())}>
-                            {(split) => (
-                              <>
-                                <Cell text={`S${_}`} />
-                                <VerticalDivider />
-                                <Cell {...aValue} text={split().raw.time} />
-                                <VerticalDivider />
-                                <Cell {...aValue} text={split().raw.coins} />
-                                <VerticalDivider />
-                                <Cell {...aValue} text={split().raw.shrooms} />
+                  <Cell {...aFirstColumn} {...aInfo} row={attempt.rowSplits} text={attempt.date} />
+                  <Show when={showTime()}>
+                    <Cell {...aInfo} row={attempt.rowSplits} text={attempt.datetime} />
+                  </Show>
+                  <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.player} />
+                  <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.track} />
+                  <VerticalDivider row={attempt.rowSplits} />
+                  <Switch>
+                    <Match when={attempt.splits.length > 0}>
+                      <For each={attempt.laps}>
+                        {(_, sIndex) => (
+                          <>
+                            <Switch>
+                              <Match when={attempt.splits.at(sIndex())}>
+                                {(split) => (
+                                  <>
+                                    <Cell text={`S${_}`} />
+                                    <VerticalDivider />
+                                    <Cell {...aValue} text={split().raw.time} />
+                                    <VerticalDivider />
+                                    <Cell {...aValue} text={split().raw.coins} />
+                                    <VerticalDivider />
+                                    <Cell {...aValue} text={split().raw.shrooms} />
+                                    <Show when={sIndex() > 0 && sIndex() < attempt.laps.length - 1}>
+                                      <HorizontalDivider column={GRID_SPLITS_COLUMNS} />
+                                    </Show>
+                                  </>
+                                )}
+                              </Match>
+                              <Match when={true}>
+                                <Cell column={GRID_SPLITS_COLUMNS} />
                                 <Show when={sIndex() > 0 && sIndex() < attempt.laps.length - 1}>
                                   <HorizontalDivider column={GRID_SPLITS_COLUMNS} />
                                 </Show>
-                              </>
-                            )}
-                          </Match>
-                          <Match when={true}>
-                            <Cell column={GRID_SPLITS_COLUMNS} />
-                            <Show when={sIndex() > 0 && sIndex() < attempt.laps.length - 1}>
+                              </Match>
+                            </Switch>
+                            <Show when={sIndex() === 0}>
+                              <VerticalDivider row={attempt.rowSplits} />
+                              <Switch>
+                                <Match when={!isDefined(attempt.raw.time) && !isDefined(attempt.raw.coins)}>
+                                  <Cell {...aLastColumn} column={GRID_RESULT_COLUMNS} row={attempt.rowSplits} />
+                                </Match>
+                                <Match when>
+                                  <Cell {...aValue} row={attempt.rowSplits} text={attempt.raw.time} />
+                                  <VerticalDivider row={attempt.rowSplits} />
+                                  <Cell {...aLastColumn} {...aValue} row={attempt.rowSplits} text={attempt.raw.coins} />
+                                </Match>
+                              </Switch>
                               <HorizontalDivider column={GRID_SPLITS_COLUMNS} />
                             </Show>
-                          </Match>
-                        </Switch>
-                        <Show when={sIndex() === 0}>
-                          <VerticalDivider row={attempt.rowSplits} />
-                          <Switch>
-                            <Match when={!isDefined(attempt.raw.time) && !isDefined(attempt.raw.coins)}>
-                              <Cell {...aLastColumn} column={GRID_RESULT_COLUMNS} row={attempt.rowSplits} />
-                            </Match>
-                            <Match when>
-                              <Cell {...aValue} row={attempt.rowSplits} text={attempt.raw.time} />
-                              <VerticalDivider row={attempt.rowSplits} />
-                              <Cell {...aLastColumn} {...aValue} row={attempt.rowSplits} text={attempt.raw.coins} />
-                            </Match>
-                          </Switch>
-                          <HorizontalDivider column={GRID_SPLITS_COLUMNS} />
-                        </Show>
-                      </>
-                    )}
-                  </For>
-                </Match>
-                <Match when={true}>
-                  <Cell column={GRID_SPLITS_COLUMNS} row={attempt.rowSplits} text="Not even one split 😭" />
-                  <VerticalDivider row={attempt.rowSplits} />
-                  <Cell {...aLastColumn} row={attempt.rowSplits} column={GRID_RESULT_COLUMNS} />
-                </Match>
-              </Switch>
-              <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
-            </>
-          )}
-        </For>
-      </GridColumn>
+                          </>
+                        )}
+                      </For>
+                    </Match>
+                    <Match when={true}>
+                      <Cell column={GRID_SPLITS_COLUMNS} row={attempt.rowSplits} text="Not even one split 😭" />
+                      <VerticalDivider row={attempt.rowSplits} />
+                      <Cell {...aLastColumn} row={attempt.rowSplits} column={GRID_RESULT_COLUMNS} />
+                    </Match>
+                  </Switch>
+                  <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
+                </>
+              )}
+            </For>
+          </GridColumn>
+        </Match>
+        <Match when={true}>
+          <p>You do not have any attempt {!isSelectedTrack(ALL_TRACKS) && "on this track "}yet.</p>
+        </Match>
+      </Switch>
     </>
   );
 });
