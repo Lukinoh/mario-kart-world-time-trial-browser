@@ -21,7 +21,6 @@ import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
 import type { Store } from "solid-js/store";
-import { Time } from "../../recognitions/time/time";
 import { createMemo } from "solid-js";
 
 function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
@@ -37,10 +36,10 @@ function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<type
 }
 
 const getRecordsByTime = (attempts: Array<Attempt>): Array<Attempt> =>
-  getRecordsBy(attempts, (attempt) => attempt.raw.time);
+  getRecordsBy(attempts, (attempt) => attempt.time);
 
 const getRecordsBySplitTime = (attempts: Array<Attempt>, sIndex: number): Array<Attempt> =>
-  getRecordsBy(attempts, (attempt) => attempt.splits.at(sIndex)?.raw.time);
+  getRecordsBy(attempts, (attempt) => attempt.splits.at(sIndex)?.time);
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAttemptsFactory(store: Store<AttemptsStorage>) {
@@ -101,15 +100,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
           return [];
         }
 
-        if (attemptStorage.splits.length === laps) {
-          attemptStorage.coins = attemptStorage.splits.reduce((acc, split) => acc + split.coins, 0);
-          attemptStorage.time = Time.format(
-            attemptStorage.splits.reduce((acc, split) => acc + Time.parse(split.time), 0),
-          );
-        }
-
         attemptStorage.timestamp = Math.round(attemptStorage.timestamp / attemptStorage.splits.length);
-
         return [v.parse(AttemptSchema, attemptStorage)];
       },
     );

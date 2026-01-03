@@ -1,9 +1,9 @@
 import { Cell, type CellProps } from "../grid-utilities/cell";
+import { capitalize, isDefined } from "remeda";
 import type { Attempt } from "../../core/domain/local/attempt";
 import type { ReferenceRecords } from "../../core/domain/types/reference-records";
 import { createMemo } from "solid-js";
 import { defineComponent } from "../../core/helpers/solid-js";
-import { isDefined } from "remeda";
 
 interface F1CellProps extends CellProps {
   attempt: Attempt;
@@ -13,11 +13,13 @@ interface F1CellProps extends CellProps {
 }
 
 export const F1Cell = defineComponent<F1CellProps>((props) => {
+  const parsedType = createMemo(() => `parsed${capitalize(props.type)}` as const);
+
   const color = createMemo<CellProps>(() => {
-    const attemptTime = props.attempt.splits.at(props.sIndex)?.[props.type];
-    const wrTime = props.referencesRecords.WR?.at(0)?.splits.at(props.sIndex)?.[props.type];
-    const bpsTime = props.referencesRecords.BPS?.at(0)?.splits.at(props.sIndex)?.[props.type];
-    const pbTime = props.referencesRecords.PB?.at(0)?.splits.at(props.sIndex)?.[props.type];
+    const attemptTime = props.attempt.splits.at(props.sIndex)?.[parsedType()];
+    const wrTime = props.referencesRecords.WR?.at(0)?.splits.at(props.sIndex)?.[parsedType()];
+    const bpsTime = props.referencesRecords.BPS?.at(0)?.splits.at(props.sIndex)?.[parsedType()];
+    const pbTime = props.referencesRecords.PB?.at(0)?.splits.at(props.sIndex)?.[parsedType()];
 
     if (isDefined(attemptTime)) {
       if (isDefined(wrTime) && attemptTime < wrTime) {
@@ -42,15 +44,5 @@ export const F1Cell = defineComponent<F1CellProps>((props) => {
     return {};
   });
 
-  const getPrettyTime = createMemo(() => {
-    if (props.type === "time") {
-      return props.attempt.splits.at(props.sIndex)?.raw.time;
-    }
-
-    if (props.type === "accumulatedTime") {
-      return props.attempt.splits.at(props.sIndex)?.prettyAccumulatedTime;
-    }
-  });
-
-  return <Cell {...props} {...color()} text={getPrettyTime()} />;
+  return <Cell {...props} {...color()} text={props.attempt.splits.at(props.sIndex)?.[props.type]} />;
 });

@@ -151,13 +151,13 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                             <Show when={sIndex() === 0}>
                               <VerticalDivider row={attempt.rowSplits} />
                               <Switch>
-                                <Match when={!isDefined(attempt.raw.time) && !isDefined(attempt.raw.coins)}>
+                                <Match when={!isDefined(attempt.time) && !isDefined(attempt.coins)}>
                                   <Cell {...aLastColumn} column={GRID_RESULT_COLUMNS} row={attempt.rowSplits} />
                                 </Match>
                                 <Match when>
-                                  <Cell {...aValue} row={attempt.rowSplits} text={attempt.raw.time} />
+                                  <Cell {...aValue} row={attempt.rowSplits} text={attempt.time} />
                                   <VerticalDivider row={attempt.rowSplits} />
-                                  <Cell {...aLastColumn} {...aValue} row={attempt.rowSplits} text={attempt.raw.coins} />
+                                  <Cell {...aLastColumn} {...aValue} row={attempt.rowSplits} text={attempt.coins} />
                                 </Match>
                               </Switch>
                               <HorizontalDivider column={GRID_SPLITS_COLUMNS} />

@@ -1,7 +1,7 @@
 import { MINUS, PLUS, PLUS_OR_MINUS } from "../characters";
+import { capitalize, isDefined } from "remeda";
 import type { Attempt } from "../domain/local/attempt";
 import { Time } from "../../recognitions/time/time";
-import { isDefined } from "remeda";
 
 export function delta(
   attempt2: Attempt,
@@ -9,8 +9,10 @@ export function delta(
   sIndex: number,
   type: "time" | "accumulatedTime",
 ): string | undefined {
-  const attemptTime2 = attempt2.splits.at(sIndex)?.[type];
-  const attemptTime1 = attempt1.splits.at(sIndex)?.[type];
+  const parsedType = `parsed${capitalize(type)}` as const;
+
+  const attemptTime2 = attempt2.splits.at(sIndex)?.[parsedType];
+  const attemptTime1 = attempt1.splits.at(sIndex)?.[parsedType];
 
   if (isDefined(attemptTime2) && isDefined(attemptTime1)) {
     const difference = attemptTime2 - attemptTime1;

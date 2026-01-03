@@ -74,7 +74,7 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
         )}
       </For>
       <VerticalDivider row={GRID_FULL_ROW} />
-      <Cell {...aLastColumn} {...aTime} row={GRID_FULL_ROW} text={props.last.raw.time} />
+      <Cell {...aLastColumn} {...aTime} row={GRID_FULL_ROW} text={props.last.time} />
 
       {/* Line 2 */}
       <HorizontalDivider row={GRID_THIRD_ROW} />
@@ -120,7 +120,7 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
                   )}
                 </For>
                 <VerticalDivider row={GRID_FULL_ROW} />
-                <Cell {...aLastColumn} {...aTime} row={GRID_FULL_ROW} text={reference.raw.time} />
+                <Cell {...aLastColumn} {...aTime} row={GRID_FULL_ROW} text={reference.time} />
 
                 {/* Line 2 */}
                 <HorizontalDivider row={GRID_THIRD_ROW} />

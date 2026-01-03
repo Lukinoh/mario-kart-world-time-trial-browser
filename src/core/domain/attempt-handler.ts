@@ -4,22 +4,21 @@ import type { RawSplit } from "./types/raw-split";
 import type { SplitStorage } from "./types/split-storage";
 import { Time } from "../../recognitions/time/time";
 
+const SHROOMS_NUMBER = 3;
+
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
   const timestamp = Date.now();
   const track = pTrack;
   const laps = Number(pRawLaps);
   const splits: Array<SplitStorage> = [];
-  let time: string | undefined = undefined;
-  let coins: number | undefined = undefined;
 
   const addSplit = (rawSplit: RawSplit): void => {
-    const coins = splits.reduce((coins, split) => coins - split.coins, Number(rawSplit.coins));
-    const shrooms = 3 - splits.reduce((shrooms, split) => shrooms + split.shrooms, Number(rawSplit.shrooms));
+    const coins = splits.reduce((acc, split) => acc - split.coins, Number(rawSplit.coins));
+    const shrooms = SHROOMS_NUMBER - splits.reduce((acc, split) => acc + split.shrooms, Number(rawSplit.shrooms));
 
     splits.push({
       ...rawSplit,
-      lap: splits.length + 1,
       coins: coins,
       shrooms: shrooms,
     });
@@ -28,15 +27,12 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
   const addFinalSplit = (rawSplit: RawSplit): void => {
     // The final raw split has the particularity that the time is not the split time, but the total time.
     const totalTime = Time.parse(rawSplit.time);
-    const splitTime = splits.reduce((time, split): number => time - Time.parse(split.time), totalTime);
+    const splitTime = splits.reduce((acc, split): number => acc - Time.parse(split.time), totalTime);
 
-    // oxlint-disable-next-line prefer-destructuring
-    time = rawSplit.time;
     addSplit({
       ...rawSplit,
       time: Time.format(splitTime),
     });
-    coins = splits.reduce((acc, split) => acc + split.coins, 0);
   };
 
   const isEqualToLastSplit = (time: string): boolean => {
@@ -64,8 +60,6 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
       track: track,
       laps: laps,
       splits: [...splits], // Avoid keeping the same references
-      coins: coins,
-      time: time,
     };
   };
 
