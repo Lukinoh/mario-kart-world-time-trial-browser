@@ -239,7 +239,7 @@ test.for([
       shrooms: "3",
       time: "0:00.000",
       timeYellow: false,
-      track: "Great ؟ Block Ruins",
+      track: "Great ? Block Ruins",
     },
   },
   {

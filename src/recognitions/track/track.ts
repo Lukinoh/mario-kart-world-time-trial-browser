@@ -15,7 +15,9 @@ export const Track = {
   get(image: EnhancedImageData, putImageData?: DebugPutImageData): string {
     return pipe(TrackRecognition.getMatch(image, TrackRegion), (match) => {
       putImageData?.(TrackRecognitionOptions, match.value, ...TrackRegion.putImageData());
-      return match.filename;
+      // As the name of the file is used to get the track, and on Windows you cannot have a filename with ?, a trick has been used.
+      // Ideally, we should not rely on the filename.
+      return match.filename.replace("؟", "?");
     });
   },
 };

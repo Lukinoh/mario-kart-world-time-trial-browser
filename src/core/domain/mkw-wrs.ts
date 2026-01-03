@@ -15,7 +15,7 @@ const parse = (doc: Document): AttemptsStorage => {
         line.prepend(td);
       }
 
-      const track = line.children.item(0)?.textContent.replace("?", "؟") ?? "Not found";
+      const track = line.children.item(0)?.textContent ?? "Not found";
       const time = line.children.item(1)?.textContent.replace('"', ".").replace("'", ":");
       const player = line.children.item(2)?.textContent ?? "Not found";
       const timestamp = new Date(line.children.item(4)?.textContent ?? 0).getTime();
