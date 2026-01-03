@@ -36,6 +36,7 @@ export const Live = defineComponent<ViewProps>((props) => {
         attempts={storage.personal.attempts()}
         defaultTrack={selectedTrack()}
         showFilters={false}
+        showTrack={false}
         limit={7}
       />
     </>

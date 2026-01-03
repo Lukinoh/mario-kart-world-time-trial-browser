@@ -30,6 +30,7 @@ const aInfo: Partial<CellProps> = {
 interface AttemptsTableProps {
   attempts: Array<Attempt>;
   showTime?: boolean;
+  showTrack?: boolean;
   showFilters?: boolean;
   defaultTrack?: string;
   limit?: number;
@@ -43,8 +44,9 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const ALL_TRACKS = "All tracks";
 
   const showTime = createMemo(() => props.showTime ?? true);
+  const showTrack = createMemo(() => props.showTrack ?? true);
   const showFilters = createMemo(() => props.showFilters ?? true);
-  const gridColumns = createMemo(() => GRID_COLUMNS - Number(!showTime()));
+  const gridColumns = createMemo(() => GRID_COLUMNS - (Number(!showTime()) + Number(!showTrack())));
 
   const [selectedTrack, setSelectedTrack] = createSignal();
   const isSelectedTrack = createSelector(
@@ -90,7 +92,9 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                       <Cell {...aTitle} {...aInfo} text="Time" />
                     </Show>
                     <Cell {...aTitle} {...aInfo} text="Player" />
-                    <Cell {...aTitle} {...aInfo} text="Track" />
+                    <Show when={showTrack()}>
+                      <Cell {...aTitle} {...aInfo} text="Track" />
+                    </Show>
                     <VerticalDivider />
                     <Cell {...aTitle} text="Split" />
                     <VerticalDivider />
@@ -111,7 +115,9 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                     <Cell {...aInfo} row={attempt.rowSplits} text={attempt.datetime} />
                   </Show>
                   <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.player} />
-                  <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.track} />
+                  <Show when={showTrack()}>
+                    <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.track} />
+                  </Show>
                   <VerticalDivider row={attempt.rowSplits} />
                   <Switch>
                     <Match when={attempt.splits.length > 0}>
