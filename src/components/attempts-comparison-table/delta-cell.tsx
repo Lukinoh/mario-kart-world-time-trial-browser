@@ -9,21 +9,21 @@ export const DeltaCell = defineComponent<CellProps>((props) => {
 
     if (text.startsWith(PLUS)) {
       return {
-        color: "#ff5a04",
-        textStroke: "0.03rem #950000",
+        color: "var(--mk-delta-red)",
+        textStroke: "var(--mk-delta-stroke-width) var(--mk-delta-red-border)",
       };
     }
 
     if (text.startsWith(MINUS)) {
       return {
-        color: "#0498fe",
-        textStroke: "0.03rem #023d69",
+        color: "var(--mk-delta-blue)",
+        textStroke: "var(--mk-delta-stroke-width) var(--mk-delta-blue-border)",
       };
     }
 
     if (text.startsWith(PLUS_OR_MINUS)) {
       return {
-        color: "gray",
+        color: "var(--mk-delta-neutral)",
       };
     }
 

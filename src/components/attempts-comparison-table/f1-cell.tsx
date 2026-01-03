@@ -22,19 +22,19 @@ export const F1Cell = defineComponent<F1CellProps>((props) => {
     if (isDefined(attemptTime)) {
       if (isDefined(wrTime) && attemptTime < wrTime) {
         return {
-          color: "#b224b8",
+          color: "var(--mk-f1-purple)",
         };
       }
 
       if (isDefined(bpsTime) && attemptTime < bpsTime) {
         return {
-          color: "#2ac92d",
+          color: "var(--mk-f1-green)",
         };
       }
 
       if (isDefined(pbTime) && attemptTime > pbTime) {
         return {
-          color: "#eaed79",
+          color: "var(--mk-f1-yellow)",
         };
       }
     }
