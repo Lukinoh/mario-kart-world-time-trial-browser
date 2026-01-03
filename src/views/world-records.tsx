@@ -11,6 +11,10 @@ const sWrapper = css({
   width: "min-content",
 });
 
+const sNoWrap = css({
+  whiteSpace: "nowrap",
+});
+
 export const WorldRecords = defineComponent<ViewProps>((props) => {
   const storage = useWorldRecordStorage();
 
@@ -27,12 +31,12 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
           <Cell bold text="Manual" />
           <div>
             <ValibotImportButton onclick={storage.automaticProcessForMkrws}>Refresh</ValibotImportButton>
-            <div>powered by codetabs.com</div>
+            <div class={sNoWrap}>powered by codetabs.com</div>
           </div>
           <dl>
             <dt>Step 1</dt>
             <dd>
-              <button onclick={storage.manualProcessForMkwrs}>
+              <button class={sNoWrap} onclick={storage.manualProcessForMkwrs}>
                 Copy some code to your clipboard and open mkwrs.com
               </button>
             </dd>

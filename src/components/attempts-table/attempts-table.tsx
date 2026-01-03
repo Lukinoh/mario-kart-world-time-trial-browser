@@ -179,7 +179,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
           </GridColumn>
         </Match>
         <Match when={true}>
-          <p>You do not have any attempt {!isSelectedTrack(ALL_TRACKS) && "on this track "}yet.</p>
+          <p>There is no attempts{!isSelectedTrack(ALL_TRACKS) && "on this track "}.</p>
         </Match>
       </Switch>
     </>
