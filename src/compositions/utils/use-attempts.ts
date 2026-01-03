@@ -5,6 +5,7 @@ import {
   entries,
   filter,
   firstBy,
+  flat,
   flatMap,
   groupBy,
   isDeepEqual,
@@ -123,8 +124,17 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
       }),
       map((attempt) => attempt.raw),
       uniqueWith(isDeepEqual),
-      sortBy((attempt) => attempt.timestamp),
+      sortBy((attempt) => -attempt.timestamp),
     );
+
+  const merge = (...attempts: Array<Array<AttemptStorage>>): Array<AttemptStorage> => {
+    return pipe(
+      [store.attempts, ...attempts],
+      flat(),
+      uniqueWith(isDeepEqual),
+      sortBy((attempt) => -attempt.timestamp),
+    );
+  };
 
   return {
     attempts,
@@ -134,6 +144,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
     getTimeRecordsByTrack,
     getSplitRecordByTrack,
     getFlattenRecords,
+    merge,
   };
 }
 

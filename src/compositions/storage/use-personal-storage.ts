@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
@@ -11,14 +12,25 @@ import { useAttempts } from "../utils/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function usePersonalStorageSingleton() {
-  const { key, store, setStore, restore, download } = createIndexedStore("personal-attempts", PersonalStorageSchema, {
-    version: 1,
-    attempts: [],
-    attemptsNumber: 0,
-    player: "",
-  });
-  const { attempts, lastAttempt, getFlattenRecords, getTimeRecords, getTimeRecordsByTrack, getSplitRecordByTrack } =
-    useAttempts(store);
+  const { key, store, setStore, exportToJSON, replaceFromJSON } = createIndexedStore(
+    "personal-attempts",
+    PersonalStorageSchema,
+    {
+      version: 1,
+      attempts: [],
+      attemptsNumber: 0,
+      player: "",
+    },
+  );
+  const {
+    attempts,
+    lastAttempt,
+    getFlattenRecords,
+    getTimeRecords,
+    getTimeRecordsByTrack,
+    getSplitRecordByTrack,
+    merge,
+  } = useAttempts(store);
 
   const upsertAttempt = (newAttempt: AttemptStorage): void => {
     const index = store.attempts.findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
@@ -41,14 +53,25 @@ function usePersonalStorageSingleton() {
   };
   const attemptsNumber = createMemo(() => store.attemptsNumber);
 
-  const downloadForFriends = (): void => {
+  const exportForFriendsToJSON = (): void => {
     JSONUtils.download<AttemptsStorage>(`${key}-for-friends`, {
       version: store.version,
       attempts: getTimeRecords().map((attempt) => attempt.raw),
     });
   };
 
-  const clean = (): void => {
+  const addFromJSON = async (): Promise<void> => {
+    const text = await JSONUtils.upload();
+    const data = v.parse(PersonalStorageSchema, JSON.parse(text));
+    setStore(
+      produce((store) => {
+        store.attemptsNumber = store.attemptsNumber + data.attemptsNumber;
+        store.attempts = merge(data.attempts);
+      }),
+    );
+  };
+
+  const shrink = (): void => {
     const flattenRecords = getFlattenRecords();
     setStore(
       produce((store) => {
@@ -66,12 +89,15 @@ function usePersonalStorageSingleton() {
     player,
     setPlayer,
     attemptsNumber,
-    restore,
-    download,
-    downloadForFriends,
-    clean,
     getTimeRecordsByTrack,
     getSplitRecordByTrack,
+    shrink,
+
+    // JSON
+    addFromJSON,
+    replaceFromJSON,
+    exportToJSON,
+    exportForFriendsToJSON,
   };
 }
 

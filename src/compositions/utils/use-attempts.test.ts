@@ -15,7 +15,7 @@ describe("attempts", () => {
 });
 
 describe("tracks", () => {
-  test("returns empty array if there is not attempts", () => {
+  test("returns an empty array if there is no attempts", () => {
     const { tracks } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
     expect(tracks()).toStrictEqual([]);
   });
@@ -64,7 +64,7 @@ describe("lastAttempt", () => {
 });
 
 describe("getTimeRecords", () => {
-  test("returns empty array if no time records is found", () => {
+  test("returns an empty array if no time records is found", () => {
     const { getTimeRecords } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
     expect(getTimeRecords()).toStrictEqual([]);
   });
@@ -105,7 +105,7 @@ describe("getTimeRecords", () => {
 });
 
 describe("getTimeRecordsByTrack", () => {
-  test("returns empty array if no time records by track is found", () => {
+  test("returns an empty array if no time records by track is found", () => {
     const { getTimeRecordsByTrack } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
     expect(getTimeRecordsByTrack("No track")).toStrictEqual([]);
   });
@@ -152,7 +152,7 @@ describe("getTimeRecordsByTrack", () => {
 });
 
 describe("getSplitRecordByTrack", () => {
-  test("returns empty array if no split records by track is found", () => {
+  test("returns an empty array if no split records by track is found", () => {
     const { getSplitRecordByTrack } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
     expect(getSplitRecordByTrack("A")).toStrictEqual([]);
   });
@@ -187,12 +187,12 @@ describe("getSplitRecordByTrack", () => {
 });
 
 describe("getFlattenRecords", () => {
-  test("returns empty array if there is not attempts", () => {
+  test("returns an empty array if there is no attempts", () => {
     const { getFlattenRecords } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
     expect(getFlattenRecords()).toStrictEqual([]);
   });
 
-  test("returns flatten records (split and time) ordered by timestamp without duplicate", () => {
+  test("returns flatten records (split and time) ordered by descending timestamp without duplicate", () => {
     const { createAttempt, createSplit } = useAttemptTest(2, { track: "A" });
     const record_1 = createAttempt({ splits: createSplit("1:10.000") });
     const record_2 = createAttempt({ splits: createSplit("9:00.000", "1:20.000") });
@@ -204,7 +204,42 @@ describe("getFlattenRecords", () => {
       }),
     );
 
-    expect(getFlattenRecords()).toStrictEqual([record_1, record_2]);
+    expect(getFlattenRecords()).toStrictEqual([record_2, record_1]);
+  });
+});
+
+describe("merge", () => {
+  test("returns an empty array if there is no attempts and merge nothing", () => {
+    const { merge } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
+    expect(merge()).toStrictEqual([]);
+  });
+
+  test("returns the input array ordered by descending timestamp if there is no attempts", () => {
+    const { createAttempt } = useAttemptTest(1);
+    const attempts = [createAttempt({}), createAttempt({})];
+
+    const { merge } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
+    expect(merge(attempts)).toStrictEqual(attempts.toReversed());
+  });
+
+  test("returns an array without duplicates ordered by descending timestamp", () => {
+    const { createAttempt } = useAttemptTest(1);
+    const duplicatedAttempt = createAttempt({});
+    const attempts = [createAttempt({}), duplicatedAttempt];
+
+    const { merge } = createRoot(() => useAttempts({ version: 1, attempts: [duplicatedAttempt] }));
+    expect(merge(attempts)).toStrictEqual(attempts);
+  });
+
+  test("returns an array ordered by descending timestamp", () => {
+    const { createAttempt } = useAttemptTest(1);
+    const attempt_1 = createAttempt({});
+    const attempt_2 = createAttempt({});
+    const attempt_3 = createAttempt({});
+    const attempt_4 = createAttempt({});
+
+    const { merge } = createRoot(() => useAttempts({ version: 1, attempts: [attempt_3, attempt_4] }));
+    expect(merge([attempt_2, attempt_1])).toStrictEqual([attempt_4, attempt_3, attempt_2, attempt_1]);
   });
 });
 

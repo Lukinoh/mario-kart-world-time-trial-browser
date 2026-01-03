@@ -34,14 +34,13 @@ function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<u
     database.set(unwrap(store));
   };
 
-  const restore = async (): Promise<void> => {
+  const replaceFromJSON = async (): Promise<void> => {
     const text = await JSONUtils.upload();
     const data = v.parse(schema, JSON.parse(text));
     setStore(reconcile(data));
   };
 
-  const download = (): void => {
-    // Later we should download only meaningful data (i.e. completed track best time)
+  const exportToJSON = (): void => {
     JSONUtils.download<v.InferOutput<S>>(key, store);
   };
 
@@ -49,8 +48,8 @@ function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<u
     key: key,
     store,
     setStore,
-    restore,
-    download,
+    exportToJSON,
+    replaceFromJSON,
   };
 }
 

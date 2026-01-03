@@ -1,6 +1,7 @@
 import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
 import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
+import { VerticalDivider } from "../components/grid-utilities/vertical-divider";
 import { css } from "@emotion/css";
 import { onMount } from "solid-js";
 import { usePersonalStorage } from "../compositions/storage/use-personal-storage";
@@ -8,8 +9,11 @@ import { usePersonalStorage } from "../compositions/storage/use-personal-storage
 const sActions = css({
   display: "flex",
   columnGap: "var(--mk-spacing-medium)",
-  alignContent: "right",
+  alignContent: "center",
   marginBottom: "var(--mk-spacing-large)",
+  "> *": {
+    marginBottom: 0,
+  },
 });
 
 export const History = defineComponent<ViewProps>((props) => {
@@ -22,10 +26,13 @@ export const History = defineComponent<ViewProps>((props) => {
   return (
     <>
       <div class={sActions}>
-        <button onclick={storage.download}>Export</button>
-        <button onclick={storage.downloadForFriends}>Export for friends</button>
-        <ValibotImportButton onclick={storage.restore}>Import</ValibotImportButton>
-        <button onclick={storage.clean}>Clean data</button>
+        <ValibotImportButton onclick={storage.addFromJSON}>Add</ValibotImportButton>
+        <ValibotImportButton onclick={storage.replaceFromJSON}>Replace</ValibotImportButton>
+        <VerticalDivider />
+        <button onclick={storage.exportToJSON}>Export</button>
+        <button onclick={storage.exportForFriendsToJSON}>Export for friends</button>
+        <VerticalDivider />
+        <button onclick={storage.shrink}>Shrink</button>
       </div>
       <AttemptsTable attempts={storage.attempts()} />
     </>

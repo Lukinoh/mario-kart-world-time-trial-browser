@@ -47,7 +47,7 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
             </dd>
             <dt>Step 3</dt>
             <dd>
-              <ValibotImportButton onclick={storage.restore}>Import the JSON file</ValibotImportButton>
+              <ValibotImportButton onclick={storage.replaceFromJSON}>Import the JSON file</ValibotImportButton>
             </dd>
           </dl>
         </GridColumn>

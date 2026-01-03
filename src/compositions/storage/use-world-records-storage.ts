@@ -9,7 +9,7 @@ import { useAttempts } from "../utils/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useWorldRecordsStorageSingleton() {
-  const { store, setStore, restore, download, key } = createIndexedStore(
+  const { store, setStore, replaceFromJSON, key } = createIndexedStore(
     "world-records-attempts",
     AttemptsStorageSchema,
     {
@@ -44,9 +44,10 @@ function useWorldRecordsStorageSingleton() {
     attempts,
     automaticProcessForMkrws,
     manualProcessForMkwrs,
-    restore,
-    download,
     getTimeRecordsByTrack,
+
+    // JSON
+    replaceFromJSON,
   };
 }
 
