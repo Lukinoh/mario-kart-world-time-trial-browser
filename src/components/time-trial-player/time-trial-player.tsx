@@ -82,7 +82,12 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
   return (
     <GridColumn template={"10rem 1fr"}>
       <div class={sOptionsZone}>
-        <CaptureButton timeTrial={props.timeTrial} />
+        <TextInput
+          label="Player"
+          placeholder="Set your name"
+          value={props.timeTrial.player()}
+          setValue={props.timeTrial.setPlayer}
+        />
         <div>
           <label for="camera-radio">
             <input
@@ -100,7 +105,7 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
             <span>File</span>
           </label>
         </div>
-        <TextInput label="Player" value={props.timeTrial.player()} setValue={props.timeTrial.setPlayer} />
+        <CaptureButton timeTrial={props.timeTrial} />
       </div>
       <div class={sVideoCanvas}>
         <div>{props.timeTrial.video}</div>

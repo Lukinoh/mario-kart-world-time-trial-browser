@@ -8,6 +8,7 @@ const sInput = css({
 interface TextInput {
   label: string;
   value: string;
+  placeholder?: string;
   setValue: (text: string) => void;
 }
 
@@ -19,6 +20,7 @@ export const TextInput = defineComponent<TextInput>((props) => {
         class={sInput}
         type="text"
         value={props.value}
+        placeholder={props.placeholder}
         onInput={(event) => {
           props.setValue(event.target.value);
         }}
