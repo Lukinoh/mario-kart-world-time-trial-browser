@@ -34,20 +34,6 @@ Moreover, after the tests, the normalised images are deleted. Hence, if you have
 
 - Live update has some issues, for instance, when you get a new coin, there is animation that move the number up.
   To reduce these issues, we can add screenshots with these exceptions.
-- Do no check image size are the same
-- image invert is used for debugging
 - add metadata for images (box position maybe, help to build without th need to access timecoins etc..?
-- versioning
-- Database cleanup feature (keep only meaningful time)
-- add counters of attempts that is not affected by the database cleanup
-- table of différence
-- Add better logging for debugging
-- Fix bug see comment in use-attempt-manager
-- Add internal validation maybe (for instance to give a Time type to the time)
-- normalize arrow function
 - We could implement a comparison method specifically for the time digits using key pixels to recognize the number.
   It should be more performant than relying on some image similarity algorithm.
-- Add/Replace imports (with cleanup behind to avoid duplication)
-- remove remeda ?
-- somehow maintanable code
-- add limitation of the concept in FAQ
