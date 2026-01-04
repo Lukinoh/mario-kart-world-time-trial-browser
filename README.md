@@ -26,14 +26,23 @@ npm run preview
 
 What you start the development server, the images stored in `./src/assets/recognitions/raw/` are normalised.
 A normalised image is an image where the valuable information was extracted and a filter (i.e. black and white, invert, etc.) was applied.
-If you do a change in this folder, you have to restart the server.
+If you make a change in this folder, you have to restart the server.
 
 Moreover, after the tests, the normalised images are deleted. Hence, if you have a `npm run dev` running, you have to restart it manually.
 
-## TODO
+## Ideas
 
-- Live update has some issues, for instance, when you get a new coin, there is animation that move the number up.
-  To reduce these issues, we can add screenshots with these exceptions.
-- add metadata for images (box position maybe, help to build without th need to access timecoins etc..?
-- We could implement a comparison method specifically for the time digits using key pixels to recognize the number.
-  It should be more performant than relying on some image similarity algorithm.
+- The application is performant enough, but we could improve image detection with more optimized algorithms.
+- We may add metadata for the tracks with the number of laps and the name included instead of inferring them from the image as it is done currently.
+
+## Notes
+
+At the beginning, I wanted to get live data and refresh continuously, however, some elements of the UI are moving.
+For instance, when you get a coin, or pass a lap, or the shrooms from time to time.
+But in the end, it was not really useful, so I removed this feature, and the application only displays meaningful data.
+
+However, the code sometimes contains some "bump" screenshots, because I still had to handle such cases.
+
+## Credits
+
+Thanks to [@breadbored](https://github.com/breadbored/) and its original concept [Mario Kart World Toolkit](https://bread.codes/posts/mario-kart-world-toolkit/).
