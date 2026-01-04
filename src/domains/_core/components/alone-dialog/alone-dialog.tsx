@@ -15,7 +15,7 @@ export const AloneDialog = defineComponent(() => {
   });
 
   return (
-    <Dialog ref={dialog} showFooter={false}>
+    <Dialog ref={dialog} showFooter={false} title="Application already open !">
       <p>The application is open in several tabs, and it is not meant to be open in several tabs.</p>
       <p>Please close all other tabs and refresh this page, or use the already open tab, and close this one.</p>
     </Dialog>

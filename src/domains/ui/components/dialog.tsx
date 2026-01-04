@@ -6,10 +6,19 @@ import { isFunction } from "remeda";
 
 const sClose = css({
   marginTop: "var(--mk-spacing-large)",
-  marginBottom: 0,
+});
+
+const sLastChild = css({
+  "> :first-child": {
+    marginTop: 0,
+  },
+  "> :last-child": {
+    marginBottom: 0,
+  },
 });
 
 interface DialogProps extends JSX.CustomAttributes<HTMLDialogElement> {
+  title?: string;
   showFooter?: boolean;
 }
 
@@ -31,7 +40,10 @@ export const Dialog = defineComponent<DialogProps>((props) => {
 
   return (
     <Portal>
-      <dialog ref={setDialog}>
+      <dialog ref={setDialog} class={sLastChild}>
+        <Show when={props.title}>
+          <h3>{props.title}</h3>
+        </Show>
         {props.children}
         <Show when={showFooter()}>
           <footer>

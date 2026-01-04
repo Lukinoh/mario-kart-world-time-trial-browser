@@ -12,7 +12,6 @@ interface ValibotErrorContentProps {
 export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((props) => {
   return (
     <>
-      <h2>An error happened during import</h2>
       <p>The imported file contains errors.</p>
       <p>Fix them and try to re-import your file.</p>
       <GridColumn template="repeat(3, max-content)" xAlign="center">

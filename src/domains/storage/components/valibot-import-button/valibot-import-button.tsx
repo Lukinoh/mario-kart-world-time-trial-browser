@@ -1,10 +1,15 @@
 import * as v from "valibot";
 import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../schemas/attempts-storage";
-import { type JSX, Match, Switch, createMemo, createSignal } from "solid-js";
+import { type JSX, createMemo, createSignal } from "solid-js";
 import { isFunction, isString } from "remeda";
 import { Dialog } from "../../../ui/components/dialog";
 import { ValibotErrorContent } from "./valibot-error-content";
+import { css } from "@emotion/css";
 import { defineComponent } from "../../../_core/utils/solid-js";
+
+const sSuccess = css({
+  margin: 0,
+});
 
 interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;
@@ -12,7 +17,9 @@ interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement>
 
 export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialog!: HTMLDialogElement;
+  let dialogSuccess!: HTMLDialogElement;
+  // oxlint-disable-next-line init-declarations no-unassigned-vars
+  let dialogError!: HTMLDialogElement;
   const [data, setData] = createSignal<Array<AttemptsStorageIssue> | undefined>(undefined);
 
   const args = createMemo<JSX.ButtonHTMLAttributes<HTMLButtonElement>>(() => {
@@ -23,11 +30,11 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
           try {
             await Promise.try(props.onclick, even);
             setData();
-            dialog.showModal();
+            dialogSuccess.showModal();
           } catch (error) {
             if (v.isValiError<typeof AttemptsStorageSchema>(error)) {
               setData(error.issues);
-              dialog.showModal();
+              dialogError.showModal();
             } else if (isString(error)) {
               console.info(`Import window was ${error}`);
             } else {
@@ -41,7 +48,7 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
                   message: JSON.stringify(error),
                 },
               ]);
-              dialog.showModal();
+              dialogError.showModal();
             }
           }
         }
@@ -52,13 +59,11 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
   return (
     <>
       <button {...args()}>{props.children}</button>
-      <Dialog ref={dialog}>
-        <Switch>
-          <Match when={!data()}>
-            <div>Import completed successfully</div>
-          </Match>
-          <Match when={data()}>{(issues) => <ValibotErrorContent issues={issues()} />}</Match>
-        </Switch>
+      <Dialog ref={dialogSuccess}>
+        <p class={sSuccess}>Import completed successfully</p>
+      </Dialog>
+      <Dialog ref={dialogError} title="An error happened during import">
+        <ValibotErrorContent issues={data() ?? []} />
       </Dialog>
     </>
   );
