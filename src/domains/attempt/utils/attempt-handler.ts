@@ -59,7 +59,8 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
       timestamp: timestamp,
       track: track,
       laps: laps,
-      splits: [...splits], // Avoid keeping the same references
+      // Avoid keeping the same references
+      splits: [...splits],
     };
   };
 

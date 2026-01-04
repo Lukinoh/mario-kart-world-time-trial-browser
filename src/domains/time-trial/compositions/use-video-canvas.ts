@@ -32,7 +32,8 @@ function useVideoCanvasFactory() {
   const setSourceUrl = (url: string): void => {
     resetSource();
     videoElement.src = url;
-    videoElement.currentTime = 0.1; // Display thumbnail on canvas
+    // Display thumbnail on canvas
+    videoElement.currentTime = 0.1;
     videoElement.controls = true;
   };
 

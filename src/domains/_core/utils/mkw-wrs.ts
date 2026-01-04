@@ -33,7 +33,8 @@ const parse = (doc: Document): AttemptsStorage => {
       const splits =
         mixedSplits?.slice(0, -2).map((time, index) => {
           return {
-            time: time.length === 6 ? `0:${time}` : time, // Add the 0 if time is 32.234
+            // Add the 0 if time is 32.234
+            time: time.length === 6 ? `0:${time}` : time,
             shrooms: Number(shrooms?.at(index) ?? -1),
             coins: Number(coins?.at(index) ?? -1),
           };
