@@ -163,7 +163,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/10.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/10.png", { eager: true, import: `default` }),
     expected: {
       coins: "10",
       lap: "1",
@@ -176,7 +176,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/11.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/11.png", { eager: true, import: `default` }),
     expected: {
       coins: "11",
       lap: "2",
@@ -189,7 +189,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/12.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/12.png", { eager: true, import: `default` }),
     expected: {
       coins: "12",
       lap: "2",
@@ -202,7 +202,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/13.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/13.png", { eager: true, import: `default` }),
     expected: {
       coins: "13",
       lap: "2",
@@ -215,7 +215,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/14.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/14.png", { eager: true, import: `default` }),
     expected: {
       coins: "14",
       lap: "2",
@@ -228,7 +228,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/15.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/15.png", { eager: true, import: `default` }),
     expected: {
       coins: "15",
       lap: "3",
@@ -241,7 +241,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/16.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/16.png", { eager: true, import: `default` }),
     expected: {
       coins: "16",
       lap: "3",
@@ -254,7 +254,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/17.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/17.png", { eager: true, import: `default` }),
     expected: {
       coins: "17",
       lap: "3",
@@ -267,7 +267,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/18.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/18.png", { eager: true, import: `default` }),
     expected: {
       coins: "18",
       lap: "3",
@@ -280,7 +280,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/19.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/19.png", { eager: true, import: `default` }),
     expected: {
       coins: "19",
       lap: "3",
@@ -293,7 +293,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../../../assets/ideas/coins/20.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/extras/coins/20.png", { eager: true, import: `default` }),
     expected: {
       coins: "20",
       lap: "3",
