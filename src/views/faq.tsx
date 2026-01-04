@@ -164,6 +164,15 @@ export const FAQ = defineComponent<ViewProps>((props) => {
         <summary>How can I restore all my data?</summary>
         <ValibotImportButton onclick={storage.restore}>Import</ValibotImportButton>
       </details>
+      <details>
+        <summary>How can I import my current records?</summary>
+        <p>The simplest way is to play your ghosts. It will take some time, but it works.</p>
+        <p>
+          Alternatively, you could modify the database manually by exporting your history and adding the necessary
+          values manually. This is more technical, and implies the fact that you already know your splits (time,
+          shrooms, and coins).
+        </p>
+      </details>
 
       <h3>Miscellaneous</h3>
 
