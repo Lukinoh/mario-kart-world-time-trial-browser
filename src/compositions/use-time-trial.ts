@@ -76,7 +76,7 @@ function useTimeTrialFactory() {
     const attempt = manager.update(image, debugPutImageData);
 
     if (attempt) {
-      attempt.player = personalStorage.player();
+      attempt.player = personalStorage.player() || "Noname";
       personalStorage.upsertAttempt(attempt);
     }
 
