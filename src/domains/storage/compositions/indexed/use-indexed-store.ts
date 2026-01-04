@@ -1,17 +1,17 @@
 import * as v from "valibot";
 import { type SetStoreFunction, createStore, reconcile, unwrap } from "solid-js/store";
-import type { Brand } from "../../_core/utils/brand";
-import { JSONUtils } from "../../_core/utils/json-utils";
-import { createIndexedValue } from "./create-indexed-value";
+import type { Brand } from "../../../_core/utils/brand";
+import { JSONUtils } from "../../../_core/utils/json-utils";
 import { onMount } from "solid-js";
+import { useIndexedValue } from "./use-indexed-value";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<unknown, O>>(
+function useIndexedStoreFactory<O extends object, S extends v.GenericSchema<unknown, O>>(
   key: string,
   schema: S,
   storeInit: v.InferOutput<S>,
 ) {
-  const database = createIndexedValue<v.InferOutput<S>>(key);
+  const database = useIndexedValue<v.InferOutput<S>>(key);
   const [store, setStoreInternal] = createStore<v.InferOutput<S>>(storeInit);
 
   onMount(async () => {
@@ -54,9 +54,9 @@ function createIndexedStoreFactory<O extends object, S extends v.GenericSchema<u
 }
 
 type IndexedStore<O extends object, S extends v.GenericSchema<unknown, O>> = Brand<
-  ReturnType<typeof createIndexedStoreFactory<O, S>>
+  ReturnType<typeof useIndexedStoreFactory<O, S>>
 >;
 type IndexedStoreFactory = <O extends object, S extends v.GenericSchema<unknown, O>>(
-  ...args: Parameters<typeof createIndexedStoreFactory<O, S>>
+  ...args: Parameters<typeof useIndexedStoreFactory<O, S>>
 ) => IndexedStore<O, S>;
-export const createIndexedStore: IndexedStoreFactory = createIndexedStoreFactory;
+export const useIndexedStore: IndexedStoreFactory = useIndexedStoreFactory;

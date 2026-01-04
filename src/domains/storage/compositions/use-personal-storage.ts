@@ -5,15 +5,15 @@ import type { AttemptsStorage } from "../schemas/attempts-storage";
 import type { Brand } from "../../_core/utils/brand";
 import { JSONUtils } from "../../_core/utils/json-utils";
 import { PersonalStorageSchema } from "../schemas/personal-storage";
-import { createIndexedStore } from "../utils/create-indexed-store";
 import { createMemo } from "solid-js";
 import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { produce } from "solid-js/store";
 import { useAttempts } from "../../attempt/compositions/use-attempts";
+import { useIndexedStore } from "./indexed/use-indexed-store";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function usePersonalStorageSingleton() {
-  const { key, store, setStore, exportToJSON, replaceFromJSON } = createIndexedStore(
+  const { key, store, setStore, exportToJSON, replaceFromJSON } = useIndexedStore(
     "personal-attempts",
     PersonalStorageSchema,
     {
