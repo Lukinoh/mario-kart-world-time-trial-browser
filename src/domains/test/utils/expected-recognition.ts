@@ -1,11 +1,11 @@
-import { Coins } from "../../recognitions/coins/coins";
-import { Lap } from "../../recognitions/lap/lap";
-import { Laps } from "../../recognitions/laps/laps";
-import { Pause } from "../../recognitions/pause/pause";
+import { Coins } from "../../recognition/coins/coins";
+import { Lap } from "../../recognition/lap/lap";
+import { Laps } from "../../recognition/laps/laps";
+import { Pause } from "../../recognition/pause/pause";
 import type { RecognitionAnalysis } from "../types/recognition-analysis";
-import { Shrooms } from "../../recognitions/shrooms/shrooms";
-import { Time } from "../../recognitions/time/time";
-import { Track } from "../../recognitions/track/track";
+import { Shrooms } from "../../recognition/shrooms/shrooms";
+import { Time } from "../../recognition/time/time";
+import { Track } from "../../recognition/track/track";
 import { assert } from "../../_core/utils/assert";
 import { expect } from "vitest";
 import { loadImages } from "../../image-manipulation/image/image-loader";

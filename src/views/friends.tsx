@@ -1,10 +1,10 @@
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import { ValibotImportButton } from "../domains/storages/components/valibot-import-button/valibot-import-button";
+import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
 import { css } from "@emotion/css";
 import { onMount } from "solid-js";
-import { useFriendsStorage } from "../domains/storages/compositions/use-friends-storage";
+import { useFriendsStorage } from "../domains/storage/compositions/use-friends-storage";
 
 const sActions = css({
   display: "flex",

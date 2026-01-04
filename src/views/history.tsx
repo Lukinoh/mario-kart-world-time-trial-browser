@@ -1,10 +1,10 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import { ValibotImportButton } from "../domains/storages/components/valibot-import-button/valibot-import-button";
+import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
 import { css } from "@emotion/css";
-import { usePersonalStorage } from "../domains/storages/compositions/use-personal-storage";
+import { usePersonalStorage } from "../domains/storage/compositions/use-personal-storage";
 
 const sActions = css({
   display: "flex",

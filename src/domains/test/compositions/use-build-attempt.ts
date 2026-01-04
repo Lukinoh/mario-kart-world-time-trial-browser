@@ -1,7 +1,7 @@
 import { map, pipe } from "remeda";
-import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
+import type { AttemptStorage } from "../../storage/schemas/attempt-storage";
 import type { Brand } from "../../_core/utils/brand";
-import type { SplitStorage } from "../../storages/schemas/split-storage";
+import type { SplitStorage } from "../../storage/schemas/split-storage";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 const useBuildAttemptFactory = (laps: number, inputDefaultAttempt?: Partial<AttemptStorage>) => {

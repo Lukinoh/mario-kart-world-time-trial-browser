@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
-import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
+import type { AttemptStorage } from "../../storage/schemas/attempt-storage";
 import { createRoot } from "solid-js";
-import { toStorage } from "../../tests/utils/to-storage";
+import { toStorage } from "../../test/utils/to-storage";
 import { useAttempts } from "./use-attempts";
-import { useBuildAttempt } from "../../tests/compositions/use-build-attempt";
+import { useBuildAttempt } from "../../test/compositions/use-build-attempt";
 
 describe("attempts", () => {
   test("returns the lists of attempts", () => {

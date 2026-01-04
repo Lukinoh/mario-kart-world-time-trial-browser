@@ -1,6 +1,6 @@
 import * as v from "valibot";
-import { AttemptStorageSchema } from "../../storages/schemas/attempt-storage";
-import { Time } from "../../recognitions/time/time";
+import { AttemptStorageSchema } from "../../storage/schemas/attempt-storage";
+import { Time } from "../../recognition/time/time";
 import { format } from "date-and-time";
 import { generateArray } from "../../_core/utils/generate-array";
 

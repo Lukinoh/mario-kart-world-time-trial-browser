@@ -1,14 +1,14 @@
-import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
+import type { AttemptStorage } from "../../storage/schemas/attempt-storage";
 import type { Brand } from "../../_core/utils/brand";
-import { Coins } from "../../recognitions/coins/coins";
-import type { DebugPutImageData } from "../../recognitions/debug-put-image-data";
+import { Coins } from "../../recognition/coins/coins";
+import type { DebugPutImageData } from "../../recognition/debug-put-image-data";
 import type { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
-import { Lap } from "../../recognitions/lap/lap";
-import { Laps } from "../../recognitions/laps/laps";
-import { Pause } from "../../recognitions/pause/pause";
-import { Shrooms } from "../../recognitions/shrooms/shrooms";
-import { Time } from "../../recognitions/time/time";
-import { Track } from "../../recognitions/track/track";
+import { Lap } from "../../recognition/lap/lap";
+import { Laps } from "../../recognition/laps/laps";
+import { Pause } from "../../recognition/pause/pause";
+import { Shrooms } from "../../recognition/shrooms/shrooms";
+import { Time } from "../../recognition/time/time";
+import { Track } from "../../recognition/track/track";
 import { createAttemptHandler } from "../utils/attempt-handler";
 import { useIsFinalTime } from "./use-is-final-time";
 

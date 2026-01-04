@@ -1,13 +1,13 @@
 import { clearTimeout, setTimeout } from "worker-timers";
 import { createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../../_core/utils/brand";
-import type { DebugPutImageData } from "../../recognitions/debug-put-image-data";
+import type { DebugPutImageData } from "../../recognition/debug-put-image-data";
 import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { Environment } from "../../_core/environment";
 import { ImageFilters } from "../../image-manipulation/image/image-filters";
 import type { ImageNormaliserOptions } from "../../image-manipulation/image/image-normaliser";
 import { useAttemptManager } from "../../attempt/compositions/use-attempt-manager";
-import { usePersonalStorage } from "../../storages/compositions/use-personal-storage";
+import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
 import { useVideoCanvas } from "./use-video-canvas";
 
 type State = "STARTED" | "PAUSED";

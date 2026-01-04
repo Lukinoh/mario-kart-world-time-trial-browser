@@ -1,4 +1,4 @@
-import { expectedRecognition } from "../../tests/utils/expected-recognition";
+import { expectedRecognition } from "../../test/utils/expected-recognition";
 import { test } from "vitest";
 
 test.for([

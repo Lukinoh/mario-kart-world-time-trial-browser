@@ -1,7 +1,7 @@
 import { MINUS, PLUS, PLUS_OR_MINUS } from "./characters";
 import { capitalize, isDefined } from "remeda";
 import type { Attempt } from "../schemas/attempt";
-import { Time } from "../../recognitions/time/time";
+import { Time } from "../../recognition/time/time";
 
 export function delta(
   attempt2: Attempt,

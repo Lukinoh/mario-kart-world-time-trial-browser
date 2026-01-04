@@ -3,7 +3,7 @@ import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js
 import { A } from "@solidjs/router";
 import { AttemptsComparisonTable } from "../domains/attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import { useStorage } from "../domains/storages/compositions/use-storage";
+import { useStorage } from "../domains/storage/compositions/use-storage";
 
 export const Live = defineComponent<ViewProps>((props) => {
   const storage = useStorage();

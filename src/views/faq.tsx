@@ -1,9 +1,9 @@
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
-import { ValibotImportButton } from "../domains/storages/components/valibot-import-button/valibot-import-button";
+import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
 import { onMount } from "solid-js";
-import { useStorage } from "../domains/storages/compositions/use-storage";
+import { useStorage } from "../domains/storage/compositions/use-storage";
 
 export const FAQ = defineComponent<ViewProps>((props) => {
   const storage = useStorage();
