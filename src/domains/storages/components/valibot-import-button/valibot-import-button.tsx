@@ -1,10 +1,10 @@
 import * as v from "valibot";
-import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../domains/storages/schemas/attempts-storage";
+import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../schemas/attempts-storage";
 import { type JSX, Match, Switch, createMemo, createSignal } from "solid-js";
 import { isFunction, isString } from "remeda";
-import { Dialog } from "../../domains/ui/components/dialog";
+import { Dialog } from "../../../ui/components/dialog";
 import { ValibotErrorContent } from "./valibot-error-content";
-import { defineComponent } from "../../domains/_core/utils/solid-js";
+import { defineComponent } from "../../../_core/utils/solid-js";
 
 interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;

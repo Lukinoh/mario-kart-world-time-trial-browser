@@ -1,7 +1,7 @@
 import { Navigate, Route, type RouteSectionProps, Router, useLocation } from "@solidjs/router";
 import { ci, defineComponent } from "./domains/_core/utils/solid-js";
 import { createMemo, createSignal } from "solid-js";
-import { AloneDialog } from "./components/alone-dialog";
+import { AloneDialog } from "./domains/_core/components/alone-dialog/alone-dialog";
 import { FAQ } from "./views/faq";
 import { Friends } from "./views/friends";
 import { History } from "./views/history";

@@ -1,9 +1,9 @@
 import * as v from "valibot";
-import { Cell } from "../../domains/ui/components/grid/cell";
+import { Cell } from "../../../ui/components/grid/cell";
 import { For } from "solid-js";
-import { GridColumn } from "../../domains/ui/components/grid/grid-column";
-import { HorizontalDivider } from "../../domains/ui/components/grid/horizontal-divider";
-import { defineComponent } from "../../domains/_core/utils/solid-js";
+import { GridColumn } from "../../../ui/components/grid/grid-column";
+import { HorizontalDivider } from "../../../ui/components/grid/horizontal-divider";
+import { defineComponent } from "../../../_core/utils/solid-js";
 
 interface ValibotErrorContentProps {
   issues: Array<v.BaseIssue<unknown>>;

@@ -1,7 +1,7 @@
-import { Dialog } from "../domains/ui/components/dialog";
+import { Dialog } from "../../../ui/components/dialog";
 import { createEffect } from "solid-js";
-import { defineComponent } from "../domains/_core/utils/solid-js";
-import { useAlone } from "../compositions/use-alone";
+import { defineComponent } from "../../utils/solid-js";
+import { useAlone } from "./use-alone";
 
 export const AloneDialog = defineComponent(() => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars

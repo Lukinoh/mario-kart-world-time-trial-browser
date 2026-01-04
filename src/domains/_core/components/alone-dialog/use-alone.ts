@@ -1,7 +1,7 @@
 import { createSignal, onMount } from "solid-js";
-import type { Brand } from "../domains/_core/utils/brand";
-import { createSingletonRoot } from "../domains/_core/utils/solid-js";
-import { useBroadcastChannel } from "../domains/_core/compositions/use-broadcast-channel";
+import type { Brand } from "../../utils/brand";
+import { createSingletonRoot } from "../../utils/solid-js";
+import { useBroadcastChannel } from "../../compositions/use-broadcast-channel";
 
 type Initiator = ReturnType<typeof crypto.randomUUID>;
 
