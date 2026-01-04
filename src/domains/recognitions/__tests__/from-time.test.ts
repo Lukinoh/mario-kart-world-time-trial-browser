@@ -1,9 +1,9 @@
-import { expectedRecognition } from "./recogntion-analysis";
+import { expectedRecognition } from "../../tests/utils/expected-recognition";
 import { test } from "vitest";
 
 test.for([
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/0.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/0.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -16,7 +16,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/1.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/1.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -29,7 +29,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/2.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/2.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -42,7 +42,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/3.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/3.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -55,7 +55,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/4.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/4.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -68,7 +68,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/5.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/5.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -81,7 +81,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/6.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/6.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -94,7 +94,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/7.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/7.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -107,7 +107,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/8.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/8.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -120,7 +120,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/time/9.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/time/9.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",

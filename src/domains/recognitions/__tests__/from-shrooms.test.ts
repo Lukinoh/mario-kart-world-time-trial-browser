@@ -1,9 +1,12 @@
-import { expectedRecognition } from "./recogntion-analysis";
+import { expectedRecognition } from "../../tests/utils/expected-recognition";
 import { test } from "vitest";
 
 test.for([
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/1.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/1.png", {
+      eager: true,
+      import: `default`,
+    }),
     expected: {
       coins: "00",
       lap: "1",
@@ -16,7 +19,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/1-bump.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/1-bump.png", {
       eager: true,
       import: `default`,
     }),
@@ -32,7 +35,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/1-from-2.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/1-from-2.png", {
       eager: true,
       import: `default`,
     }),
@@ -48,7 +51,10 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/2.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/2.png", {
+      eager: true,
+      import: `default`,
+    }),
     expected: {
       coins: "00",
       lap: "1",
@@ -61,7 +67,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/2-bump.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/2-bump.png", {
       eager: true,
       import: `default`,
     }),
@@ -77,7 +83,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/2-from-3.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/2-from-3.png", {
       eager: true,
       import: `default`,
     }),
@@ -93,7 +99,10 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/3.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/3.png", {
+      eager: true,
+      import: `default`,
+    }),
     expected: {
       coins: "00",
       lap: "1",
@@ -106,7 +115,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/shrooms/3-bump.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/shrooms/3-bump.png", {
       eager: true,
       import: `default`,
     }),

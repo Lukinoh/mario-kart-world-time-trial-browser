@@ -1,9 +1,9 @@
-import { expectedRecognition } from "./recogntion-analysis";
+import { expectedRecognition } from "../../tests/utils/expected-recognition";
 import { test } from "vitest";
 
 test.for([
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Acorn Heights.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Acorn Heights.png", {
       eager: true,
       import: `default`,
     }),
@@ -19,7 +19,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Airship Fortress.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Airship Fortress.png", {
       eager: true,
       import: `default`,
     }),
@@ -35,7 +35,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Boo Cinema.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Boo Cinema.png", {
       eager: true,
       import: `default`,
     }),
@@ -51,7 +51,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Bowser's Castle.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Bowser's Castle.png", {
       eager: true,
       import: `default`,
     }),
@@ -67,7 +67,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Cheep Cheep Falls.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Cheep Cheep Falls.png", {
       eager: true,
       import: `default`,
     }),
@@ -83,7 +83,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Choco Mountain.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Choco Mountain.png", {
       eager: true,
       import: `default`,
     }),
@@ -99,7 +99,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Crown City.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Crown City.png", {
       eager: true,
       import: `default`,
     }),
@@ -115,7 +115,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Dandelion Depths.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Dandelion Depths.png", {
       eager: true,
       import: `default`,
     }),
@@ -131,7 +131,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Desert Hills.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Desert Hills.png", {
       eager: true,
       import: `default`,
     }),
@@ -147,7 +147,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Dino Dino Jungle.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Dino Dino Jungle.png", {
       eager: true,
       import: `default`,
     }),
@@ -163,7 +163,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/DK Pass.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/DK Pass.png", {
       eager: true,
       import: `default`,
     }),
@@ -179,7 +179,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/DK Spaceport.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/DK Spaceport.png", {
       eager: true,
       import: `default`,
     }),
@@ -195,7 +195,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Dry Bones Burnout.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Dry Bones Burnout.png", {
       eager: true,
       import: `default`,
     }),
@@ -211,7 +211,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Faraway Oasis.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Faraway Oasis.png", {
       eager: true,
       import: `default`,
     }),
@@ -227,7 +227,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Great ؟ Block Ruins.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Great ؟ Block Ruins.png", {
       eager: true,
       import: `default`,
     }),
@@ -243,7 +243,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Koopa Troopa Beach.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Koopa Troopa Beach.png", {
       eager: true,
       import: `default`,
     }),
@@ -259,7 +259,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Mario Bros. Circuit.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Mario Bros. Circuit.png", {
       eager: true,
       import: `default`,
     }),
@@ -275,7 +275,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Mario Circuit.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Mario Circuit.png", {
       eager: true,
       import: `default`,
     }),
@@ -291,7 +291,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Moo Moo Meadows.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Moo Moo Meadows.png", {
       eager: true,
       import: `default`,
     }),
@@ -307,7 +307,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Peach Beach.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Peach Beach.png", {
       eager: true,
       import: `default`,
     }),
@@ -323,7 +323,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Peach Stadium.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Peach Stadium.png", {
       eager: true,
       import: `default`,
     }),
@@ -339,7 +339,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Rainbow Road.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Rainbow Road.png", {
       eager: true,
       import: `default`,
     }),
@@ -355,7 +355,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Salty Salty Speedway.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Salty Salty Speedway.png", {
       eager: true,
       import: `default`,
     }),
@@ -371,7 +371,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Shy Guy Bazaar.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Shy Guy Bazaar.png", {
       eager: true,
       import: `default`,
     }),
@@ -387,7 +387,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Sky-High Sundae.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Sky-High Sundae.png", {
       eager: true,
       import: `default`,
     }),
@@ -403,7 +403,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Starview Peak.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Starview Peak.png", {
       eager: true,
       import: `default`,
     }),
@@ -419,7 +419,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Toad's Factory.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Toad's Factory.png", {
       eager: true,
       import: `default`,
     }),
@@ -435,7 +435,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Wario Shipyard.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Wario Shipyard.png", {
       eager: true,
       import: `default`,
     }),
@@ -451,7 +451,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Wario Stadium.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Wario Stadium.png", {
       eager: true,
       import: `default`,
     }),
@@ -467,7 +467,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/track/Whistlestop Summit.png", {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/Whistlestop Summit.png", {
       eager: true,
       import: `default`,
     }),

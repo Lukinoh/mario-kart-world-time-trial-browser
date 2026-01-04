@@ -1,9 +1,12 @@
-import { expectedRecognition } from "./recogntion-analysis";
+import { expectedRecognition } from "../../tests/utils/expected-recognition";
 import { test } from "vitest";
 
 test.for([
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/pause/model.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/pause/model.png", {
+      eager: true,
+      import: `default`,
+    }),
     expected: {
       coins: "11",
       lap: "1",

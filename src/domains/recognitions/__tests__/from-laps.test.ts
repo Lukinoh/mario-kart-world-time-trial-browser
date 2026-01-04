@@ -1,9 +1,9 @@
-import { expectedRecognition } from "./recogntion-analysis";
+import { expectedRecognition } from "../../tests/utils/expected-recognition";
 import { test } from "vitest";
 
 test.for([
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/laps/3.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/laps/3.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",
@@ -16,7 +16,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/laps/4.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/laps/4.png", { eager: true, import: `default` }),
     expected: {
       coins: "02",
       lap: "1",
@@ -29,7 +29,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/laps/5.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/laps/5.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "2",
@@ -42,7 +42,7 @@ test.for([
     },
   },
   {
-    source: import.meta.glob<string>("../assets/recognitions/raw/laps/6.png", { eager: true, import: `default` }),
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/laps/6.png", { eager: true, import: `default` }),
     expected: {
       coins: "00",
       lap: "1",

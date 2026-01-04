@@ -1,10 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { map, pipe } from "remeda";
-import type { Attempt } from "../schemas/attempt";
 import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
-import type { SplitStorage } from "../../storages/schemas/split-storage";
 import { createRoot } from "solid-js";
+import { toStorage } from "../../tests/utils/to-storage";
 import { useAttempts } from "./use-attempts";
+import { useBuildAttempt } from "../../tests/compositions/use-build-attempt";
 
 describe("attempts", () => {
   test("returns the lists of attempts", () => {
@@ -21,7 +20,7 @@ describe("tracks", () => {
   });
 
   test("returns the list of tracks in alphabetic order", () => {
-    const { createAttempt } = useAttemptTest(0);
+    const { createAttempt } = useBuildAttempt(0);
     const { tracks } = createRoot(() =>
       useAttempts({
         version: 1,
@@ -46,7 +45,7 @@ describe("lastAttempt", () => {
   });
 
   test("returns the last attempt", () => {
-    const { createAttempt } = useAttemptTest(0);
+    const { createAttempt } = useBuildAttempt(0);
 
     // The attempts are stored from more recent to older.
     const { lastAttempt } = createRoot(() =>
@@ -70,7 +69,7 @@ describe("getTimeRecords", () => {
   });
 
   test("returns the time records for each track ordered", () => {
-    const { createAttempt, createSplit } = useAttemptTest(2);
+    const { createAttempt, createSplit } = useBuildAttempt(2);
     const recordAttempt_A = createAttempt({ track: "A", splits: createSplit("1:00.000", "2:00.000") });
     const recordAttempt_B = createAttempt({ track: "B", splits: createSplit("0:30.000", "0:30.000") });
 
@@ -93,7 +92,7 @@ describe("getTimeRecords", () => {
   });
 
   test("returns two time records if same time, but not same attempt", () => {
-    const { createAttempt, createSplit } = useAttemptTest(1);
+    const { createAttempt, createSplit } = useBuildAttempt(1);
     const attemptOne = createAttempt({ player: "Attempt One", splits: createSplit("1:00.000") });
     const attemptTwo = createAttempt({ player: "Attempt Two", splits: createSplit("1:00.000") });
 
@@ -111,7 +110,7 @@ describe("getTimeRecordsByTrack", () => {
   });
 
   test("returns the time records for a specific track", () => {
-    const { createAttempt, createSplit } = useAttemptTest(1);
+    const { createAttempt, createSplit } = useBuildAttempt(1);
     const recordAttempt_A1 = createAttempt({ track: "A", splits: createSplit("3:00.000") });
     const recordAttempt_B = createAttempt({ track: "B", splits: createSplit("1:00.000") });
     const recordAttempt_A2 = createAttempt({ track: "A", splits: createSplit("3:00.000") });
@@ -138,7 +137,7 @@ describe("getTimeRecordsByTrack", () => {
   });
 
   test("returns two time records if same time, but not same attempt", () => {
-    const { createAttempt, createSplit } = useAttemptTest(1, { track: "A" });
+    const { createAttempt, createSplit } = useBuildAttempt(1, { track: "A" });
 
     const attemptOne = createAttempt({ player: "Attempt One", splits: createSplit("1:00.000") });
     const attemptTwo = createAttempt({ player: "Attempt Two", splits: createSplit("1:00.000") });
@@ -158,7 +157,7 @@ describe("getSplitRecordByTrack", () => {
   });
 
   test("returns the split records for a specific track", () => {
-    const { createAttempt, createSplit } = useAttemptTest(2, { track: "A" });
+    const { createAttempt, createSplit } = useBuildAttempt(2, { track: "A" });
     const splitRecordAttempt_1 = createAttempt({ splits: createSplit("1:10.000") });
     const splitRecordAttempt_2 = createAttempt({ splits: createSplit("9:00.000", "1:20.000") });
     const splitRecordAttempt_3 = createAttempt({ splits: createSplit("1:10.000", "9:00.000") });
@@ -193,7 +192,7 @@ describe("getFlattenRecords", () => {
   });
 
   test("returns flatten records (split and time) ordered by descending timestamp without duplicate", () => {
-    const { createAttempt, createSplit } = useAttemptTest(2, { track: "A" });
+    const { createAttempt, createSplit } = useBuildAttempt(2, { track: "A" });
     const record_1 = createAttempt({ splits: createSplit("1:10.000") });
     const record_2 = createAttempt({ splits: createSplit("9:00.000", "1:20.000") });
 
@@ -215,7 +214,7 @@ describe("merge", () => {
   });
 
   test("returns the input array ordered by descending timestamp if there is no attempts", () => {
-    const { createAttempt } = useAttemptTest(1);
+    const { createAttempt } = useBuildAttempt(1);
     const attempts = [createAttempt({}), createAttempt({})];
 
     const { merge } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
@@ -223,7 +222,7 @@ describe("merge", () => {
   });
 
   test("returns an array without duplicates ordered by descending timestamp", () => {
-    const { createAttempt } = useAttemptTest(1);
+    const { createAttempt } = useBuildAttempt(1);
     const duplicatedAttempt = createAttempt({});
     const attempts = [createAttempt({}), duplicatedAttempt];
 
@@ -232,7 +231,7 @@ describe("merge", () => {
   });
 
   test("returns an array ordered by descending timestamp", () => {
-    const { createAttempt } = useAttemptTest(1);
+    const { createAttempt } = useBuildAttempt(1);
     const attempt_1 = createAttempt({});
     const attempt_2 = createAttempt({});
     const attempt_3 = createAttempt({});
@@ -242,54 +241,3 @@ describe("merge", () => {
     expect(merge([attempt_2, attempt_1])).toStrictEqual([attempt_4, attempt_3, attempt_2, attempt_1]);
   });
 });
-
-/**
- * Helpers
- */
-
-// oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-const useAttemptTest = (laps: number, inputDefaultAttempt?: Partial<AttemptStorage>) => {
-  let timestamp = 0;
-
-  const defaultAttempt = {
-    player: "Noname",
-    track: "A track",
-    ...inputDefaultAttempt,
-    laps: laps,
-  } satisfies Partial<AttemptStorage>;
-
-  const createAttempt = (attempt: Partial<AttemptStorage>): AttemptStorage => {
-    timestamp = timestamp + 1;
-
-    return {
-      ...defaultAttempt,
-      ...attempt,
-      timestamp: timestamp,
-      splits: attempt.splits ?? [],
-    };
-  };
-
-  const createSplits = (...time: Array<string>): Array<SplitStorage> => {
-    let lap = 0;
-    return pipe(
-      time,
-      map((splitTime) => {
-        lap = lap + 1;
-        return {
-          shrooms: 0,
-          coins: 0,
-          time: splitTime,
-        };
-      }),
-    );
-  };
-
-  return {
-    createAttempt,
-    createSplit: createSplits,
-  };
-};
-
-function toStorage(attempts: Array<Attempt>): Array<AttemptStorage> {
-  return attempts.map((attempt) => attempt.raw);
-}

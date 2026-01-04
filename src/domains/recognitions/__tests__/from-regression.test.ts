@@ -1,4 +1,4 @@
-import { expectedRecognition } from "./recogntion-analysis";
+import { expectedRecognition } from "../../tests/utils/expected-recognition";
 import { test } from "vitest";
 
 // This file contains specific test cases that used to be wrongly interpreted.

@@ -1,31 +1,18 @@
-import { Coins } from "../domains/recognitions/coins/coins";
-import { Lap } from "../domains/recognitions/lap/lap";
-import { Laps } from "../domains/recognitions/laps/laps";
-import { Pause } from "../domains/recognitions/pause/pause";
-import { Shrooms } from "../domains/recognitions/shrooms/shrooms";
-import { Time } from "../domains/recognitions/time/time";
-import { Track } from "../domains/recognitions/track/track";
-import { assert } from "../domains/_core/utils/assert";
+import { Coins } from "../../recognitions/coins/coins";
+import { Lap } from "../../recognitions/lap/lap";
+import { Laps } from "../../recognitions/laps/laps";
+import { Pause } from "../../recognitions/pause/pause";
+import type { RecognitionAnalysis } from "../types/recognition-analysis";
+import { Shrooms } from "../../recognitions/shrooms/shrooms";
+import { Time } from "../../recognitions/time/time";
+import { Track } from "../../recognitions/track/track";
+import { assert } from "../../_core/utils/assert";
 import { expect } from "vitest";
-import { loadImages } from "../domains/image-manipulation/image/image-loader";
+import { loadImages } from "../../image-manipulation/image/image-loader";
 
 const BgYellow = "\u001B[43m";
 const FgBlack = "\u001B[30m";
 const Reset = "\u001B[0m";
-
-interface RecognitionAnalysis {
-  source: Record<string, string>;
-  expected: {
-    coins: string;
-    lap: string;
-    laps: string;
-    pause: boolean;
-    shrooms: string;
-    time: string;
-    timeYellow: boolean;
-    track: string;
-  };
-}
 
 export async function expectedRecognition(params: RecognitionAnalysis, warnOnTrack: boolean): Promise<void> {
   const images = await loadImages(params.source);
