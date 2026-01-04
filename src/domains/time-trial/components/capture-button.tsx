@@ -1,7 +1,7 @@
 import { Match, Switch } from "solid-js";
-import type { TimeTrial } from "../../compositions/use-time-trial";
+import type { TimeTrial } from "../compositions/use-time-trial";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../core/helpers/solid-js";
+import { defineComponent } from "../../../core/helpers/solid-js";
 
 const sButton = css({
   marginBottom: 0,

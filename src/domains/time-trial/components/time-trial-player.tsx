@@ -1,12 +1,12 @@
 import { Show, onMount } from "solid-js";
 import { CaptureButton } from "./capture-button";
-import { Environment } from "../../core/environment";
-import { GridColumn } from "../grid-utilities/grid-column";
-import { TextInput } from "../text-input";
-import type { TimeTrial } from "../../compositions/use-time-trial";
+import { Environment } from "../../../core/environment";
+import { GridColumn } from "../../../components/grid-utilities/grid-column";
+import { TextInput } from "../../../components/text-input";
+import type { TimeTrial } from "../compositions/use-time-trial";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../core/helpers/solid-js";
-import { fileUpload } from "../../core/helpers/file-upload";
+import { defineComponent } from "../../../core/helpers/solid-js";
+import { fileUpload } from "../../../core/helpers/file-upload";
 
 const sOptionsZone = css({
   display: "flex",
@@ -57,7 +57,7 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
 
   onMount(async () => {
     if (import.meta.env.DEV && Environment.isDebug) {
-      const demoVideo = await import("../../assets/demo/demo.webm");
+      const demoVideo = await import("../../../assets/demo/demo.webm");
       props.timeTrial.fromUrl(demoVideo.default);
     } else {
       await onCameraRadio();

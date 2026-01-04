@@ -6,9 +6,9 @@ import { FAQ } from "./views/faq";
 import { Friends } from "./views/friends";
 import { History } from "./views/history";
 import { Live } from "./views/live";
-import { TimeTrialPlayer } from "./components/time-trial-player/time-trial-player";
+import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { WorldRecords } from "./views/world-records";
-import { useTimeTrial } from "./compositions/use-time-trial";
+import { useTimeTrial } from "./domains/time-trial/compositions/use-time-trial";
 
 export const App = defineComponent(() => {
   const timeTrial = useTimeTrial();
