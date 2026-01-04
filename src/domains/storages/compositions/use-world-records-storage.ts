@@ -5,7 +5,7 @@ import { JSONUtils } from "../../../core/helpers/json-utils";
 import { MkwWrs } from "../../../core/domain/mkw-wrs";
 import { createIndexedStore } from "../utils/create-indexed-store";
 import { createSingletonRoot } from "../../../core/helpers/solid-js";
-import { useAttempts } from "../../../compositions/utils/use-attempts";
+import { useAttempts } from "../../attempt/compositions/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useWorldRecordsStorageSingleton() {

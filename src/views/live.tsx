@@ -1,8 +1,8 @@
 import { Match, Switch, createMemo, onMount } from "solid-js";
 import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
 import { A } from "@solidjs/router";
-import { AttemptsComparisonTable } from "../components/attempts-comparison-table/attempts-comparison-table";
-import { AttemptsTable } from "../components/attempts-table/attempts-table";
+import { AttemptsComparisonTable } from "../domains/attempt/components/attempts-comparison-table/attempts-comparison-table";
+import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { useStorage } from "../domains/storages/compositions/use-storage";
 
 export const Live = defineComponent<ViewProps>((props) => {

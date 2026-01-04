@@ -1,12 +1,12 @@
 import { clearTimeout, setTimeout } from "worker-timers";
 import { createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../core/helpers/brand";
-import type { DebugPutImageData } from "../core/domain/types/debug-put-image-data";
+import type { DebugPutImageData } from "../domains/recognitions/debug-put-image-data";
 import { EnhancedImageData } from "../domains/image-manipulation/image/enhanced-image-data";
 import { Environment } from "../core/environment";
 import { ImageFilters } from "../domains/image-manipulation/image/image-filters";
 import type { ImageNormaliserOptions } from "../domains/image-manipulation/image/image-normaliser";
-import { useAttemptManager } from "./use-attempt-manager";
+import { useAttemptManager } from "../domains/attempt/compositions/use-attempt-manager";
 import { usePersonalStorage } from "../domains/storages/compositions/use-personal-storage";
 import { useVideoCanvas } from "./utils/use-video-canvas";
 

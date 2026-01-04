@@ -1,4 +1,4 @@
-import type { ImageNormaliserOptions } from "../../../domains/image-manipulation/image/image-normaliser";
+import type { ImageNormaliserOptions } from "../image-manipulation/image/image-normaliser";
 
 export type DebugPutImageData = (
   imageNormaliserOptions: ImageNormaliserOptions,

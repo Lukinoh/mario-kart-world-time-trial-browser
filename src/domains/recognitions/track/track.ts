@@ -1,5 +1,5 @@
 import { TrackRecognitionOptions, TrackRegion } from "./track-configuration";
-import type { DebugPutImageData } from "../../../core/domain/types/debug-put-image-data";
+import type { DebugPutImageData } from "../debug-put-image-data";
 import type { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { createImageRecognition } from "../../image-manipulation/image/image-recognition";
 import { loadImages } from "../../image-manipulation/image/image-loader";

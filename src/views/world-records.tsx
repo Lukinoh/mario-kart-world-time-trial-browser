@@ -1,5 +1,5 @@
 import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
-import { AttemptsTable } from "../components/attempts-table/attempts-table";
+import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { Cell } from "../components/grid-utilities/cell";
 import { GridColumn } from "../components/grid-utilities/grid-column";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";

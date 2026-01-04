@@ -1,7 +1,7 @@
-import { Cell, type CellProps } from "../grid-utilities/cell";
-import { MINUS, PLUS, PLUS_OR_MINUS } from "../../core/characters";
+import { Cell, type CellProps } from "../../../../components/grid-utilities/cell";
+import { MINUS, PLUS, PLUS_OR_MINUS } from "../../../../core/characters";
 import { createMemo } from "solid-js";
-import { defineComponent } from "../../core/helpers/solid-js";
+import { defineComponent } from "../../../../core/helpers/solid-js";
 
 export const DeltaCell = defineComponent<CellProps>((props) => {
   const color = createMemo<CellProps>(() => {

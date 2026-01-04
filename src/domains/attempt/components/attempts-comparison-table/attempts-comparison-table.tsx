@@ -1,14 +1,14 @@
-import { Cell, type CellProps } from "../grid-utilities/cell";
+import { Cell, type CellProps } from "../../../../components/grid-utilities/cell";
 import { For, Show, createMemo } from "solid-js";
-import type { Attempt } from "../../core/domain/local/attempt";
+import type { Attempt } from "../../schemas/attempt";
 import { DeltaCell } from "./delta-cell";
 import { F1Cell } from "./f1-cell";
-import { GridColumn } from "../grid-utilities/grid-column";
-import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
-import type { ReferenceRecords } from "../../core/domain/types/reference-records";
-import { VerticalDivider } from "../grid-utilities/vertical-divider";
-import { defineComponent } from "../../core/helpers/solid-js";
-import { delta } from "../../core/helpers/delta";
+import { GridColumn } from "../../../../components/grid-utilities/grid-column";
+import { HorizontalDivider } from "../../../../components/grid-utilities/horizontal-divider";
+import type { ReferenceRecords } from "../../types/reference-records";
+import { VerticalDivider } from "../../../../components/grid-utilities/vertical-divider";
+import { defineComponent } from "../../../../core/helpers/solid-js";
+import { delta } from "../../utils/delta";
 import { entries } from "remeda";
 
 const aTime: Partial<CellProps> = {

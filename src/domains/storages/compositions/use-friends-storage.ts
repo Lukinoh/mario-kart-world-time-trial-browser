@@ -5,7 +5,7 @@ import { JSONUtils } from "../../../core/helpers/json-utils";
 import { createIndexedStore } from "../utils/create-indexed-store";
 import { createSingletonRoot } from "../../../core/helpers/solid-js";
 import { produce } from "solid-js/store";
-import { useAttempts } from "../../../compositions/utils/use-attempts";
+import { useAttempts } from "../../attempt/compositions/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useFriendsStorageSingleton() {

@@ -1,7 +1,7 @@
 import { TimeRecognitionOptions, TimeRegions } from "./time-configuration";
 import { compile, format, parse } from "date-and-time";
 import { mapValues, pipe, values } from "remeda";
-import type { DebugPutImageData } from "../../../core/domain/types/debug-put-image-data";
+import type { DebugPutImageData } from "../debug-put-image-data";
 import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { ImageAssert } from "../../image-manipulation/image/image-assert";
 import { createImageRecognition } from "../../image-manipulation/image/image-recognition";

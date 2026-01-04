@@ -1,4 +1,4 @@
-import type { Attempt } from "../local/attempt";
+import type { Attempt } from "../schemas/attempt";
 
 export interface ReferenceRecords {
   BPS?: Array<Attempt>;

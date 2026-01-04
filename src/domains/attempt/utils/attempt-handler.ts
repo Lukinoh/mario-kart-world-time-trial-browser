@@ -1,8 +1,8 @@
-import type { AttemptStorage } from "../../domains/storages/schemas/attempt-storage";
-import type { Brand } from "../helpers/brand";
-import type { RawSplit } from "./types/raw-split";
-import type { SplitStorage } from "../../domains/storages/schemas/split-storage";
-import { Time } from "../../domains/recognitions/time/time";
+import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
+import type { Brand } from "../../../core/helpers/brand";
+import type { RawSplit } from "../types/raw-split";
+import type { SplitStorage } from "../../storages/schemas/split-storage";
+import { Time } from "../../recognitions/time/time";
 
 const SHROOMS_NUMBER = 3;
 

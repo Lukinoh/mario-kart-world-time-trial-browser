@@ -1,9 +1,9 @@
-import { Cell, type CellProps } from "../grid-utilities/cell";
+import { Cell, type CellProps } from "../../../../components/grid-utilities/cell";
 import { capitalize, isDefined } from "remeda";
-import type { Attempt } from "../../core/domain/local/attempt";
-import type { ReferenceRecords } from "../../core/domain/types/reference-records";
+import type { Attempt } from "../../schemas/attempt";
+import type { ReferenceRecords } from "../../types/reference-records";
 import { createMemo } from "solid-js";
-import { defineComponent } from "../../core/helpers/solid-js";
+import { defineComponent } from "../../../../core/helpers/solid-js";
 
 interface F1CellProps extends CellProps {
   attempt: Attempt;

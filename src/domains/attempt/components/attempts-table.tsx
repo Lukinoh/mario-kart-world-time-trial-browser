@@ -1,11 +1,11 @@
-import { Cell, type CellProps } from "../grid-utilities/cell";
+import { Cell, type CellProps } from "../../../components/grid-utilities/cell";
 import { For, type JSX, Match, Show, Switch, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
-import type { Attempt } from "../../core/domain/local/attempt";
-import { GridColumn } from "../grid-utilities/grid-column";
-import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
-import { VerticalDivider } from "../grid-utilities/vertical-divider";
-import { defineComponent } from "../../core/helpers/solid-js";
+import type { Attempt } from "../schemas/attempt";
+import { GridColumn } from "../../../components/grid-utilities/grid-column";
+import { HorizontalDivider } from "../../../components/grid-utilities/horizontal-divider";
+import { VerticalDivider } from "../../../components/grid-utilities/vertical-divider";
+import { defineComponent } from "../../../core/helpers/solid-js";
 
 const aFirstColumn: Partial<CellProps> = {
   extraPadding: "left",

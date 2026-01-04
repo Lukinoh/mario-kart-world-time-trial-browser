@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { type Attempt, AttemptSchema } from "../../core/domain/local/attempt";
+import { type Attempt, AttemptSchema } from "../schemas/attempt";
 import {
   drop,
   entries,
@@ -18,9 +18,9 @@ import {
   uniqueWith,
   values,
 } from "remeda";
-import type { AttemptStorage } from "../../domains/storages/schemas/attempt-storage";
-import type { AttemptsStorage } from "../../domains/storages/schemas/attempts-storage";
-import type { Brand } from "../../core/helpers/brand";
+import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
+import type { AttemptsStorage } from "../../storages/schemas/attempts-storage";
+import type { Brand } from "../../../core/helpers/brand";
 import type { Store } from "solid-js/store";
 import { createMemo } from "solid-js";
 
