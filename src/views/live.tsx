@@ -1,5 +1,5 @@
 import { Match, Switch, createMemo, onMount } from "solid-js";
-import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
+import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { A } from "@solidjs/router";
 import { AttemptsComparisonTable } from "../domains/attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";

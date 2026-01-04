@@ -3,7 +3,7 @@ import { capitalize, isDefined } from "remeda";
 import type { Attempt } from "../../schemas/attempt";
 import type { ReferenceRecords } from "../../types/reference-records";
 import { createMemo } from "solid-js";
-import { defineComponent } from "../../../../core/helpers/solid-js";
+import { defineComponent } from "../../../_core/utils/solid-js";
 
 interface F1CellProps extends CellProps {
   attempt: Attempt;

@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { AttemptStorageSchema } from "../../storages/schemas/attempt-storage";
 import { Time } from "../../recognitions/time/time";
 import { format } from "date-and-time";
-import { generateArray } from "../../../core/helpers/generate-array";
+import { generateArray } from "../../_core/utils/generate-array";
 
 export const AttemptSchema = v.pipe(
   AttemptStorageSchema,

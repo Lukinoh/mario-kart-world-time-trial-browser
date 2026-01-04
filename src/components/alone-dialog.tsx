@@ -1,6 +1,6 @@
 import { Dialog } from "./dialog";
 import { createEffect } from "solid-js";
-import { defineComponent } from "../core/helpers/solid-js";
+import { defineComponent } from "../domains/_core/utils/solid-js";
 import { useAlone } from "../compositions/use-alone";
 
 export const AloneDialog = defineComponent(() => {

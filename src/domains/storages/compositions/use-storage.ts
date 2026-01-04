@@ -1,9 +1,9 @@
 import * as v from "valibot";
 import { type StorageOutput, StorageSchema } from "../schemas/storage";
-import type { Brand } from "../../../core/helpers/brand";
-import { JSONUtils } from "../../../core/helpers/json-utils";
+import type { Brand } from "../../_core/utils/brand";
+import { JSONUtils } from "../../_core/utils/json-utils";
 import type { ReferenceRecords } from "../../attempt/types/reference-records";
-import { createSingletonRoot } from "../../../core/helpers/solid-js";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { useFriendsStorage } from "./use-friends-storage";
 import { usePersonalStorage } from "./use-personal-storage";
 import { useWorldRecordStorage } from "./use-world-records-storage";

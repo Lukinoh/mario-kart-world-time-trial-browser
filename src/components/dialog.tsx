@@ -1,7 +1,7 @@
 import { type JSX, Show, createMemo } from "solid-js";
 import { Portal } from "solid-js/web";
 import { css } from "@emotion/css";
-import { defineComponent } from "../core/helpers/solid-js";
+import { defineComponent } from "../domains/_core/utils/solid-js";
 import { isFunction } from "remeda";
 
 const sClose = css({

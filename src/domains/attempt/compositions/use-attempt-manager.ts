@@ -1,5 +1,5 @@
 import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
-import type { Brand } from "../../../core/helpers/brand";
+import type { Brand } from "../../_core/utils/brand";
 import { Coins } from "../../recognitions/coins/coins";
 import type { DebugPutImageData } from "../../recognitions/debug-put-image-data";
 import type { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";

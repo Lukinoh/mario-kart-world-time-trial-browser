@@ -4,7 +4,7 @@ import { type JSX, Match, Switch, createMemo, createSignal } from "solid-js";
 import { isFunction, isString } from "remeda";
 import { Dialog } from "../dialog";
 import { ValibotErrorContent } from "./valibot-error-content";
-import { defineComponent } from "../../core/helpers/solid-js";
+import { defineComponent } from "../../domains/_core/utils/solid-js";
 
 interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;

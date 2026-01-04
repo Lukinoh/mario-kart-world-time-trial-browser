@@ -1,4 +1,4 @@
-import type { Brand } from "../../core/helpers/brand";
+import type { Brand } from "../utils/brand";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useBroadcastChannelFactory<T>(name: string) {

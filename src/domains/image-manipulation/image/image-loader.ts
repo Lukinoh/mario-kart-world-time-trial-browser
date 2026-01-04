@@ -1,6 +1,6 @@
 import { entries, map, pipe } from "remeda";
 import { EnhancedImageData } from "./enhanced-image-data";
-import { assert } from "../../../core/helpers/assert";
+import { assert } from "../../_core/utils/assert";
 import { getFilename } from "../utils";
 
 export interface Image {

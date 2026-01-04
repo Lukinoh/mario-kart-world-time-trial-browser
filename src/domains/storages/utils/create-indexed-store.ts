@@ -1,7 +1,7 @@
 import * as v from "valibot";
 import { type SetStoreFunction, createStore, reconcile, unwrap } from "solid-js/store";
-import type { Brand } from "../../../core/helpers/brand";
-import { JSONUtils } from "../../../core/helpers/json-utils";
+import type { Brand } from "../../_core/utils/brand";
+import { JSONUtils } from "../../_core/utils/json-utils";
 import { createIndexedValue } from "./create-indexed-value";
 import { onMount } from "solid-js";
 

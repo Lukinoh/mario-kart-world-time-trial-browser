@@ -1,5 +1,5 @@
 import type { AttemptStorage } from "../../storages/schemas/attempt-storage";
-import type { Brand } from "../../../core/helpers/brand";
+import type { Brand } from "../../_core/utils/brand";
 import type { RawSplit } from "../types/raw-split";
 import type { SplitStorage } from "../../storages/schemas/split-storage";
 import { Time } from "../../recognitions/time/time";

@@ -1,9 +1,9 @@
 import * as v from "valibot";
 import { AttemptsStorageSchema } from "../schemas/attempts-storage";
-import type { Brand } from "../../../core/helpers/brand";
-import { JSONUtils } from "../../../core/helpers/json-utils";
+import type { Brand } from "../../_core/utils/brand";
+import { JSONUtils } from "../../_core/utils/json-utils";
 import { createIndexedStore } from "../utils/create-indexed-store";
-import { createSingletonRoot } from "../../../core/helpers/solid-js";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { produce } from "solid-js/store";
 import { useAttempts } from "../../attempt/compositions/use-attempts";
 

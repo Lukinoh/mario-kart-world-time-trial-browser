@@ -2,12 +2,12 @@ import * as v from "valibot";
 import { entries, sum, values } from "remeda";
 import type { AttemptStorage } from "../schemas/attempt-storage";
 import type { AttemptsStorage } from "../schemas/attempts-storage";
-import type { Brand } from "../../../core/helpers/brand";
-import { JSONUtils } from "../../../core/helpers/json-utils";
+import type { Brand } from "../../_core/utils/brand";
+import { JSONUtils } from "../../_core/utils/json-utils";
 import { PersonalStorageSchema } from "../schemas/personal-storage";
 import { createIndexedStore } from "../utils/create-indexed-store";
 import { createMemo } from "solid-js";
-import { createSingletonRoot } from "../../../core/helpers/solid-js";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { produce } from "solid-js/store";
 import { useAttempts } from "../../attempt/compositions/use-attempts";
 

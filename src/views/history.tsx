@@ -1,5 +1,5 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
-import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
+import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
 import { VerticalDivider } from "../components/grid-utilities/vertical-divider";

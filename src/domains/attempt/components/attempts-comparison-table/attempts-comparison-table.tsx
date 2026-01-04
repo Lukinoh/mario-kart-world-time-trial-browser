@@ -7,7 +7,7 @@ import { GridColumn } from "../../../../components/grid-utilities/grid-column";
 import { HorizontalDivider } from "../../../../components/grid-utilities/horizontal-divider";
 import type { ReferenceRecords } from "../../types/reference-records";
 import { VerticalDivider } from "../../../../components/grid-utilities/vertical-divider";
-import { defineComponent } from "../../../../core/helpers/solid-js";
+import { defineComponent } from "../../../_core/utils/solid-js";
 import { delta } from "../../utils/delta";
 import { entries } from "remeda";
 

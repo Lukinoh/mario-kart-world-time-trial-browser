@@ -3,7 +3,7 @@ import { Cell } from "../grid-utilities/cell";
 import { For } from "solid-js";
 import { GridColumn } from "../grid-utilities/grid-column";
 import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
-import { defineComponent } from "../../core/helpers/solid-js";
+import { defineComponent } from "../../domains/_core/utils/solid-js";
 
 interface ValibotErrorContentProps {
   issues: Array<v.BaseIssue<unknown>>;

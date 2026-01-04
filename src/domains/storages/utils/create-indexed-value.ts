@@ -1,5 +1,5 @@
 import { get as getIdbKeyVal, set as setIdbKeyVal } from "idb-keyval";
-import type { Brand } from "../../../core/helpers/brand";
+import type { Brand } from "../../_core/utils/brand";
 import { newQueue } from "@henrygd/queue";
 
 // All requests to the Indexed Database must be done one after the other

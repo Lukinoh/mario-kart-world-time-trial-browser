@@ -1,4 +1,4 @@
-import type { AttemptsStorage } from "../../domains/storages/schemas/attempts-storage";
+import type { AttemptsStorage } from "../../storages/schemas/attempts-storage";
 
 // Parse the document of the page https://mkwrs.com/mkworld/ to retrieve the records
 const parse = (doc: Document): AttemptsStorage => {
