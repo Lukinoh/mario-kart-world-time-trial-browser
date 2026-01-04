@@ -7,7 +7,7 @@ import { Time } from "../domains/recognitions/time/time";
 import { Track } from "../domains/recognitions/track/track";
 import { assert } from "../core/helpers/assert";
 import { expect } from "vitest";
-import { loadImages } from "../tools/image/image-loader";
+import { loadImages } from "../domains/image-manipulation/image/image-loader";
 
 const BgYellow = "\u001B[43m";
 const FgBlack = "\u001B[30m";

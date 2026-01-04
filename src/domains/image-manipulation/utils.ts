@@ -1,4 +1,4 @@
-import { assert } from "../core/helpers/assert";
+import { assert } from "../../core/helpers/assert";
 import { isEmptyish } from "remeda";
 
 export function getFilename(path: string): string {

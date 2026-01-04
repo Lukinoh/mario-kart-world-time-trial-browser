@@ -1,9 +1,9 @@
 import { PauseRecognitionOptions, PauseRegions } from "./pause-configuration";
 import { drop, mapValues, meanBy, pipe, sort, values } from "remeda";
 import type { DebugPutImageData } from "../../../core/domain/types/debug-put-image-data";
-import type { EnhancedImageData } from "../../../tools/image/enhanced-image-data";
-import { createImageRecognition } from "../../../tools/image/image-recognition";
-import { loadImages } from "../../../tools/image/image-loader";
+import type { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
+import { createImageRecognition } from "../../image-manipulation/image/image-recognition";
+import { loadImages } from "../../image-manipulation/image/image-loader";
 
 const images = await loadImages(
   import.meta.glob<string>("../../../assets/recognitions/normalised/pause/*", {

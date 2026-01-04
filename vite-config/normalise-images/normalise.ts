@@ -1,8 +1,8 @@
-import { type Image, loadImage } from "../../src/tools/image/image-loader";
+import { type Image, loadImage } from "../../src/domains/image-manipulation/image/image-loader";
 import sharp, { type OutputInfo } from "sharp";
-import type { ImageRecognitionOptions } from "../../src/tools/image/image-recognition";
+import type { ImageRecognitionOptions } from "../../src/domains/image-manipulation/image/image-recognition";
 import { createCanvas } from "canvas";
-import { normaliseImage } from "../../src/tools/image/image-normaliser";
+import { normaliseImage } from "../../src/domains/image-manipulation/image/image-normaliser";
 import { writeFileSync } from "node:fs";
 
 export interface NormaliseOptions {

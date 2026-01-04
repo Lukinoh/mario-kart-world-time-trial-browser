@@ -1,8 +1,8 @@
 import { LapRecognitionOptions, LapRegion } from "./lap-configuration";
 import type { DebugPutImageData } from "../../../core/domain/types/debug-put-image-data";
-import type { EnhancedImageData } from "../../../tools/image/enhanced-image-data";
-import { createImageRecognition } from "../../../tools/image/image-recognition";
-import { loadImages } from "../../../tools/image/image-loader";
+import type { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
+import { createImageRecognition } from "../../image-manipulation/image/image-recognition";
+import { loadImages } from "../../image-manipulation/image/image-loader";
 import { pipe } from "remeda";
 
 const images = await loadImages(

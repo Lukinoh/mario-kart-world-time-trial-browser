@@ -1,7 +1,7 @@
 import { type ImageNormaliserOptions, normaliseImageData } from "./image-normaliser";
 import { map, pipe } from "remeda";
 import type { Box } from "../box/box";
-import type { Brand } from "../../core/helpers/brand";
+import type { Brand } from "../../../core/helpers/brand";
 import type { EnhancedImageData } from "./enhanced-image-data";
 import type { Image } from "./image-loader";
 import type { ImageSimilarityFunction } from "./image-similarity";

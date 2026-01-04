@@ -2,7 +2,7 @@ import type { AttemptStorage } from "../domains/storages/schemas/attempt-storage
 import type { Brand } from "../core/helpers/brand";
 import { Coins } from "../domains/recognitions/coins/coins";
 import type { DebugPutImageData } from "../core/domain/types/debug-put-image-data";
-import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
+import type { EnhancedImageData } from "../domains/image-manipulation/image/enhanced-image-data";
 import { Lap } from "../domains/recognitions/lap/lap";
 import { Laps } from "../domains/recognitions/laps/laps";
 import { Pause } from "../domains/recognitions/pause/pause";
