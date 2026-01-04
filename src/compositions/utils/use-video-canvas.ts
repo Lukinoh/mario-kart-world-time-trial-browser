@@ -61,7 +61,7 @@ function useVideoCanvasFactory() {
   };
 
   const getImageData = (): ImageData => {
-    context.drawImage(videoElement, 0, 0);
+    context.drawImage(videoElement, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
     return context.getImageData(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   };
 
