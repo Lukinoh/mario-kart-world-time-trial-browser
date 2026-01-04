@@ -4,7 +4,7 @@ import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
 import { VerticalDivider } from "../components/grid-utilities/vertical-divider";
 import { css } from "@emotion/css";
-import { usePersonalStorage } from "../compositions/storage/use-personal-storage";
+import { usePersonalStorage } from "../domains/storages/compositions/use-personal-storage";
 
 const sActions = css({
   display: "flex",

@@ -1,11 +1,11 @@
-import { CORS_PROXY_URL, WORLD_RECORD_URL } from "../../core/external-urls";
-import { AttemptsStorageSchema } from "../../core/domain/types/attempts-storage";
-import type { Brand } from "../../core/helpers/brand";
-import { JSONUtils } from "../../core/helpers/json-utils";
-import { MkwWrs } from "../../core/domain/mkw-wrs";
-import { createIndexedStore } from "./utils/create-indexed-store";
-import { createSingletonRoot } from "../../core/helpers/solid-js";
-import { useAttempts } from "../utils/use-attempts";
+import { CORS_PROXY_URL, WORLD_RECORD_URL } from "../../../core/external-urls";
+import { AttemptsStorageSchema } from "../schemas/attempts-storage";
+import type { Brand } from "../../../core/helpers/brand";
+import { JSONUtils } from "../../../core/helpers/json-utils";
+import { MkwWrs } from "../../../core/domain/mkw-wrs";
+import { createIndexedStore } from "../utils/create-indexed-store";
+import { createSingletonRoot } from "../../../core/helpers/solid-js";
+import { useAttempts } from "../../../compositions/utils/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useWorldRecordsStorageSingleton() {

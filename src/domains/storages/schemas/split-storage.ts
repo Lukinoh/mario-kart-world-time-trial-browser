@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { TimeSchema } from "./time";
+import { TimeSchema } from "../../../core/domain/types/time";
 
 export const SplitStorageSchema = v.object({
   shrooms: v.number(),

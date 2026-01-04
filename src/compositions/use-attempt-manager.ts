@@ -1,4 +1,4 @@
-import type { AttemptStorage } from "../core/domain/types/attempt-storage";
+import type { AttemptStorage } from "../domains/storages/schemas/attempt-storage";
 import type { Brand } from "../core/helpers/brand";
 import { Coins } from "../recognitions/coins/coins";
 import type { DebugPutImageData } from "../core/domain/types/debug-put-image-data";

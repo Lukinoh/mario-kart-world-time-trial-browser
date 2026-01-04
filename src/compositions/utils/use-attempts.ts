@@ -18,8 +18,8 @@ import {
   uniqueWith,
   values,
 } from "remeda";
-import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
-import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
+import type { AttemptStorage } from "../../domains/storages/schemas/attempt-storage";
+import type { AttemptsStorage } from "../../domains/storages/schemas/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
 import type { Store } from "solid-js/store";
 import { createMemo } from "solid-js";

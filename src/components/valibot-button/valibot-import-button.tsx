@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../core/domain/types/attempts-storage";
+import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../domains/storages/schemas/attempts-storage";
 import { type JSX, Match, Switch, createMemo, createSignal } from "solid-js";
 import { isFunction, isString } from "remeda";
 import { Dialog } from "../dialog";

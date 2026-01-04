@@ -1,11 +1,11 @@
 import * as v from "valibot";
-import { AttemptsStorageSchema } from "../../core/domain/types/attempts-storage";
-import type { Brand } from "../../core/helpers/brand";
-import { JSONUtils } from "../../core/helpers/json-utils";
-import { createIndexedStore } from "./utils/create-indexed-store";
-import { createSingletonRoot } from "../../core/helpers/solid-js";
+import { AttemptsStorageSchema } from "../schemas/attempts-storage";
+import type { Brand } from "../../../core/helpers/brand";
+import { JSONUtils } from "../../../core/helpers/json-utils";
+import { createIndexedStore } from "../utils/create-indexed-store";
+import { createSingletonRoot } from "../../../core/helpers/solid-js";
 import { produce } from "solid-js/store";
-import { useAttempts } from "../utils/use-attempts";
+import { useAttempts } from "../../../compositions/utils/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useFriendsStorageSingleton() {

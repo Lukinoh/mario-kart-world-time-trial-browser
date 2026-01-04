@@ -1,8 +1,8 @@
 import * as v from "valibot";
 import { type Attempt, AttemptSchema } from "./attempt";
 import { describe, expect, test } from "vitest";
-import type { AttemptStorage } from "../types/attempt-storage";
-import type { SplitStorage } from "../types/split-storage";
+import type { AttemptStorage } from "../../../domains/storages/schemas/attempt-storage";
+import type { SplitStorage } from "../../../domains/storages/schemas/split-storage";
 
 const parse = (attemptStorage: AttemptStorage): Attempt => {
   return v.parse(AttemptSchema, attemptStorage);

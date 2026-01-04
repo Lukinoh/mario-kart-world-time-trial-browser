@@ -1,15 +1,15 @@
 import * as v from "valibot";
 import { entries, sum, values } from "remeda";
-import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
-import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
-import type { Brand } from "../../core/helpers/brand";
-import { JSONUtils } from "../../core/helpers/json-utils";
-import { PersonalStorageSchema } from "../../core/domain/types/personal-storage";
-import { createIndexedStore } from "./utils/create-indexed-store";
+import type { AttemptStorage } from "../schemas/attempt-storage";
+import type { AttemptsStorage } from "../schemas/attempts-storage";
+import type { Brand } from "../../../core/helpers/brand";
+import { JSONUtils } from "../../../core/helpers/json-utils";
+import { PersonalStorageSchema } from "../schemas/personal-storage";
+import { createIndexedStore } from "../utils/create-indexed-store";
 import { createMemo } from "solid-js";
-import { createSingletonRoot } from "../../core/helpers/solid-js";
+import { createSingletonRoot } from "../../../core/helpers/solid-js";
 import { produce } from "solid-js/store";
-import { useAttempts } from "../utils/use-attempts";
+import { useAttempts } from "../../../compositions/utils/use-attempts";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function usePersonalStorageSingleton() {

@@ -7,7 +7,7 @@ import { Environment } from "../core/environment";
 import { ImageFilters } from "../tools/image/image-filters";
 import type { ImageNormaliserOptions } from "../tools/image/image-normaliser";
 import { useAttemptManager } from "./use-attempt-manager";
-import { usePersonalStorage } from "./storage/use-personal-storage";
+import { usePersonalStorage } from "../domains/storages/compositions/use-personal-storage";
 import { useVideoCanvas } from "./utils/use-video-canvas";
 
 type State = "STARTED" | "PAUSED";

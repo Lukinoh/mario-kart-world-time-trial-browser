@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
 import { map, pipe } from "remeda";
 import type { Attempt } from "../../core/domain/local/attempt";
-import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
-import type { SplitStorage } from "../../core/domain/types/split-storage";
+import type { AttemptStorage } from "../../domains/storages/schemas/attempt-storage";
+import type { SplitStorage } from "../../domains/storages/schemas/split-storage";
 import { createRoot } from "solid-js";
 import { useAttempts } from "./use-attempts";
 

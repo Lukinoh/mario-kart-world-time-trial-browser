@@ -4,7 +4,7 @@ import { ValibotImportButton } from "../components/valibot-button/valibot-import
 import { VerticalDivider } from "../components/grid-utilities/vertical-divider";
 import { css } from "@emotion/css";
 import { onMount } from "solid-js";
-import { useFriendsStorage } from "../compositions/storage/use-friends-storage";
+import { useFriendsStorage } from "../domains/storages/compositions/use-friends-storage";
 
 const sActions = css({
   display: "flex",
