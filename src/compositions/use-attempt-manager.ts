@@ -1,14 +1,14 @@
 import type { AttemptStorage } from "../domains/storages/schemas/attempt-storage";
 import type { Brand } from "../core/helpers/brand";
-import { Coins } from "../recognitions/coins/coins";
+import { Coins } from "../domains/recognitions/coins/coins";
 import type { DebugPutImageData } from "../core/domain/types/debug-put-image-data";
 import type { EnhancedImageData } from "../tools/image/enhanced-image-data";
-import { Lap } from "../recognitions/lap/lap";
-import { Laps } from "../recognitions/laps/laps";
-import { Pause } from "../recognitions/pause/pause";
-import { Shrooms } from "../recognitions/shrooms/shrooms";
-import { Time } from "../recognitions/time/time";
-import { Track } from "../recognitions/track/track";
+import { Lap } from "../domains/recognitions/lap/lap";
+import { Laps } from "../domains/recognitions/laps/laps";
+import { Pause } from "../domains/recognitions/pause/pause";
+import { Shrooms } from "../domains/recognitions/shrooms/shrooms";
+import { Time } from "../domains/recognitions/time/time";
+import { Track } from "../domains/recognitions/track/track";
 import { createAttemptHandler } from "../core/domain/attempt-handler";
 import { useIsFinalTime } from "./utils/use-is-final-time";
 

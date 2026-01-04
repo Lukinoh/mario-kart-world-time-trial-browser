@@ -1,7 +1,7 @@
-import { Box } from "../../tools/box/box";
-import { ImageFilters } from "../../tools/image/image-filters";
-import type { ImageRecognitionOptions } from "../../tools/image/image-recognition";
-import { ImageSimilarity } from "../../tools/image/image-similarity";
+import { Box } from "../../../tools/box/box";
+import { ImageFilters } from "../../../tools/image/image-filters";
+import type { ImageRecognitionOptions } from "../../../tools/image/image-recognition";
+import { ImageSimilarity } from "../../../tools/image/image-similarity";
 
 export const CoinsRegions = {
   coin10: new Box(654, 102, 685, 79),

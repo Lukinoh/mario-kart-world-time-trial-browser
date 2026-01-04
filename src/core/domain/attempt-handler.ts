@@ -2,7 +2,7 @@ import type { AttemptStorage } from "../../domains/storages/schemas/attempt-stor
 import type { Brand } from "../helpers/brand";
 import type { RawSplit } from "./types/raw-split";
 import type { SplitStorage } from "../../domains/storages/schemas/split-storage";
-import { Time } from "../../recognitions/time/time";
+import { Time } from "../../domains/recognitions/time/time";
 
 const SHROOMS_NUMBER = 3;
 

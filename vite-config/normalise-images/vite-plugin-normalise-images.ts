@@ -37,10 +37,10 @@ export function normaliseImages(options: NormaliseImagesOptions): Plugin {
   };
 }
 
-export { CoinsRecognitionOptions } from "../../src/recognitions/coins/coins-configuration";
-export { LapRecognitionOptions } from "../../src/recognitions/lap/lap-configuration";
-export { LapsRecognitionOptions } from "../../src/recognitions/laps/laps-configuration";
-export { PauseRecognitionOptions } from "../../src/recognitions/pause/pause-configuration";
-export { ShroomsRecognitionOptions } from "../../src/recognitions/shrooms/shrooms-configuration";
-export { TimeRecognitionOptions } from "../../src/recognitions/time/time-configuration";
-export { TrackRecognitionOptions } from "../../src/recognitions/track/track-configuration";
+export { CoinsRecognitionOptions } from "../../src/domains/recognitions/coins/coins-configuration";
+export { LapRecognitionOptions } from "../../src/domains/recognitions/lap/lap-configuration";
+export { LapsRecognitionOptions } from "../../src/domains/recognitions/laps/laps-configuration";
+export { PauseRecognitionOptions } from "../../src/domains/recognitions/pause/pause-configuration";
+export { ShroomsRecognitionOptions } from "../../src/domains/recognitions/shrooms/shrooms-configuration";
+export { TimeRecognitionOptions } from "../../src/domains/recognitions/time/time-configuration";
+export { TrackRecognitionOptions } from "../../src/domains/recognitions/track/track-configuration";

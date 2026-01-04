@@ -1,16 +1,16 @@
 import { TimeRecognitionOptions, TimeRegions } from "./time-configuration";
 import { compile, format, parse } from "date-and-time";
 import { mapValues, pipe, values } from "remeda";
-import type { DebugPutImageData } from "../../core/domain/types/debug-put-image-data";
-import { EnhancedImageData } from "../../tools/image/enhanced-image-data";
-import { ImageAssert } from "../../tools/image/image-assert";
-import { createImageRecognition } from "../../tools/image/image-recognition";
-import { loadImages } from "../../tools/image/image-loader";
+import type { DebugPutImageData } from "../../../core/domain/types/debug-put-image-data";
+import { EnhancedImageData } from "../../../tools/image/enhanced-image-data";
+import { ImageAssert } from "../../../tools/image/image-assert";
+import { createImageRecognition } from "../../../tools/image/image-recognition";
+import { loadImages } from "../../../tools/image/image-loader";
 
 const compiledTime = compile("m:ss.SSS");
 
 const images = await loadImages(
-  import.meta.glob<string>("../../assets/recognitions/normalised/time/*", {
+  import.meta.glob<string>("../../../assets/recognitions/normalised/time/*", {
     eager: true,
     import: `default`,
   }),

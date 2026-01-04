@@ -1,7 +1,7 @@
-import { Box } from "../../tools/box/box";
-import { ImageFilters } from "../../tools/image/image-filters";
-import type { ImageRecognitionOptions } from "../../tools/image/image-recognition";
-import { ImageSimilarity } from "../../tools/image/image-similarity";
+import { Box } from "../../../tools/box/box";
+import { ImageFilters } from "../../../tools/image/image-filters";
+import type { ImageRecognitionOptions } from "../../../tools/image/image-recognition";
+import { ImageSimilarity } from "../../../tools/image/image-similarity";
 
 // All the dots are quite similar, it would be possible to increase the surface of the box by adding the same shift to each boxes.
 export const PauseRegions = {
