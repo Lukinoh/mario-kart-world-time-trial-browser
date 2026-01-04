@@ -8,10 +8,8 @@ import { History } from "./views/history";
 import { Live } from "./views/live";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { WorldRecords } from "./views/world-records";
-import { useTimeTrial } from "./domains/time-trial/compositions/use-time-trial";
 
 export const App = defineComponent(() => {
-  const timeTrial = useTimeTrial();
   const [title, setTitle] = createSignal("Nothing yet");
 
   const RouterWrapper = defineComponent<RouteSectionProps>((props) => {
@@ -24,7 +22,7 @@ export const App = defineComponent(() => {
       <>
         <h1>{title()}</h1>
         <div style={showTimeTrialPlayer()}>
-          <TimeTrialPlayer timeTrial={timeTrial} />
+          <TimeTrialPlayer />
         </div>
         {props.children}
       </>

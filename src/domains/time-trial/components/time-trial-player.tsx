@@ -3,10 +3,10 @@ import { CaptureButton } from "./capture-button";
 import { Environment } from "../../_core/environment";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { TextInput } from "../../ui/components/text-input";
-import type { TimeTrial } from "../compositions/use-time-trial";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";
 import { fileUpload } from "../../_core/utils/file-upload";
+import { useTimeTrial } from "../compositions/use-time-trial";
 
 const sOptionsZone = css({
   display: "flex",
@@ -45,11 +45,8 @@ const sVideoCanvas = css({
   gap: "var(--mk-spacing-medium)",
 });
 
-interface TimeTrialPlayerProps {
-  timeTrial: TimeTrial;
-}
-
-export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => {
+export const TimeTrialPlayer = defineComponent(() => {
+  const timeTrial = useTimeTrial();
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let cameraRadio!: HTMLInputElement;
   // oxlint-disable-next-line init-declarations no-unassigned-vars
@@ -58,7 +55,7 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
   onMount(async () => {
     if (import.meta.env.DEV && Environment.isDebug) {
       const demoVideo = await import("../../../assets/demo/demo.webm");
-      props.timeTrial.fromUrl(demoVideo.default);
+      timeTrial.fromUrl(demoVideo.default);
     } else {
       await onCameraRadio();
     }
@@ -66,14 +63,14 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
 
   const onCameraRadio = async (): Promise<void> => {
     cameraRadio.checked = true;
-    await props.timeTrial.fromCamera();
+    await timeTrial.fromCamera();
   };
 
   const onFileRadio = async (): Promise<void> => {
     try {
       const file = await fileUpload("video/*");
       fileRadio.checked = true;
-      props.timeTrial.fromFile(file);
+      timeTrial.fromFile(file);
     } catch {
       cameraRadio.checked = true;
     }
@@ -85,8 +82,8 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
         <TextInput
           label="Player"
           placeholder="Set your name"
-          value={props.timeTrial.player()}
-          setValue={props.timeTrial.setPlayer}
+          value={timeTrial.player()}
+          setValue={timeTrial.setPlayer}
         />
         <div>
           <label for="camera-radio">
@@ -105,11 +102,11 @@ export const TimeTrialPlayer = defineComponent<TimeTrialPlayerProps>((props) => 
             <span>File</span>
           </label>
         </div>
-        <CaptureButton timeTrial={props.timeTrial} />
+        <CaptureButton timeTrial={timeTrial} />
       </div>
       <div class={sVideoCanvas}>
-        <div>{props.timeTrial.video}</div>
-        <Show when={Environment.isDebug}>{props.timeTrial.canvas}</Show>
+        <div>{timeTrial.video}</div>
+        <Show when={Environment.isDebug}>{timeTrial.canvas}</Show>
       </div>
     </GridColumn>
   );

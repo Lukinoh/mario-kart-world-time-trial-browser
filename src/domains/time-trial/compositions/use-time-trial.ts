@@ -6,6 +6,7 @@ import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image
 import { Environment } from "../../_core/environment";
 import { ImageFilters } from "../../image-manipulation/image/image-filters";
 import type { ImageNormaliserOptions } from "../../image-manipulation/image/image-normaliser";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { useAttemptManager } from "../../attempt/compositions/use-attempt-manager";
 import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
 import { useVideoCanvas } from "./use-video-canvas";
@@ -13,7 +14,7 @@ import { useVideoCanvas } from "./use-video-canvas";
 type State = "STARTED" | "PAUSED";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function useTimeTrialFactory() {
+function useTimeTrialSingleton() {
   const [state, setState] = createSignal<State>("PAUSED");
   const isState = createSelector(state);
   const vc = useVideoCanvas();
@@ -97,6 +98,5 @@ function useTimeTrialFactory() {
   };
 }
 
-export type TimeTrial = Brand<ReturnType<typeof useTimeTrialFactory>>;
-type TimeTrialFactory = (...args: Parameters<typeof useTimeTrialFactory>) => TimeTrial;
-export const useTimeTrial: TimeTrialFactory = useTimeTrialFactory;
+export type TimeTrial = Brand<ReturnType<typeof useTimeTrialSingleton>>;
+export const useTimeTrial = createSingletonRoot<TimeTrial>(useTimeTrialSingleton);
