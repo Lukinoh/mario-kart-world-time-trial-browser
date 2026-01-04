@@ -1,5 +1,5 @@
 import { Cell, type CellProps } from "../grid-utilities/cell";
-import { For, Match, Show, Switch, createMemo, createSelector, createSignal } from "solid-js";
+import { For, type JSX, Match, Show, Switch, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
 import type { Attempt } from "../../core/domain/local/attempt";
 import { GridColumn } from "../grid-utilities/grid-column";
@@ -34,6 +34,7 @@ interface AttemptsTableProps {
   showFilters?: boolean;
   defaultTrack?: string;
   limit?: number;
+  onSelectedTrack?: (track: string) => void;
 }
 
 export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
@@ -48,11 +49,17 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const showFilters = createMemo(() => props.showFilters ?? true);
   const gridColumns = createMemo(() => GRID_COLUMNS - (Number(!showTime()) + Number(!showTrack())));
 
-  const [selectedTrack, setSelectedTrack] = createSignal();
+  const [selectedTrack, setSelectedTrack] = createSignal<string>();
   const isSelectedTrack = createSelector(
     selectedTrack,
     (a, selectedTrack) => a === (selectedTrack ?? props.defaultTrack ?? ALL_TRACKS),
   );
+  const onSelectedTrack: JSX.ChangeEventHandler<HTMLSelectElement, Event> = (event) => {
+    const track = event.target.value;
+    setSelectedTrack(track);
+    props.onSelectedTrack?.(track);
+  };
+
   const tracks = createMemo(() => [
     ALL_TRACKS,
     ...unique(props.attempts.map((attempt) => attempt.raw.track)).toSorted(),
@@ -69,7 +76,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
       <Show when={showFilters()}>
         <>
           <label for="track-filter">Filter by</label>
-          <select id="track-filter" onchange={(event) => setSelectedTrack(event.target.value)}>
+          <select id="track-filter" onchange={onSelectedTrack}>
             <For each={tracks()}>
               {(track) => (
                 <option selected={isSelectedTrack(track)} value={track}>

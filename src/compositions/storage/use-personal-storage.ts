@@ -1,4 +1,5 @@
 import * as v from "valibot";
+import { entries, sum, values } from "remeda";
 import type { AttemptStorage } from "../../core/domain/types/attempt-storage";
 import type { AttemptsStorage } from "../../core/domain/types/attempts-storage";
 import type { Brand } from "../../core/helpers/brand";
@@ -18,7 +19,7 @@ function usePersonalStorageSingleton() {
     {
       version: 1,
       attempts: [],
-      attemptsNumber: 0,
+      attemptsCountByTrack: {},
       player: "",
     },
   );
@@ -38,7 +39,7 @@ function usePersonalStorageSingleton() {
     setStore(
       produce((store) => {
         if (index === -1) {
-          store.attemptsNumber = store.attemptsNumber + 1;
+          store.attemptsCountByTrack[newAttempt.track] = getAttemptsCountByTrack(newAttempt.track) + 1;
           store.attempts.unshift(newAttempt);
         } else {
           store.attempts[index] = newAttempt;
@@ -51,7 +52,10 @@ function usePersonalStorageSingleton() {
   const setPlayer = (player: string): void => {
     setStore("player", player);
   };
-  const attemptsNumber = createMemo(() => store.attemptsNumber);
+  const getAttemptsCountByTrack = (track: string): number => {
+    return store.attemptsCountByTrack[track] ?? 0;
+  };
+  const getAttemptsCount = createMemo(() => sum(values(store.attemptsCountByTrack)));
 
   const exportForFriendsToJSON = (): void => {
     JSONUtils.download<AttemptsStorage>(`${key}-for-friends`, {
@@ -65,7 +69,9 @@ function usePersonalStorageSingleton() {
     const data = v.parse(PersonalStorageSchema, JSON.parse(text));
     setStore(
       produce((store) => {
-        store.attemptsNumber = store.attemptsNumber + data.attemptsNumber;
+        for (const [track, count] of entries(data.attemptsCountByTrack)) {
+          store.attemptsCountByTrack[track] = getAttemptsCountByTrack(track) + count;
+        }
         store.attempts = merge(data.attempts);
       }),
     );
@@ -88,7 +94,8 @@ function usePersonalStorageSingleton() {
     lastAttempt,
     player,
     setPlayer,
-    attemptsNumber,
+    getAttemptsCount,
+    getAttemptsCountByTrack,
     getTimeRecordsByTrack,
     getSplitRecordByTrack,
     shrink,

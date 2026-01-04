@@ -1,9 +1,9 @@
+import { Match, Switch, createSignal, onMount } from "solid-js";
 import { type ViewProps, defineComponent } from "../core/helpers/solid-js";
 import { AttemptsTable } from "../components/attempts-table/attempts-table";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
 import { VerticalDivider } from "../components/grid-utilities/vertical-divider";
 import { css } from "@emotion/css";
-import { onMount } from "solid-js";
 import { usePersonalStorage } from "../compositions/storage/use-personal-storage";
 
 const sActions = css({
@@ -16,8 +16,13 @@ const sActions = css({
   },
 });
 
+const sTries = css({
+  alignContent: "center",
+});
+
 export const History = defineComponent<ViewProps>((props) => {
   const storage = usePersonalStorage();
+  const [selectedTrack, setSelectedTrack] = createSignal<string>();
 
   onMount(() => {
     props.setTitle("History");
@@ -33,8 +38,23 @@ export const History = defineComponent<ViewProps>((props) => {
         <button onclick={storage.exportForFriendsToJSON}>Export for friends</button>
         <VerticalDivider />
         <button onclick={storage.shrink}>Shrink</button>
+        <VerticalDivider />
+        <div class={sTries}>
+          <Switch>
+            <Match when={selectedTrack()}>
+              {(track) => (
+                <>
+                  All times tries on {selectedTrack()}: <mark>{storage.getAttemptsCountByTrack(track())}</mark>
+                </>
+              )}
+            </Match>
+            <Match when={true}>
+              All times tries on All tracks: <mark>{storage.getAttemptsCount()}</mark>
+            </Match>
+          </Switch>
+        </div>
       </div>
-      <AttemptsTable attempts={storage.attempts()} />
+      <AttemptsTable attempts={storage.attempts()} onSelectedTrack={setSelectedTrack}></AttemptsTable>
     </>
   );
 });
