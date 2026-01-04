@@ -1,7 +1,7 @@
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import { Cell } from "../components/grid-utilities/cell";
-import { GridColumn } from "../components/grid-utilities/grid-column";
+import { Cell } from "../domains/ui/components/grid/cell";
+import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
 import { css } from "@emotion/css";
 import { onMount } from "solid-js";

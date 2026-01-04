@@ -1,8 +1,8 @@
 import { Show, onMount } from "solid-js";
 import { CaptureButton } from "./capture-button";
 import { Environment } from "../../_core/environment";
-import { GridColumn } from "../../../components/grid-utilities/grid-column";
-import { TextInput } from "../../../components/text-input";
+import { GridColumn } from "../../ui/components/grid/grid-column";
+import { TextInput } from "../../ui/components/text-input";
 import type { TimeTrial } from "../compositions/use-time-trial";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";

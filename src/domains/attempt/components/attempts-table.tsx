@@ -1,10 +1,10 @@
-import { Cell, type CellProps } from "../../../components/grid-utilities/cell";
+import { Cell, type CellProps } from "../../ui/components/grid/cell";
 import { For, type JSX, Match, Show, Switch, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
 import type { Attempt } from "../schemas/attempt";
-import { GridColumn } from "../../../components/grid-utilities/grid-column";
-import { HorizontalDivider } from "../../../components/grid-utilities/horizontal-divider";
-import { VerticalDivider } from "../../../components/grid-utilities/vertical-divider";
+import { GridColumn } from "../../ui/components/grid/grid-column";
+import { HorizontalDivider } from "../../ui/components/grid/horizontal-divider";
+import { VerticalDivider } from "../../ui/components/grid/vertical-divider";
 import { defineComponent } from "../../_core/utils/solid-js";
 
 const aFirstColumn: Partial<CellProps> = {

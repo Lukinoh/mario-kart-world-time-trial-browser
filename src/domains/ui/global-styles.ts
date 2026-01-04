@@ -1,3 +1,4 @@
+import "simpledotcss/simple.min.css";
 import { injectGlobal } from "@emotion/css";
 
 injectGlobal({

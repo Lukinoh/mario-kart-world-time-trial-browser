@@ -62,7 +62,7 @@
           "simpledotcss/simple.min.css",
           "./canvas-shim",
           "./location-shim",
-          "./core/global-styles"
+          "./domains/ui/global-styles"
         ]
       }
     ],

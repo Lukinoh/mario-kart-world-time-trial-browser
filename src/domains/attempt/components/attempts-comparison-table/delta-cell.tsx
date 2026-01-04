@@ -1,4 +1,4 @@
-import { Cell, type CellProps } from "../../../../components/grid-utilities/cell";
+import { Cell, type CellProps } from "../../../ui/components/grid/cell";
 import { MINUS, PLUS, PLUS_OR_MINUS } from "../../utils/characters";
 import { createMemo } from "solid-js";
 import { defineComponent } from "../../../_core/utils/solid-js";

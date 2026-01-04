@@ -1,12 +1,12 @@
-import { Cell, type CellProps } from "../../../../components/grid-utilities/cell";
+import { Cell, type CellProps } from "../../../ui/components/grid/cell";
 import { For, Show, createMemo } from "solid-js";
 import type { Attempt } from "../../schemas/attempt";
 import { DeltaCell } from "./delta-cell";
 import { F1Cell } from "./f1-cell";
-import { GridColumn } from "../../../../components/grid-utilities/grid-column";
-import { HorizontalDivider } from "../../../../components/grid-utilities/horizontal-divider";
+import { GridColumn } from "../../../ui/components/grid/grid-column";
+import { HorizontalDivider } from "../../../ui/components/grid/horizontal-divider";
 import type { ReferenceRecords } from "../../types/reference-records";
-import { VerticalDivider } from "../../../../components/grid-utilities/vertical-divider";
+import { VerticalDivider } from "../../../ui/components/grid/vertical-divider";
 import { defineComponent } from "../../../_core/utils/solid-js";
 import { delta } from "../../utils/delta";
 import { entries } from "remeda";

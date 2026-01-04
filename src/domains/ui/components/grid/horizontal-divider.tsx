@@ -1,7 +1,7 @@
 import { createMemo } from "solid-js";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../domains/_core/utils/solid-js";
-import { span } from "../../core/helpers/css";
+import { defineComponent } from "../../../_core/utils/solid-js";
+import { span } from "../../css/css";
 
 interface HorizontalDelimiterProps {
   column?: number;

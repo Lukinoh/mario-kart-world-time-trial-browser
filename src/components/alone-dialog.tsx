@@ -1,4 +1,4 @@
-import { Dialog } from "./dialog";
+import { Dialog } from "../domains/ui/components/dialog";
 import { createEffect } from "solid-js";
 import { defineComponent } from "../domains/_core/utils/solid-js";
 import { useAlone } from "../compositions/use-alone";

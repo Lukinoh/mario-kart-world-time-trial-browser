@@ -1,4 +1,4 @@
-import { Cell, type CellProps } from "../../../../components/grid-utilities/cell";
+import { Cell, type CellProps } from "../../../ui/components/grid/cell";
 import { capitalize, isDefined } from "remeda";
 import type { Attempt } from "../../schemas/attempt";
 import type { ReferenceRecords } from "../../types/reference-records";

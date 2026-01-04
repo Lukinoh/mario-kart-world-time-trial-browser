@@ -2,8 +2,8 @@ import type { CSSInterpolation, CSSObject } from "@emotion/css/create-instance";
 import { capitalize, isDefined, isTruthy } from "remeda";
 import { createMemo } from "solid-js";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../domains/_core/utils/solid-js";
-import { span } from "../../core/helpers/css";
+import { defineComponent } from "../../../_core/utils/solid-js";
+import { span } from "../../css/css";
 
 export interface CellProps {
   text?: string | number;

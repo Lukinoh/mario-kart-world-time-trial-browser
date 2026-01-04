@@ -1,8 +1,8 @@
 import * as v from "valibot";
-import { Cell } from "../grid-utilities/cell";
+import { Cell } from "../../domains/ui/components/grid/cell";
 import { For } from "solid-js";
-import { GridColumn } from "../grid-utilities/grid-column";
-import { HorizontalDivider } from "../grid-utilities/horizontal-divider";
+import { GridColumn } from "../../domains/ui/components/grid/grid-column";
+import { HorizontalDivider } from "../../domains/ui/components/grid/horizontal-divider";
 import { defineComponent } from "../../domains/_core/utils/solid-js";
 
 interface ValibotErrorContentProps {

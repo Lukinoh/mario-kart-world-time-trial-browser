@@ -2,7 +2,7 @@ import { Match, Switch, createSignal, onMount } from "solid-js";
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { ValibotImportButton } from "../components/valibot-button/valibot-import-button";
-import { VerticalDivider } from "../components/grid-utilities/vertical-divider";
+import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
 import { css } from "@emotion/css";
 import { usePersonalStorage } from "../domains/storages/compositions/use-personal-storage";
 

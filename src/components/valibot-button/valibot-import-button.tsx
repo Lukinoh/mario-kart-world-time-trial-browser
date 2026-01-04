@@ -2,7 +2,7 @@ import * as v from "valibot";
 import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../domains/storages/schemas/attempts-storage";
 import { type JSX, Match, Switch, createMemo, createSignal } from "solid-js";
 import { isFunction, isString } from "remeda";
-import { Dialog } from "../dialog";
+import { Dialog } from "../../domains/ui/components/dialog";
 import { ValibotErrorContent } from "./valibot-error-content";
 import { defineComponent } from "../../domains/_core/utils/solid-js";
 

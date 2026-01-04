@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { defineComponent } from "../domains/_core/utils/solid-js";
+import { defineComponent } from "../../_core/utils/solid-js";
 
 const sInput = css({
   marginBottom: 0,
