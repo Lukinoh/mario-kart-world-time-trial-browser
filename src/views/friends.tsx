@@ -29,7 +29,7 @@ export const Friends = defineComponent<ViewProps>((props) => {
         <ValibotImportButton onclick={storage.addFromJSON}>Add</ValibotImportButton>
         <ValibotImportButton onclick={storage.replaceFromJSON}>Replace</ValibotImportButton>
         <VerticalDivider />
-        <button onClick={storage.exportToJSON}>Export</button>
+        <button onclick={storage.exportToJSON}>Export</button>
         <VerticalDivider />
         <button onclick={storage.shrink}>Shrink</button>
       </div>

@@ -1,4 +1,4 @@
-import { type JSX, Show, createMemo } from "solid-js";
+import { type JSX, type Ref, Show, createMemo } from "solid-js";
 import { Portal } from "solid-js/web";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";
@@ -17,9 +17,11 @@ const sLastChild = css({
   },
 });
 
-interface DialogProps extends JSX.CustomAttributes<HTMLDialogElement> {
+interface DialogProps {
   title?: string;
   showFooter?: boolean;
+  ref?: Ref<HTMLDialogElement>;
+  children: JSX.Element;
 }
 
 export const Dialog = defineComponent<DialogProps>((props) => {
@@ -47,7 +49,7 @@ export const Dialog = defineComponent<DialogProps>((props) => {
         {props.children}
         <Show when={showFooter()}>
           <footer>
-            <button class={sClose} onClick={onClose}>
+            <button class={sClose} onclick={onClose}>
               Close
             </button>
           </footer>

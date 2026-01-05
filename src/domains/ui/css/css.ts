@@ -6,3 +6,9 @@ export const span = (column: number, row: number): string => {
     gridRow: `span ${row}`,
   });
 };
+
+export const displayVisible = (isVisible: boolean): string => {
+  return css({
+    display: isVisible ? undefined : "none",
+  });
+};

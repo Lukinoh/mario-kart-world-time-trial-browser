@@ -1,12 +1,10 @@
 import { clearTimeout, setTimeout } from "worker-timers";
-import { createSelector, createSignal, onMount } from "solid-js";
+import { createMemo, createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../../_core/utils/brand";
 import type { DebugPutImageData } from "../../recognition/debug-put-image-data";
 import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
-import { Environment } from "../../_core/environment";
-import { ImageFilters } from "../../image-manipulation/image/image-filters";
-import type { ImageNormaliserOptions } from "../../image-manipulation/image/image-normaliser";
 import { createSingletonRoot } from "../../_core/utils/solid-js";
+import { invertIdentity } from "../utils/invert-identity";
 import { useAttemptManager } from "../../attempt/compositions/use-attempt-manager";
 import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
 import { useVideoCanvas } from "./use-video-canvas";
@@ -20,26 +18,14 @@ function useTimeTrialSingleton() {
   const vc = useVideoCanvas();
   const manager = useAttemptManager();
   const personalStorage = usePersonalStorage();
-  let debugPutImageData: undefined | DebugPutImageData = undefined;
+  const [isDebug, setDebug] = createSignal(false);
+  const debugPutImageData = createMemo<DebugPutImageData | undefined>(() => {
+    if (isDebug()) {
+      return invertIdentity(vc.putImageData);
+    }
+  });
 
   onMount(() => {
-    if (Environment.isDebug) {
-      debugPutImageData = (
-        imageNormaliserOptions: ImageNormaliserOptions,
-        imageData: ImageData,
-        dx: number,
-        dy: number,
-      ): void => {
-        let image = EnhancedImageData.from(imageData);
-        if (imageNormaliserOptions.filter === ImageFilters.identity) {
-          image = EnhancedImageData.clone(imageData);
-          ImageFilters.invert(image);
-        }
-
-        vc.putImageData(image, dx, dy);
-      };
-    }
-
     vc.addEventListener("canplay", () => {
       setState("PAUSED");
     });
@@ -74,7 +60,7 @@ function useTimeTrialSingleton() {
   const processFrame = (): void => {
     const start = performance.now();
     const image = EnhancedImageData.from(vc.getImageData());
-    const attempt = manager.update(image, debugPutImageData);
+    const attempt = manager.update(image, debugPutImageData());
 
     if (attempt) {
       attempt.player = personalStorage.player() || "Noname";
@@ -95,6 +81,7 @@ function useTimeTrialSingleton() {
     fromFile: vc.setSourceFile,
     setPlayer: personalStorage.setPlayer,
     player: personalStorage.player,
+    setDebug,
   };
 }
 

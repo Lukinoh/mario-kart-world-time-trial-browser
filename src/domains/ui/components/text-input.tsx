@@ -1,28 +1,22 @@
-import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";
 
-const sInput = css({
-  marginBottom: 0,
-});
-
-interface TextInput {
+interface TextInputProps {
   label: string;
   value: string;
   placeholder?: string;
-  setValue: (text: string) => void;
+  onInput: (text: string) => void;
 }
 
-export const TextInput = defineComponent<TextInput>((props) => {
+export const TextInput = defineComponent<TextInputProps>((props) => {
   return (
     <div>
-      <label>Player:</label>
+      <label>{props.label}</label>
       <input
-        class={sInput}
         type="text"
         value={props.value}
         placeholder={props.placeholder}
         onInput={(event) => {
-          props.setValue(event.target.value);
+          props.onInput(event.target.value);
         }}
       />
     </div>

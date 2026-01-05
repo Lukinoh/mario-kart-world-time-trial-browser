@@ -8,20 +8,19 @@ import { History } from "./views/history";
 import { Live } from "./views/live";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { WorldRecords } from "./views/world-records";
+import { displayVisible } from "./domains/ui/css/css";
 
 export const App = defineComponent(() => {
   const [title, setTitle] = createSignal("Nothing yet");
 
   const RouterWrapper = defineComponent<RouteSectionProps>((props) => {
     const location = useLocation();
-    const showTimeTrialPlayer = createMemo(() => {
-      return ["/live"].includes(location.pathname) ? "" : "display: none";
-    });
+    const sTimeTrialVisible = createMemo(() => displayVisible(["/live"].includes(location.pathname)));
 
     return (
       <>
         <h1>{title()}</h1>
-        <div style={showTimeTrialPlayer()}>
+        <div class={sTimeTrialVisible()}>
           <TimeTrialPlayer />
         </div>
         {props.children}

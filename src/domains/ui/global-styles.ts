@@ -17,6 +17,7 @@ injectGlobal({
     "--disabled": "#111",
 
     // Custom css variables
+    "--mk-spacing-small": "0.25rem",
     "--mk-spacing-medium": "0.5rem",
     "--mk-spacing-large": "1rem",
     "--mk-border": "var(--border-width) solid var(--border)",

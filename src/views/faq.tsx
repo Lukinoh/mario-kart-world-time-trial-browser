@@ -158,7 +158,7 @@ export const FAQ = defineComponent<ViewProps>((props) => {
       </details>
       <details>
         <summary>How can I backup all my data?</summary>
-        <button onClick={storage.download}>Export</button>
+        <button onclick={storage.download}>Export</button>
       </details>
       <details>
         <summary>How can I restore all my data?</summary>
