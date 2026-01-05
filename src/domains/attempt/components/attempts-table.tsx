@@ -49,6 +49,10 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const showFilters = createMemo(() => props.showFilters ?? true);
   const gridColumns = createMemo(() => GRID_COLUMNS - (Number(!showTime()) + Number(!showTrack())));
 
+  /*
+   * The implementation may look a bit strange. If you define a defaultTrack, it is reactive towards the defaultTrack until a filter is selected manually.
+   * I would suggest never showing the filter when you use defaultTrack.
+   */
   const [selectedTrack, setSelectedTrack] = createSignal<string>();
   const isSelectedTrack = createSelector(
     selectedTrack,
