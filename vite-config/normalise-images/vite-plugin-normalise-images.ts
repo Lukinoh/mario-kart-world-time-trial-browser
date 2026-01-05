@@ -1,5 +1,4 @@
 import "./canvas-shim";
-import "./location-shim";
 import { type NormaliseOptions, normalise } from "./normalise";
 import { map, pipe } from "remeda";
 import { mkdirSync, readdirSync, rmSync } from "node:fs";

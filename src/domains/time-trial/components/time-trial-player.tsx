@@ -1,12 +1,12 @@
-import { Show, createMemo, createSignal, onMount } from "solid-js";
+import { Show, createEffect, createMemo, createSignal, onMount } from "solid-js";
 import { CaptureButton } from "./capture-button";
-import { Environment } from "../../_core/environment";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { TextInput } from "../../ui/components/text-input";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";
 import { displayVisible } from "../../ui/css/css";
 import { fileUpload } from "../../_core/utils/file-upload";
+import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
 const sOptionsZone = css({
@@ -43,22 +43,34 @@ const sVideoCanvasItem = css({
 });
 
 export const TimeTrialPlayer = defineComponent(() => {
-  const timeTrial = useTimeTrial();
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let cameraRadio!: HTMLInputElement;
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let fileRadio!: HTMLInputElement;
-
   const [isVideoVisible, setVideoVisible] = createSignal(true);
+
+  const personal = usePersonalStorage();
+  const timeTrial = useTimeTrial();
+
   const [isCanvasVisible, setCanvasVisible] = createSignal(false);
   const sVideoVisible = createMemo(() => displayVisible(isVideoVisible()));
 
   onMount(async () => {
-    if (import.meta.env.DEV && Environment.isDebug) {
-      const demoVideo = await import("../../../assets/demo/demo.webm");
-      timeTrial.fromUrl(demoVideo.default);
-    } else {
-      await onCameraRadio();
+    await onCameraRadio();
+
+    if (import.meta.env.DEV) {
+      // Load a pre-defined video in dev only if the username is DEBUG
+      createEffect(async () => {
+        if (personal.player() === "DEBUG") {
+          setCanvasVisible(true);
+          const demoVideo = await import("../../../assets/demo/demo.webm");
+          timeTrial.fromUrl(demoVideo.default);
+        }
+
+        if (personal.player() !== "DEBUG") {
+          await timeTrial.fromCamera();
+        }
+      });
     }
   });
 

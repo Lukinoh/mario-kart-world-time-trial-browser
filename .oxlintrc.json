@@ -59,13 +59,7 @@
     "import/no-unassigned-import": [
       "error",
       {
-        "allow": [
-          "solid-devtools",
-          "simpledotcss/simple.min.css",
-          "./canvas-shim",
-          "./location-shim",
-          "./domains/ui/global-styles"
-        ]
+        "allow": ["solid-devtools", "simpledotcss/simple.min.css", "./canvas-shim", "./domains/ui/global-styles"]
       }
     ],
     "import/prefer-default-export": "off",
