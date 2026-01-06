@@ -54,6 +54,10 @@ function useTimeTrialSingleton() {
     vc.addEventListener("pause", () => {
       clearTimeout(cancelId);
     });
+
+    vc.addEventListener("emptied", () => {
+      clearTimeout(cancelId);
+    });
   };
 
   const processFrame = (): void => {
