@@ -13,6 +13,7 @@ function useIndexedStoreFactory<O extends object, S extends v.GenericSchema<unkn
 ) {
   const database = useIndexedValue<v.InferOutput<S>>(key);
   const [store, setStoreInternal] = createStore<v.InferOutput<S>>(storeInit);
+  const { promise: isMounted, resolve } = Promise.withResolvers<void>();
 
   onMount(async () => {
     const persistent = await navigator.storage.persist();
@@ -23,6 +24,7 @@ function useIndexedStoreFactory<O extends object, S extends v.GenericSchema<unkn
     }
 
     setStoreInternal((await database.get()) ?? store);
+    resolve();
   });
 
   const setStore: SetStoreFunction<v.InferOutput<S>> = (...params: Array<unknown>) => {
@@ -45,6 +47,7 @@ function useIndexedStoreFactory<O extends object, S extends v.GenericSchema<unkn
   };
 
   return {
+    isMounted,
     key: key,
     store,
     setStore,

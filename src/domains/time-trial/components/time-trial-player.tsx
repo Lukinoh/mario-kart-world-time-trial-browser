@@ -1,4 +1,4 @@
-import { Show, createEffect, createMemo, onMount } from "solid-js";
+import { Show, createEffect, createMemo } from "solid-js";
 import { CaptureButton } from "./capture-button";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { TextInput } from "../../ui/components/text-input";
@@ -53,22 +53,21 @@ export const TimeTrialPlayer = defineComponent(() => {
 
   const sVideoVisible = createMemo(() => displayVisible(settings.isVideoVisible()));
 
-  onMount(async () => {
-    await onCameraRadio();
-
+  createEffect(async () => {
     if (import.meta.env.DEV) {
       // Load a pre-defined video in dev only if the username is DEBUG
-      createEffect(async () => {
-        if (settings.player() === "DEBUG") {
-          settings.setIsDebug(true);
-          const demoVideo = await import("../../../assets/demo/demo.webm");
-          timeTrial.fromUrl(demoVideo.default);
-        }
+      if (settings.player() === "DEBUG") {
+        settings.setIsDebug(true);
+        settings.setVideoVisible(true);
+        const demoVideo = await import("../../../assets/demo/demo.webm");
+        timeTrial.fromUrl(demoVideo.default);
+      }
 
-        if (settings.player() !== "DEBUG") {
-          await timeTrial.fromCamera();
-        }
-      });
+      if (settings.player() !== "DEBUG") {
+        await onCameraRadio();
+      }
+    } else {
+      await onCameraRadio();
     }
   });
 

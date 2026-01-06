@@ -3,7 +3,8 @@ import { type StorageOutput, StorageSchema } from "../schemas/storage";
 import type { Brand } from "../../_core/utils/brand";
 import { JSONUtils } from "../../_core/utils/json-utils";
 import type { ReferenceRecords } from "../../attempt/types/reference-records";
-import { createSingletonRoot } from "../../_core/utils/solid-js";
+import { createSingletonRootAsync } from "../../_core/utils/solid-js";
+import { onMount } from "solid-js";
 import { useFriendsStorage } from "./use-friends-storage";
 import { usePersonalStorage } from "./use-personal-storage";
 import { useSettingsStorage } from "./use-settings-storage";
@@ -15,6 +16,12 @@ function useStorageSingleton() {
   const personal = usePersonalStorage();
   const friends = useFriendsStorage();
   const worldRecords = useWorldRecordStorage();
+  const { promise: isMounted, resolve } = Promise.withResolvers<void>();
+
+  onMount(async () => {
+    await Promise.all([settings.isMounted, personal.isMounted, friends.isMounted, worldRecords.isMounted]);
+    resolve();
+  });
 
   const restore = async (): Promise<void> => {
     const text = await JSONUtils.upload();
@@ -44,6 +51,7 @@ function useStorageSingleton() {
   };
 
   return {
+    isMounted,
     personal,
     friends,
     worldRecords,
@@ -54,4 +62,4 @@ function useStorageSingleton() {
 }
 
 type Storage = Brand<ReturnType<typeof useStorageSingleton>>;
-export const useStorage = createSingletonRoot<Storage>(useStorageSingleton);
+export const useStorage = await createSingletonRootAsync<Storage>(useStorageSingleton);

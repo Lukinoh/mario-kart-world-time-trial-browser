@@ -34,7 +34,7 @@ export const Live = defineComponent<ViewProps>((props) => {
       <h3>Last 7 attempts</h3>
       <AttemptsTable
         attempts={storage.personal.attempts()}
-        defaultTrack={selectedTrack()}
+        track={selectedTrack()}
         showFilters={false}
         showTrack={false}
         limit={7}

@@ -30,3 +30,11 @@ export function createSingletonRoot<T>(useAsSingleton: () => T): () => T {
   const instance = createRoot(useAsSingleton);
   return () => instance;
 }
+
+export async function createSingletonRootAsync<T>(
+  useAsSingleton: () => T & { isMounted: Promise<void> },
+): Promise<() => T> {
+  const instance = createRoot(useAsSingleton);
+  await instance.isMounted;
+  return () => instance;
+}

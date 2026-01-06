@@ -1,12 +1,12 @@
 import type { Brand } from "../../_core/utils/brand";
 import { SettingsStorageSchema } from "../schemas/settings-storage";
 import { createMemo } from "solid-js";
-import { createSingletonRoot } from "../../_core/utils/solid-js";
+import { createSingletonRootAsync } from "../../_core/utils/solid-js";
 import { useIndexedStore } from "./indexed/use-indexed-store";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useSettingsStorageSingleton() {
-  const { store, setStore } = useIndexedStore("settings", SettingsStorageSchema, {
+  const { store, setStore, isMounted } = useIndexedStore("settings", SettingsStorageSchema, {
     version: 1,
     player: "",
     isVideoVisible: true,
@@ -27,6 +27,7 @@ function useSettingsStorageSingleton() {
   };
 
   return {
+    isMounted,
     store,
     setStore,
     player,
@@ -39,4 +40,4 @@ function useSettingsStorageSingleton() {
 }
 
 type SettingsStorage = Brand<ReturnType<typeof useSettingsStorageSingleton>>;
-export const useSettingsStorage = createSingletonRoot<SettingsStorage>(useSettingsStorageSingleton);
+export const useSettingsStorage = await createSingletonRootAsync<SettingsStorage>(useSettingsStorageSingleton);

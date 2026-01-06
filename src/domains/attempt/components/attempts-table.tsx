@@ -1,5 +1,5 @@
 import { Cell, type CellProps } from "../../ui/components/grid/cell";
-import { For, type JSX, Match, Show, Switch, createMemo, createSelector, createSignal } from "solid-js";
+import { For, type JSX, Match, Show, Switch, createEffect, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
 import type { Attempt } from "../schemas/attempt";
 import { GridColumn } from "../../ui/components/grid/grid-column";
@@ -32,7 +32,7 @@ interface AttemptsTableProps {
   showTime?: boolean;
   showTrack?: boolean;
   showFilters?: boolean;
-  defaultTrack?: string;
+  track?: string;
   limit?: number;
   onSelectedTrack?: (track: string) => void;
 }
@@ -49,15 +49,13 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const showFilters = createMemo(() => props.showFilters ?? true);
   const gridColumns = createMemo(() => GRID_COLUMNS - (Number(!showTime()) + Number(!showTrack())));
 
-  /*
-   * The implementation may look a bit strange. If you define a defaultTrack, it is reactive towards the defaultTrack until a filter is selected manually.
-   * I would suggest never showing the filter when you use defaultTrack.
-   */
-  const [selectedTrack, setSelectedTrack] = createSignal<string>();
-  const isSelectedTrack = createSelector(
-    selectedTrack,
-    (a, selectedTrack) => a === (selectedTrack ?? props.defaultTrack ?? ALL_TRACKS),
-  );
+  const [selectedTrack, setSelectedTrack] = createSignal<string>(ALL_TRACKS);
+  const isSelectedTrack = createSelector(selectedTrack);
+
+  createEffect(() => {
+    setSelectedTrack(props.track ?? ALL_TRACKS);
+  });
+
   const onSelectedTrack: JSX.ChangeEventHandler<HTMLSelectElement, Event> = (event) => {
     const track = event.target.value;
     setSelectedTrack(track);
