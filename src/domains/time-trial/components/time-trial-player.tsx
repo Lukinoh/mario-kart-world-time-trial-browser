@@ -54,18 +54,12 @@ export const TimeTrialPlayer = defineComponent(() => {
   const sVideoVisible = createMemo(() => displayVisible(settings.isVideoVisible()));
 
   createEffect(async () => {
-    if (import.meta.env.DEV) {
+    if (import.meta.env.DEV && settings.player().startsWith("DEBUG")) {
       // Load a pre-defined video in dev only if the username is DEBUG
-      if (settings.player() === "DEBUG") {
-        settings.setIsDebug(true);
-        settings.setVideoVisible(true);
-        const demoVideo = await import("../../../assets/demo/demo.webm");
-        timeTrial.fromUrl(demoVideo.default);
-      }
-
-      if (settings.player() !== "DEBUG") {
-        await onCameraRadio();
-      }
+      settings.setIsDebug(true);
+      settings.setVideoVisible(true);
+      const { getDebugVideoUrl } = await import("../../test/utils/get-debug-video-url");
+      timeTrial.fromUrl(getDebugVideoUrl(settings.player()));
     } else {
       await onCameraRadio();
     }

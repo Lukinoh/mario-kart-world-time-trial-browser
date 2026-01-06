@@ -30,6 +30,19 @@ If you make a change in this folder, you have to restart the server.
 
 Moreover, after the tests, the normalised images are deleted. Hence, if you have a `npm run dev` running, you have to restart it manually.
 
+## Testing features
+
+When running the application in development mode, there is a hidden feature.
+If you set the name of the player to `DEBUG`, it loads a demo video.
+
+Since the repository size would explode if too many videos are added, there is a trick to add more videos locally.
+You can add videos in the folder `./src/assets/demo` with the following prefix `[0-9][0-9]_`.
+Then, you can load them by naming the player `DEBUG_[0-9][0-9]`.
+
+For instance, if you add a video named `01_my-video.mp4`, you can load it by naming your player `DEBUG_01`.
+Each prefix must be unique.
+If two files share the same prefix, only the first video found is loaded.
+
 ## Ideas
 
 - The application is performant enough, but we could improve image detection with more optimized algorithms.
