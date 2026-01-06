@@ -7,6 +7,7 @@ import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { invertIdentity } from "../utils/invert-identity";
 import { useAttemptManager } from "../../attempt/compositions/use-attempt-manager";
 import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
+import { useSettingsStorage } from "../../storage/compositions/use-settings-storage";
 import { useVideoCanvas } from "./use-video-canvas";
 
 type State = "STARTED" | "PAUSED";
@@ -18,9 +19,9 @@ function useTimeTrialSingleton() {
   const vc = useVideoCanvas();
   const manager = useAttemptManager();
   const personalStorage = usePersonalStorage();
-  const [isDebug, setDebug] = createSignal(false);
+  const settingsStorage = useSettingsStorage();
   const debugPutImageData = createMemo<DebugPutImageData | undefined>(() => {
-    if (isDebug()) {
+    if (settingsStorage.isDebug()) {
       return invertIdentity(vc.putImageData);
     }
   });
@@ -63,7 +64,7 @@ function useTimeTrialSingleton() {
     const attempt = manager.update(image, debugPutImageData());
 
     if (attempt) {
-      attempt.player = personalStorage.player() || "Noname";
+      attempt.player = settingsStorage.player() || "Noname";
       personalStorage.upsertAttempt(attempt);
     }
 
@@ -79,9 +80,6 @@ function useTimeTrialSingleton() {
     fromCamera: vc.setSourceCamera,
     fromUrl: vc.setSourceUrl,
     fromFile: vc.setSourceFile,
-    setPlayer: personalStorage.setPlayer,
-    player: personalStorage.player,
-    setDebug,
   };
 }
 

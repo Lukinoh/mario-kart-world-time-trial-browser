@@ -20,7 +20,6 @@ function usePersonalStorageSingleton() {
       version: 1,
       attempts: [],
       attemptsCountByTrack: {},
-      player: "",
     },
   );
   const {
@@ -48,10 +47,6 @@ function usePersonalStorageSingleton() {
     );
   };
 
-  const player = createMemo(() => store.player);
-  const setPlayer = (player: string): void => {
-    setStore("player", player);
-  };
   const getAttemptsCountByTrack = (track: string): number => {
     return store.attemptsCountByTrack[track] ?? 0;
   };
@@ -92,8 +87,6 @@ function usePersonalStorageSingleton() {
     upsertAttempt,
     attempts,
     lastAttempt,
-    player,
-    setPlayer,
     getAttemptsCount,
     getAttemptsCountByTrack,
     getTimeRecordsByTrack,

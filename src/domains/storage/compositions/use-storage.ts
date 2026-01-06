@@ -6,10 +6,12 @@ import type { ReferenceRecords } from "../../attempt/types/reference-records";
 import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { useFriendsStorage } from "./use-friends-storage";
 import { usePersonalStorage } from "./use-personal-storage";
+import { useSettingsStorage } from "./use-settings-storage";
 import { useWorldRecordStorage } from "./use-world-records-storage";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useStorageSingleton() {
+  const settings = useSettingsStorage();
   const personal = usePersonalStorage();
   const friends = useFriendsStorage();
   const worldRecords = useWorldRecordStorage();
@@ -20,6 +22,7 @@ function useStorageSingleton() {
     personal.setStore(data.personal);
     friends.setStore(data.friends);
     worldRecords.setStore(data.worldRecords);
+    settings.setStore(data.settings);
   };
 
   const download = (): void => {
@@ -27,6 +30,7 @@ function useStorageSingleton() {
       personal: personal.store,
       friends: friends.store,
       worldRecords: worldRecords.store,
+      settings: settings.store,
     });
   };
 

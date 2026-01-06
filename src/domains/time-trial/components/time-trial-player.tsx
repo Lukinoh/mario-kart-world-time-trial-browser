@@ -1,4 +1,4 @@
-import { Show, createEffect, createMemo, createSignal, onMount } from "solid-js";
+import { Show, createEffect, createMemo, onMount } from "solid-js";
 import { CaptureButton } from "./capture-button";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { TextInput } from "../../ui/components/text-input";
@@ -6,7 +6,7 @@ import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";
 import { displayVisible } from "../../ui/css/css";
 import { fileUpload } from "../../_core/utils/file-upload";
-import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
+import { useSettingsStorage } from "../../storage/compositions/use-settings-storage";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
 const sOptionsZone = css({
@@ -47,13 +47,11 @@ export const TimeTrialPlayer = defineComponent(() => {
   let cameraRadio!: HTMLInputElement;
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let fileRadio!: HTMLInputElement;
-  const [isVideoVisible, setVideoVisible] = createSignal(true);
 
-  const personal = usePersonalStorage();
   const timeTrial = useTimeTrial();
+  const settings = useSettingsStorage();
 
-  const [isCanvasVisible, setCanvasVisible] = createSignal(false);
-  const sVideoVisible = createMemo(() => displayVisible(isVideoVisible()));
+  const sVideoVisible = createMemo(() => displayVisible(settings.isVideoVisible()));
 
   onMount(async () => {
     await onCameraRadio();
@@ -61,13 +59,13 @@ export const TimeTrialPlayer = defineComponent(() => {
     if (import.meta.env.DEV) {
       // Load a pre-defined video in dev only if the username is DEBUG
       createEffect(async () => {
-        if (personal.player() === "DEBUG") {
-          setCanvasVisible(true);
+        if (settings.player() === "DEBUG") {
+          settings.setIsDebug(true);
           const demoVideo = await import("../../../assets/demo/demo.webm");
           timeTrial.fromUrl(demoVideo.default);
         }
 
-        if (personal.player() !== "DEBUG") {
+        if (settings.player() !== "DEBUG") {
           await timeTrial.fromCamera();
         }
       });
@@ -89,19 +87,16 @@ export const TimeTrialPlayer = defineComponent(() => {
     }
   };
 
-  const onDebugChange = (checked: boolean): void => {
-    timeTrial.setDebug(checked);
-    setCanvasVisible(checked);
-  };
-
   return (
     <GridColumn template={"auto"}>
       <div class={sOptionsZone}>
         <TextInput
           label="Player"
           placeholder="Set your name"
-          value={timeTrial.player()}
-          onInput={timeTrial.setPlayer}
+          value={settings.player()}
+          onInput={(name) => {
+            settings.setPlayer(name);
+          }}
         />
         <div>
           <label>
@@ -117,17 +112,19 @@ export const TimeTrialPlayer = defineComponent(() => {
           <label>
             <input
               type="checkbox"
-              checked={isVideoVisible()}
-              onchange={(event) => setVideoVisible(event.target.checked)}
+              checked={settings.isVideoVisible()}
+              onchange={(event) => {
+                settings.setVideoVisible(event.target.checked);
+              }}
             />
             <span>Video</span>
           </label>
           <label>
             <input
               type="checkbox"
-              checked={isCanvasVisible()}
+              checked={settings.isDebug()}
               onchange={(event) => {
-                onDebugChange(event.target.checked);
+                settings.setIsDebug(event.target.checked);
               }}
             />
             <span>Debug</span>
@@ -137,7 +134,7 @@ export const TimeTrialPlayer = defineComponent(() => {
       </div>
       <div class={sVideoCanvas}>
         <div class={css(sVideoCanvasItem, sVideoVisible())}>{timeTrial.video}</div>
-        <Show when={isCanvasVisible()}>
+        <Show when={settings.isDebug()}>
           <div class={sVideoCanvasItem}>{timeTrial.canvas}</div>
         </Show>
       </div>
