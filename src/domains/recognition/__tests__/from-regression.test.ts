@@ -43,6 +43,27 @@ test.for([
       track: "Wario Shipyard",
     },
   },
-])("Validate $source", async (params) => {
+])("Validate $source (warnOnTrack = true)", async (params) => {
   await expectedRecognition(params, true);
+});
+
+test.for([
+  {
+    source: import.meta.glob<string>("./regression-images/used-to-be-detected-as-dk-pass.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "3",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "Crown City",
+    },
+  },
+])("Validate $source (warnOnTrack = false)", async (params) => {
+  await expectedRecognition(params, false);
 });

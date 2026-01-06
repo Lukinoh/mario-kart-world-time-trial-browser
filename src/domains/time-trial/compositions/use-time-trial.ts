@@ -1,10 +1,8 @@
 import { clearTimeout, setTimeout } from "worker-timers";
 import { createMemo, createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../../_core/utils/brand";
-import type { DebugPutImageData } from "../../recognition/debug-put-image-data";
 import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { createSingletonRoot } from "../../_core/utils/solid-js";
-import { invertIdentity } from "../utils/invert-identity";
 import { useAttemptManager } from "../../attempt/compositions/use-attempt-manager";
 import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
 import { useSettingsStorage } from "../../storage/compositions/use-settings-storage";
@@ -20,9 +18,9 @@ function useTimeTrialSingleton() {
   const manager = useAttemptManager();
   const personalStorage = usePersonalStorage();
   const settingsStorage = useSettingsStorage();
-  const debugPutImageData = createMemo<DebugPutImageData | undefined>(() => {
+  const debugPutImageData = createMemo<CanvasImageData["putImageData"] | undefined>(() => {
     if (settingsStorage.isDebug()) {
-      return invertIdentity(vc.putImageData);
+      return vc.putImageData;
     }
   });
 

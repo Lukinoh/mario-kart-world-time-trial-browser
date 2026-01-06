@@ -8,6 +8,6 @@ export const ShroomsRegion = new Box(43, 153, 143, 43);
 export const ShroomsRecognitionOptions: ImageRecognitionOptions = {
   identifier: "shrooms",
   region: ShroomsRegion,
-  filter: ImageFilters.invert,
+  filter: ImageFilters.invert(),
   comparison: ImageSimilarity.ssim(),
 };

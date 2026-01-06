@@ -32,7 +32,8 @@ export class EnhancedImageData extends ImageData {
     const data = new Uint8ClampedArray(region.width * region.height * 4);
     const pixelStart = imageData.width * region.y + region.x;
 
-    for (let line = 0; line < region.height; line = line + 1) {
+    const lineCount = region.height;
+    for (let line = 0; line < lineCount; line = line + 1) {
       const pixelOffset = line * imageData.width;
       const positionStart = (pixelStart + pixelOffset) * 4;
       const positionEnd = positionStart + region.width * 4;
@@ -77,7 +78,8 @@ export class EnhancedImageData extends ImageData {
   }
 
   applyPixelFilter(filter: PixelFiltersFunction): void {
-    for (let index = 0; index < this.pixelCount; index = index + 1) {
+    const { pixelCount } = this;
+    for (let index = 0; index < pixelCount; index = index + 1) {
       this.updatePixel(index, filter);
     }
   }

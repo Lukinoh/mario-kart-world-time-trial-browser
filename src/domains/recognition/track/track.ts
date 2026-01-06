@@ -1,5 +1,4 @@
 import { TrackRecognitionOptions, TrackRegion } from "./track-configuration";
-import type { DebugPutImageData } from "../debug-put-image-data";
 import type { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { createImageRecognition } from "../../image-manipulation/image/image-recognition";
 import { loadImages } from "../../image-manipulation/image/image-loader";
@@ -12,9 +11,9 @@ const images = await loadImages(
 const TrackRecognition = createImageRecognition(images, TrackRecognitionOptions);
 
 export const Track = {
-  get(image: EnhancedImageData, putImageData?: DebugPutImageData): string {
+  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
     return pipe(TrackRecognition.getMatch(image, TrackRegion), (match) => {
-      putImageData?.(TrackRecognitionOptions, match.value, ...TrackRegion.putImageData());
+      putImageData?.(match.value, ...TrackRegion.putImageData());
       // As the name of the file is used to get the track, and on Windows you cannot have a filename with ?, a trick has been used.
       // Ideally, we should not rely on the filename.
       return match.filename.replace("؟", "?");

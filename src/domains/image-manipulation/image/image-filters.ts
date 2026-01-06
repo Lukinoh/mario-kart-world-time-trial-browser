@@ -1,16 +1,23 @@
+import type { AnyArgsFunction } from "../../_core/types/any-args-function";
 import type { EnhancedImageData } from "./enhanced-image-data";
 import { PixelFilters } from "../pixel/pixel-filters";
 
 export type ImageFiltersFunction = (imageData: EnhancedImageData) => void;
 
 export const ImageFilters = {
-  identity(_imageData: EnhancedImageData): void {
-    // Nothing to do
+  identity(): ImageFiltersFunction {
+    return () => {
+      // Nothing to do
+    };
   },
-  invert(imageData: EnhancedImageData): void {
-    imageData.applyPixelFilter(PixelFilters.invert);
+  invert(): ImageFiltersFunction {
+    return (imageData: EnhancedImageData): void => {
+      imageData.applyPixelFilter(PixelFilters.invert());
+    };
   },
-  blackAndWhite(imageData: EnhancedImageData): void {
-    imageData.applyPixelFilter(PixelFilters.blackAndWhite);
+  blackAndWhite(options: { threshold: number }): ImageFiltersFunction {
+    return (imageData: EnhancedImageData): void => {
+      imageData.applyPixelFilter(PixelFilters.blackAndWhite(options));
+    };
   },
-} satisfies Record<string, ImageFiltersFunction>;
+} satisfies Record<string, AnyArgsFunction<ImageFiltersFunction>>;

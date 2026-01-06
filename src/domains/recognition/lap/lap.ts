@@ -1,5 +1,4 @@
 import { LapRecognitionOptions, LapRegion } from "./lap-configuration";
-import type { DebugPutImageData } from "../debug-put-image-data";
 import type { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { createImageRecognition } from "../../image-manipulation/image/image-recognition";
 import { loadImages } from "../../image-manipulation/image/image-loader";
@@ -12,9 +11,9 @@ const images = await loadImages(
 const LapRecognition = createImageRecognition(images, LapRecognitionOptions);
 
 export const Lap = {
-  get(image: EnhancedImageData, putImageData?: DebugPutImageData): string {
+  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
     return pipe(LapRecognition.getMatch(image, LapRegion), (match) => {
-      putImageData?.(LapRecognitionOptions, match.value, ...LapRegion.putImageData());
+      putImageData?.(match.value, ...LapRegion.putImageData());
       return match.filename;
     });
   },

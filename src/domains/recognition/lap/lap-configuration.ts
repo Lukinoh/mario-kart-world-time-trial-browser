@@ -8,6 +8,6 @@ export const LapRegion = new Box(655, 212, 684, 189);
 export const LapRecognitionOptions: ImageRecognitionOptions = {
   identifier: "lap",
   region: LapRegion,
-  filter: ImageFilters.blackAndWhite,
+  filter: ImageFilters.blackAndWhite({ threshold: 200 }),
   comparison: ImageSimilarity.hitchhikersSSIM(),
 };

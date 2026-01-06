@@ -1,27 +1,32 @@
+import type { AnyArgsFunction } from "../../_core/types/any-args-function";
 import type { Pixel } from "./pixel";
 
 export type PixelFiltersFunction = (pixel: Pixel) => Pixel;
 
 export const PixelFilters = {
-  identity(pixel: Pixel): Pixel {
-    return pixel;
+  identity(): PixelFiltersFunction {
+    return (pixel): Pixel => pixel;
   },
-  invert(pixel: Pixel): Pixel {
-    return {
-      r: 255 - pixel.r,
-      g: 255 - pixel.g,
-      b: 255 - pixel.b,
-      a: pixel.a,
+  invert(): PixelFiltersFunction {
+    return (pixel: Pixel) => {
+      return {
+        r: 255 - pixel.r,
+        g: 255 - pixel.g,
+        b: 255 - pixel.b,
+        a: pixel.a,
+      };
     };
   },
-  blackAndWhite(pixel: Pixel): Pixel {
-    const gray = 0.2126 * pixel.r + 0.7152 * pixel.g + 0.0722 * pixel.b;
-    const whiteOrBlack = gray > 200 ? 255 : 0;
-    return {
-      r: whiteOrBlack,
-      g: whiteOrBlack,
-      b: whiteOrBlack,
-      a: pixel.a,
+  blackAndWhite(options: { threshold: number }): PixelFiltersFunction {
+    return (pixel: Pixel) => {
+      const gray = 0.2126 * pixel.r + 0.7152 * pixel.g + 0.0722 * pixel.b;
+      const whiteOrBlack = gray > options.threshold ? 255 : 0;
+      return {
+        r: whiteOrBlack,
+        g: whiteOrBlack,
+        b: whiteOrBlack,
+        a: pixel.a,
+      };
     };
   },
-} satisfies Record<string, PixelFiltersFunction>;
+} satisfies Record<string, AnyArgsFunction<PixelFiltersFunction>>;
