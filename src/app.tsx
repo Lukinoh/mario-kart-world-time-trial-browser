@@ -1,4 +1,4 @@
-import { Navigate, Route, type RouteSectionProps, Router, useLocation } from "@solidjs/router";
+import { A, Navigate, Route, type RouteSectionProps, Router, useCurrentMatches } from "@solidjs/router";
 import { ci, defineComponent } from "./domains/_core/utils/solid-js";
 import { createMemo, createSignal } from "solid-js";
 import { AloneDialog } from "./domains/_core/components/alone-dialog/alone-dialog";
@@ -14,43 +14,41 @@ export const App = defineComponent(() => {
   const [title, setTitle] = createSignal("Nothing yet");
 
   const RouterWrapper = defineComponent<RouteSectionProps>((props) => {
-    const location = useLocation();
-    const sTimeTrialVisible = createMemo(() => displayVisible(["/live"].includes(location.pathname)));
+    const matches = useCurrentMatches();
+    const sTimeTrialVisible = createMemo(() => displayVisible(matches().at(0)?.route.originalPath === "/live"));
 
     return (
       <>
-        <h1>{title()}</h1>
-        <div class={sTimeTrialVisible()}>
-          <TimeTrialPlayer />
-        </div>
-        {props.children}
+        <header>
+          <nav>
+            <A href="/live">Live</A>
+            <A href="/history">History</A>
+            <A href="/friends">Friends</A>
+            <A href="/world-records">World Records</A>
+            <A href="/faq">FAQ</A>
+          </nav>
+        </header>
+        <main>
+          <h1>{title()}</h1>
+          <div class={sTimeTrialVisible()}>
+            <TimeTrialPlayer />
+          </div>
+          {props.children}
+        </main>
+        <AloneDialog />
       </>
     );
   });
 
   return (
-    <>
-      <header>
-        <nav>
-          <a href="/live">Live</a>
-          <a href="/history">History</a>
-          <a href="/friends">Friends</a>
-          <a href="/world-records">World Records</a>
-          <a href="/faq">FAQ</a>
-        </nav>
-      </header>
-      <main>
-        <AloneDialog />
-        <Router root={RouterWrapper}>
-          <Route path="/" component={() => <Navigate href="/live" />} />
-          <Route path="/live" component={ci(Live, { setTitle })} />
-          <Route path="/history" component={ci(History, { setTitle })} />
-          <Route path="/friends" component={ci(Friends, { setTitle })} />
-          <Route path="/world-records" component={ci(WorldRecords, { setTitle })} />
-          <Route path="/faq" component={ci(FAQ, { setTitle })} />
-          <Route path="*404" component={() => <Navigate href="/live" />} />
-        </Router>
-      </main>
-    </>
+    <Router root={RouterWrapper} base={import.meta.env.BASE_URL}>
+      <Route path="/" component={() => <Navigate href="/live" />} />
+      <Route path="/live" component={ci(Live, { setTitle })} />
+      <Route path="/history" component={ci(History, { setTitle })} />
+      <Route path="/friends" component={ci(Friends, { setTitle })} />
+      <Route path="/world-records" component={ci(WorldRecords, { setTitle })} />
+      <Route path="/faq" component={ci(FAQ, { setTitle })} />
+      <Route path="*404" component={() => <Navigate href="/live" />} />
+    </Router>
   );
 });

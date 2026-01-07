@@ -1,4 +1,5 @@
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
+import { A } from "@solidjs/router";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
@@ -16,13 +17,13 @@ export const FAQ = defineComponent<ViewProps>((props) => {
     <>
       <p>
         This project is inspired by an idea of{" "}
-        <a target="_blank" href="https://github.com/breadbored/">
+        <A target="_blank" href="https://github.com/breadbored/">
           @breadbored
-        </a>{" "}
+        </A>{" "}
         and its project{" "}
-        <a target="_blank" href="https://bread.codes/posts/mario-kart-world-toolkit/">
+        <A target="_blank" href="https://bread.codes/posts/mario-kart-world-toolkit/">
           Mario Kart World Toolkit
-        </a>
+        </A>
         . So I would like to thank him for having opened the path.
       </p>
       <p>
@@ -33,7 +34,7 @@ export const FAQ = defineComponent<ViewProps>((props) => {
       <p>The project is quite big, and I do not plan to add new features.</p>
       <p>
         If you find any bugs, you can try to open an issue{" "}
-        <a href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/issues/new/choose">here</a>.
+        <A href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/issues/new/choose">here</A>.
       </p>
 
       <h3>Setup</h3>
