@@ -29,4 +29,21 @@ export const PixelFilters = {
       };
     };
   },
+  // Custom-made for shrooms detection
+  shroomsHighlight(): PixelFiltersFunction {
+    return (pixel: Pixel) => {
+      if (pixel.r > 100) {
+        return pixel;
+      }
+
+      const gray = 0.2126 * pixel.r + 0.7152 * pixel.g + 0.0722 * pixel.b;
+      const whiteOrBlack = gray > 150 ? 255 : 0;
+      return {
+        r: whiteOrBlack,
+        g: whiteOrBlack,
+        b: whiteOrBlack,
+        a: pixel.a,
+      };
+    };
+  },
 } satisfies Record<string, AnyArgsFunction<PixelFiltersFunction>>;

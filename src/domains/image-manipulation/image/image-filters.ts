@@ -20,4 +20,9 @@ export const ImageFilters = {
       imageData.applyPixelFilter(PixelFilters.blackAndWhite(options));
     };
   },
+  shroomsHighlight(): ImageFiltersFunction {
+    return (imageData: EnhancedImageData): void => {
+      imageData.applyPixelFilter(PixelFilters.shroomsHighlight());
+    };
+  },
 } satisfies Record<string, AnyArgsFunction<ImageFiltersFunction>>;
