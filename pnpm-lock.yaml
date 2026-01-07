@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@blazediff/gmsd':
-        specifier: 1.7.0
-        version: 1.7.0
-      '@blazediff/ssim':
-        specifier: 1.7.0
-        version: 1.7.0
       '@emotion/css':
         specifier: 11.13.5
         version: 11.13.5
@@ -204,12 +198,6 @@ packages:
   '@babel/types@7.28.5':
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
-
-  '@blazediff/gmsd@1.7.0':
-    resolution: {integrity: sha512-JW5cxM48h1rP3kKUuIk/E8M/q92/oZp0bKkB45HOwFH/KgJ2Jj0+BwhVj5ThyrAKsmCUHhS8eevuJoZUYOwJrw==}
-
-  '@blazediff/ssim@1.7.0':
-    resolution: {integrity: sha512-OWSOr6AElb0+dimEzQe35kzJqBeVmRepgMitrlm1TmoDJuQOlObegtPLK4LQWAroW7Ss28L5A1DF7bNeDCSDgw==}
 
   '@csstools/color-helpers@5.1.0':
     resolution: {integrity: sha512-S11EXWJyy0Mz5SYvRmY8nJYTFFd1LCNV+7cXyAgQtOOuzb4EsgfqDufL+9esx72/eLhsRdGZwaldu/h+E4t4BA==}
@@ -2055,10 +2043,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
-
-  '@blazediff/gmsd@1.7.0': {}
-
-  '@blazediff/ssim@1.7.0': {}
 
   '@csstools/color-helpers@5.1.0': {}
 
