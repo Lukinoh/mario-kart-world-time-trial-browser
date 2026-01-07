@@ -16,5 +16,5 @@ export const TimeRecognitionOptions: ImageRecognitionOptions = {
   identifier: "time",
   region: TimeRegions.second01,
   filter: ImageFilters.blackAndWhite({ threshold: 200 }),
-  comparison: ImageSimilarity.hitchhikersSSIM(),
+  comparison: ImageSimilarity.mse(),
 };

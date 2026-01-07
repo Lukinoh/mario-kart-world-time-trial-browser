@@ -13,7 +13,7 @@ test.for([
       laps: "3",
       pause: true,
       shrooms: "0",
-      time: "4:41.144",
+      time: "1:11.111",
       timeYellow: false,
       track: "Dino Dino Jungle",
     },

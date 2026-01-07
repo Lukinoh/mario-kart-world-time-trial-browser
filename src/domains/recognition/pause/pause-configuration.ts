@@ -20,6 +20,6 @@ export const PauseRegions = {
 export const PauseRecognitionOptions: ImageRecognitionOptions = {
   identifier: "pause",
   region: PauseRegions.menuLeft2,
-  filter: ImageFilters.identity(),
-  comparison: ImageSimilarity.hitchhikersSSIM(),
+  filter: ImageFilters.blackAndWhite({ threshold: 128 }),
+  comparison: ImageSimilarity.mse(),
 };

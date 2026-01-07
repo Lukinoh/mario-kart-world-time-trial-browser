@@ -38,7 +38,7 @@ export const Pause = {
           meanBy((match) => match.score),
         );
 
-        return mean > 0.6;
+        return mean > 0.85;
       },
     );
   },

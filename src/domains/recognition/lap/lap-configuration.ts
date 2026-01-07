@@ -9,5 +9,5 @@ export const LapRecognitionOptions: ImageRecognitionOptions = {
   identifier: "lap",
   region: LapRegion,
   filter: ImageFilters.blackAndWhite({ threshold: 200 }),
-  comparison: ImageSimilarity.hitchhikersSSIM(),
+  comparison: ImageSimilarity.mse(),
 };
