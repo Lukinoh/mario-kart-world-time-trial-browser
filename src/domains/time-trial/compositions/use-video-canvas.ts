@@ -53,7 +53,7 @@ function useVideoCanvasFactory() {
     setSourceUrl(url);
   };
 
-  const start = (): Promise<void> => {
+  const play = (): Promise<void> => {
     return videoElement.play();
   };
 
@@ -71,7 +71,7 @@ function useVideoCanvasFactory() {
   };
 
   return {
-    start,
+    play,
     pause,
     addEventListener: videoElement.addEventListener.bind(videoElement),
     getImageData,

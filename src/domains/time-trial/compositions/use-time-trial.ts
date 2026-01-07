@@ -8,7 +8,7 @@ import { usePersonalStorage } from "../../storage/compositions/use-personal-stor
 import { useSettingsStorage } from "../../storage/compositions/use-settings-storage";
 import { useVideoCanvas } from "./use-video-canvas";
 
-type State = "STARTED" | "PAUSED";
+type State = "PLAYING" | "PAUSED";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useTimeTrialSingleton() {
@@ -30,7 +30,7 @@ function useTimeTrialSingleton() {
     });
 
     vc.addEventListener("play", () => {
-      setState("STARTED");
+      setState("PLAYING");
     });
 
     vc.addEventListener("pause", () => {
@@ -75,7 +75,7 @@ function useTimeTrialSingleton() {
 
   return {
     isState,
-    start: vc.start,
+    play: vc.play,
     pause: vc.pause,
     video: vc.video,
     canvas: vc.canvas,

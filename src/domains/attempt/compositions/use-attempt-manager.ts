@@ -49,7 +49,7 @@ function useAttemptManagerFactory() {
       shrooms === "3" &&
       attempt.isOlderThan(MINIMUM_TIME_BEFORE_NEXT_RESET_MS)
     ) {
-      // You may get a double reset attempt if the player presses start during the start timer.
+      // You may get a double reset attempt if the player presses pause during the start countdown.
       const track = Track.get(image, putImageData);
       const laps = Laps.get(image, putImageData);
 
