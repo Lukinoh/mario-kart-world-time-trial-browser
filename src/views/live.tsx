@@ -3,12 +3,14 @@ import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js
 import { A } from "@solidjs/router";
 import { AttemptsComparisonTable } from "../domains/attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import { useStorage } from "../domains/storage/compositions/use-storage";
+import { usePersonalRepository } from "../domains/database/compositions/use-personal-repository";
+import { useRepositories } from "../domains/database/compositions/use-repositories";
 
 export const Live = defineComponent<ViewProps>((props) => {
-  const storage = useStorage();
+  const repositories = useRepositories();
+  const personal = usePersonalRepository();
 
-  const selectedTrack = createMemo(() => storage.personal.lastAttempt()?.raw.track);
+  const selectedTrack = createMemo(() => personal.lastAttempt()?.raw.track);
 
   onMount(() => {
     props.setTitle("Live");
@@ -19,9 +21,12 @@ export const Live = defineComponent<ViewProps>((props) => {
       <h2>{selectedTrack()}</h2>
       <h3>Comparison</h3>
       <Switch>
-        <Match when={storage.personal.lastAttempt()}>
+        <Match when={personal.lastAttempt()}>
           {(last) => (
-            <AttemptsComparisonTable last={last()} referenceRecords={storage.getReferenceRecords(last().raw.track)} />
+            <AttemptsComparisonTable
+              last={last()}
+              referenceRecords={repositories.getReferenceRecords(last().raw.track)}
+            />
           )}
         </Match>
         <Match when={true}>
@@ -33,7 +38,7 @@ export const Live = defineComponent<ViewProps>((props) => {
       </Switch>
       <h3>Last 7 attempts</h3>
       <AttemptsTable
-        attempts={storage.personal.attempts()}
+        attempts={personal.attempts()}
         track={selectedTrack()}
         showFilters={false}
         showTrack={false}

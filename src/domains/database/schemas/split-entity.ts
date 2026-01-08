@@ -1,10 +1,10 @@
 import * as v from "valibot";
 import { TimeSchema } from "./time";
 
-export const SplitStorageSchema = v.object({
+export const SplitEntitySchema = v.object({
   shrooms: v.number(),
   time: TimeSchema,
   coins: v.number(),
 });
 
-export type SplitStorage = v.InferOutput<typeof SplitStorageSchema>;
+export type SplitEntity = v.InferOutput<typeof SplitEntitySchema>;

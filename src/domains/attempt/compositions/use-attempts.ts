@@ -18,8 +18,8 @@ import {
   uniqueWith,
   values,
 } from "remeda";
-import type { AttemptStorage } from "../../storage/schemas/attempt-storage";
-import type { AttemptsStorage } from "../../storage/schemas/attempts-storage";
+import type { AttemptEntity } from "../../database/schemas/attempt-entity";
+import type { AttemptsEntity } from "../../database/schemas/attempts-entity";
 import type { Brand } from "../../_core/utils/brand";
 import type { Store } from "solid-js/store";
 import { createMemo } from "solid-js";
@@ -43,7 +43,7 @@ const getRecordsBySplitTime = (attempts: Array<Attempt>, sIndex: number): Array<
   getRecordsBy(attempts, (attempt) => attempt.splits.at(sIndex)?.time);
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function useAttemptsFactory(store: Store<AttemptsStorage>) {
+function useAttemptsFactory(store: Store<AttemptsEntity>) {
   const attempts = createMemo(() => store.attempts.map((attempt) => v.parse(AttemptSchema, attempt)));
   const lastAttempt = createMemo(() => attempts().at(0));
   const tracks = createMemo(() =>
@@ -79,7 +79,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
       (attempts) => {
         const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
 
-        const attemptStorage: AttemptStorage = {
+        const attemptEntity: AttemptEntity = {
           timestamp: 0,
           player: "Best 🫵🏻 Splits",
           splits: [],
@@ -92,21 +92,21 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
           const record = getRecordsBySplitTime(attempts, sIndex).at(0)?.raw;
           const splitRecord = record?.splits.at(sIndex);
           if (record && splitRecord) {
-            attemptStorage.splits.push(splitRecord);
-            attemptStorage.timestamp = attemptStorage.timestamp + record.timestamp;
+            attemptEntity.splits.push(splitRecord);
+            attemptEntity.timestamp = attemptEntity.timestamp + record.timestamp;
           }
         }
 
-        if (attemptStorage.splits.length === 0) {
+        if (attemptEntity.splits.length === 0) {
           return [];
         }
 
-        attemptStorage.timestamp = Math.round(attemptStorage.timestamp / attemptStorage.splits.length);
-        return [v.parse(AttemptSchema, attemptStorage)];
+        attemptEntity.timestamp = Math.round(attemptEntity.timestamp / attemptEntity.splits.length);
+        return [v.parse(AttemptSchema, attemptEntity)];
       },
     );
 
-  const getFlattenRecords = (): Array<AttemptStorage> =>
+  const getFlattenRecords = (): Array<AttemptEntity> =>
     pipe(
       attempts(),
       groupBy((attempt) => attempt.raw.track),
@@ -127,7 +127,7 @@ function useAttemptsFactory(store: Store<AttemptsStorage>) {
       sortBy((attempt) => -attempt.timestamp),
     );
 
-  const merge = (...attempts: Array<Array<AttemptStorage>>): Array<AttemptStorage> => {
+  const merge = (...attempts: Array<Array<AttemptEntity>>): Array<AttemptEntity> => {
     return pipe(
       [store.attempts, ...attempts],
       flat(),

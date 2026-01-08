@@ -1,41 +1,41 @@
 import * as v from "valibot";
-import { AttemptStorageSchema } from "../../storage/schemas/attempt-storage";
+import { AttemptEntitySchema } from "../../database/schemas/attempt-entity";
 import { Time } from "../../recognition/time/time";
 import { format } from "date-and-time";
 import { generateArray } from "../../_core/utils/generate-array";
 
 export const AttemptSchema = v.pipe(
-  AttemptStorageSchema,
-  v.transform((attemptStorage) => {
-    const date = format(new Date(attemptStorage.timestamp), "YYYY.MM.DD");
-    const datetime = format(new Date(attemptStorage.timestamp), "HH:mm:ss");
-    const laps = generateArray(attemptStorage.laps);
-    const rowSplits = attemptStorage.laps * 2 - 1;
+  AttemptEntitySchema,
+  v.transform((attemptEntity) => {
+    const date = format(new Date(attemptEntity.timestamp), "YYYY.MM.DD");
+    const datetime = format(new Date(attemptEntity.timestamp), "HH:mm:ss");
+    const laps = generateArray(attemptEntity.laps);
+    const rowSplits = attemptEntity.laps * 2 - 1;
 
     let parsedAccumulatedTime = 0;
     let accumulatedCoins = 0;
-    const splits = attemptStorage.splits.map((splitStorage) => {
-      const parsedTime = Time.parse(splitStorage.time);
+    const splits = attemptEntity.splits.map((splitEntity) => {
+      const parsedTime = Time.parse(splitEntity.time);
       parsedAccumulatedTime = parsedAccumulatedTime + parsedTime;
-      accumulatedCoins = accumulatedCoins + splitStorage.coins;
+      accumulatedCoins = accumulatedCoins + splitEntity.coins;
 
       return {
-        raw: splitStorage,
-        time: splitStorage.time,
+        raw: splitEntity,
+        time: splitEntity.time,
         parsedTime: parsedTime,
         accumulatedTime: Time.format(parsedAccumulatedTime),
         parsedAccumulatedTime: parsedAccumulatedTime,
-        coins: splitStorage.coins,
+        coins: splitEntity.coins,
         accumulatedCoins: accumulatedCoins,
       };
     });
 
     return {
-      raw: attemptStorage,
+      raw: attemptEntity,
       date: date,
       datetime: datetime,
-      coins: splits.at(attemptStorage.laps - 1)?.accumulatedCoins,
-      time: splits.at(attemptStorage.laps - 1)?.accumulatedTime,
+      coins: splits.at(attemptEntity.laps - 1)?.accumulatedCoins,
+      time: splits.at(attemptEntity.laps - 1)?.accumulatedTime,
       laps: laps,
       splits: splits,
       rowSplits: rowSplits,

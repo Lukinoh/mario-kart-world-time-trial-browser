@@ -1,27 +1,24 @@
 import * as v from "valibot";
 import { entries, sum, values } from "remeda";
-import type { AttemptStorage } from "../schemas/attempt-storage";
-import type { AttemptsStorage } from "../schemas/attempts-storage";
+import type { AttemptEntity } from "../schemas/attempt-entity";
+import type { AttemptsEntity } from "../schemas/attempts-entity";
 import type { Brand } from "../../_core/utils/brand";
 import { JSONUtils } from "../../_core/utils/json-utils";
-import { PersonalStorageSchema } from "../schemas/personal-storage";
+import { PersonalEntitySchema } from "../schemas/personal-entity";
 import { createMemo } from "solid-js";
-import { createSingletonRootAsync } from "../../_core/utils/solid-js";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { produce } from "solid-js/store";
 import { useAttempts } from "../../attempt/compositions/use-attempts";
-import { useIndexedStore } from "./indexed/use-indexed-store";
+import { useDatabases } from "./use-databases";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function usePersonalStorageSingleton() {
-  const { key, store, setStore, exportToJSON, replaceFromJSON, isMounted } = useIndexedStore(
-    "personal-attempts",
-    PersonalStorageSchema,
-    {
-      version: 1,
-      attempts: [],
-      attemptsCountByTrack: {},
+function usePersonalRepositorySingleton() {
+  const {
+    db: {
+      personal: { key, store, setStore, exportToJSON, replaceFromJSON },
     },
-  );
+  } = useDatabases();
+
   const {
     attempts,
     lastAttempt,
@@ -32,7 +29,7 @@ function usePersonalStorageSingleton() {
     merge,
   } = useAttempts(store);
 
-  const upsertAttempt = (newAttempt: AttemptStorage): void => {
+  const upsertAttempt = (newAttempt: AttemptEntity): void => {
     const index = store.attempts.findIndex((attempt) => attempt.timestamp === newAttempt.timestamp);
 
     setStore(
@@ -53,7 +50,7 @@ function usePersonalStorageSingleton() {
   const getAttemptsCount = createMemo(() => sum(values(store.attemptsCountByTrack)));
 
   const exportForFriendsToJSON = (): void => {
-    JSONUtils.download<AttemptsStorage>(`${key}-for-friends`, {
+    JSONUtils.download<AttemptsEntity>(`${key}-for-friends`, {
       version: store.version,
       attempts: getTimeRecords().map((attempt) => attempt.raw),
     });
@@ -61,7 +58,7 @@ function usePersonalStorageSingleton() {
 
   const addFromJSON = async (): Promise<void> => {
     const text = await JSONUtils.upload();
-    const data = v.parse(PersonalStorageSchema, JSON.parse(text));
+    const data = v.parse(PersonalEntitySchema, JSON.parse(text));
     setStore(
       produce((store) => {
         for (const [track, count] of entries(data.attemptsCountByTrack)) {
@@ -82,9 +79,6 @@ function usePersonalStorageSingleton() {
   };
 
   return {
-    isMounted,
-    store,
-    setStore,
     upsertAttempt,
     attempts,
     lastAttempt,
@@ -102,5 +96,5 @@ function usePersonalStorageSingleton() {
   };
 }
 
-type PersonalStorage = Brand<ReturnType<typeof usePersonalStorageSingleton>>;
-export const usePersonalStorage = await createSingletonRootAsync<PersonalStorage>(usePersonalStorageSingleton);
+type PersonalRepository = Brand<ReturnType<typeof usePersonalRepositorySingleton>>;
+export const usePersonalRepository = createSingletonRoot<PersonalRepository>(usePersonalRepositorySingleton);

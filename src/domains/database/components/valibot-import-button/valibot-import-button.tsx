@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import type { AttemptsStorageIssue, AttemptsStorageSchema } from "../../schemas/attempts-storage";
+import type { AttemptsEntityIssue, AttemptsEntitySchema } from "../../schemas/attempts-entity";
 import { type JSX, createMemo, createSignal } from "solid-js";
 import { isFunction, isString } from "remeda";
 import { Dialog } from "../../../ui/components/dialog";
@@ -20,7 +20,7 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
   let dialogSuccess!: HTMLDialogElement;
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let dialogError!: HTMLDialogElement;
-  const [data, setData] = createSignal<Array<AttemptsStorageIssue> | undefined>(undefined);
+  const [data, setData] = createSignal<Array<AttemptsEntityIssue> | undefined>(undefined);
 
   const args = createMemo<JSX.ButtonHTMLAttributes<HTMLButtonElement>>(() => {
     return {
@@ -32,10 +32,11 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
             setData();
             dialogSuccess.showModal();
           } catch (error) {
-            if (v.isValiError<typeof AttemptsStorageSchema>(error)) {
+            if (v.isValiError<typeof AttemptsEntitySchema>(error)) {
               setData(error.issues);
               dialogError.showModal();
             } else if (isString(error)) {
+              // Usually happen when the select file window is closed
               console.info(`Import window was ${error}`);
             } else {
               setData([
@@ -45,7 +46,7 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
                   input: "An unknown error",
                   expected: "string",
                   received: "An error",
-                  message: JSON.stringify(error),
+                  message: error?.toString() ?? "Critical error",
                 },
               ]);
               dialogError.showModal();

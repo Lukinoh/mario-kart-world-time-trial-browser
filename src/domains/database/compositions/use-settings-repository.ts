@@ -1,17 +1,15 @@
 import type { Brand } from "../../_core/utils/brand";
-import { SettingsStorageSchema } from "../schemas/settings-storage";
 import { createMemo } from "solid-js";
-import { createSingletonRootAsync } from "../../_core/utils/solid-js";
-import { useIndexedStore } from "./indexed/use-indexed-store";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
+import { useDatabases } from "./use-databases";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function useSettingsStorageSingleton() {
-  const { store, setStore, isMounted } = useIndexedStore("settings", SettingsStorageSchema, {
-    version: 1,
-    player: "",
-    isVideoVisible: true,
-    isDebug: false,
-  });
+function useSettingsRepositorySingleton() {
+  const {
+    db: {
+      settings: { store, setStore },
+    },
+  } = useDatabases();
 
   const player = createMemo(() => store.player);
   const setPlayer = (player: string): void => {
@@ -27,9 +25,6 @@ function useSettingsStorageSingleton() {
   };
 
   return {
-    isMounted,
-    store,
-    setStore,
     player,
     setPlayer,
     isVideoVisible,
@@ -39,5 +34,5 @@ function useSettingsStorageSingleton() {
   };
 }
 
-type SettingsStorage = Brand<ReturnType<typeof useSettingsStorageSingleton>>;
-export const useSettingsStorage = await createSingletonRootAsync<SettingsStorage>(useSettingsStorageSingleton);
+type SettingsRepository = Brand<ReturnType<typeof useSettingsRepositorySingleton>>;
+export const useSettingsRepository = createSingletonRoot<SettingsRepository>(useSettingsRepositorySingleton);

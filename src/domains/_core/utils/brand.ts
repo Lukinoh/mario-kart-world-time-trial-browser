@@ -1,10 +1,10 @@
 /**
  * This brand is used to replace inference by a named type.
  *
- * type UseStorage = Brand<ReturnType<typeof createUseStorage>>;
- * const useStorage = createSingletonRoot<UseStorage>(createUseStorage)
+ * type Something = Brand<ReturnType<typeof createUseSomething>>;
+ * const useSomething = createSingletonRoot<Something>(createUseSomething)
  *
- * In this case the type of useStorage is `() => UseStorage`.
+ * In this case the type of useSomething is `() => Something`.
  * Without, it would be `() => { ...list of all properties... }`
  */
 declare const __brand: unique symbol;

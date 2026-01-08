@@ -1,15 +1,15 @@
 import * as v from "valibot";
 import { type Attempt, AttemptSchema } from "./attempt";
 import { describe, expect, test } from "vitest";
-import type { AttemptStorage } from "../../storage/schemas/attempt-storage";
-import type { SplitStorage } from "../../storage/schemas/split-storage";
+import type { AttemptEntity } from "../../database/schemas/attempt-entity";
+import type { SplitEntity } from "../../database/schemas/split-entity";
 
-const parse = (attemptStorage: AttemptStorage): Attempt => {
-  return v.parse(AttemptSchema, attemptStorage);
+const parse = (attemptEntity: AttemptEntity): Attempt => {
+  return v.parse(AttemptSchema, attemptEntity);
 };
 
 describe("attemptSchema", () => {
-  const attemptStorage: AttemptStorage = {
+  const attemptEntity: AttemptEntity = {
     timestamp: 1_767_455_414_145,
     player: "Noname",
     track: "A track",
@@ -17,38 +17,38 @@ describe("attemptSchema", () => {
     splits: [],
   };
 
-  const split_1: SplitStorage = {
+  const split_1: SplitEntity = {
     time: "1:00.000",
     shrooms: 1,
     coins: 3,
   };
 
-  const split_2: SplitStorage = {
+  const split_2: SplitEntity = {
     time: "1:00.000",
     shrooms: 1,
     coins: -2,
   };
 
-  const split_3: SplitStorage = {
+  const split_3: SplitEntity = {
     time: "1:00.000",
     shrooms: 1,
     coins: 1,
   };
 
-  test("parses a basic attempt storage", () => {
-    const attempt = parse(attemptStorage);
+  test("parses a basic attempt entity", () => {
+    const attempt = parse(attemptEntity);
     expect(attempt.time).toBeUndefined();
     expect(attempt.coins).toBeUndefined();
     expect(attempt.date).toBe("2026.01.03");
     expect(attempt.datetime).toBe("16:50:14");
     expect(attempt.laps).toStrictEqual([1, 2, 3]);
     expect(attempt.splits).toHaveLength(0);
-    expect(attempt.raw).toStrictEqual(attemptStorage);
+    expect(attempt.raw).toStrictEqual(attemptEntity);
   });
 
-  test("parses an attempt storage with one split", () => {
+  test("parses an attempt entity with one split", () => {
     const attempt = parse({
-      ...attemptStorage,
+      ...attemptEntity,
       splits: [split_1],
     });
     expect(attempt.time).toBeUndefined();
@@ -64,9 +64,9 @@ describe("attemptSchema", () => {
     });
   });
 
-  test("parses an attempt storage with three splits", () => {
+  test("parses an attempt entity with three splits", () => {
     const attempt = parse({
-      ...attemptStorage,
+      ...attemptEntity,
       splits: [split_1, split_2, split_3],
     });
     expect(attempt.time).toBe("3:00.000");

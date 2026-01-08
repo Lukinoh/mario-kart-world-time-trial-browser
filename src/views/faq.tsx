@@ -2,12 +2,12 @@ import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js
 import { A } from "@solidjs/router";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
-import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
+import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { onMount } from "solid-js";
-import { useStorage } from "../domains/storage/compositions/use-storage";
+import { useRepositories } from "../domains/database/compositions/use-repositories";
 
 export const FAQ = defineComponent<ViewProps>((props) => {
-  const storage = useStorage();
+  const repositories = useRepositories();
 
   onMount(() => {
     props.setTitle("FAQ");
@@ -159,11 +159,11 @@ export const FAQ = defineComponent<ViewProps>((props) => {
       </details>
       <details>
         <summary>How can I backup all my data?</summary>
-        <button onclick={storage.download}>Export</button>
+        <button onclick={repositories.download}>Export</button>
       </details>
       <details>
         <summary>How can I restore all my data?</summary>
-        <ValibotImportButton onclick={storage.restore}>Import</ValibotImportButton>
+        <ValibotImportButton onclick={repositories.restore}>Import</ValibotImportButton>
       </details>
       <details>
         <summary>How can I import my current records?</summary>

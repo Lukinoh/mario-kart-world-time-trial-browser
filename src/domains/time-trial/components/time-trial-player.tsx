@@ -7,7 +7,7 @@ import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";
 import { displayVisible } from "../../ui/css/css";
 import { fileUpload } from "../../_core/utils/file-upload";
-import { useSettingsStorage } from "../../storage/compositions/use-settings-storage";
+import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
 const sOptionsZone = css({
@@ -53,7 +53,7 @@ export const TimeTrialPlayer = defineComponent(() => {
   let dialog!: HTMLDialogElement;
 
   const timeTrial = useTimeTrial();
-  const settings = useSettingsStorage();
+  const settings = useSettingsRepository();
 
   const [rawError, setRawError] = createSignal<string>();
 

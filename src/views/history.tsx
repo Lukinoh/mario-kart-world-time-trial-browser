@@ -1,10 +1,10 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
+import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
 import { css } from "@emotion/css";
-import { usePersonalStorage } from "../domains/storage/compositions/use-personal-storage";
+import { usePersonalRepository } from "../domains/database/compositions/use-personal-repository";
 
 const sActions = css({
   display: "flex",
@@ -21,7 +21,7 @@ const sTries = css({
 });
 
 export const History = defineComponent<ViewProps>((props) => {
-  const storage = usePersonalStorage();
+  const personal = usePersonalRepository();
   const [selectedTrack, setSelectedTrack] = createSignal<string>();
 
   onMount(() => {
@@ -31,30 +31,30 @@ export const History = defineComponent<ViewProps>((props) => {
   return (
     <>
       <div class={sActions}>
-        <ValibotImportButton onclick={storage.addFromJSON}>Add</ValibotImportButton>
-        <ValibotImportButton onclick={storage.replaceFromJSON}>Replace</ValibotImportButton>
+        <ValibotImportButton onclick={personal.addFromJSON}>Add</ValibotImportButton>
+        <ValibotImportButton onclick={personal.replaceFromJSON}>Replace</ValibotImportButton>
         <VerticalDivider />
-        <button onclick={storage.exportToJSON}>Export</button>
-        <button onclick={storage.exportForFriendsToJSON}>Export for friends</button>
+        <button onclick={personal.exportToJSON}>Export</button>
+        <button onclick={personal.exportForFriendsToJSON}>Export for friends</button>
         <VerticalDivider />
-        <button onclick={storage.shrink}>Shrink</button>
+        <button onclick={personal.shrink}>Shrink</button>
         <VerticalDivider />
         <div class={sTries}>
           <Switch>
             <Match when={selectedTrack()}>
               {(track) => (
                 <>
-                  All times tries on {selectedTrack()}: <mark>{storage.getAttemptsCountByTrack(track())}</mark>
+                  All times tries on {selectedTrack()}: <mark>{personal.getAttemptsCountByTrack(track())}</mark>
                 </>
               )}
             </Match>
             <Match when={true}>
-              All times tries on All tracks: <mark>{storage.getAttemptsCount()}</mark>
+              All times tries on All tracks: <mark>{personal.getAttemptsCount()}</mark>
             </Match>
           </Switch>
         </div>
       </div>
-      <AttemptsTable attempts={storage.attempts()} onSelectedTrack={setSelectedTrack}></AttemptsTable>
+      <AttemptsTable attempts={personal.attempts()} onSelectedTrack={setSelectedTrack}></AttemptsTable>
     </>
   );
 });

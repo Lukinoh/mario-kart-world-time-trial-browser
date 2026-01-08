@@ -1,10 +1,10 @@
 import { map, pipe } from "remeda";
-import type { AttemptStorage } from "../../storage/schemas/attempt-storage";
+import type { AttemptEntity } from "../../database/schemas/attempt-entity";
 import type { Brand } from "../../_core/utils/brand";
-import type { SplitStorage } from "../../storage/schemas/split-storage";
+import type { SplitEntity } from "../../database/schemas/split-entity";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-const useBuildAttemptFactory = (laps: number, inputDefaultAttempt?: Partial<AttemptStorage>) => {
+const useBuildAttemptFactory = (laps: number, inputDefaultAttempt?: Partial<AttemptEntity>) => {
   let timestamp = 0;
 
   const defaultAttempt = {
@@ -12,9 +12,9 @@ const useBuildAttemptFactory = (laps: number, inputDefaultAttempt?: Partial<Atte
     track: "A track",
     ...inputDefaultAttempt,
     laps: laps,
-  } satisfies Partial<AttemptStorage>;
+  } satisfies Partial<AttemptEntity>;
 
-  const createAttempt = (attempt: Partial<AttemptStorage>): AttemptStorage => {
+  const createAttempt = (attempt: Partial<AttemptEntity>): AttemptEntity => {
     timestamp = timestamp + 1;
 
     return {
@@ -25,7 +25,7 @@ const useBuildAttemptFactory = (laps: number, inputDefaultAttempt?: Partial<Atte
     };
   };
 
-  const createSplits = (...time: Array<string>): Array<SplitStorage> => {
+  const createSplits = (...time: Array<string>): Array<SplitEntity> => {
     let lap = 0;
     return pipe(
       time,

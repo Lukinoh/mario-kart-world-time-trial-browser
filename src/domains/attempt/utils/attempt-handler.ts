@@ -1,7 +1,7 @@
-import type { AttemptStorage } from "../../storage/schemas/attempt-storage";
+import type { AttemptEntity } from "../../database/schemas/attempt-entity";
 import type { Brand } from "../../_core/utils/brand";
 import type { RawSplit } from "../types/raw-split";
-import type { SplitStorage } from "../../storage/schemas/split-storage";
+import type { SplitEntity } from "../../database/schemas/split-entity";
 import { Time } from "../../recognition/time/time";
 
 const SHROOMS_NUMBER = 3;
@@ -11,7 +11,7 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
   const timestamp = Date.now();
   const track = pTrack;
   const laps = Number(pRawLaps);
-  const splits: Array<SplitStorage> = [];
+  const splits: Array<SplitEntity> = [];
 
   const addSplit = (rawSplit: RawSplit): void => {
     const coins = splits.reduce((acc, split) => acc - split.coins, Number(rawSplit.coins));
@@ -53,7 +53,7 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
     return Date.now() - timestamp > timeMs;
   };
 
-  const unwrap = (): AttemptStorage => {
+  const unwrap = (): AttemptEntity => {
     return {
       player: "Who knows?",
       timestamp: timestamp,

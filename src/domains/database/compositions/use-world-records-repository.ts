@@ -1,22 +1,18 @@
 import { CORS_PROXY_URL, WORLD_RECORD_URL } from "../../_core/constants/external-urls";
-import { AttemptsStorageSchema } from "../schemas/attempts-storage";
 import type { Brand } from "../../_core/utils/brand";
 import { JSONUtils } from "../../_core/utils/json-utils";
 import { MkwWrs } from "../../_core/utils/mkw-wrs";
-import { createSingletonRootAsync } from "../../_core/utils/solid-js";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { useAttempts } from "../../attempt/compositions/use-attempts";
-import { useIndexedStore } from "./indexed/use-indexed-store";
+import { useDatabases } from "./use-databases";
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-function useWorldRecordsStorageSingleton() {
-  const { store, setStore, replaceFromJSON, key, isMounted } = useIndexedStore(
-    "world-records-attempts",
-    AttemptsStorageSchema,
-    {
-      version: 1,
-      attempts: [],
+function useWorldRecordsRepositorySingleton() {
+  const {
+    db: {
+      worldRecords: { store, setStore, replaceFromJSON, key },
     },
-  );
+  } = useDatabases();
   const { attempts, getTimeRecordsByTrack } = useAttempts(store);
 
   const automaticProcessForMkrws = async (): Promise<void> => {
@@ -39,9 +35,6 @@ function useWorldRecordsStorageSingleton() {
   };
 
   return {
-    isMounted,
-    store,
-    setStore,
     attempts,
     automaticProcessForMkrws,
     manualProcessForMkwrs,
@@ -52,7 +45,5 @@ function useWorldRecordsStorageSingleton() {
   };
 }
 
-type WorldRecordStorage = Brand<ReturnType<typeof useWorldRecordsStorageSingleton>>;
-export const useWorldRecordStorage = await createSingletonRootAsync<WorldRecordStorage>(
-  useWorldRecordsStorageSingleton,
-);
+type WorldRecordRepository = Brand<ReturnType<typeof useWorldRecordsRepositorySingleton>>;
+export const useWorldRecordRepository = createSingletonRoot<WorldRecordRepository>(useWorldRecordsRepositorySingleton);

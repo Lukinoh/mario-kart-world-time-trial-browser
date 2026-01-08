@@ -1,7 +1,7 @@
-import type { AttemptsStorage } from "../../storage/schemas/attempts-storage";
+import type { AttemptsEntity } from "../../database/schemas/attempts-entity";
 
 // Parse the document of the page https://mkwrs.com/mkworld/ to retrieve the records
-const parse = (doc: Document): AttemptsStorage => {
+const parse = (doc: Document): AttemptsEntity => {
   const tableLines = doc.querySelectorAll(".wr").item(0)?.children.item(0)?.children;
 
   const lines = [...(tableLines ?? [])]

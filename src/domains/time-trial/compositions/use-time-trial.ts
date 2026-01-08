@@ -4,8 +4,8 @@ import type { Brand } from "../../_core/utils/brand";
 import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { useAttemptManager } from "../../attempt/compositions/use-attempt-manager";
-import { usePersonalStorage } from "../../storage/compositions/use-personal-storage";
-import { useSettingsStorage } from "../../storage/compositions/use-settings-storage";
+import { usePersonalRepository } from "../../database/compositions/use-personal-repository";
+import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useVideoCanvas } from "./use-video-canvas";
 
 type State = "PLAYING" | "PAUSED";
@@ -16,10 +16,10 @@ function useTimeTrialSingleton() {
   const isState = createSelector(state);
   const vc = useVideoCanvas();
   const manager = useAttemptManager();
-  const personalStorage = usePersonalStorage();
-  const settingsStorage = useSettingsStorage();
+  const personal = usePersonalRepository();
+  const settings = useSettingsRepository();
   const debugPutImageData = createMemo<CanvasImageData["putImageData"] | undefined>(() => {
-    if (settingsStorage.isDebug()) {
+    if (settings.isDebug()) {
       return vc.putImageData;
     }
   });
@@ -66,8 +66,8 @@ function useTimeTrialSingleton() {
     const attempt = manager.update(image, debugPutImageData());
 
     if (attempt) {
-      attempt.player = settingsStorage.player() || "Noname";
-      personalStorage.upsertAttempt(attempt);
+      attempt.player = settings.player() ?? "Noname";
+      personal.upsertAttempt(attempt);
     }
 
     console.info(`Time spend to process a frame: ${performance.now() - start}`);

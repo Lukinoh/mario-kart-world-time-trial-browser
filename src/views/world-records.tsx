@@ -2,10 +2,10 @@ import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
-import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
+import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { css } from "@emotion/css";
 import { onMount } from "solid-js";
-import { useWorldRecordStorage } from "../domains/storage/compositions/use-world-records-storage";
+import { useWorldRecordRepository } from "../domains/database/compositions/use-world-records-repository";
 
 const sWrapper = css({
   width: "min-content",
@@ -16,7 +16,7 @@ const sNoWrap = css({
 });
 
 export const WorldRecords = defineComponent<ViewProps>((props) => {
-  const storage = useWorldRecordStorage();
+  const worldRecords = useWorldRecordRepository();
 
   onMount(() => {
     props.setTitle("Worlds Records");
@@ -30,13 +30,13 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
           <Cell bold text="Automatic" />
           <Cell bold text="Manual" />
           <div>
-            <ValibotImportButton onclick={storage.automaticProcessForMkrws}>Refresh</ValibotImportButton>
+            <ValibotImportButton onclick={worldRecords.automaticProcessForMkrws}>Refresh</ValibotImportButton>
             <div class={sNoWrap}>powered by codetabs.com</div>
           </div>
           <dl>
             <dt>Step 1</dt>
             <dd>
-              <button class={sNoWrap} onclick={storage.manualProcessForMkwrs}>
+              <button class={sNoWrap} onclick={worldRecords.manualProcessForMkwrs}>
                 Copy some code to your clipboard and open mkwrs.com
               </button>
             </dd>
@@ -47,11 +47,11 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
             </dd>
             <dt>Step 3</dt>
             <dd>
-              <ValibotImportButton onclick={storage.replaceFromJSON}>Import the JSON file</ValibotImportButton>
+              <ValibotImportButton onclick={worldRecords.replaceFromJSON}>Import the JSON file</ValibotImportButton>
             </dd>
           </dl>
         </GridColumn>
-        <AttemptsTable attempts={storage.attempts()} showTime={false} showFilters={false} />
+        <AttemptsTable attempts={worldRecords.attempts()} showTime={false} showFilters={false} />
       </div>
     </>
   );

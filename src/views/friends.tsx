@@ -1,10 +1,10 @@
 import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import { ValibotImportButton } from "../domains/storage/components/valibot-import-button/valibot-import-button";
+import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
 import { css } from "@emotion/css";
 import { onMount } from "solid-js";
-import { useFriendsStorage } from "../domains/storage/compositions/use-friends-storage";
+import { useFriendsRepository } from "../domains/database/compositions/use-friends-repository";
 
 const sActions = css({
   display: "flex",
@@ -17,7 +17,7 @@ const sActions = css({
 });
 
 export const Friends = defineComponent<ViewProps>((props) => {
-  const storage = useFriendsStorage();
+  const friends = useFriendsRepository();
 
   onMount(() => {
     props.setTitle("Friends");
@@ -26,14 +26,14 @@ export const Friends = defineComponent<ViewProps>((props) => {
   return (
     <>
       <div class={sActions}>
-        <ValibotImportButton onclick={storage.addFromJSON}>Add</ValibotImportButton>
-        <ValibotImportButton onclick={storage.replaceFromJSON}>Replace</ValibotImportButton>
+        <ValibotImportButton onclick={friends.addFromJSON}>Add</ValibotImportButton>
+        <ValibotImportButton onclick={friends.replaceFromJSON}>Replace</ValibotImportButton>
         <VerticalDivider />
-        <button onclick={storage.exportToJSON}>Export</button>
+        <button onclick={friends.exportToJSON}>Export</button>
         <VerticalDivider />
-        <button onclick={storage.shrink}>Shrink</button>
+        <button onclick={friends.shrink}>Shrink</button>
       </div>
-      <AttemptsTable attempts={storage.attempts()} showTime={false} />
+      <AttemptsTable attempts={friends.attempts()} showTime={false} />
     </>
   );
 });
