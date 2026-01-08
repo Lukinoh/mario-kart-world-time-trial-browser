@@ -26,6 +26,7 @@ const sVideoCanvas = css({
 const sVideoCanvasItem = css({
   position: "relative",
   width: "49%",
+  maxWidth: "fit-content",
   lineHeight: 0,
   border: "var(--mk-border)",
   borderRadius: "var(--standard-border-radius)",
