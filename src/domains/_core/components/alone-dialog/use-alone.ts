@@ -17,7 +17,7 @@ interface Answer {
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAloneSingleton() {
-  const bc = useBroadcastChannel<Question | Answer>("am-i-alone-channel");
+  const bc = useBroadcastChannel<Question | Answer>("alone-channel");
   const [alone, setAlone] = createSignal(true);
   const tabId = crypto.randomUUID();
 
