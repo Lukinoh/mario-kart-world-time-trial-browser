@@ -24,7 +24,7 @@ export default defineConfig({
         { options: CoinsRecognitionOptions, with: "sharp" },
         { options: LapRecognitionOptions, with: "sharp" },
         { options: LapsRecognitionOptions, with: "sharp" },
-        { options: PauseRecognitionOptions, with: "canvas" },
+        { options: PauseRecognitionOptions, with: "sharp" },
         { options: ShroomsRecognitionOptions, with: "canvas" },
         { options: TimeRecognitionOptions, with: "sharp" },
         { options: TrackRecognitionOptions, with: "canvas" },
