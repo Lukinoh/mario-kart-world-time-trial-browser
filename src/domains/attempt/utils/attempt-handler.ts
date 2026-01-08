@@ -2,7 +2,7 @@ import type { AttemptEntity } from "../../database/schemas/attempt-entity";
 import type { Brand } from "../../_core/utils/brand";
 import type { RawSplit } from "../types/raw-split";
 import type { SplitEntity } from "../../database/schemas/split-entity";
-import { Time } from "../../recognition/time/time";
+import { Time } from "./time";
 
 const SHROOMS_NUMBER = 3;
 

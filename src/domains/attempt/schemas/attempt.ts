@@ -1,6 +1,6 @@
 import * as v from "valibot";
 import { AttemptEntitySchema } from "../../database/schemas/attempt-entity";
-import { Time } from "../../recognition/time/time";
+import { Time } from "../utils/time";
 import { format } from "date-and-time";
 import { generateArray } from "../../_core/utils/generate-array";
 

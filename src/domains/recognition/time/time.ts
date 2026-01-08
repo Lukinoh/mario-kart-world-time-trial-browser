@@ -1,12 +1,9 @@
 import { TimeRecognitionOptions, TimeRegions } from "./time-configuration";
-import { compile, format, parse } from "date-and-time";
 import { mapValues, pipe, values } from "remeda";
 import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { ImageAssert } from "../../image-manipulation/image/image-assert";
 import { createImageRecognition } from "../../image-manipulation/image/image-recognition";
 import { loadImages } from "../../image-manipulation/image/image-loader";
-
-const compiledTime = compile("m:ss.SSS");
 
 const images = await loadImages(
   import.meta.glob<string>("../../../assets/recognitions/normalised/time/*", {
@@ -40,11 +37,5 @@ export const Time = {
       values(),
       (values) => values.every(Boolean),
     );
-  },
-  parse(time: string): number {
-    return parse(time, compiledTime).getTime();
-  },
-  format(timestamp: number): string {
-    return format(new Date(timestamp), compiledTime);
   },
 };
