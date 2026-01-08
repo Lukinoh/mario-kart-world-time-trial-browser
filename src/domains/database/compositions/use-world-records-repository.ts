@@ -31,7 +31,7 @@ function useWorldRecordsRepositorySingleton() {
       download("${key}", getAttemptsFromMkrws(document))
    `);
     // oxlint-enable restrict-template-expressions
-    open(WORLD_RECORD_URL, "_blank");
+    window.open(WORLD_RECORD_URL, "_blank");
   };
 
   return {

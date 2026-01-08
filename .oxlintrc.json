@@ -11,11 +11,12 @@
     "location": true,
     "URL": true,
     "Blob": true,
-    "open": true,
     "DOMParser": true,
     "fetch": true,
     "crypto": true,
-    "BroadcastChannel": true
+    "BroadcastChannel": true,
+    "resizeTo": true,
+    "window": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {

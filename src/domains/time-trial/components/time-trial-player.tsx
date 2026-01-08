@@ -7,6 +7,7 @@ import { css } from "@emotion/css";
 import { defineComponent } from "../../_core/utils/solid-js";
 import { displayVisible } from "../../ui/css/css";
 import { fileUpload } from "../../_core/utils/file-upload";
+import { useObs } from "../../obs/compositions/use-obs";
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
@@ -54,6 +55,7 @@ export const TimeTrialPlayer = defineComponent(() => {
 
   const timeTrial = useTimeTrial();
   const settings = useSettingsRepository();
+  const obs = useObs();
 
   const [rawError, setRawError] = createSignal<string>();
 
@@ -163,6 +165,9 @@ export const TimeTrialPlayer = defineComponent(() => {
               </SymbolButton>
             </Match>
           </Switch>
+          <SymbolButton symbol="🢅" onclick={obs.openPopup}>
+            OBS
+          </SymbolButton>
         </div>
         <div class={sVideoCanvas}>
           <div class={css(sVideoCanvasItem, sVideoVisible())}>{timeTrial.video}</div>
