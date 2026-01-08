@@ -6,6 +6,7 @@ import { F1Cell } from "./f1-cell";
 import { GridColumn } from "../../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../../ui/components/grid/horizontal-divider";
 import type { ReferenceRecords } from "../../types/reference-records";
+import { TimeWidthCell } from "./time-width-cell";
 import { VerticalDivider } from "../../../ui/components/grid/vertical-divider";
 import { defineComponent } from "../../../_core/utils/solid-js";
 import { delta } from "../../utils/delta";
@@ -52,9 +53,9 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
     <GridColumn template={`repeat(${gridColumns()}, max-content)`} xAlign="center" yAlign="center">
       {/*Headers*/}
       <Cell {...aFirstColumn} {...aTitle} column={4} text={track()} />
-      <For each={props.last.laps}>{(_, sIndex) => <Cell {...aTitle} text={`Split ${sIndex() + 1}`} />}</For>
+      <For each={props.last.laps}>{(_, sIndex) => <TimeWidthCell {...aTitle} text={`Split ${sIndex() + 1}`} />}</For>
       <Cell text="" />
-      <Cell {...aLastColumn} text="⏱️" />
+      <TimeWidthCell {...aLastColumn} text="⏱️" />
 
       {/* Line 1 */}
       <Cell {...aFirstColumn} row={GRID_HALF_ROW} text={props.last.date} />
