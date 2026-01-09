@@ -13,7 +13,7 @@ export const TimeWidthCell = defineComponent<CellProps>((props) => {
   return (
     <div>
       <div class={sTimeWidth}>{PLUS_OR_MINUS}0:00.000</div>
-      <Cell {...props} xAlign="center"></Cell>
+      <Cell {...props} xAlign="center" />
     </div>
   );
 });

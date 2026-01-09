@@ -5,6 +5,7 @@ export const SettingsEntitySchema = v.object({
   player: v.string(),
   isVideoVisible: v.boolean(),
   isDebug: v.boolean(),
+  playbackRate: v.number(),
 });
 
 export type SettingsEntity = v.InferOutput<typeof SettingsEntitySchema>;

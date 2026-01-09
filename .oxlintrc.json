@@ -6,6 +6,8 @@
     "ImageData": true,
     "OffscreenCanvas": true,
     "HTMLElement": true,
+    "HTMLSelectElement": true,
+    "HTMLVideoElement": true,
     "navigator": true,
     "Image": true,
     "location": true,

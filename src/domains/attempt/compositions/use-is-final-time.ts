@@ -5,7 +5,7 @@ function useIsFinalTimeFactory(beforeFinalMs: number) {
   let lastTime: string | undefined = undefined;
   let lastTimestamp = Number.POSITIVE_INFINITY;
 
-  const isFinalTime = (newTime: string, isPause: boolean): boolean => {
+  const isFinalTime = (newTime: string, isPause: boolean, rate: number): boolean => {
     const now = Date.now();
 
     if (isPause) {
@@ -23,7 +23,7 @@ function useIsFinalTimeFactory(beforeFinalMs: number) {
     // If time is the same, check if 1 second has passed
     const elapsed = now - lastTimestamp;
     // The value should not be hardcode, but depends on the speed of the video
-    if (elapsed > beforeFinalMs) {
+    if (elapsed > beforeFinalMs / rate) {
       lastTime = undefined;
       lastTimestamp = Number.POSITIVE_INFINITY;
       return true;

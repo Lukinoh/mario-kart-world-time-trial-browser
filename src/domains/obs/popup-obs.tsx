@@ -23,7 +23,7 @@ export const PopupObs = defineComponent(() => {
       if (message.type === "response") {
         setData(message.data);
         const chromeHeight = window.outerHeight - window.innerHeight;
-        const chromeWidth = 2 * (window.outerWidth - window.innerWidth);
+        const chromeWidth = window.outerWidth - window.innerWidth;
         resizeTo(tableDiv.offsetWidth + chromeWidth, tableDiv.offsetHeight + chromeHeight);
       }
     });

@@ -1,14 +1,17 @@
 import { clearTimeout, setTimeout } from "worker-timers";
-import { createMemo, createSelector, createSignal, onMount } from "solid-js";
+import { createEffect, createMemo, createSelector, createSignal, onMount } from "solid-js";
 import type { Brand } from "../../_core/utils/brand";
 import { EnhancedImageData } from "../../image-manipulation/image/enhanced-image-data";
 import { createSingletonRoot } from "../../_core/utils/solid-js";
+import { targetFromEvent } from "../../_core/utils/event";
 import { useAttemptManager } from "../../attempt/compositions/use-attempt-manager";
 import { usePersonalRepository } from "../../database/compositions/use-personal-repository";
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useVideoCanvas } from "./use-video-canvas";
 
 type State = "PLAYING" | "PAUSED";
+
+const PROCESS_FRAME_INTERVAL_MS = 200;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useTimeTrialSingleton() {
@@ -18,33 +21,50 @@ function useTimeTrialSingleton() {
   const manager = useAttemptManager();
   const personal = usePersonalRepository();
   const settings = useSettingsRepository();
-  const debugPutImageData = createMemo<CanvasImageData["putImageData"] | undefined>(() => {
+  const getPutImageData = createMemo<CanvasImageData["putImageData"] | undefined>(() => {
     if (settings.isDebug()) {
       return vc.putImageData;
     }
   });
+  const getPlaybackRate = createMemo(() => {
+    if (settings.isDebug()) {
+      return settings.playbackRate();
+    }
+
+    return 1;
+  });
 
   onMount(() => {
-    vc.addEventListener("canplay", () => {
+    vc.addEventListener("loadstart", () => {
       setState("PAUSED");
     });
 
     vc.addEventListener("play", () => {
       setState("PLAYING");
+      vc.setPlaybackRate(getPlaybackRate());
     });
 
     vc.addEventListener("pause", () => {
       setState("PAUSED");
     });
 
+    vc.addEventListener("ratechange", (error) => {
+      const target = targetFromEvent(error, HTMLVideoElement);
+      settings.setPlaybackRate(target.playbackRate);
+    });
+
     startProcessFrameLoop();
+  });
+
+  createEffect(() => {
+    vc.setPlaybackRate(getPlaybackRate());
   });
 
   const startProcessFrameLoop = (): void => {
     let cancelId = -1;
     const loop = (): void => {
       processFrame();
-      cancelId = setTimeout(loop, 200);
+      cancelId = setTimeout(loop, PROCESS_FRAME_INTERVAL_MS / getPlaybackRate());
     };
 
     vc.addEventListener("play", () => {
@@ -63,7 +83,7 @@ function useTimeTrialSingleton() {
   const processFrame = (): void => {
     const start = performance.now();
     const image = EnhancedImageData.from(vc.getImageData());
-    const attempt = manager.update(image, debugPutImageData());
+    const attempt = manager.update(image, getPlaybackRate(), getPutImageData());
 
     if (attempt) {
       attempt.player = settings.player() ?? "Noname";

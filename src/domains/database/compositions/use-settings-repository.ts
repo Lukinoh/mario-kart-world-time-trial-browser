@@ -24,6 +24,11 @@ function useSettingsRepositorySingleton() {
     setStore("isDebug", debug);
   };
 
+  const playbackRate = createMemo(() => store.playbackRate);
+  const setPlaybackRate = (rate: number): void => {
+    setStore("playbackRate", rate);
+  };
+
   return {
     player,
     setPlayer,
@@ -31,6 +36,8 @@ function useSettingsRepositorySingleton() {
     setVideoVisible,
     isDebug,
     setIsDebug,
+    playbackRate,
+    setPlaybackRate,
   };
 }
 

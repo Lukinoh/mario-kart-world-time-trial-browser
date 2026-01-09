@@ -33,8 +33,11 @@ injectGlobal({
     "--mk-delta-neutral": "#808080",
     "--mk-delta-stroke-width": "0.03rem",
   },
+  html: {
+    scrollbarGutter: "stable",
+  },
   body: {
-    gridTemplateColumns: "1fr 90% 1fr",
+    gridTemplateColumns: "1fr minmax(0, 80rem) 1fr",
   },
   video: {
     // Otherwise, the text "Capture Video" is slightly visible.

@@ -19,31 +19,37 @@ export const Live = defineComponent<ViewProps>((props) => {
   return (
     <>
       <h2>{selectedTrack()}</h2>
-      <h3>Comparison</h3>
-      <Switch>
-        <Match when={personal.lastAttempt()}>
-          {(last) => (
-            <AttemptsComparisonTable
-              last={last()}
-              referenceRecords={repositories.getReferenceRecords(last().raw.track)}
-            />
-          )}
-        </Match>
-        <Match when={true}>
-          <p>
-            First time here? Probably, you should give a look at the <A href="/faq">FAQ</A>.
-          </p>
-          <p>You need at least one attempt to display the comparison table.</p>
-        </Match>
-      </Switch>
-      <h3>Last 7 attempts</h3>
-      <AttemptsTable
-        attempts={personal.attempts()}
-        track={selectedTrack()}
-        showFilters={false}
-        showTrack={false}
-        limit={7}
-      />
+      <div>
+        <div>
+          <h3>Comparison</h3>
+          <Switch>
+            <Match when={personal.lastAttempt()}>
+              {(last) => (
+                <AttemptsComparisonTable
+                  last={last()}
+                  referenceRecords={repositories.getReferenceRecords(last().raw.track)}
+                />
+              )}
+            </Match>
+            <Match when={true}>
+              <p>
+                First time here? Probably, you should give a look at the <A href="/faq">FAQ</A>.
+              </p>
+              <p>You need at least one attempt to display the comparison table.</p>
+            </Match>
+          </Switch>
+        </div>
+        <div>
+          <h3>Last 7 attempts</h3>
+          <AttemptsTable
+            attempts={personal.attempts()}
+            track={selectedTrack()}
+            showFilters={false}
+            showTrack={false}
+            limit={7}
+          />
+        </div>
+      </div>
     </>
   );
 });

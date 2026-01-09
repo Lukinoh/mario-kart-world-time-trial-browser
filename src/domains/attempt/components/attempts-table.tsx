@@ -1,11 +1,12 @@
 import { Cell, type CellProps } from "../../ui/components/grid/cell";
-import { For, type JSX, Match, Show, Switch, createEffect, createMemo, createSelector, createSignal } from "solid-js";
+import { For, Match, Show, Switch, createEffect, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
 import type { Attempt } from "../schemas/attempt";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../ui/components/grid/horizontal-divider";
 import { VerticalDivider } from "../../ui/components/grid/vertical-divider";
 import { defineComponent } from "../../_core/utils/solid-js";
+import { targetFromEvent } from "../../_core/utils/event";
 
 const aFirstColumn: Partial<CellProps> = {
   extraPadding: "left",
@@ -34,7 +35,7 @@ interface AttemptsTableProps {
   showFilters?: boolean;
   track?: string;
   limit?: number;
-  onSelectedTrack?: (track: string) => void;
+  onTrackSelected?: (track: string) => void;
 }
 
 export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
@@ -52,14 +53,14 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
   const [selectedTrack, setSelectedTrack] = createSignal<string>(ALL_TRACKS);
   const isSelectedTrack = createSelector(selectedTrack);
 
-  createEffect(() => {
+  createEffect((): void => {
     setSelectedTrack(props.track ?? ALL_TRACKS);
   });
 
-  const onSelectedTrack: JSX.ChangeEventHandler<HTMLSelectElement, Event> = (event) => {
-    const track = event.target.value;
+  const onTrackSelected = (event: Event): void => {
+    const track = targetFromEvent(event, HTMLSelectElement).value;
     setSelectedTrack(track);
-    props.onSelectedTrack?.(track);
+    props.onTrackSelected?.(track);
   };
 
   const tracks = createMemo(() => [
@@ -78,7 +79,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
       <Show when={showFilters()}>
         <>
           <label for="track-filter">Filter by</label>
-          <select id="track-filter" onchange={onSelectedTrack}>
+          <select id="track-filter" onchange={onTrackSelected}>
             <For each={tracks()}>
               {(track) => (
                 <option selected={isSelectedTrack(track)} value={track}>

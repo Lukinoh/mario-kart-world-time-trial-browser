@@ -16,6 +16,7 @@ function useDatabasesSingleton() {
     player: "",
     isVideoVisible: true,
     isDebug: false,
+    playbackRate: 1,
   });
   const personal = useIndexedStore("personal-database", PersonalEntitySchema, {
     version: 1,

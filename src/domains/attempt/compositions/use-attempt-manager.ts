@@ -31,6 +31,7 @@ function useAttemptManagerFactory() {
    */
   const update = (
     image: EnhancedImageData,
+    rate: number,
     putImageData?: CanvasImageData["putImageData"],
   ): AttemptEntity | undefined => {
     const time = Time.get(image, putImageData);
@@ -38,16 +39,13 @@ function useAttemptManagerFactory() {
     const coins = Coins.get(image, putImageData);
     const shrooms = Shrooms.get(image, putImageData);
 
-    // With current, implementation we can several if states during the same cycle.
-    // We should verify if it is safe or not.
-
     // RESET ATTEMPT
     if (
       lap === "1" &&
       coins === "00" &&
       time === "0:00.000" &&
       shrooms === "3" &&
-      attempt.isOlderThan(MINIMUM_TIME_BEFORE_NEXT_RESET_MS)
+      attempt.isOlderThan(MINIMUM_TIME_BEFORE_NEXT_RESET_MS / rate)
     ) {
       // You may get a double reset attempt if the player presses pause during the start countdown.
       const track = Track.get(image, putImageData);
@@ -81,7 +79,7 @@ function useAttemptManagerFactory() {
     if (state === STATE.WAITING_LAST_SPLIT) {
       const isPause = Pause.isPause(image, putImageData);
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
-      const isFinished = isFinalTime(time, isPause);
+      const isFinished = isFinalTime(time, isPause, rate);
 
       // If you restart a game during the last lap you could have false detection, hence the conditions on the last lap.
       // The bump should not be problematic in this context (we rely on the fact that pause trigger a 1 as lap)

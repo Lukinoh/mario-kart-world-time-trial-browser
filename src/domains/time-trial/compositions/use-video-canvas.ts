@@ -1,6 +1,7 @@
 import type { Brand } from "../../_core/utils/brand";
 import type { JSX } from "solid-js";
 import { assert } from "../../_core/utils/assert";
+import { fileUpload } from "../../_core/utils/file-upload";
 
 const VIDEO_WIDTH = 1280;
 const VIDEO_HEIGHT = 720;
@@ -25,16 +26,13 @@ function useVideoCanvasFactory() {
     // oxlint-disable-next-line no-null
     videoElement.srcObject = null;
     videoElement.src = "";
-    videoElement.currentTime = 0;
-    videoElement.controls = false;
+    videoElement.controls = true;
+    videoElement.muted = true;
   };
 
   const setSourceUrl = (url: string): void => {
     resetSource();
     videoElement.src = url;
-    // Display thumbnail on canvas
-    videoElement.currentTime = 0.1;
-    videoElement.controls = true;
   };
 
   const setSourceCamera = async (): Promise<void> => {
@@ -48,7 +46,8 @@ function useVideoCanvasFactory() {
     });
   };
 
-  const setSourceFile = (file: File): void => {
+  const setSourceFile = async (): Promise<void> => {
+    const file = await fileUpload("video/*");
     const url = URL.createObjectURL(file);
     setSourceUrl(url);
   };
@@ -70,6 +69,10 @@ function useVideoCanvasFactory() {
     context.putImageData(imageData, dx, dy);
   };
 
+  const setPlaybackRate = (play: number): void => {
+    videoElement.playbackRate = play;
+  };
+
   return {
     play,
     pause,
@@ -79,6 +82,7 @@ function useVideoCanvasFactory() {
     setSourceUrl,
     setSourceCamera,
     setSourceFile,
+    setPlaybackRate,
     canvas: canvasElement as JSX.Element,
     video: videoElement as JSX.Element,
   };

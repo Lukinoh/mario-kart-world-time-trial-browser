@@ -1,4 +1,5 @@
 import type { CSSObject } from "@emotion/css/create-instance";
+import type { Classable } from "../../../_core/types/classable";
 import type { JSX } from "solid-js";
 import { css } from "@emotion/css";
 import { defineComponent } from "../../../_core/utils/solid-js";
@@ -14,7 +15,7 @@ const sGrid = (params: GridColumnProps): string =>
     },
   });
 
-interface GridColumnProps {
+interface GridColumnProps extends Classable {
   template: CSSObject["gridTemplateColumns"];
   xAlign?: CSSObject["justifyItems"];
   yAlign?: CSSObject["alignItems"];
@@ -22,5 +23,5 @@ interface GridColumnProps {
 }
 
 export const GridColumn = defineComponent<GridColumnProps>((props) => {
-  return <div class={sGrid(props)}>{props.children}</div>;
+  return <div class={css(sGrid(props), props.class)}>{props.children}</div>;
 });

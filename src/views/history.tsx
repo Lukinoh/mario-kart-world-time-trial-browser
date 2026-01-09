@@ -54,7 +54,7 @@ export const History = defineComponent<ViewProps>((props) => {
           </Switch>
         </div>
       </div>
-      <AttemptsTable attempts={personal.attempts()} onSelectedTrack={setSelectedTrack}></AttemptsTable>
+      <AttemptsTable attempts={personal.attempts()} onTrackSelected={setSelectedTrack} />
     </>
   );
 });
