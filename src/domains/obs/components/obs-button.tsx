@@ -6,7 +6,7 @@ export const ObsButton = defineComponent(() => {
   const obs = useObs();
 
   return (
-    <SymbolButton symbol="🢅" onclick={obs.openPopup}>
+    <SymbolButton symbol="🢅" onClick={obs.openPopup}>
       OBS
     </SymbolButton>
   );

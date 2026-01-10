@@ -29,12 +29,12 @@ export const CaptureButton = defineComponent<CaptureButton>((props) => {
   return (
     <Switch>
       <Match when={timeTrial.isState("PAUSED")}>
-        <SymbolButton symbol="▶" onclick={onPlay}>
+        <SymbolButton symbol="▶" onClick={onPlay}>
           Capture
         </SymbolButton>
       </Match>
       <Match when={timeTrial.isState("PLAYING")}>
-        <SymbolButton symbol="⏹" onclick={onPause}>
+        <SymbolButton symbol="⏹" onClick={onPause}>
           Capture
         </SymbolButton>
       </Match>

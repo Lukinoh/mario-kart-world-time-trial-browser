@@ -159,11 +159,11 @@ export const FAQ = defineComponent<ViewProps>((props) => {
       </details>
       <details>
         <summary>How can I backup all my data?</summary>
-        <button onclick={repositories.download}>Export</button>
+        <button onClick={repositories.download}>Export</button>
       </details>
       <details>
         <summary>How can I restore all my data?</summary>
-        <ValibotImportButton onclick={repositories.restore}>Import</ValibotImportButton>
+        <ValibotImportButton onClick={repositories.restore}>Import</ValibotImportButton>
       </details>
       <details>
         <summary>How can I import my current records?</summary>

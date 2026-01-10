@@ -31,13 +31,13 @@ export const History = defineComponent<ViewProps>((props) => {
   return (
     <>
       <div class={sActions}>
-        <ValibotImportButton onclick={personal.addFromJSON}>Add</ValibotImportButton>
-        <ValibotImportButton onclick={personal.replaceFromJSON}>Replace</ValibotImportButton>
+        <ValibotImportButton onClick={personal.addFromJSON}>Add</ValibotImportButton>
+        <ValibotImportButton onClick={personal.replaceFromJSON}>Replace</ValibotImportButton>
         <VerticalDivider />
-        <button onclick={personal.exportToJSON}>Export</button>
-        <button onclick={personal.exportForFriendsToJSON}>Export for friends</button>
+        <button onClick={personal.exportToJSON}>Export</button>
+        <button onClick={personal.exportForFriendsToJSON}>Export for friends</button>
         <VerticalDivider />
-        <button onclick={personal.shrink}>Shrink</button>
+        <button onClick={personal.shrink}>Shrink</button>
         <VerticalDivider />
         <div class={sTries}>
           <Switch>

@@ -60,11 +60,11 @@ export const SourceRadio = defineComponent<SourceRadioProps>((props) => {
     <div>
       <span>Source {radio()}</span>
       <label>
-        <input checked={isSelected("camera")} onchange={onCamera} name={groupRadioName} type="radio" />
+        <input checked={isSelected("camera")} onChange={onCamera} name={groupRadioName} type="radio" />
         <span>Capture Card</span>
       </label>
       <label>
-        <input checked={isSelected("file")} onchange={onFile} name={groupRadioName} type="radio" />
+        <input checked={isSelected("file")} onChange={onFile} name={groupRadioName} type="radio" />
         <span>File</span>
       </label>
     </div>

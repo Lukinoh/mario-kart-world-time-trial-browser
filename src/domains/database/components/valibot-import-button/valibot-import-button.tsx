@@ -25,10 +25,10 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
   const args = createMemo<JSX.ButtonHTMLAttributes<HTMLButtonElement>>(() => {
     return {
       ...props,
-      onclick: async (even): Promise<void> => {
-        if (isFunction(props.onclick)) {
+      onClick: async (event): Promise<void> => {
+        if (isFunction(props.onClick)) {
           try {
-            await Promise.try(props.onclick, even);
+            await Promise.try(props.onClick, event);
             setData();
             dialogSuccess.showModal();
           } catch (error) {

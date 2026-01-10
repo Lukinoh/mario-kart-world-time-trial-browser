@@ -30,13 +30,13 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
           <Cell bold text="Automatic" />
           <Cell bold text="Manual" />
           <div>
-            <ValibotImportButton onclick={worldRecords.automaticProcessForMkrws}>Refresh</ValibotImportButton>
+            <ValibotImportButton onClick={worldRecords.automaticProcessForMkrws}>Refresh</ValibotImportButton>
             <div class={sNoWrap}>powered by codetabs.com</div>
           </div>
           <dl>
             <dt>Step 1</dt>
             <dd>
-              <button class={sNoWrap} onclick={worldRecords.manualProcessForMkwrs}>
+              <button class={sNoWrap} onClick={worldRecords.manualProcessForMkwrs}>
                 Copy some code to your clipboard and open mkwrs.com
               </button>
             </dd>
@@ -47,7 +47,7 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
             </dd>
             <dt>Step 3</dt>
             <dd>
-              <ValibotImportButton onclick={worldRecords.replaceFromJSON}>Import the JSON file</ValibotImportButton>
+              <ValibotImportButton onClick={worldRecords.replaceFromJSON}>Import the JSON file</ValibotImportButton>
             </dd>
           </dl>
         </GridColumn>

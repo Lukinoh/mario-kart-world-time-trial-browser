@@ -17,7 +17,7 @@ export const PlaybackRateSelect = defineComponent(() => {
   return (
     <div>
       <label>Speed</label>
-      <select onchange={onSelected}>
+      <select onChange={onSelected}>
         <For each={rates}>
           {(rate) => (
             <option value={rate} selected={isSelected(rate)}>

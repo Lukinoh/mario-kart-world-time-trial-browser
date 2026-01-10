@@ -79,7 +79,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
       <Show when={showFilters()}>
         <>
           <label for="track-filter">Filter by</label>
-          <select id="track-filter" onchange={onTrackSelected}>
+          <select id="track-filter" onChange={onTrackSelected}>
             <For each={tracks()}>
               {(track) => (
                 <option selected={isSelectedTrack(track)} value={track}>

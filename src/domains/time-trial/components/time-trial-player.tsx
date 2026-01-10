@@ -76,7 +76,7 @@ export const TimeTrialPlayer = defineComponent(() => {
         <SourceRadio onError={onError} onSelected={setSource} />
         <div class={sOptionsZone}>
           <Show when={isSource("file")}>
-            <button onclick={timeTrial.fromFile}>Load file</button>
+            <button onClick={timeTrial.fromFile}>Load file</button>
           </Show>
         </div>
         <Cell text="" />

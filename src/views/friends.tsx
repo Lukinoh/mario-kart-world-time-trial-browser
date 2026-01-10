@@ -26,12 +26,12 @@ export const Friends = defineComponent<ViewProps>((props) => {
   return (
     <>
       <div class={sActions}>
-        <ValibotImportButton onclick={friends.addFromJSON}>Add</ValibotImportButton>
-        <ValibotImportButton onclick={friends.replaceFromJSON}>Replace</ValibotImportButton>
+        <ValibotImportButton onClick={friends.addFromJSON}>Add</ValibotImportButton>
+        <ValibotImportButton onClick={friends.replaceFromJSON}>Replace</ValibotImportButton>
         <VerticalDivider />
-        <button onclick={friends.exportToJSON}>Export</button>
+        <button onClick={friends.exportToJSON}>Export</button>
         <VerticalDivider />
-        <button onclick={friends.shrink}>Shrink</button>
+        <button onClick={friends.shrink}>Shrink</button>
       </div>
       <AttemptsTable attempts={friends.attempts()} showTime={false} />
     </>

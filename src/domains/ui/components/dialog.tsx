@@ -49,7 +49,7 @@ export const Dialog = defineComponent<DialogProps>((props) => {
         {props.children}
         <Show when={showFooter()}>
           <footer>
-            <button class={sClose} onclick={onClose}>
+            <button class={sClose} onClick={onClose}>
               Close
             </button>
           </footer>
