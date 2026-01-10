@@ -13,7 +13,7 @@ export interface CellProps {
 
 export const Cell: Component<CellProps> = (props) => {
   const cssList = createMemo(() => {
-    const list: Array<CSSInterpolation> = [span(props.column ?? 1, props.row ?? 1)];
+    const list: Array<CSSInterpolation> = [span(props.column ?? 1, props.row ?? 1), props.css];
 
     if (!isDefined(props.text)) {
       list.push({
@@ -21,8 +21,6 @@ export const Cell: Component<CellProps> = (props) => {
         alignSelf: "center",
       });
     }
-
-    list.push(props.css);
 
     return list;
   });
