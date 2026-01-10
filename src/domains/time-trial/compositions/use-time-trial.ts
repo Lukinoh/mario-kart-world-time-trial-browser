@@ -27,7 +27,7 @@ function useTimeTrialSingleton() {
     }
   });
   const getPlaybackRate = createMemo(() => {
-    if (settings.isDebug()) {
+    if (vc.supportPlaybackRate()) {
       return settings.playbackRate();
     }
 
@@ -53,11 +53,11 @@ function useTimeTrialSingleton() {
       settings.setPlaybackRate(target.playbackRate);
     });
 
-    startProcessFrameLoop();
-  });
+    createEffect(() => {
+      vc.setPlaybackRate(settings.playbackRate());
+    });
 
-  createEffect(() => {
-    vc.setPlaybackRate(getPlaybackRate());
+    startProcessFrameLoop();
   });
 
   const startProcessFrameLoop = (): void => {

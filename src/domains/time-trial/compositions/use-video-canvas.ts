@@ -1,5 +1,5 @@
+import { type JSX, createSignal } from "solid-js";
 import type { Brand } from "../../_core/utils/brand";
-import type { JSX } from "solid-js";
 import { assert } from "../../_core/utils/assert";
 import { fileUpload } from "../../_core/utils/file-upload";
 
@@ -20,6 +20,8 @@ function useVideoCanvasFactory() {
   canvasElement.height = VIDEO_HEIGHT;
   canvasElement.style.aspectRatio = `${VIDEO_WIDTH} / ${VIDEO_HEIGHT}`;
 
+  const [supportPlaybackRate, setSupportPlaybackRate] = createSignal(false);
+
   const resetSource = (): void => {
     URL.revokeObjectURL(videoElement.src);
     // srcObject necessitate a null value
@@ -32,11 +34,13 @@ function useVideoCanvasFactory() {
 
   const setSourceUrl = (url: string): void => {
     resetSource();
+    setSupportPlaybackRate(true);
     videoElement.src = url;
   };
 
   const setSourceCamera = async (): Promise<void> => {
     resetSource();
+    setSupportPlaybackRate(false);
     videoElement.srcObject = await navigator.mediaDevices.getUserMedia({
       video: {
         width: { exact: VIDEO_WIDTH },
@@ -52,14 +56,6 @@ function useVideoCanvasFactory() {
     setSourceUrl(url);
   };
 
-  const play = (): Promise<void> => {
-    return videoElement.play();
-  };
-
-  const pause = (): void => {
-    videoElement.pause();
-  };
-
   const getImageData = (): ImageData => {
     context.drawImage(videoElement, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
     return context.getImageData(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
@@ -69,13 +65,13 @@ function useVideoCanvasFactory() {
     context.putImageData(imageData, dx, dy);
   };
 
-  const setPlaybackRate = (play: number): void => {
-    videoElement.playbackRate = play;
+  const setPlaybackRate = (rate: number): void => {
+    videoElement.playbackRate = rate;
   };
 
   return {
-    play,
-    pause,
+    play: videoElement.play.bind(videoElement),
+    pause: videoElement.pause.bind(videoElement),
     addEventListener: videoElement.addEventListener.bind(videoElement),
     getImageData,
     putImageData,
@@ -83,6 +79,7 @@ function useVideoCanvasFactory() {
     setSourceCamera,
     setSourceFile,
     setPlaybackRate,
+    supportPlaybackRate,
     canvas: canvasElement as JSX.Element,
     video: videoElement as JSX.Element,
   };

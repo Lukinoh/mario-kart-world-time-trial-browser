@@ -57,7 +57,7 @@ export const SourceRadio: Component<SourceRadioProps> = (props) => {
 
   return (
     <div>
-      <span>Source {radio()}</span>
+      <span>Source</span>
       <label>
         <input checked={isSelected("CAMERA")} onChange={onCamera} name={groupRadioName} type="radio" />
         <span>Capture Card</span>
