@@ -3,8 +3,13 @@ import { A } from "@solidjs/router";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
+import { cellCss } from "../domains/ui/css/cell-css";
 import { onMount } from "solid-js";
 import { useRepositories } from "../domains/database/compositions/use-repositories";
+
+const sBold = cellCss({
+  bold: true,
+});
 
 export const FAQ = defineComponent<ViewProps>((props) => {
   const repositories = useRepositories();
@@ -57,21 +62,21 @@ export const FAQ = defineComponent<ViewProps>((props) => {
         <summary>How do I read the comparison of Live page?</summary>
         <h4>Acronyms</h4>
         <GridColumn template={`max-content max-content`}>
-          <Cell bold text="Last" />
+          <Cell text="Last" css={[sBold]} />
           <Cell text="Your last attempt" />
-          <Cell bold text="WR" />
+          <Cell text="WR" css={[sBold]} />
           <Cell text="World record" />
-          <Cell bold text="PB" />
+          <Cell text="PB" css={[sBold]} />
           <Cell text="Personal Best" />
-          <Cell bold text="BPS" />
+          <Cell text="BPS" css={[sBold]} />
           <Cell text="Best Personal Splits - Look on all your attempts, and for each split it takes the best one." />
-          <Cell bold text="FB" />
+          <Cell text="FB" css={[sBold]} />
           <Cell text="Friend Best - Display the best attempt among your friends" />
-          <Cell bold text="ΣS" />
+          <Cell text="ΣS" css={[sBold]} />
           <Cell text="The sum of the splits" />
-          <Cell bold text="ΔS" />
+          <Cell text="ΔS" css={[sBold]} />
           <Cell text="The difference between two splits" />
-          <Cell bold text="ΔΣS" />
+          <Cell text="ΔΣS" css={[sBold]} />
           <Cell text="The difference between two sum of splits" />
         </GridColumn>
         <h4>Colors</h4>

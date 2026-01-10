@@ -3,9 +3,14 @@ import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
+import { cellCss } from "../domains/ui/css/cell-css";
 import { css } from "@emotion/css";
 import { onMount } from "solid-js";
 import { useWorldRecordRepository } from "../domains/database/compositions/use-world-records-repository";
+
+const sCellMode = cellCss({
+  bold: true,
+});
 
 const sWrapper = css({
   width: "min-content",
@@ -27,8 +32,8 @@ export const WorldRecords = defineComponent<ViewProps>((props) => {
       <div class={sWrapper}>
         <p>The refresh of the world records can be either be done automatically or manually.</p>
         <GridColumn template="1fr 2fr" xAlign="left">
-          <Cell bold text="Automatic" />
-          <Cell bold text="Manual" />
+          <Cell text="Automatic" css={[sCellMode]} />
+          <Cell text="Manual" css={[sCellMode]} />
           <div>
             <ValibotImportButton onClick={worldRecords.automaticProcessForMkrws}>Refresh</ValibotImportButton>
             <div class={sNoWrap}>powered by codetabs.com</div>

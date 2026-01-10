@@ -1,10 +1,11 @@
 import { Cell, type CellProps } from "../../../ui/components/grid/cell";
+import { type CellCssArgs, cellCss } from "../../../ui/css/cell-css";
 import { MINUS, PLUS, PLUS_OR_MINUS } from "../../utils/characters";
 import { createMemo } from "solid-js";
 import { defineComponent } from "../../../_core/utils/solid-js";
 
 export const DeltaCell = defineComponent<CellProps>((props) => {
-  const color = createMemo<CellProps>(() => {
+  const color = createMemo<CellCssArgs>(() => {
     const text = props.text?.toString() ?? "";
 
     if (text.startsWith(PLUS)) {
@@ -30,5 +31,5 @@ export const DeltaCell = defineComponent<CellProps>((props) => {
     return {};
   });
 
-  return <Cell {...props} {...color()} />;
+  return <Cell {...props} css={[cellCss(color()), props.css]} />;
 });

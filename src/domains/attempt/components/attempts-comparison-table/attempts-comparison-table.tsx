@@ -1,6 +1,6 @@
-import { Cell, type CellProps } from "../../../ui/components/grid/cell";
 import { For, Show, createMemo } from "solid-js";
 import type { Attempt } from "../../schemas/attempt";
+import { Cell } from "../../../ui/components/grid/cell";
 import { DeltaCell } from "./delta-cell";
 import { F1Cell } from "./f1-cell";
 import { GridColumn } from "../../../ui/components/grid/grid-column";
@@ -8,32 +8,33 @@ import { HorizontalDivider } from "../../../ui/components/grid/horizontal-divide
 import type { ReferenceRecords } from "../../types/reference-records";
 import { TimeWidthCell } from "./time-width-cell";
 import { VerticalDivider } from "../../../ui/components/grid/vertical-divider";
+import { cellCss } from "../../../ui/css/cell-css";
 import { defineComponent } from "../../../_core/utils/solid-js";
 import { delta } from "../../utils/delta";
 import { entries } from "remeda";
 
-const aTime: Partial<CellProps> = {
+const sTime = cellCss({
   mono: true,
   xAlign: "right",
-};
+});
 
-const aLastColumn: Partial<CellProps> = {
+const sLastColumn = cellCss({
   extraPadding: "right",
-};
+});
 
-const aFirstColumn: Partial<CellProps> = {
+const sFirstColumn = cellCss({
   xAlign: "left",
   extraPadding: "left",
-};
+});
 
-const aTitle: Partial<CellProps> = {
+const sTitle = cellCss({
   bold: true,
-};
+});
 
-const aType: Partial<CellProps> = {
+const sType = cellCss({
   xAlign: "center",
   bold: true,
-};
+});
 
 interface AttemptsComparisonTableProps {
   last: Attempt;
@@ -52,48 +53,48 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
   return (
     <GridColumn template={`repeat(${gridColumns()}, max-content)`} xAlign="center" yAlign="center">
       {/*Headers*/}
-      <Cell {...aFirstColumn} {...aTitle} column={4} text={track()} />
-      <For each={props.last.laps}>{(_, sIndex) => <TimeWidthCell {...aTitle} text={`Split ${sIndex() + 1}`} />}</For>
+      <Cell column={4} text={track()} css={[sTitle, sFirstColumn]} />
+      <For each={props.last.laps}>{(_, sIndex) => <TimeWidthCell text={`Split ${sIndex() + 1}`} css={[sTitle]} />}</For>
       <Cell text="" />
-      <TimeWidthCell {...aLastColumn} text="⏱️" />
+      <TimeWidthCell text="⏱️" css={[sLastColumn]} />
 
       {/* Line 1 */}
-      <Cell {...aFirstColumn} row={GRID_HALF_ROW} text={props.last.date} />
-      <Cell {...aType} row={GRID_FULL_ROW} text="Last" />
+      <Cell row={GRID_HALF_ROW} text={props.last.date} css={[sFirstColumn]} />
+      <Cell row={GRID_FULL_ROW} text="Last" css={[sType]} />
       <VerticalDivider row={GRID_FULL_ROW} />
       <Cell row={GRID_THIRD_ROW} text="️️S" />
       <For each={props.last.laps}>
         {(_, sIndex) => (
           <F1Cell
-            {...aTime}
             row={sIndex() === 0 ? GRID_FULL_ROW : GRID_THIRD_ROW}
             attempt={props.last}
             sIndex={sIndex()}
             type="time"
             referencesRecords={props.referenceRecords}
+            css={[sTime]}
           />
         )}
       </For>
       <VerticalDivider row={GRID_FULL_ROW} />
-      <Cell {...aLastColumn} {...aTime} row={GRID_FULL_ROW} text={props.last.time} />
+      <Cell row={GRID_FULL_ROW} text={props.last.time} css={[sTime, sLastColumn]} />
 
       {/* Line 2 */}
       <HorizontalDivider row={GRID_THIRD_ROW} />
       <HorizontalDivider row={GRID_THIRD_ROW} column={laps() - 1} />
 
       {/* Line 3 */}
-      <Cell {...aFirstColumn} row={GRID_HALF_ROW} text={props.last.datetime} />
+      <Cell row={GRID_HALF_ROW} text={props.last.datetime} css={[sFirstColumn]} />
       <Cell row={GRID_THIRD_ROW} text="️️ΣS" />
       <For each={props.last.laps}>
         {(_, sIndex) => (
           <Show when={sIndex() > 0}>
             <F1Cell
-              {...aTime}
               row={GRID_THIRD_ROW}
               attempt={props.last}
               sIndex={sIndex()}
               type="accumulatedTime"
               referencesRecords={props.referenceRecords}
+              css={[sTime]}
             />
           </Show>
         )}
@@ -107,36 +108,36 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
             {(reference) => (
               <>
                 {/* Line 1 */}
-                <Cell {...aFirstColumn} row={GRID_HALF_ROW} text={reference.date} />
-                <Cell {...aType} row={GRID_FULL_ROW} text={type} />
+                <Cell row={GRID_HALF_ROW} text={reference.date} css={[sFirstColumn]} />
+                <Cell row={GRID_FULL_ROW} text={type} css={[sType]} />
                 <VerticalDivider row={GRID_FULL_ROW} />
                 <Cell row={GRID_THIRD_ROW} text="ΔS" />
                 <For each={reference.laps}>
                   {(_, sIndex) => (
                     <DeltaCell
-                      {...aTime}
                       row={sIndex() === 0 ? GRID_FULL_ROW : GRID_THIRD_ROW}
                       text={delta(props.last, reference, sIndex(), "time")}
+                      css={[sTime]}
                     />
                   )}
                 </For>
                 <VerticalDivider row={GRID_FULL_ROW} />
-                <Cell {...aLastColumn} {...aTime} row={GRID_FULL_ROW} text={reference.time} />
+                <Cell row={GRID_FULL_ROW} text={reference.time} css={[sTime, sLastColumn]} />
 
                 {/* Line 2 */}
                 <HorizontalDivider row={GRID_THIRD_ROW} />
                 <HorizontalDivider row={GRID_THIRD_ROW} column={laps() - 1} />
 
                 {/* Line 3 */}
-                <Cell {...aFirstColumn} row={GRID_HALF_ROW} text={reference.raw.player} />
+                <Cell row={GRID_HALF_ROW} text={reference.raw.player} css={[sFirstColumn]} />
                 <Cell row={GRID_THIRD_ROW} text="ΔΣS" />
                 <For each={reference.laps}>
                   {(_, sIndex) => (
                     <Show when={sIndex() > 0}>
                       <DeltaCell
-                        {...aTime}
                         row={GRID_THIRD_ROW}
                         text={delta(props.last, reference, sIndex(), "accumulatedTime")}
+                        css={[sTime]}
                       />
                     </Show>
                   )}

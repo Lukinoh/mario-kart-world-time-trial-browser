@@ -3,29 +3,41 @@ import { Cell } from "../../../ui/components/grid/cell";
 import { For } from "solid-js";
 import { GridColumn } from "../../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../../ui/components/grid/horizontal-divider";
+import { cellCss } from "../../../ui/css/cell-css";
 import { defineComponent } from "../../../_core/utils/solid-js";
+
+const sTitle = cellCss({
+  bold: true,
+  xAlign: "left",
+});
+
+const sValue = cellCss({
+  xAlign: "left",
+});
 
 interface ValibotErrorContentProps {
   issues: Array<v.BaseIssue<unknown>>;
 }
 
 export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((props) => {
+  const GRID_COLUMNS = 3;
+
   return (
     <>
       <p>The imported file contains errors.</p>
       <p>Fix them and try to re-import your file.</p>
       <GridColumn template="repeat(3, max-content)" xAlign="center">
-        <Cell xAlign="left" bold text="JSON Path" />
+        <Cell text="JSON Path" css={[sTitle]} />
         <Cell text="" />
-        <Cell xAlign="left" bold text="Error" />
-        <HorizontalDivider column={3} thicknessFactor={2} />
+        <Cell text="Error" css={[sTitle]} />
+        <HorizontalDivider column={GRID_COLUMNS} thicknessFactor={2} />
         <For each={props.issues}>
           {(issue) => (
             <>
-              <Cell xAlign="left" text={JSON.stringify(v.getDotPath(issue)?.split("."), undefined, 2)} />
+              <Cell text={JSON.stringify(v.getDotPath(issue)?.split("."), undefined, 2)} css={[sValue]} />
               <Cell text="➔" />
-              <Cell xAlign="left" text={issue.message} />
-              <HorizontalDivider column={3} />
+              <Cell text={issue.message} css={[sValue]} />
+              <HorizontalDivider column={GRID_COLUMNS} />
             </>
           )}
         </For>

@@ -1,4 +1,5 @@
 import { Cell, type CellProps } from "../../../ui/components/grid/cell";
+import { type CellCssArgs, cellCss } from "../../../ui/css/cell-css";
 import { capitalize, isDefined } from "remeda";
 import type { Attempt } from "../../schemas/attempt";
 import type { ReferenceRecords } from "../../types/reference-records";
@@ -15,7 +16,7 @@ interface F1CellProps extends CellProps {
 export const F1Cell = defineComponent<F1CellProps>((props) => {
   const parsedType = createMemo(() => `parsed${capitalize(props.type)}` as const);
 
-  const color = createMemo<CellProps>(() => {
+  const color = createMemo<CellCssArgs>(() => {
     const attemptTime = props.attempt.splits.at(props.sIndex)?.[parsedType()];
     const wrTime = props.referencesRecords.WR?.at(0)?.splits.at(props.sIndex)?.[parsedType()];
     const bpsTime = props.referencesRecords.BPS?.at(0)?.splits.at(props.sIndex)?.[parsedType()];
@@ -44,5 +45,7 @@ export const F1Cell = defineComponent<F1CellProps>((props) => {
     return {};
   });
 
-  return <Cell {...props} {...color()} text={props.attempt.splits.at(props.sIndex)?.[props.type]} />;
+  return (
+    <Cell {...props} css={[cellCss(color()), props.css]} text={props.attempt.splits.at(props.sIndex)?.[props.type]} />
+  );
 });

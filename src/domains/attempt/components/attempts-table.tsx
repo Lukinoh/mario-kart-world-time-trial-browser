@@ -1,32 +1,33 @@
-import { Cell, type CellProps } from "../../ui/components/grid/cell";
 import { For, Match, Show, Switch, createEffect, createMemo, createSelector, createSignal } from "solid-js";
 import { isDefined, unique } from "remeda";
 import type { Attempt } from "../schemas/attempt";
+import { Cell } from "../../ui/components/grid/cell";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../ui/components/grid/horizontal-divider";
 import { VerticalDivider } from "../../ui/components/grid/vertical-divider";
+import { cellCss } from "../../ui/css/cell-css";
 import { defineComponent } from "../../_core/utils/solid-js";
 import { targetFromEvent } from "../../_core/utils/event";
 
-const aFirstColumn: Partial<CellProps> = {
+const sFirstColumn = cellCss({
   extraPadding: "left",
-};
+});
 
-const aLastColumn: Partial<CellProps> = {
+const sLastColumn = cellCss({
   extraPadding: "right",
-};
+});
 
-const aValue: Partial<CellProps> = {
+const sValue = cellCss({
   mono: true,
-};
+});
 
-const aTitle: Partial<CellProps> = {
+const sTitle = cellCss({
   bold: true,
-};
+});
 
-const aInfo: Partial<CellProps> = {
+const sInfo = cellCss({
   xAlign: "left",
-};
+});
 
 interface AttemptsTableProps {
   attempts: Array<Attempt>;
@@ -97,36 +98,36 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
               {(attempt, aIndex) => (
                 <>
                   <Show when={aIndex() % 7 === 0}>
-                    <Cell {...aTitle} {...aFirstColumn} {...aInfo} text="Date" />
+                    <Cell text="Date" css={[sTitle, sInfo, sFirstColumn]} />
                     <Show when={showTime()}>
-                      <Cell {...aTitle} {...aInfo} text="Time" />
+                      <Cell text="Time" css={[sTitle, sInfo]} />
                     </Show>
-                    <Cell {...aTitle} {...aInfo} text="Player" />
+                    <Cell text="Player" css={[sTitle, sInfo]} />
                     <Show when={showTrack()}>
-                      <Cell {...aTitle} {...aInfo} text="Track" />
+                      <Cell text="Track" css={[sTitle, sInfo]} />
                     </Show>
                     <VerticalDivider />
-                    <Cell {...aTitle} text="Split" />
+                    <Cell text="Split" css={[sTitle]} />
                     <VerticalDivider />
-                    <Cell {...aTitle} text="⏱️" />
+                    <Cell text="⏱️" css={[sTitle]} />
                     <VerticalDivider />
-                    <Cell {...aTitle} text="️🟡" />
+                    <Cell text="️🟡" css={[sTitle]} />
                     <VerticalDivider />
-                    <Cell {...aTitle} text="🍄" />
+                    <Cell text="🍄" css={[sTitle]} />
                     <VerticalDivider />
-                    <Cell {...aTitle} text="⏱️" />
+                    <Cell text="⏱️" css={[sTitle]} />
                     <VerticalDivider />
-                    <Cell {...aTitle} {...aLastColumn} text="️🟡" />
+                    <Cell text="️🟡" css={[sTitle, sLastColumn]} />
                     <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
                   </Show>
 
-                  <Cell {...aFirstColumn} {...aInfo} row={attempt.rowSplits} text={attempt.date} />
+                  <Cell row={attempt.rowSplits} text={attempt.date} css={[sFirstColumn, sInfo]} />
                   <Show when={showTime()}>
-                    <Cell {...aInfo} row={attempt.rowSplits} text={attempt.datetime} />
+                    <Cell row={attempt.rowSplits} text={attempt.datetime} css={[sInfo]} />
                   </Show>
-                  <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.player} />
+                  <Cell row={attempt.rowSplits} text={attempt.raw.player} css={[sInfo]} />
                   <Show when={showTrack()}>
-                    <Cell {...aInfo} row={attempt.rowSplits} text={attempt.raw.track} />
+                    <Cell row={attempt.rowSplits} text={attempt.raw.track} css={[sInfo]} />
                   </Show>
                   <VerticalDivider row={attempt.rowSplits} />
                   <Switch>
@@ -140,11 +141,11 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                                   <>
                                     <Cell text={`S${_}`} />
                                     <VerticalDivider />
-                                    <Cell {...aValue} text={split().raw.time} />
+                                    <Cell text={split().raw.time} css={[sValue]} />
                                     <VerticalDivider />
-                                    <Cell {...aValue} text={split().raw.coins} />
+                                    <Cell text={split().raw.coins} css={[sValue]} />
                                     <VerticalDivider />
-                                    <Cell {...aValue} text={split().raw.shrooms} />
+                                    <Cell text={split().raw.shrooms} css={[sValue]} />
                                     <Show when={sIndex() > 0 && sIndex() < attempt.laps.length - 1}>
                                       <HorizontalDivider column={GRID_SPLITS_COLUMNS} />
                                     </Show>
@@ -162,12 +163,12 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                               <VerticalDivider row={attempt.rowSplits} />
                               <Switch>
                                 <Match when={!isDefined(attempt.time) && !isDefined(attempt.coins)}>
-                                  <Cell {...aLastColumn} column={GRID_RESULT_COLUMNS} row={attempt.rowSplits} />
+                                  <Cell column={GRID_RESULT_COLUMNS} row={attempt.rowSplits} css={[sLastColumn]} />
                                 </Match>
                                 <Match when>
-                                  <Cell {...aValue} row={attempt.rowSplits} text={attempt.time} />
+                                  <Cell row={attempt.rowSplits} text={attempt.time} css={[sValue]} />
                                   <VerticalDivider row={attempt.rowSplits} />
-                                  <Cell {...aLastColumn} {...aValue} row={attempt.rowSplits} text={attempt.coins} />
+                                  <Cell row={attempt.rowSplits} text={attempt.coins} css={[sValue, sLastColumn]} />
                                 </Match>
                               </Switch>
                               <HorizontalDivider column={GRID_SPLITS_COLUMNS} />
@@ -179,7 +180,7 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
                     <Match when={true}>
                       <Cell column={GRID_SPLITS_COLUMNS} row={attempt.rowSplits} text="Not even one split 😭" />
                       <VerticalDivider row={attempt.rowSplits} />
-                      <Cell {...aLastColumn} row={attempt.rowSplits} column={GRID_RESULT_COLUMNS} />
+                      <Cell row={attempt.rowSplits} column={GRID_RESULT_COLUMNS} css={[sLastColumn]} />
                     </Match>
                   </Switch>
                   <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
