@@ -9,13 +9,13 @@ import { usePersonalRepository } from "../../database/compositions/use-personal-
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useVideoCanvas } from "./use-video-canvas";
 
-type State = "PLAYING" | "PAUSED";
+type State = "PLAYING" | "LOADING" | "PAUSED";
 
 const PROCESS_FRAME_INTERVAL_MS = 200;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useTimeTrialSingleton() {
-  const [state, setState] = createSignal<State>("PAUSED");
+  const [state, setState] = createSignal<State>("LOADING");
   const isState = createSelector(state);
   const vc = useVideoCanvas();
   const manager = useAttemptManager();
@@ -35,13 +35,20 @@ function useTimeTrialSingleton() {
   });
 
   onMount(() => {
-    vc.addEventListener("loadstart", () => {
-      setState("PAUSED");
+    vc.addEventListener("loadstart", (eve) => {
+      const target = targetFromEvent(eve, HTMLVideoElement);
+      if (target.networkState !== HTMLMediaElement.NETWORK_NO_SOURCE) {
+        setState("PAUSED");
+      }
     });
 
     vc.addEventListener("play", () => {
       setState("PLAYING");
       vc.setPlaybackRate(getPlaybackRate());
+    });
+
+    vc.addEventListener("custom_UserMediaError", () => {
+      setState("PAUSED");
     });
 
     vc.addEventListener("pause", () => {

@@ -100,6 +100,19 @@ export const TimeTrialPlayer: Component = () => {
       <Dialog ref={dialog} title="Failed to load the capture card source.">
         <p>Make sure you allowed the application to access the camera devices.</p>
         <p>Make sure your camera is not used by another application.</p>
+        <p>
+          Then{" "}
+          <a
+            href={location.href}
+            onClick={() => {
+              location.reload();
+            }}
+          >
+            reload
+          </a>{" "}
+          the application.
+        </p>
+
         <details>
           <summary>Raw error</summary>
           {rawError()}

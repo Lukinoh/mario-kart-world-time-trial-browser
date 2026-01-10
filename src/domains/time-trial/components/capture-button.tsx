@@ -37,6 +37,11 @@ export const CaptureButton: Component<CaptureButton> = (props) => {
           Capture
         </SymbolButton>
       </Match>
+      <Match when={timeTrial.isState("LOADING")}>
+        <SymbolButton symbol="⏳" disabled>
+          Capture
+        </SymbolButton>
+      </Match>
     </Switch>
   );
 };

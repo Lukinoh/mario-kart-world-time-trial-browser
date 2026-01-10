@@ -13,6 +13,9 @@ function useVideoCanvasFactory() {
   const context = canvasElement.getContext("2d", { willReadFrequently: true, alpha: false });
   assert(context, "Context is null");
 
+  videoElement.controls = true;
+  videoElement.muted = true;
+
   videoElement.width = VIDEO_WIDTH;
   videoElement.height = VIDEO_HEIGHT;
   videoElement.style.aspectRatio = `${VIDEO_WIDTH} / ${VIDEO_HEIGHT}`;
@@ -28,8 +31,6 @@ function useVideoCanvasFactory() {
     // oxlint-disable-next-line no-null
     videoElement.srcObject = null;
     videoElement.src = "";
-    videoElement.controls = true;
-    videoElement.muted = true;
   };
 
   const setSourceUrl = (url: string): void => {
@@ -41,13 +42,21 @@ function useVideoCanvasFactory() {
   const setSourceCamera = async (): Promise<void> => {
     resetSource();
     setSupportPlaybackRate(false);
-    videoElement.srcObject = await navigator.mediaDevices.getUserMedia({
-      video: {
-        width: { exact: VIDEO_WIDTH },
-        height: { exact: VIDEO_HEIGHT },
-        frameRate: { ideal: 60 },
-      },
-    });
+    try {
+      videoElement.srcObject = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { exact: VIDEO_WIDTH },
+          height: { exact: VIDEO_HEIGHT },
+          frameRate: { ideal: 60 },
+        },
+      });
+    } catch (error) {
+      if (error instanceof DOMException) {
+        videoElement.dispatchEvent(new CustomEvent("custom_UserMediaError"));
+      }
+
+      throw error;
+    }
   };
 
   const setSourceFile = async (): Promise<void> => {

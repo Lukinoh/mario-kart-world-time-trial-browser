@@ -10,6 +10,7 @@ const sContent = css({
 const sSymbol = css({
   width: "var(--mk-spacing-large)",
   lineHeight: 0,
+  fontVariantEmoji: "text",
 });
 
 interface SymbolButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {

@@ -18,7 +18,10 @@
     "crypto": true,
     "BroadcastChannel": true,
     "resizeTo": true,
-    "window": true
+    "window": true,
+    "CustomEvent": true,
+    "DOMException": true,
+    "HTMLMediaElement": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {
