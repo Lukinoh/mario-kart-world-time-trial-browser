@@ -2,11 +2,11 @@ import { type Component, createEffect, createSelector, createSignal } from "soli
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
-export type SourceRadioType = "file" | "camera";
+export type SourceRadioState = "FILE" | "CAMERA";
 
 interface SourceRadioProps {
   onError?: (error: unknown) => void;
-  onSelected?: (source: SourceRadioType) => void;
+  onSelected?: (source: SourceRadioState) => void;
 }
 
 export const SourceRadio: Component<SourceRadioProps> = (props) => {
@@ -15,7 +15,7 @@ export const SourceRadio: Component<SourceRadioProps> = (props) => {
   const timeTrial = useTimeTrial();
   const settings = useSettingsRepository();
 
-  const [radio, setRadio] = createSignal<SourceRadioType>("camera");
+  const [radio, setRadio] = createSignal<SourceRadioState>("CAMERA");
   const isSelected = createSelector(radio);
 
   createEffect(async () => {
@@ -25,7 +25,7 @@ export const SourceRadio: Component<SourceRadioProps> = (props) => {
       settings.setVideoVisible(true);
       const { getDebugVideoUrl } = await import("../../test/utils/get-debug-video-url");
       timeTrial.fromUrl(getDebugVideoUrl(settings.player()));
-      setRadio("file");
+      setRadio("FILE");
     } else {
       await onCamera();
     }
@@ -37,7 +37,7 @@ export const SourceRadio: Component<SourceRadioProps> = (props) => {
 
   const onCamera = async (): Promise<void> => {
     try {
-      setRadio("camera");
+      setRadio("CAMERA");
       await timeTrial.fromCamera();
     } catch (error) {
       props.onError?.(error);
@@ -47,11 +47,11 @@ export const SourceRadio: Component<SourceRadioProps> = (props) => {
   const onFile = async (): Promise<void> => {
     try {
       await timeTrial.fromFile();
-      setRadio("file");
+      setRadio("FILE");
     } catch {
       // If fromFile was canceled, we have to force rerender, otherwise the select stays on file.
-      setRadio("file");
-      setRadio("camera");
+      setRadio("FILE");
+      setRadio("CAMERA");
     }
   };
 
@@ -59,11 +59,11 @@ export const SourceRadio: Component<SourceRadioProps> = (props) => {
     <div>
       <span>Source {radio()}</span>
       <label>
-        <input checked={isSelected("camera")} onChange={onCamera} name={groupRadioName} type="radio" />
+        <input checked={isSelected("CAMERA")} onChange={onCamera} name={groupRadioName} type="radio" />
         <span>Capture Card</span>
       </label>
       <label>
-        <input checked={isSelected("file")} onChange={onFile} name={groupRadioName} type="radio" />
+        <input checked={isSelected("FILE")} onChange={onFile} name={groupRadioName} type="radio" />
         <span>File</span>
       </label>
     </div>

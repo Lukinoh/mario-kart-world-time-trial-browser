@@ -11,18 +11,14 @@ import { Track } from "../../recognition/track/track";
 import { createAttemptHandler } from "../utils/attempt-handler";
 import { useIsFinalTime } from "./use-is-final-time";
 
-enum STATE {
-  WAITING_ATTEMPT = "WAITING_ATTEMPT",
-  WAITING_SPLIT = "WAITING_SPLIT",
-  WAITING_LAST_SPLIT = "WAITING_LAST_SPLIT",
-}
+type State = "WAITING_ATTEMPT" | "WAITING_SPLIT" | "WAITING_LAST_SPLIT";
 
 const MINIMUM_TIME_BEFORE_NEXT_RESET_MS = 4500;
 const ELAPSED_BEFORE_BEING_FINAL_MS = 1000;
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAttemptManagerFactory() {
-  let state: STATE = STATE.WAITING_ATTEMPT;
+  let state: State = "WAITING_ATTEMPT";
   let attempt = createAttemptHandler("Search for...", "?");
   const { isFinalTime } = useIsFinalTime(ELAPSED_BEFORE_BEING_FINAL_MS);
 
@@ -52,12 +48,12 @@ function useAttemptManagerFactory() {
       const laps = Laps.get(image, putImageData);
 
       attempt = createAttemptHandler(track, laps);
-      state = STATE.WAITING_SPLIT;
+      state = "WAITING_SPLIT";
 
       return attempt.unwrap();
     }
 
-    if (state === STATE.WAITING_SPLIT) {
+    if (state === "WAITING_SPLIT") {
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
       const isTimeYellow = Time.isYellow(image);
 
@@ -69,14 +65,14 @@ function useAttemptManagerFactory() {
         });
 
         if (attempt.isLastLap()) {
-          state = STATE.WAITING_LAST_SPLIT;
+          state = "WAITING_LAST_SPLIT";
         }
 
         return attempt.unwrap();
       }
     }
 
-    if (state === STATE.WAITING_LAST_SPLIT) {
+    if (state === "WAITING_LAST_SPLIT") {
       const isPause = Pause.isPause(image, putImageData);
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
       const isFinished = isFinalTime(time, isPause, rate);
@@ -89,7 +85,7 @@ function useAttemptManagerFactory() {
           time: time,
           coins: coins,
         });
-        state = STATE.WAITING_ATTEMPT;
+        state = "WAITING_ATTEMPT";
         return attempt.unwrap();
       }
     }

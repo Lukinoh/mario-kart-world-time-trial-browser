@@ -1,5 +1,5 @@
 import { type Component, Show, createMemo, createSelector, createSignal } from "solid-js";
-import { SourceRadio, type SourceRadioType } from "./source-radio";
+import { SourceRadio, type SourceRadioState } from "./source-radio";
 import { displayVisible, span } from "../../ui/css/css";
 import { CaptureButton } from "./capture-button";
 import { Cell } from "../../ui/components/grid/cell";
@@ -59,7 +59,7 @@ export const TimeTrialPlayer: Component = () => {
   const settings = useSettingsRepository();
 
   const [rawError, setRawError] = createSignal<string>();
-  const [source, setSource] = createSignal<SourceRadioType>("camera");
+  const [source, setSource] = createSignal<SourceRadioState>("CAMERA");
   const isSource = createSelector(source);
   const sVideoVisible = createMemo(() => displayVisible(settings.isVideoVisible()));
 
@@ -74,7 +74,7 @@ export const TimeTrialPlayer: Component = () => {
         <PlayerInput />
         <SourceRadio onError={onError} onSelected={setSource} />
         <div class={sOptionsZone}>
-          <Show when={isSource("file")}>
+          <Show when={isSource("FILE")}>
             <button onClick={timeTrial.fromFile}>Load file</button>
           </Show>
         </div>
@@ -85,7 +85,7 @@ export const TimeTrialPlayer: Component = () => {
           <ObsButton />
         </div>
         <FeedbackCheckbox />
-        <Show when={isSource("file")}>
+        <Show when={isSource("FILE")}>
           <PlaybackRateSelect />
         </Show>
         <Cell text="" />
