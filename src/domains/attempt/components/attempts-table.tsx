@@ -1,4 +1,14 @@
-import { For, Match, Show, Switch, createEffect, createMemo, createSelector, createSignal } from "solid-js";
+import {
+  type Component,
+  For,
+  Match,
+  Show,
+  Switch,
+  createEffect,
+  createMemo,
+  createSelector,
+  createSignal,
+} from "solid-js";
 import { isDefined, unique } from "remeda";
 import type { Attempt } from "../schemas/attempt";
 import { Cell } from "../../ui/components/grid/cell";
@@ -6,7 +16,6 @@ import { GridColumn } from "../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../ui/components/grid/horizontal-divider";
 import { VerticalDivider } from "../../ui/components/grid/vertical-divider";
 import { cellCss } from "../../ui/css/cell-css";
-import { defineComponent } from "../../_core/utils/solid-js";
 import { targetFromEvent } from "../../_core/utils/event";
 
 const sFirstColumn = cellCss({
@@ -39,7 +48,7 @@ interface AttemptsTableProps {
   onTrackSelected?: (track: string) => void;
 }
 
-export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
+export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
   const GRID_COLUMNS = 16;
   const GRID_SPLITS_COLUMNS = 7;
   const GRID_RESULT_COLUMNS = 3;
@@ -195,4 +204,4 @@ export const AttemptsTable = defineComponent<AttemptsTableProps>((props) => {
       </Switch>
     </>
   );
-});
+};

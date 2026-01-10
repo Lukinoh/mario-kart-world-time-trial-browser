@@ -1,5 +1,4 @@
-import { createEffect, createSelector, createSignal } from "solid-js";
-import { defineComponent } from "../../_core/utils/solid-js";
+import { type Component, createEffect, createSelector, createSignal } from "solid-js";
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
@@ -10,7 +9,7 @@ interface SourceRadioProps {
   onSelected?: (source: SourceRadioType) => void;
 }
 
-export const SourceRadio = defineComponent<SourceRadioProps>((props) => {
+export const SourceRadio: Component<SourceRadioProps> = (props) => {
   const groupRadioName = "video-mode";
 
   const timeTrial = useTimeTrial();
@@ -69,4 +68,4 @@ export const SourceRadio = defineComponent<SourceRadioProps>((props) => {
       </label>
     </div>
   );
-});
+};

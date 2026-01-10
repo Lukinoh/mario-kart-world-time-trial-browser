@@ -1,11 +1,10 @@
 import * as v from "valibot";
 import type { AttemptsEntityIssue, AttemptsEntitySchema } from "../../schemas/attempts-entity";
-import { type JSX, createMemo, createSignal } from "solid-js";
+import { type Component, type JSX, createMemo, createSignal } from "solid-js";
 import { isFunction, isString } from "remeda";
 import { Dialog } from "../../../ui/components/dialog";
 import { ValibotErrorContent } from "./valibot-error-content";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../../_core/utils/solid-js";
 
 const sSuccess = css({
   margin: 0,
@@ -15,7 +14,7 @@ interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement>
   children: string;
 }
 
-export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) => {
+export const ValibotImportButton: Component<ValibotButtonProps> = (props) => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let dialogSuccess!: HTMLDialogElement;
   // oxlint-disable-next-line init-declarations no-unassigned-vars
@@ -68,4 +67,4 @@ export const ValibotImportButton = defineComponent<ValibotButtonProps>((props) =
       </Dialog>
     </>
   );
-});
+};

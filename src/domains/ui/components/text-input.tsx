@@ -1,4 +1,4 @@
-import { defineComponent } from "../../_core/utils/solid-js";
+import type { Component } from "solid-js";
 
 interface TextInputProps {
   label: string;
@@ -7,7 +7,7 @@ interface TextInputProps {
   onInput: (text: string) => void;
 }
 
-export const TextInput = defineComponent<TextInputProps>((props) => {
+export const TextInput: Component<TextInputProps> = (props) => {
   return (
     <div>
       <label>{props.label}</label>
@@ -21,4 +21,4 @@ export const TextInput = defineComponent<TextInputProps>((props) => {
       />
     </div>
   );
-});
+};

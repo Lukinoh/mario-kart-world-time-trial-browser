@@ -1,4 +1,4 @@
-import { For, Show, createMemo } from "solid-js";
+import { type Component, For, Show, createMemo } from "solid-js";
 import type { Attempt } from "../../schemas/attempt";
 import { Cell } from "../../../ui/components/grid/cell";
 import { DeltaCell } from "./delta-cell";
@@ -9,7 +9,6 @@ import type { ReferenceRecords } from "../../types/reference-records";
 import { TimeWidthCell } from "./time-width-cell";
 import { VerticalDivider } from "../../../ui/components/grid/vertical-divider";
 import { cellCss } from "../../../ui/css/cell-css";
-import { defineComponent } from "../../../_core/utils/solid-js";
 import { delta } from "../../utils/delta";
 import { entries } from "remeda";
 
@@ -41,7 +40,7 @@ interface AttemptsComparisonTableProps {
   referenceRecords: ReferenceRecords;
 }
 
-export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTableProps>((props) => {
+export const AttemptsComparisonTable: Component<AttemptsComparisonTableProps> = (props) => {
   const GRID_FULL_ROW = 6;
   const GRID_HALF_ROW = GRID_FULL_ROW / 2;
   const GRID_THIRD_ROW = GRID_FULL_ROW / 3;
@@ -152,4 +151,4 @@ export const AttemptsComparisonTable = defineComponent<AttemptsComparisonTablePr
       </For>
     </GridColumn>
   );
-});
+};

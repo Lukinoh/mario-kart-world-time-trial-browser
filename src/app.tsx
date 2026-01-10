@@ -1,6 +1,5 @@
 import { A, Navigate, Route, type RouteSectionProps, Router, useCurrentMatches } from "@solidjs/router";
-import { ci, defineComponent } from "./domains/_core/utils/solid-js";
-import { createMemo, createSignal } from "solid-js";
+import { type Component, createMemo, createSignal } from "solid-js";
 import { AloneDialog } from "./domains/_core/components/alone-dialog/alone-dialog";
 import { FAQ } from "./views/faq";
 import { Friends } from "./views/friends";
@@ -8,12 +7,13 @@ import { History } from "./views/history";
 import { Live } from "./views/live";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { WorldRecords } from "./views/world-records";
+import { ci } from "./domains/_core/utils/solid-js";
 import { displayVisible } from "./domains/ui/css/css";
 
-export const App = defineComponent(() => {
+export const App: Component = () => {
   const [title, setTitle] = createSignal("Nothing yet");
 
-  const RouterWrapper = defineComponent<RouteSectionProps>((props) => {
+  const RouterWrapper: Component<RouteSectionProps> = (props) => {
     const matches = useCurrentMatches();
     const sTimeTrialVisible = createMemo(() => displayVisible(matches().at(0)?.route.originalPath === "/live"));
 
@@ -38,7 +38,7 @@ export const App = defineComponent(() => {
         <AloneDialog />
       </>
     );
-  });
+  };
 
   return (
     <Router root={RouterWrapper} base={import.meta.env.BASE_URL}>
@@ -51,4 +51,4 @@ export const App = defineComponent(() => {
       <Route path="*404" component={() => <Navigate href="/live" />} />
     </Router>
   );
-});
+};

@@ -1,10 +1,9 @@
-import { For, createSelector } from "solid-js";
-import { defineComponent } from "../../_core/utils/solid-js";
+import { type Component, For, createSelector } from "solid-js";
 import { getAvailablePlaybackRates } from "../utils/get-playbackrate-rates";
 import { targetFromEvent } from "../../_core/utils/event";
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 
-export const PlaybackRateSelect = defineComponent(() => {
+export const PlaybackRateSelect: Component = () => {
   const settings = useSettingsRepository();
   const rates = getAvailablePlaybackRates();
   const isSelected = createSelector(settings.playbackRate);
@@ -28,4 +27,4 @@ export const PlaybackRateSelect = defineComponent(() => {
       </select>
     </div>
   );
-});
+};

@@ -1,10 +1,9 @@
 import { Cell, type CellProps } from "../../../ui/components/grid/cell";
 import { type CellCssArgs, cellCss } from "../../../ui/css/cell-css";
+import { type Component, createMemo } from "solid-js";
 import { capitalize, isDefined } from "remeda";
 import type { Attempt } from "../../schemas/attempt";
 import type { ReferenceRecords } from "../../types/reference-records";
-import { createMemo } from "solid-js";
-import { defineComponent } from "../../../_core/utils/solid-js";
 
 interface F1CellProps extends CellProps {
   attempt: Attempt;
@@ -13,7 +12,7 @@ interface F1CellProps extends CellProps {
   type: "time" | "accumulatedTime";
 }
 
-export const F1Cell = defineComponent<F1CellProps>((props) => {
+export const F1Cell: Component<F1CellProps> = (props) => {
   const parsedType = createMemo(() => `parsed${capitalize(props.type)}` as const);
 
   const color = createMemo<CellCssArgs>(() => {
@@ -48,4 +47,4 @@ export const F1Cell = defineComponent<F1CellProps>((props) => {
   return (
     <Cell {...props} css={[cellCss(color()), props.css]} text={props.attempt.splits.at(props.sIndex)?.[props.type]} />
   );
-});
+};

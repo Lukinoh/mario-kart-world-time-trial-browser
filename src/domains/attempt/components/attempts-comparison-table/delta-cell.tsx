@@ -1,10 +1,9 @@
 import { Cell, type CellProps } from "../../../ui/components/grid/cell";
 import { type CellCssArgs, cellCss } from "../../../ui/css/cell-css";
+import { type Component, createMemo } from "solid-js";
 import { MINUS, PLUS, PLUS_OR_MINUS } from "../../utils/characters";
-import { createMemo } from "solid-js";
-import { defineComponent } from "../../../_core/utils/solid-js";
 
-export const DeltaCell = defineComponent<CellProps>((props) => {
+export const DeltaCell: Component<CellProps> = (props) => {
   const color = createMemo<CellCssArgs>(() => {
     const text = props.text?.toString() ?? "";
 
@@ -32,4 +31,4 @@ export const DeltaCell = defineComponent<CellProps>((props) => {
   });
 
   return <Cell {...props} css={[cellCss(color()), props.css]} />;
-});
+};

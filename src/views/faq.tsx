@@ -1,17 +1,17 @@
-import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
+import { type Component, onMount } from "solid-js";
 import { A } from "@solidjs/router";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
+import type { ViewProps } from "../domains/_core/utils/solid-js";
 import { cellCss } from "../domains/ui/css/cell-css";
-import { onMount } from "solid-js";
 import { useRepositories } from "../domains/database/compositions/use-repositories";
 
 const sBold = cellCss({
   bold: true,
 });
 
-export const FAQ = defineComponent<ViewProps>((props) => {
+export const FAQ: Component<ViewProps> = (props) => {
   const repositories = useRepositories();
 
   onMount(() => {
@@ -191,4 +191,4 @@ export const FAQ = defineComponent<ViewProps>((props) => {
       </details>
     </>
   );
-});
+};

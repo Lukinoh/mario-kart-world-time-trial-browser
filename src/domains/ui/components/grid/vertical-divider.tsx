@@ -1,6 +1,5 @@
-import { createMemo } from "solid-js";
+import { type Component, createMemo } from "solid-js";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../../_core/utils/solid-js";
 import { span } from "../../css/css";
 
 interface VerticalDelimiterProps {
@@ -8,7 +7,7 @@ interface VerticalDelimiterProps {
   row?: number;
 }
 
-export const VerticalDivider = defineComponent<VerticalDelimiterProps>((props) => {
+export const VerticalDivider: Component<VerticalDelimiterProps> = (props) => {
   const row = createMemo(() => props.row ?? 1);
   const column = createMemo(() => props.column ?? 1);
   return (
@@ -23,4 +22,4 @@ export const VerticalDivider = defineComponent<VerticalDelimiterProps>((props) =
       })}
     ></div>
   );
-});
+};

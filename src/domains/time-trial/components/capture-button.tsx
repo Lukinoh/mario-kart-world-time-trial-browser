@@ -1,6 +1,5 @@
-import { Match, Switch } from "solid-js";
+import { type Component, Match, Switch } from "solid-js";
 import { SymbolButton } from "../../ui/components/symbol-button";
-import { defineComponent } from "../../_core/utils/solid-js";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
 interface CaptureButton {
@@ -9,7 +8,7 @@ interface CaptureButton {
   onError?: (error: unknown) => void;
 }
 
-export const CaptureButton = defineComponent<CaptureButton>((props) => {
+export const CaptureButton: Component<CaptureButton> = (props) => {
   const timeTrial = useTimeTrial();
 
   const onPlay = async (): Promise<void> => {
@@ -40,4 +39,4 @@ export const CaptureButton = defineComponent<CaptureButton>((props) => {
       </Match>
     </Switch>
   );
-});
+};

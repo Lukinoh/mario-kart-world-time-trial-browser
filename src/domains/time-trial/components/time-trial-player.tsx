@@ -1,4 +1,4 @@
-import { Show, createMemo, createSelector, createSignal } from "solid-js";
+import { type Component, Show, createMemo, createSelector, createSignal } from "solid-js";
 import { SourceRadio, type SourceRadioType } from "./source-radio";
 import { displayVisible, span } from "../../ui/css/css";
 import { CaptureButton } from "./capture-button";
@@ -10,7 +10,6 @@ import { ObsButton } from "../../obs/components/obs-button";
 import { PlaybackRateSelect } from "./playback-rate-select";
 import { PlayerInput } from "./player-input";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../_core/utils/solid-js";
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
@@ -52,7 +51,7 @@ const sVideoCanvasItem = css({
   },
 });
 
-export const TimeTrialPlayer = defineComponent(() => {
+export const TimeTrialPlayer: Component = () => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let dialog!: HTMLDialogElement;
 
@@ -108,4 +107,4 @@ export const TimeTrialPlayer = defineComponent(() => {
       </Dialog>
     </>
   );
-});
+};

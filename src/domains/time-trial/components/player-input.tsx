@@ -1,8 +1,8 @@
+import type { Component } from "solid-js";
 import { TextInput } from "../../ui/components/text-input";
-import { defineComponent } from "../../_core/utils/solid-js";
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 
-export const PlayerInput = defineComponent(() => {
+export const PlayerInput: Component = () => {
   const settings = useSettingsRepository();
 
   return (
@@ -15,4 +15,4 @@ export const PlayerInput = defineComponent(() => {
       }}
     />
   );
-});
+};

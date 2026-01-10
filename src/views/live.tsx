@@ -1,12 +1,12 @@
-import { Match, Switch, createMemo, onMount } from "solid-js";
-import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
+import { type Component, Match, Switch, createMemo, onMount } from "solid-js";
 import { A } from "@solidjs/router";
 import { AttemptsComparisonTable } from "../domains/attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
+import type { ViewProps } from "../domains/_core/utils/solid-js";
 import { usePersonalRepository } from "../domains/database/compositions/use-personal-repository";
 import { useRepositories } from "../domains/database/compositions/use-repositories";
 
-export const Live = defineComponent<ViewProps>((props) => {
+export const Live: Component<ViewProps> = (props) => {
   const repositories = useRepositories();
   const personal = usePersonalRepository();
 
@@ -52,4 +52,4 @@ export const Live = defineComponent<ViewProps>((props) => {
       </div>
     </>
   );
-});
+};

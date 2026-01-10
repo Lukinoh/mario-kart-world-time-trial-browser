@@ -1,9 +1,5 @@
 import { type Component, type JSX, createRoot } from "solid-js";
 
-export function defineComponent<P extends { [key in keyof P]: unknown }>(component: Component<P>): Component<P> {
-  return component;
-}
-
 export interface ViewProps {
   setTitle: (title: string) => void;
 }

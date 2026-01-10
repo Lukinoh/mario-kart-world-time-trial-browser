@@ -1,7 +1,6 @@
-import { type JSX, type Ref, Show, createMemo } from "solid-js";
+import { type Component, type JSX, type Ref, Show, createMemo } from "solid-js";
 import { Portal } from "solid-js/web";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../_core/utils/solid-js";
 import { isFunction } from "remeda";
 
 const sClose = css({
@@ -24,7 +23,7 @@ interface DialogProps {
   children: JSX.Element;
 }
 
-export const Dialog = defineComponent<DialogProps>((props) => {
+export const Dialog: Component<DialogProps> = (props) => {
   // oxlint-disable-next-line init-declarations
   let dialog!: HTMLDialogElement;
   const showFooter = createMemo(() => props.showFooter ?? true);
@@ -57,4 +56,4 @@ export const Dialog = defineComponent<DialogProps>((props) => {
       </dialog>
     </Portal>
   );
-});
+};

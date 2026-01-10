@@ -1,9 +1,8 @@
+import { type Component, createEffect } from "solid-js";
 import { Dialog } from "../../../ui/components/dialog";
-import { createEffect } from "solid-js";
-import { defineComponent } from "../../utils/solid-js";
 import { useAlone } from "./use-alone";
 
-export const AloneDialog = defineComponent(() => {
+export const AloneDialog: Component = () => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let dialog!: HTMLDialogElement;
   const { alone } = useAlone();
@@ -20,4 +19,4 @@ export const AloneDialog = defineComponent(() => {
       <p>Please close all other tabs and refresh this page, or use the already open tab, and close this one.</p>
     </Dialog>
   );
-});
+};

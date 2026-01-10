@@ -1,9 +1,9 @@
-import { type ViewProps, defineComponent } from "../domains/_core/utils/solid-js";
+import { type Component, onMount } from "solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
+import type { ViewProps } from "../domains/_core/utils/solid-js";
 import { css } from "@emotion/css";
-import { onMount } from "solid-js";
 import { useFriendsRepository } from "../domains/database/compositions/use-friends-repository";
 
 const sActions = css({
@@ -16,7 +16,7 @@ const sActions = css({
   },
 });
 
-export const Friends = defineComponent<ViewProps>((props) => {
+export const Friends: Component<ViewProps> = (props) => {
   const friends = useFriendsRepository();
 
   onMount(() => {
@@ -36,4 +36,4 @@ export const Friends = defineComponent<ViewProps>((props) => {
       <AttemptsTable attempts={friends.attempts()} showTime={false} />
     </>
   );
-});
+};

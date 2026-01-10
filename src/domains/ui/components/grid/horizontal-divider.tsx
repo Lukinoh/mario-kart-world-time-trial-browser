@@ -1,6 +1,5 @@
-import { createMemo } from "solid-js";
+import { type Component, createMemo } from "solid-js";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../../_core/utils/solid-js";
 import { span } from "../../css/css";
 
 interface HorizontalDelimiterProps {
@@ -9,7 +8,7 @@ interface HorizontalDelimiterProps {
   thicknessFactor?: number;
 }
 
-export const HorizontalDivider = defineComponent<HorizontalDelimiterProps>((props) => {
+export const HorizontalDivider: Component<HorizontalDelimiterProps> = (props) => {
   const column = createMemo(() => props.column ?? 1);
   const row = createMemo(() => props.row ?? 1);
   const borderWidth = createMemo(() => `calc(${props.thicknessFactor ?? 1}*var(--border-width))`);
@@ -27,4 +26,4 @@ export const HorizontalDivider = defineComponent<HorizontalDelimiterProps>((prop
       })}
     ></div>
   );
-});
+};

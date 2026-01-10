@@ -1,7 +1,7 @@
-import { defineComponent } from "../../_core/utils/solid-js";
+import type { Component } from "solid-js";
 import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 
-export const FeedbackCheckbox = defineComponent(() => {
+export const FeedbackCheckbox: Component = () => {
   const settings = useSettingsRepository();
 
   return (
@@ -29,4 +29,4 @@ export const FeedbackCheckbox = defineComponent(() => {
       </label>
     </div>
   );
-});
+};

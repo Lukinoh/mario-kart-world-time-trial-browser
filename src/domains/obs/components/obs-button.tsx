@@ -1,8 +1,8 @@
+import type { Component } from "solid-js";
 import { SymbolButton } from "../../ui/components/symbol-button";
-import { defineComponent } from "../../_core/utils/solid-js";
 import { useObs } from "../compositions/use-obs";
 
-export const ObsButton = defineComponent(() => {
+export const ObsButton: Component = () => {
   const obs = useObs();
 
   return (
@@ -10,4 +10,4 @@ export const ObsButton = defineComponent(() => {
       OBS
     </SymbolButton>
   );
-});
+};

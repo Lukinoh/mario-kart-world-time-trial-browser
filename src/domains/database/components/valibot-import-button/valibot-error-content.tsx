@@ -1,10 +1,9 @@
 import * as v from "valibot";
+import { type Component, For } from "solid-js";
 import { Cell } from "../../../ui/components/grid/cell";
-import { For } from "solid-js";
 import { GridColumn } from "../../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../../ui/components/grid/horizontal-divider";
 import { cellCss } from "../../../ui/css/cell-css";
-import { defineComponent } from "../../../_core/utils/solid-js";
 
 const sTitle = cellCss({
   bold: true,
@@ -19,7 +18,7 @@ interface ValibotErrorContentProps {
   issues: Array<v.BaseIssue<unknown>>;
 }
 
-export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((props) => {
+export const ValibotErrorContent: Component<ValibotErrorContentProps> = (props) => {
   const GRID_COLUMNS = 3;
 
   return (
@@ -44,4 +43,4 @@ export const ValibotErrorContent = defineComponent<ValibotErrorContentProps>((pr
       </GridColumn>
     </>
   );
-});
+};

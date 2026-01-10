@@ -1,8 +1,7 @@
-import { Match, Switch, createSignal, onMount } from "solid-js";
+import { type Component, Match, Switch, createSignal, onMount } from "solid-js";
 import { type ObsResponse, useObs } from "./compositions/use-obs";
 import { AttemptsComparisonTable } from "../attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { css } from "@emotion/css";
-import { defineComponent } from "../_core/utils/solid-js";
 
 const sTable = css({
   position: "absolute",
@@ -10,7 +9,7 @@ const sTable = css({
   left: 0,
 });
 
-export const PopupObs = defineComponent(() => {
+export const PopupObs: Component = () => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let tableDiv!: HTMLDivElement;
 
@@ -43,4 +42,4 @@ export const PopupObs = defineComponent(() => {
       </Switch>
     </div>
   );
-});
+};

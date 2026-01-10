@@ -1,6 +1,5 @@
-import type { JSX } from "solid-js";
+import type { Component, JSX } from "solid-js";
 import { css } from "@emotion/css";
-import { defineComponent } from "../../_core/utils/solid-js";
 
 const sContent = css({
   display: "inline-flex",
@@ -17,7 +16,7 @@ interface SymbolButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> 
   symbol: string;
 }
 
-export const SymbolButton = defineComponent<SymbolButtonProps>((props) => {
+export const SymbolButton: Component<SymbolButtonProps> = (props) => {
   return (
     <button {...props}>
       <div class={sContent}>
@@ -26,4 +25,4 @@ export const SymbolButton = defineComponent<SymbolButtonProps>((props) => {
       </div>
     </button>
   );
-});
+};
