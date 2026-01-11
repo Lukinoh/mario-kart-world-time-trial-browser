@@ -4,6 +4,10 @@ import { PLUS_OR_MINUS } from "../../utils/characters";
 import { cellCss } from "../../../ui/css/cell-css";
 import { css } from "@emotion/css";
 
+const sTimeWidthCell = css({
+  display: "inherit",
+});
+
 const sTimeWidth = css({
   height: 0,
   overflow: "hidden",
@@ -16,7 +20,7 @@ const sText = cellCss({
 
 export const TimeWidthCell: Component<CellProps> = (props) => {
   return (
-    <div>
+    <div class={sTimeWidthCell}>
       <div class={sTimeWidth}>{PLUS_OR_MINUS}0:00.000</div>
       <Cell {...props} css={[sText, props.css]} />
     </div>
