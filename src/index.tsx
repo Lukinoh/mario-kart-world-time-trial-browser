@@ -1,9 +1,9 @@
 /* @refresh reload */
 import "solid-devtools";
-import "./domains/ui/global-styles";
 import { OBS_POPUP_TARGET } from "./domains/obs/constants";
 import { assert } from "./domains/_core/utils/assert";
 import { injectFavicon } from "./domains/_core/utils/favicon";
+import { injectGlobalStyles } from "./domains/ui/global-styles";
 import logo from "./assets/icons/original-no-background-stylized.png";
 import { render } from "solid-js/web";
 
@@ -20,9 +20,11 @@ injectFavicon(logo);
 assert(root, "Root element not found.");
 
 if (window.name === OBS_POPUP_TARGET) {
+  injectGlobalStyles("popup-obs");
   const { PopupObs } = await import("./domains/obs/popup-obs");
   render(() => <PopupObs />, root);
 } else {
+  injectGlobalStyles("app");
   const { App } = await import("./app");
   render(() => <App />, root);
 }
