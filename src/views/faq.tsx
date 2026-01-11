@@ -5,6 +5,7 @@ import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import type { ViewProps } from "../domains/_core/utils/solid-js";
 import { cellCss } from "../domains/ui/css/cell-css";
+import logo from "../assets/icons/original-no-background-stylized.png";
 import { useRepositories } from "../domains/database/compositions/use-repositories";
 
 const sBold = cellCss({
@@ -20,6 +21,9 @@ export const FAQ: Component<ViewProps> = (props) => {
 
   return (
     <>
+      <aside>
+        <img alt="logo" src={logo} />
+      </aside>
       <p>
         This project is inspired by an idea of{" "}
         <A target="_blank" href="https://github.com/breadbored/">
