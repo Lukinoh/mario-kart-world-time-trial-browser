@@ -93,7 +93,7 @@ function useTimeTrialSingleton() {
     const attempt = manager.update(image, getPlaybackRate(), getPutImageData());
 
     if (attempt) {
-      attempt.player = settings.player() ?? "Noname";
+      attempt.player = settings.player() || "Noname";
       personal.upsertAttempt(attempt);
     }
 
