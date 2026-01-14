@@ -46,6 +46,11 @@ export const Readme: Component<ViewProps> = (props) => {
         <A href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/issues/new/choose">here</A>.
       </p>
 
+      <p>The application can work fully offline, but be careful with its limitations. More explanations later.</p>
+      <A class="button" href="/index.html" download={"mkwttb.html"}>
+        Download
+      </A>
+
       <h2>FAQ</h2>
 
       <h3>Setup</h3>
