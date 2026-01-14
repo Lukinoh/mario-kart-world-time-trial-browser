@@ -12,11 +12,18 @@ import { PathHelper } from "./vite-config/path-helpers";
 import { defineConfig } from "vite";
 import devtools from "solid-devtools/vite";
 import solidPlugin from "vite-plugin-solid";
+import { viteSingleFile } from "vite-plugin-singlefile";
 
 export default defineConfig({
   plugins: [
     devtools(),
     solidPlugin(),
+    viteSingleFile({
+      overrideConfig: {
+        // Offline base is handled directly in the app, this base is for the serve
+        base: "/",
+      },
+    }),
     normaliseImages({
       rawFolder: PathHelper.root("src", "assets", "recognitions", "raw"),
       normalisedFolder: PathHelper.root("src", "assets", "recognitions", "normalised"),

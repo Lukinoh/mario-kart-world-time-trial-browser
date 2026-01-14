@@ -38,7 +38,8 @@ export const injectGlobalStyles = (): void => {
       scrollbarGutter: "stable",
     },
     body: {
-      gridTemplateColumns: "1fr minmax(0, 80rem) 1fr",
+      gridTemplateColumns: "1fr minmax(0, 80rem) 1fr !important",
+      columnGap: "var(--mk-spacing-medium)",
     },
     video: {
       // Otherwise, the text "Capture Video" is slightly visible.

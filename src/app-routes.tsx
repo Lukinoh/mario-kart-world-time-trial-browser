@@ -23,11 +23,11 @@ export const AppRoutes: Component = () => {
       <>
         <header>
           <nav>
-            <A href="/live">Live</A>
-            <A href="/history">History</A>
-            <A href="/friends">Friends</A>
-            <A href="/world-records">World Records</A>
-            <A href="/faq">FAQ</A>
+            <A href="live">Live</A>
+            <A href="history">History</A>
+            <A href="friends">Friends</A>
+            <A href="world-records">World Records</A>
+            <A href="faq">FAQ</A>
           </nav>
         </header>
         <main>
@@ -49,7 +49,7 @@ export const AppRoutes: Component = () => {
       <Route path="friends" component={ci(Friends, { setTitle })} />
       <Route path="world-records" component={ci(WorldRecords, { setTitle })} />
       <Route path="faq" component={ci(FAQ, { setTitle })} />
-      <Route path="*404" component={() => <Navigate href="/live" />} />
+      <Route path="*404" component={() => <Navigate href="live" />} />
     </Route>
   );
 };
