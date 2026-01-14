@@ -12,11 +12,11 @@ const sBold = cellCss({
   bold: true,
 });
 
-export const FAQ: Component<ViewProps> = (props) => {
+export const Readme: Component<ViewProps> = (props) => {
   const repositories = useRepositories();
 
   onMount(() => {
-    props.setTitle("FAQ");
+    props.setTitle("Readme 🥺");
   });
 
   return (
@@ -45,6 +45,8 @@ export const FAQ: Component<ViewProps> = (props) => {
         If you find any bugs, you can try to open an issue{" "}
         <A href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/issues/new/choose">here</A>.
       </p>
+
+      <h2>FAQ</h2>
 
       <h3>Setup</h3>
 

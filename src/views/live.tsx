@@ -33,7 +33,7 @@ export const Live: Component<ViewProps> = (props) => {
             </Match>
             <Match when={true}>
               <p>
-                First time here? Probably, you should give a look at the <A href="/faq">FAQ</A>.
+                First time here? Probably, you should give a look at the <A href="/readme">Readme</A>.
               </p>
               <p>You need at least one attempt to display the comparison table.</p>
             </Match>
