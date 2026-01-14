@@ -19,6 +19,6 @@ function useBroadcastChannelFactory<T>(name: string) {
   };
 }
 
-type BroadcastChannel<T> = Brand<ReturnType<typeof useBroadcastChannelFactory<T>>>;
+export type BroadcastChannel<T> = Brand<ReturnType<typeof useBroadcastChannelFactory<T>>>;
 type BroadcastChannelFactory = <T>(...args: Parameters<typeof useBroadcastChannelFactory<T>>) => BroadcastChannel<T>;
 export const useBroadcastChannel: BroadcastChannelFactory = useBroadcastChannelFactory;

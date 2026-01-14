@@ -1,12 +1,15 @@
 import type { Component } from "solid-js";
+import { OBS_POPUP_TARGET } from "../constants";
 import { SymbolButton } from "../../ui/components/symbol-button";
-import { useObs } from "../compositions/use-obs";
 
 export const ObsButton: Component = () => {
-  const obs = useObs();
+  const openPopup = (): void => {
+    const url = new URL(`${import.meta.env.BASE_URL}obs`, location.href);
+    window.open(url, OBS_POPUP_TARGET, "popup");
+  };
 
   return (
-    <SymbolButton symbol="🢅" onClick={obs.openPopup}>
+    <SymbolButton symbol="🢅" onClick={openPopup}>
       OBS
     </SymbolButton>
   );

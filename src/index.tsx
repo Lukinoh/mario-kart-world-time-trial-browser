@@ -1,6 +1,8 @@
 /* @refresh reload */
 import "solid-devtools";
-import { OBS_POPUP_TARGET } from "./domains/obs/constants";
+import { Route, Router } from "@solidjs/router";
+import { AppRoutes } from "./app-routes";
+import { PopupObs } from "./domains/obs/popup-obs";
 import { assert } from "./domains/_core/utils/assert";
 import { injectFavicon } from "./domains/_core/utils/favicon";
 import { injectGlobalStyles } from "./domains/ui/global-styles";
@@ -16,15 +18,18 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 }
 
 injectFavicon(logo);
+injectGlobalStyles();
 
 assert(root, "Root element not found.");
 
-if (window.name === OBS_POPUP_TARGET) {
-  injectGlobalStyles("popup-obs");
-  const { PopupObs } = await import("./domains/obs/popup-obs");
-  render(() => <PopupObs />, root);
-} else {
-  injectGlobalStyles("app");
-  const { App } = await import("./app");
-  render(() => <App />, root);
-}
+render(
+  () => (
+    <Router>
+      <Route path="obs" component={PopupObs}></Route>
+      <Route path="*">
+        <AppRoutes />
+      </Route>
+    </Router>
+  ),
+  root,
+);

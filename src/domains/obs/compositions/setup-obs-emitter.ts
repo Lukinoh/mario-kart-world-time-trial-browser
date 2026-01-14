@@ -1,26 +1,12 @@
+import { type ObsResponse, useObsBroadcastChannel } from "./use-obs-broadcast-channel";
 import { createEffect, onMount } from "solid-js";
-import type { Attempt } from "../../attempt/schemas/attempt";
-import { OBS_POPUP_TARGET } from "../constants";
-import type { ReferenceRecords } from "../../attempt/types/reference-records";
-import { useBroadcastChannel } from "../../_core/compositions/use-broadcast-channel";
+import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { usePersonalRepository } from "../../database/compositions/use-personal-repository";
 import { useRepositories } from "../../database/compositions/use-repositories";
 
-interface ObsRequest {
-  type: "request";
-}
-
-export interface ObsResponse {
-  type: "response";
-  data?: {
-    last: Attempt;
-    references: ReferenceRecords;
-  };
-}
-
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
-export function useObs() {
-  const bc = useBroadcastChannel<ObsRequest | ObsResponse>("obs-channel");
+function setupObsEmitterSingleton() {
+  const bc = useObsBroadcastChannel();
   const personal = usePersonalRepository();
   const repositories = useRepositories();
 
@@ -51,21 +37,6 @@ export function useObs() {
 
     bc.sendMessage(response);
   };
-
-  const sendRequest = (): void => {
-    bc.sendMessage({
-      type: "request",
-    });
-  };
-
-  const openPopup = (): void => {
-    const url = new URL(import.meta.env.BASE_URL, location.href);
-    window.open(url, OBS_POPUP_TARGET, "popup");
-  };
-
-  return {
-    sendRequest,
-    onMessage: bc.onMessage,
-    openPopup,
-  };
 }
+
+export const setupObsEmitter = createSingletonRoot(setupObsEmitterSingleton);

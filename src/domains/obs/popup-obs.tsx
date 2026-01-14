@@ -1,7 +1,7 @@
-import { type Component, Match, Switch, createMemo, createSignal, onMount } from "solid-js";
-import { type ObsResponse, useObs } from "./compositions/use-obs";
+import { type Component, Match, Switch, createEffect, createMemo, createSignal, on, onMount } from "solid-js";
 import { AttemptsComparisonTable } from "../attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { css } from "@emotion/css";
+import { useObsListener } from "./compositions/use-obs-listener";
 
 const sOuterTable = css({
   position: "absolute",
@@ -22,15 +22,8 @@ export const PopupObs: Component = () => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
   let outerTableDiv!: HTMLDivElement;
 
-  const obs = useObs();
-  const [data, setData] = createSignal<ObsResponse["data"]>();
+  const { data } = useObsListener();
   const [scale, setScale] = createSignal(1);
-
-  const calculateScale = (): void => {
-    const scale = outerTableDiv.offsetWidth / tableDiv.offsetWidth;
-    setScale(scale);
-  };
-
   const sScale = createMemo(() =>
     css({
       transform: `scale(${scale()}, ${scale()})`,
@@ -40,22 +33,25 @@ export const PopupObs: Component = () => {
 
   onMount(() => {
     document.title = `${document.title} OBS`;
-    obs.onMessage((message) => {
-      if (message.type === "response") {
-        setData(message.data);
-        calculateScale();
-      }
-    });
-
     window.addEventListener("resize", () => {
       calculateScale();
     });
-
-    obs.sendRequest();
   });
 
+  createEffect(
+    on(data, () => {
+      calculateScale();
+    }),
+  );
+
+  const calculateScale = (): void => {
+    // +3 is for preventing bottom scrollbar due to precision.
+    const scale = outerTableDiv.offsetWidth / (tableDiv.offsetWidth + 3);
+    setScale(scale);
+  };
+
   return (
-    <div ref={outerTableDiv} class={sOuterTable}>
+    <div ref={outerTableDiv} class={`popup-obs ${sOuterTable}`}>
       <div ref={tableDiv} class={css(sTable, sScale())}>
         <Switch>
           <Match when={data()}>

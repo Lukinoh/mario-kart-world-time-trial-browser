@@ -1,9 +1,7 @@
 import "simpledotcss/simple.min.css";
 import { injectGlobal } from "@emotion/css";
 
-export const injectGlobalStyles = (mode: "app" | "popup-obs"): void => {
-  const scrollbarGutter = mode === "app" ? "stable" : undefined;
-
+export const injectGlobalStyles = (): void => {
   injectGlobal({
     ":root": {
       // For dark theme of simplecss
@@ -37,7 +35,7 @@ export const injectGlobalStyles = (mode: "app" | "popup-obs"): void => {
       "--mk-delta-stroke-width": "0.03rem",
     },
     html: {
-      scrollbarGutter: scrollbarGutter,
+      scrollbarGutter: "stable",
     },
     body: {
       gridTemplateColumns: "1fr minmax(0, 80rem) 1fr",
