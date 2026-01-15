@@ -1,5 +1,5 @@
 import { type Component, Match, Switch, createEffect, createMemo, createSignal, on, onMount } from "solid-js";
-import { AttemptsComparisonTable } from "../attempt/components/attempts-comparison-table/attempts-comparison-table";
+import { VerticalAttemptsComparisonTable } from "../attempt/components/attempts-comparison-table/vertical-attempts-comparison-table";
 import { css } from "@emotion/css";
 import { useObsListener } from "./compositions/use-obs-listener";
 
@@ -55,7 +55,9 @@ export const PopupObs: Component = () => {
       <div ref={tableDiv} class={css(sTable, sScale())}>
         <Switch>
           <Match when={data()}>
-            {(result) => <AttemptsComparisonTable last={result().last} referenceRecords={result().references} />}
+            {(result) => (
+              <VerticalAttemptsComparisonTable last={result().last} referenceRecords={result().references} />
+            )}
           </Match>
           <Match when={true}>
             <p>No attempts yet.</p>
