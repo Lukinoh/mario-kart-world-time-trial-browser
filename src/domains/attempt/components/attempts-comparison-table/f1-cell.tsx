@@ -34,7 +34,7 @@ export const F1Cell: Component<F1CellProps> = (props) => {
         };
       }
 
-      if (isDefined(pbTime) && attemptTime > pbTime) {
+      if (isDefined(pbTime) && attemptTime >= pbTime) {
         return {
           color: "var(--mk-f1-yellow)",
         };
