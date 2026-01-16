@@ -1,4 +1,5 @@
 import type { Brand } from "../../_core/utils/brand";
+import type { SettingsEntity } from "../schemas/settings-entity";
 import { createMemo } from "solid-js";
 import { createSingletonRoot } from "../../_core/utils/solid-js";
 import { useDatabases } from "./use-databases";
@@ -29,6 +30,11 @@ function useSettingsRepositorySingleton() {
     setStore("playbackRate", rate);
   };
 
+  const obsPopup = createMemo(() => store.obs.popup);
+  const setObsPopup = (obsPopup: SettingsEntity["obs"]["popup"]): void => {
+    setStore("obs", "popup", obsPopup);
+  };
+
   return {
     player,
     setPlayer,
@@ -38,6 +44,8 @@ function useSettingsRepositorySingleton() {
     setIsDebug,
     playbackRate,
     setPlaybackRate,
+    obsPopup,
+    setObsPopup,
   };
 }
 

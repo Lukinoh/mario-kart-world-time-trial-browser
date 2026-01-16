@@ -35,8 +35,8 @@ function useTimeTrialSingleton() {
   });
 
   onMount(() => {
-    vc.addEventListener("loadstart", (eve) => {
-      const target = targetFromEvent(eve, HTMLVideoElement);
+    vc.addEventListener("loadstart", (event) => {
+      const target = targetFromEvent(event, HTMLVideoElement);
       if (target.networkState !== HTMLMediaElement.NETWORK_NO_SOURCE) {
         setState("PAUSED");
       }

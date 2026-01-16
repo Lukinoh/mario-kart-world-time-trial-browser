@@ -17,6 +17,12 @@ function useDatabasesSingleton() {
     isVideoVisible: true,
     isDebug: false,
     playbackRate: 1,
+    obs: {
+      popup: {
+        width: 440,
+        height: 840,
+      },
+    },
   });
   const personal = useIndexedStore("personal-database", PersonalEntitySchema, {
     version: 1,
