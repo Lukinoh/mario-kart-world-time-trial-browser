@@ -20,15 +20,23 @@ npm run serve
 ```bash
 npm run build
 npm run preview
+# Open http://localhost:4173
+# Or execute the index.html
+```
+
+## Test
+
+```bash
+npm run test
 ```
 
 ## Information
 
-What you start the development server, the images stored in `./src/assets/recognitions/raw/` are normalised.
+What you start the development server, the images stored in `./src/assets/recognitions/raw/` are normalised in the folder `./src/assets/recognitions/normalised/`.
 A normalised image is an image where the valuable information was extracted and a filter (i.e. black and white, invert, etc.) was applied.
-If you make a change in this folder, you have to restart the server.
+If you make a change in the `raw` folder, you have to restart the server.
 
-Moreover, after the tests, the normalised images are deleted. Hence, if you have a `npm run dev` running, you have to restart it manually.
+Moreover, after running the tests, the normalised images are deleted. Hence, if you have a `npm run dev` running, you have to restart it manually.
 
 ## Testing features
 
