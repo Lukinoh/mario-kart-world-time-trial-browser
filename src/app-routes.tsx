@@ -14,10 +14,17 @@ import { setupObsEmitter } from "./domains/obs/compositions/setup-obs-emitter";
 
 const sNav = css({
   display: "flex",
+  whiteSpace: "nowrap",
 });
 
-const sReadme = css({
+const sVersion = css({
+  alignSelf: "center",
+  marginBottom: "1rem",
   marginLeft: "auto",
+  // Align with simple.css
+  "@media only screen and (max-width: 720px)": {
+    lineHeight: 1,
+  },
 });
 
 export const AppRoutes: Component = () => {
@@ -36,9 +43,9 @@ export const AppRoutes: Component = () => {
             <A href="/history">History</A>
             <A href="/friends">Friends</A>
             <A href="/world-records">World Records</A>
-            <A href="/readme" class={sReadme}>
-              Readme 🥺
-            </A>
+
+            <span class={sVersion}>{__APP_VERSION__}</span>
+            <A href="/readme">Readme 🥺</A>
           </nav>
         </header>
         <main>

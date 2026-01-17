@@ -11,6 +11,7 @@ import {
 import { PathHelper } from "./vite-config/path-helpers";
 import { defineConfig } from "vite";
 import devtools from "solid-devtools/vite";
+import pkg from "./package.json";
 import solidPlugin from "vite-plugin-solid";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
@@ -22,6 +23,9 @@ export default defineConfig({
       overrideConfig: {
         // Offline base is handled directly in the app, this base is for the serve
         base: "/",
+        define: {
+          __APP_VERSION__: JSON.stringify(`v${pkg.version}`),
+        },
       },
     }),
     normaliseImages({

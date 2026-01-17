@@ -21,7 +21,8 @@
     "window": true,
     "CustomEvent": true,
     "DOMException": true,
-    "HTMLMediaElement": true
+    "HTMLMediaElement": true,
+    "__APP_VERSION__": true
   },
   "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
   "categories": {
