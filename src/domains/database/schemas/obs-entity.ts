@@ -4,6 +4,8 @@ export const ObsEntitySchema = v.object({
   popup: v.object({
     width: v.number(),
     height: v.number(),
+    top: v.number(),
+    left: v.number(),
   }),
 });
 

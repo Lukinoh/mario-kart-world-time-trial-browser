@@ -21,6 +21,8 @@ function useDatabasesSingleton() {
       popup: {
         width: 440,
         height: 840,
+        top: 100,
+        left: 100,
       },
     },
   });

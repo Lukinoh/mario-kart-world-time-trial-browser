@@ -1,61 +1,60 @@
 import type { Component } from "solid-js";
 import { OBS_POPUP_TARGET } from "../constants";
 import { SymbolButton } from "../../ui/components/symbol-button";
-import { useDevicePixelRatio } from "../compositions/use-device-pixel-ratio";
+import { useObsPopupProperties } from "../compositions/use-obs-popup-properties";
 import { useRouter } from "../../_core/compositions/use-router";
-import { useSettingsRepository } from "../../database/compositions/use-settings-repository";
 
 export const ObsButton: Component = () => {
-  const settings = useSettingsRepository();
   const { getUrl } = useRouter();
-  const { getRatio, defineRatioCalculation } = useDevicePixelRatio();
+  const { defineRatioCalculation, getResizeToSize, getMoveToPosition, getFeatures, setProperties } =
+    useObsPopupProperties();
 
   // oxlint-disable-next-line no-null
-  let win: WindowProxy | null = null;
+  let popup: WindowProxy | null = null;
 
   const openPopup = (): void => {
-    const features = [
-      "popup",
-      // Technically, these features are not needed, it is just to reduce the effect of the resizeTo called later
-      `left=0`,
-      `top=0`,
-      `width=${settings.obsPopup().width}`,
-      `height=${settings.obsPopup().height}`,
-    ];
-    // Needed to avoid some strange behaviour when you click on the OBS button while the OBS Popup is already open.
-    // Concretely, the "new" window would not have the event listener attached to its window.
-    // We need to close the window if it is already open, otherwise, the next window.open won't have any event listener working.
-    // 1° Open OBS popup => Change size event is triggered
-    // 2° Open OBS popup => Change size event is not triggered
-    win?.close();
+    // If you click several times on the ObsButton, the opened window would not have the event listeners attached if we did not
+    // close the precedent one first.
+    popup?.close();
 
-    win = window.open(getUrl("obs"), OBS_POPUP_TARGET, features.join(","));
+    // Technically, the features are not needed (except popup).
+    // They are just there to reduce visuals when calling resizeTo and moveTo
+    popup = window.open(getUrl("obs"), OBS_POPUP_TARGET, getFeatures());
 
-    // Lots of hacks to handle the zooming, because on Firefox and Chrome you have access to the devicePixelRatio, but not on Safari.
-    // Then, the outerHeight and outerWidth is not calculated the same for Firefox, and Chrome (and by extension Safari).
-    // For Firefox, we have to apply the devicePixelRatio, whereas for Chrome no.
-    // And for Safari, we also have to apply a ratio, but it is calculated using the function getSafariDevicePixelRatio
-    // because the devicePixelRatio always returns 1 in any situation.
+    // When the application is running in offline mode (aka protocol file://):
+    // Chrome cannot call popup methods (resizeTo, etc.), because of an origin mismatch error.
+    // Safari cannot call popup methods (resizeTo, etc.), because of an origin mismatch error.
+    // Firefox can call the methods.
+    // A workaround could be possible if it was the popup itself to resize/moveTo instead of controlling it from here.
 
-    win?.resizeTo(settings.obsPopup().width, settings.obsPopup().height);
+    // From here, we have strong behaviour differences between Safari, Firefox, and Chrome related to ZOOM.
+    // - devicePixelRatio is always 1 on Safari, so there is a custom function to calculate it (works only on Safari)
+    // - outerHeight and outerWidth in Firefox are affected by zoom, but not on Chrome and Safari
+    // - resizeTo uses "real" pixels in Firefox and Chrome, but Safari needs to take into account the devicePixelRatio
+    // - moveTo uses a different ratio depending on the browser, as all behave differently
+    // - setProperties uses the same ratio as moveTo
 
-    // Once, the popup is open, we can determine if we have to apply some ratio to the outerHeight/outerWidth, before
-    // saving the value.
-    // Firefox, Chrome, and Safari behave differently.
-    defineRatioCalculation(win, settings.obsPopup());
+    // Resize the popup to the expected size
+    popup?.resizeTo(...getResizeToSize());
 
-    // The call window.open is async, so on Firefox, if we call the addEventListener too early to attach the "resize", it would not work.
-    // So, we have to wait on the "load" event. On Chrome, it is not necessary, and on Safari ¯\_(ツ)_/¯
-    win?.addEventListener("load", () => {
-      win?.addEventListener("resize", () => {
-        if (win) {
-          const ratio = getRatio();
-          settings.setObsPopup({
-            height: win.outerHeight * ratio,
-            width: win.outerWidth * ratio,
-          });
+    // Determine the ratio for moveTo and setProperties.
+    defineRatioCalculation(popup);
+
+    // The call window.open is async, so in Firefox, if we attach the "resize" event listener too early, it would not work.
+    // So, we have to wait for the "DOMContentLoaded" event. Chrome and Safari does not have this limitation.
+    popup?.addEventListener("DOMContentLoaded", () => {
+      // The moveTo calls is inside the DOMContentLoaded, because in Firefox, if we call the moveTo too early
+      // the popup positioning is randomly incorrect.
+      popup?.moveTo(...getMoveToPosition());
+
+      const updateObsPopup = (): void => {
+        if (popup) {
+          setProperties(popup);
         }
-      });
+      };
+
+      popup?.addEventListener("resize", updateObsPopup);
+      popup?.addEventListener("beforeunload", updateObsPopup);
     });
   };
 
