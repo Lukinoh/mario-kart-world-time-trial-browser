@@ -56,7 +56,11 @@ export const PopupObs: Component = () => {
         <Switch>
           <Match when={data()}>
             {(result) => (
-              <VerticalAttemptsComparisonTable last={result().last} referenceRecords={result().references} />
+              <VerticalAttemptsComparisonTable
+                last={result().last}
+                referenceRecords={result().references}
+                sumTimeRecords={result().sumTimeRecords}
+              />
             )}
           </Match>
           <Match when={true}>

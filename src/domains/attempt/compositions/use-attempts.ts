@@ -14,7 +14,9 @@ import {
   pipe,
   reduce,
   sortBy,
+  sum,
   unique,
+  uniqueBy,
   uniqueWith,
   values,
 } from "remeda";
@@ -22,6 +24,8 @@ import type { AttemptEntity } from "../../database/schemas/attempt-entity";
 import type { AttemptsEntity } from "../../database/schemas/attempts-entity";
 import type { Brand } from "../../_core/utils/brand";
 import type { Store } from "solid-js/store";
+import type { SumTimeRecords } from "../types/sum-time-records";
+import { Time } from "../utils/time";
 import { createMemo } from "solid-js";
 
 function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
@@ -127,6 +131,20 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
       sortBy((attempt) => -attempt.timestamp),
     );
 
+  const getSumTimeRecords = (): SumTimeRecords => {
+    return pipe(
+      getTimeRecords(),
+      uniqueBy((attempt) => attempt.raw.track),
+      map((record) => Time.parse(record.time ?? "0:00.000") - Time.parse("0:00.000")),
+      (times) => {
+        return {
+          time: Time.formatH(Time.parse("0:00.000") + sum(times)),
+          trackCount: times.length,
+        };
+      },
+    );
+  };
+
   const merge = (...attempts: Array<Array<AttemptEntity>>): Array<AttemptEntity> => {
     return pipe(
       [store.attempts, ...attempts],
@@ -144,6 +162,7 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
     getTimeRecordsByTrack,
     getSplitRecordByTrack,
     getFlattenRecords,
+    getSumTimeRecords,
     merge,
   };
 }

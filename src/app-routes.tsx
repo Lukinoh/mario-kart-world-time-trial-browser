@@ -55,6 +55,7 @@ export const AppRoutes: Component = () => {
 
   return (
     <Route component={AppWrapper}>
+      {/* The ci methods breaks hot reload */}
       <Route path="live" component={ci(Live, { setTitle })} />
       <Route path="history" component={ci(History, { setTitle })} />
       <Route path="friends" component={ci(Friends, { setTitle })} />

@@ -71,7 +71,7 @@
     "import/prefer-default-export": "off",
     "import/unambiguous": "off",
     "import/exports-last": "off",
-    "import/max-dependencies": ["error", { "max": 24 }],
+    "import/max-dependencies": ["error", { "max": 28 }],
 
     // Jest is not used in this repository
     "jest/require-hook": "off",

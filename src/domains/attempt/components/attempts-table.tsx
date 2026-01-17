@@ -1,6 +1,7 @@
 import {
   type Component,
   For,
+  type JSX,
   Match,
   Show,
   Switch,
@@ -9,14 +10,21 @@ import {
   createSelector,
   createSignal,
 } from "solid-js";
-import { isDefined, unique } from "remeda";
+import { isDefined, map, pipe, unique } from "remeda";
+import { ALL_TRACKS } from "../constants";
 import type { Attempt } from "../schemas/attempt";
 import { Cell } from "../../ui/components/grid/cell";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../ui/components/grid/horizontal-divider";
 import { VerticalDivider } from "../../ui/components/grid/vertical-divider";
 import { cellCss } from "../../ui/css/cell-css";
+import { css } from "@emotion/css";
 import { targetFromEvent } from "../../_core/utils/event";
+
+const sHeader = css({
+  display: "flex",
+  gap: "var(--mk-spacing-large)",
+});
 
 const sFirstColumn = cellCss({
   extraPadding: "left",
@@ -46,6 +54,7 @@ interface AttemptsTableProps {
   track?: string;
   limit?: number;
   onTrackSelected?: (track: string) => void;
+  headerSlot?: JSX.Element;
 }
 
 export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
@@ -53,7 +62,6 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
   const GRID_SPLITS_COLUMNS = 7;
   const GRID_RESULT_COLUMNS = 3;
   const GRID_SEPARATION_THICKNESS = 2;
-  const ALL_TRACKS = "All tracks";
 
   const showTime = createMemo(() => props.showTime ?? true);
   const showTrack = createMemo(() => props.showTrack ?? true);
@@ -75,7 +83,12 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
 
   const tracks = createMemo(() => [
     ALL_TRACKS,
-    ...unique(props.attempts.map((attempt) => attempt.raw.track)).toSorted(),
+    ...pipe(
+      props.attempts,
+      map((attempt) => attempt.raw.track),
+      unique(),
+      (tracks) => tracks.toSorted(),
+    ),
   ]);
 
   const attempts = createMemo(() =>
@@ -84,22 +97,31 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
       .slice(0, props.limit),
   );
 
+  const displayTrackCount = (track: string): string | undefined => {
+    if (track === ALL_TRACKS) {
+      return `(${tracks().length - 1})`;
+    }
+  };
+
   return (
     <>
-      <Show when={showFilters()}>
-        <>
-          <label for="track-filter">Filter by</label>
-          <select id="track-filter" onChange={onTrackSelected}>
-            <For each={tracks()}>
-              {(track) => (
-                <option selected={isSelectedTrack(track)} value={track}>
-                  {track}
-                </option>
-              )}
-            </For>
-          </select>
-        </>
-      </Show>
+      <div class={sHeader}>
+        <Show when={showFilters()}>
+          <div>
+            <label for="track-filter">Filter by</label>
+            <select id="track-filter" onChange={onTrackSelected}>
+              <For each={tracks()}>
+                {(track) => (
+                  <option selected={isSelectedTrack(track)} value={track}>
+                    {track} {displayTrackCount(track)}
+                  </option>
+                )}
+              </For>
+            </select>
+          </div>
+        </Show>
+        <Show when={props.headerSlot}>{(headerSlot) => headerSlot()}</Show>
+      </div>
       <Switch>
         <Match when={attempts().length}>
           <GridColumn template={`repeat(${gridColumns()}, max-content)`} xAlign="center">

@@ -10,7 +10,7 @@ const sGrid = (params: GridColumnProps): string =>
     justifyItems: params.xAlign,
     alignItems: params.yAlign,
     "> *": {
-      padding: "var(--mk-spacing-medium)",
+      padding: `var(--mk-spacing-${params.spacing ?? "medium"})`,
     },
   });
 
@@ -18,6 +18,7 @@ interface GridColumnProps extends Classable {
   template: CSSObject["gridTemplateColumns"];
   xAlign?: CSSObject["justifyItems"];
   yAlign?: CSSObject["alignItems"];
+  spacing?: "small" | "medium" | "large";
   children: JSX.Element;
 }
 

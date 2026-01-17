@@ -207,6 +207,38 @@ describe("getFlattenRecords", () => {
   });
 });
 
+describe("getSumTimeRecords", () => {
+  test("ignores tracks that does not have a final time", () => {
+    const { createAttempt, createSplit } = useBuildAttempt(2);
+
+    const { getSumTimeRecords } = createRoot(() =>
+      useAttempts({ version: 1, attempts: [createAttempt({ splits: createSplit("1:10.000") })] }),
+    );
+
+    const sumTimeRecords = getSumTimeRecords();
+    expect(sumTimeRecords.time).toBe("00:00.000");
+    expect(sumTimeRecords.trackCount).toBe(0);
+  });
+
+  test("takes only one time by track", () => {
+    const { createAttempt, createSplit } = useBuildAttempt(1);
+
+    const { getSumTimeRecords } = createRoot(() =>
+      useAttempts({
+        version: 1,
+        attempts: [
+          createAttempt({ splits: createSplit("1:10.000") }),
+          createAttempt({ splits: createSplit("1:10.000") }),
+        ],
+      }),
+    );
+
+    const sumTimeRecords = getSumTimeRecords();
+    expect(sumTimeRecords.time).toBe("01:10.000");
+    expect(sumTimeRecords.trackCount).toBe(1);
+  });
+});
+
 describe("merge", () => {
   test("returns an empty array if there is no attempts and merge nothing", () => {
     const { merge } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
