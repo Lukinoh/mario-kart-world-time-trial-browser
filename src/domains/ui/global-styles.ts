@@ -43,7 +43,7 @@ export const injectGlobalStyles = (): void => {
     },
     video: {
       // Otherwise, the text "Capture Video" is slightly visible.
-      opacity: 1,
+      opacity: "1 !important",
     },
     canvas: {
       borderRadius: "var(--standard-border-radius)",
