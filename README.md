@@ -13,7 +13,7 @@ npm run serve
 # Open http://localhost:4400
 ```
 
-- Commit must start with a lowercase case infinitive verb.
+Commits must follow the [Git Convential Commits](https://github.com/qoomon/git-conventional-commits).
 
 ## Build
 
@@ -43,7 +43,7 @@ Moreover, after running the tests, the normalised images are deleted. Hence, if 
 When running the application in development mode, there is a hidden feature.
 If you set the name of the player to `DEBUG`, it loads a demo video.
 
-Since the repository size would explode if too many videos are added, there is a trick to add more videos locally.
+Since the repository size would explode if too many videos were added, there is a trick to add more videos locally.
 You can add videos in the folder `./src/assets/demo` with the following prefix `[0-9][0-9]_`.
 Then, you can load them by naming the player `DEBUG_[0-9][0-9]`.
 
@@ -53,7 +53,6 @@ If two files share the same prefix, only the first video found is loaded.
 
 ## Ideas
 
-- The application is performant enough, but we could improve image detection with more optimized algorithms.
 - We may add metadata for the tracks with the number of laps and the name included instead of inferring them from the image as it is done currently.
 
 ## Notes
@@ -63,6 +62,8 @@ For instance, when you get a coin, or pass a lap, or the shrooms from time to ti
 But in the end, it was not really useful, so I removed this feature, and the application only displays meaningful data.
 
 However, the code sometimes contains some "bump" screenshots, because I still had to handle such cases.
+
+The project also served as a way for me to experiment with different approaches, which is why the composition functions may look convoluted.
 
 ## Credits
 
