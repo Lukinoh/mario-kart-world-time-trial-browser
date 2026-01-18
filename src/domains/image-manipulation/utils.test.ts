@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { getFilename } from "./utils";
 
-describe("getFilename", () => {
+describe(getFilename, () => {
   test.for([
     {
       input: "../path/to/my/file.png",

@@ -18,6 +18,6 @@ test.for([
       track: "Dino Dino Jungle",
     },
   },
-])("Validate $source", async (params) => {
+])("validate $source", async (params) => {
   await expectedRecognition(params, true);
 });

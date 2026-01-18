@@ -77,8 +77,11 @@
     // Jest is not used in this repository
     "jest/require-hook": "off",
     "jest/max-expects": "off",
+    "jest/no-done-callback": "off",
     "jest/no-standalone-expect": "off",
+    "jest/require-top-level-describe": "off",
     "jest/require-to-throw-message": "off",
+    "jest/valid-title": "off",
 
     "oxc/no-async-await": "off",
     "oxc/no-map-spread": "off",

@@ -8,6 +8,7 @@ const parse = (doc: Document): AttemptsEntity => {
     // Remove Header and Total line
     .slice(1, -1)
     .map((line, index) => {
+      // oxlint-disable-next-line complexity
       // Handle cases where you have two or more WRs with the same time (we take the track name of the previous line).
       if (line.children.length === 8) {
         const td = document.createElement("td");

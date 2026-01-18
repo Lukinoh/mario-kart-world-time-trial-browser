@@ -132,6 +132,6 @@ test.for([
       track: "Mario Circuit",
     },
   },
-])("Validate $source", async (params) => {
+])("validate $source", async (params) => {
   await expectedRecognition(params, true);
 });

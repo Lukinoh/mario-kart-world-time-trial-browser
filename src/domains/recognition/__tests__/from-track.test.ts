@@ -482,6 +482,6 @@ test.for([
       track: "Whistlestop Summit",
     },
   },
-])("Validate $source", async (params) => {
+])("validate $source", async (params) => {
   await expectedRecognition(params, false);
 });

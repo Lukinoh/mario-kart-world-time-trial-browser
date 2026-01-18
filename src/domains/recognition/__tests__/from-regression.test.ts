@@ -43,7 +43,7 @@ test.for([
       track: "Wario Shipyard",
     },
   },
-])("Validate $source (warnOnTrack = true)", async (params) => {
+])("validate $source (warnOnTrack = true)", async (params) => {
   await expectedRecognition(params, true);
 });
 
@@ -64,6 +64,6 @@ test.for([
       track: "Crown City",
     },
   },
-])("Validate $source (warnOnTrack = false)", async (params) => {
+])("validate $source (warnOnTrack = false)", async (params) => {
   await expectedRecognition(params, false);
 });
