@@ -16,8 +16,10 @@ export const FaqSetup: Component = () => {
         <summary>Why do I have a popup asking for persistent data storage permission?</summary>
         <p>
           All the data is stored inside the{" "}
-          <A href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</A>, and in some browsers
-          you must allow the permission to use it.
+          <A target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">
+            IndexedDB
+          </A>
+          , and in some browsers you must allow the permission to use it.
         </p>
       </details>
 

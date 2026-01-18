@@ -10,8 +10,14 @@ export const FaqMiscellaneous: Component = () => {
       <details>
         <summary>What is CodeTabs?</summary>
         <p>
-          <A href="https://codetabs.com/">CodeTabs</A> provides a cors proxy. It allows you to retrieve data from{" "}
-          <A href={WORLD_RECORD_URL}>mkwrs.com</A>. Without, it would not be possible due to technical limitations.
+          <A target="_blank" href="https://codetabs.com/">
+            CodeTabs
+          </A>{" "}
+          provides a cors proxy. It allows you to retrieve data from{" "}
+          <A target="_blank" href={WORLD_RECORD_URL}>
+            mkwrs.com
+          </A>
+          . Without, it would not be possible due to technical limitations.
         </p>
       </details>
 

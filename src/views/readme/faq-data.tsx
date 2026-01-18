@@ -14,8 +14,10 @@ export const FaqData: Component = () => {
         <summary>How data is stored?</summary>
         <p>
           The data is exclusively stored in your browser using{" "}
-          <A href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</A>. In some browsers, you
-          may be asked to allow persistent storage.
+          <A target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">
+            IndexedDB
+          </A>
+          . In some browsers, you may be asked to allow persistent storage.
         </p>
       </details>
       <details>

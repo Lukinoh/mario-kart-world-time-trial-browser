@@ -42,8 +42,10 @@ export const Readme: Component = () => {
 
       <p>
         If you find a bug or have a suggestion, you can open an issue on{" "}
-        <A href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/issues/new/choose">GitHub</A>.
-        Currently, I do not know how much effort I am going to put on adding features; however, I will look into bugs.
+        <A target="_blank" href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/issues/new/choose">
+          GitHub
+        </A>
+        . Currently, I do not know how much effort I am going to put on adding features; however, I will look into bugs.
       </p>
 
       <p>

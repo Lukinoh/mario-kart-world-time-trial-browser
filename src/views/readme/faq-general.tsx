@@ -107,7 +107,11 @@ export const FaqGeneral: Component = () => {
         <p>
           Alternatively, you could modify the database manually by exporting your history and adding the necessary
           values manually. Do some time trial to see the expected data structure. The names of the tracks correspond
-          exactly to the one used by <A href={WORLD_RECORD_URL}>mkwrs.com</A>.
+          exactly to the one used by{" "}
+          <A target="_blank" href={WORLD_RECORD_URL}>
+            mkwrs.com
+          </A>
+          .
         </p>
         <p>
           This is more technical, and implies the fact that you already know your splits (time, shrooms, and coins).

@@ -14,8 +14,10 @@ export const FaqObsStudio: Component = () => {
         <p>
           Most probably, you cannot use both applications at the same time, because the card capture can only be
           accessed by one application. The workaround is to configure an{" "}
-          <A href="https://obsproject.com/kb/virtual-camera-guide">OBS Virtual Camera</A> that mirrors your capture
-          card. Then you use the OBS Virtual Camera as a source in your browser.
+          <A target="_blank" href="https://obsproject.com/kb/virtual-camera-guide">
+            OBS Virtual Camera
+          </A>{" "}
+          that mirrors your capture card. Then you use the OBS Virtual Camera as a source in your browser.
         </p>
       </details>
 
