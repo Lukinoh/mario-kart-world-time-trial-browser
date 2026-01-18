@@ -1,3 +1,12 @@
+## **1.0.1**&emsp;<sub><sup>2026-01-19 (131071ed7bbe367de5e34236d6d39e991a3c7f39...6fffade8b14e01aadc518c13e33e8ce5ceb8fbc4)</sup></sub>
+
+### Bug Fixes
+
+- replace history by hash router to fix 404 on github pages (b447b42c47c9ef800d1bcf9f51265ff5127eb635)
+- open all external urls in a new tab (66f32a8d06b782e561aee63ce241494a8210665b)
+
+<br>
+
 ## **1.0.0**&emsp;<sub><sup>2026-01-18 (395756488ba7b58d52afafe6c42b293d0d17fcfa...417a4d544b7f8186b7c9c9c0fd9270e58cdd4b37)</sup></sub>
 
 ### Features
