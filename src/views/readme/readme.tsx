@@ -78,9 +78,9 @@ export const Readme: Component = () => {
         </li>
       </ul>
 
-      <A class="button" href="/index.html" download={"mkwttb.html"}>
+      <a class="button" href="index.html" download="mkwttb.html">
         Download
-      </A>
+      </a>
 
       <h2>FAQ</h2>
 
