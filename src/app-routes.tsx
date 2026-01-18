@@ -4,7 +4,7 @@ import { AloneDialog } from "./domains/_core/components/alone-dialog/alone-dialo
 import { Friends } from "./views/friends";
 import { History } from "./views/history";
 import { Live } from "./views/live";
-import { Readme } from "./views/readme";
+import { Readme } from "./views/readme/readme";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { WorldRecords } from "./views/world-records";
 import { ci } from "./domains/_core/utils/solid-js";

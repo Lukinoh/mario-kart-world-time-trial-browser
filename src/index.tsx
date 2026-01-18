@@ -27,7 +27,7 @@ render(() => {
   const { Router } = useRouter();
   return (
     <Router>
-      <Route path="obs" component={PopupObs}></Route>
+      <Route path="obs" component={PopupObs} />
       <Route path="*">
         <AppRoutes />
       </Route>

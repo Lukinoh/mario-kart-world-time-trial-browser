@@ -32,7 +32,7 @@ export const VerticalAttemptsComparisonTable: Component<AttemptsComparisonTableP
   return (
     <GridColumn template={`repeat(${GRID_FULL_COLUMN}, max-content)`} xAlign="center" yAlign="center">
       {/* Line */}
-      <Cell text="Last" css={sTitle}></Cell>
+      <Cell text="Last" css={sTitle} />
       <TimeWidthCell text="S" />
       <TimeWidthCell text="ΣS" />
 
@@ -80,14 +80,14 @@ export const VerticalAttemptsComparisonTable: Component<AttemptsComparisonTableP
       {/* Line */}
       <Switch>
         <Match when={props.last.splits.length === 0}>
-          <Cell text="S1" css={sTitle}></Cell>
+          <Cell text="S1" css={sTitle} />
         </Match>
         <Match when={true}>
-          <Cell text={`S${props.last.splits.length}`} css={sTitle}></Cell>
+          <Cell text={`S${props.last.splits.length}`} css={sTitle} />
         </Match>
       </Switch>
-      <Cell column={1} text="ΔS"></Cell>
-      <Cell column={1} text="ΔΣS"></Cell>
+      <Cell column={1} text="ΔS" />
+      <Cell column={1} text="ΔΣS" />
 
       <For each={entries(props.referenceRecords)}>
         {([type, references]) => (
