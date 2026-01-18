@@ -37,7 +37,7 @@ export const WorldRecords: Component = () => {
           <Cell text="Manual" css={[sCellMode]} />
           <div>
             <ValibotImportButton onClick={worldRecords.automaticProcessForMkrws}>Refresh</ValibotImportButton>
-            <div class={sNoWrap}>powered by codetabs.com</div>
+            <div class={sNoWrap}>powered by CodeTabs</div>
           </div>
           <dl>
             <dt>Step 1</dt>
