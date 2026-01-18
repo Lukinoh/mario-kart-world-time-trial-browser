@@ -1,14 +1,14 @@
 import * as v from "valibot";
 import { AttemptEntitySchema } from "../../database/schemas/attempt-entity";
+import { DateTime } from "../utils/date-time";
 import { Time } from "../utils/time";
-import { format } from "date-and-time";
 import { generateArray } from "../../_core/utils/generate-array";
 
 export const AttemptSchema = v.pipe(
   AttemptEntitySchema,
   v.transform((attemptEntity) => {
-    const date = format(new Date(attemptEntity.timestamp), "YYYY.MM.DD");
-    const datetime = format(new Date(attemptEntity.timestamp), "HH:mm:ss");
+    const date = DateTime.formatDate(attemptEntity.timestamp);
+    const datetime = DateTime.formatTime(attemptEntity.timestamp);
     const laps = generateArray(attemptEntity.laps);
     const rowSplits = attemptEntity.laps * 2 - 1;
 

@@ -2,15 +2,20 @@ import * as v from "valibot";
 import { type Attempt, AttemptSchema } from "./attempt";
 import { describe, expect, test } from "vitest";
 import type { AttemptEntity } from "../../database/schemas/attempt-entity";
+import { DateTime } from "../utils/date-time";
 import type { SplitEntity } from "../../database/schemas/split-entity";
 
 const parse = (attemptEntity: AttemptEntity): Attempt => {
   return v.parse(AttemptSchema, attemptEntity);
 };
 
+const date = new Date();
+const timestamp = date.getTime();
+const timezoneOffsetMs = date.getTimezoneOffset() * 60 * 1000;
+
 describe("attemptSchema", () => {
   const attemptEntity: AttemptEntity = {
-    timestamp: 1_767_455_414_145,
+    timestamp: timestamp,
     player: "Noname",
     track: "A track",
     laps: 3,
@@ -39,8 +44,8 @@ describe("attemptSchema", () => {
     const attempt = parse(attemptEntity);
     expect(attempt.time).toBeUndefined();
     expect(attempt.coins).toBeUndefined();
-    expect(attempt.date).toBe("2026.01.03");
-    expect(attempt.datetime).toBe("16:50:14");
+    expect(attempt.date).toBe(DateTime.formatDate(timestamp));
+    expect(attempt.datetime).toBe(DateTime.formatTime(timestamp));
     expect(attempt.laps).toStrictEqual([1, 2, 3]);
     expect(attempt.splits).toHaveLength(0);
     expect(attempt.raw).toStrictEqual(attemptEntity);
@@ -58,8 +63,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 3,
       time: "1:00.000",
       accumulatedTime: "1:00.000",
-      parsedTime: -3_540_000,
-      parsedAccumulatedTime: -3_540_000,
+      parsedTime: 60_000 + timezoneOffsetMs,
+      parsedAccumulatedTime: 60_000 + timezoneOffsetMs,
       raw: split_1,
     });
   });
@@ -76,8 +81,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 3,
       time: "1:00.000",
       accumulatedTime: "1:00.000",
-      parsedTime: -3_540_000,
-      parsedAccumulatedTime: -3_540_000,
+      parsedTime: 60_000 + timezoneOffsetMs,
+      parsedAccumulatedTime: 60_000 + timezoneOffsetMs,
       raw: split_1,
     });
     expect(attempt.splits.at(1)).toStrictEqual({
@@ -85,8 +90,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 1,
       time: "1:00.000",
       accumulatedTime: "2:00.000",
-      parsedTime: -3_540_000,
-      parsedAccumulatedTime: -7_080_000,
+      parsedTime: 60_000 + timezoneOffsetMs,
+      parsedAccumulatedTime: 2 * (60_000 + timezoneOffsetMs),
       raw: split_2,
     });
     expect(attempt.splits.at(2)).toStrictEqual({
@@ -94,8 +99,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 2,
       time: "1:00.000",
       accumulatedTime: "3:00.000",
-      parsedTime: -3_540_000,
-      parsedAccumulatedTime: -10_620_000,
+      parsedTime: 60_000 + timezoneOffsetMs,
+      parsedAccumulatedTime: 3 * (60_000 + timezoneOffsetMs),
       raw: split_3,
     });
   });

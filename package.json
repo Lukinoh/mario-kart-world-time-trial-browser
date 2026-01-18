@@ -13,7 +13,7 @@
     "fix": "pnpm run --stream /^fix:/",
     "fix:format": "prettier . --cache --write --experimental-cli",
     "fix:lint": "oxlint --type-aware --fix",
-    "prepare": "husky && playwright install",
+    "prepare": "husky && playwright install chromium",
     "serve": "vite preview",
     "test": "vitest run"
   },
@@ -49,5 +49,6 @@
     "vite-plugin-singlefile": "2.3.0",
     "vite-plugin-solid": "2.11.10",
     "vitest": "4.0.17"
-  }
+  },
+  "packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48"
 }

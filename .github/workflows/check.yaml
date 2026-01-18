@@ -1,0 +1,22 @@
+name: Check
+run-name: Check - ${{ github.ref_name }}
+
+on:
+  push:
+
+  workflow_dispatch: # Allow to manually trigger the pipeline
+
+# If several pushes are made on a single branch, only build the last one.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/actions/prepare
+
+      - uses: ./.github/actions/build
