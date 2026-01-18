@@ -11,25 +11,31 @@ import { css } from "@emotion/css";
 import { displayVisible } from "./domains/ui/css/css";
 import { setupObsEmitter } from "./domains/obs/compositions/setup-obs-emitter";
 import { usePageTitle } from "./views/compositions/use-page-title";
+import { useRepositories } from "./domains/database/compositions/use-repositories";
 
 const sNav = css({
   display: "flex",
+  alignItems: "center",
   whiteSpace: "nowrap",
+  "> *": {
+    marginBottom: 0,
+  },
 });
 
 const sVersion = css({
-  alignSelf: "center",
-  marginBottom: "1rem",
   marginLeft: "auto",
-  // Align with simple.css
-  "@media only screen and (max-width: 720px)": {
-    lineHeight: 1,
-  },
+});
+
+const sImportExport = css({
+  fontVariantEmoji: "text",
+  padding: "0.10rem 0.25rem",
+  margin: "0 0.25rem",
 });
 
 export const AppRoutes: Component = () => {
   const AppWrapper: Component<RouteSectionProps> = (props) => {
     const { title } = usePageTitle();
+    const repositories = useRepositories();
     const matches = useCurrentMatches();
     const sTimeTrialVisible = createMemo(() => displayVisible(matches().at(2)?.route.originalPath === "live"));
     setupObsEmitter();
@@ -45,6 +51,12 @@ export const AppRoutes: Component = () => {
 
             <span class={sVersion}>{__APP_VERSION__}</span>
             <A href="/readme">Readme 🥺</A>
+            <button title="Import" class={sImportExport} onClick={repositories.restore}>
+              📥
+            </button>
+            <button title="Export" class={sImportExport} onClick={repositories.download}>
+              📤
+            </button>
           </nav>
         </header>
         <main>
