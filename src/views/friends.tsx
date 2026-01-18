@@ -2,9 +2,9 @@ import { type Component, onMount } from "solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
-import type { ViewProps } from "../domains/_core/utils/solid-js";
 import { css } from "@emotion/css";
 import { useFriendsRepository } from "../domains/database/compositions/use-friends-repository";
+import { usePageTitle } from "./compositions/use-page-title";
 
 const sActions = css({
   display: "flex",
@@ -16,11 +16,12 @@ const sActions = css({
   },
 });
 
-export const Friends: Component<ViewProps> = (props) => {
+export const Friends: Component = () => {
   const friends = useFriendsRepository();
+  const { setTitle } = usePageTitle();
 
   onMount(() => {
-    props.setTitle("Friends");
+    setTitle("Friends");
   });
 
   return (

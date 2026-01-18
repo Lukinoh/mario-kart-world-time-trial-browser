@@ -6,12 +6,14 @@ import { FaqKnownDetectionProblems } from "./faq-known-detection-problems";
 import { FaqMiscellaneous } from "./faq-miscellaneous";
 import { FaqObsStudio } from "./faq-obs-studio";
 import { FaqSetup } from "./faq-setup";
-import type { ViewProps } from "../../domains/_core/utils/solid-js";
 import logo from "../../assets/icons/original-no-background-stylized.png";
+import { usePageTitle } from "../compositions/use-page-title";
 
-export const Readme: Component<ViewProps> = (props) => {
+export const Readme: Component = () => {
+  const { setTitle } = usePageTitle();
+
   onMount(() => {
-    props.setTitle("Readme 🥺");
+    setTitle("Readme 🥺");
   });
 
   return (

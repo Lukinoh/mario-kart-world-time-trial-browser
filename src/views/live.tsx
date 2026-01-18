@@ -2,18 +2,19 @@ import { type Component, Match, Switch, createMemo, onMount } from "solid-js";
 import { A } from "@solidjs/router";
 import { AttemptsComparisonTable } from "../domains/attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
-import type { ViewProps } from "../domains/_core/utils/solid-js";
+import { usePageTitle } from "./compositions/use-page-title";
 import { usePersonalRepository } from "../domains/database/compositions/use-personal-repository";
 import { useRepositories } from "../domains/database/compositions/use-repositories";
 
-export const Live: Component<ViewProps> = (props) => {
+export const Live: Component = () => {
   const repositories = useRepositories();
   const personal = usePersonalRepository();
+  const { setTitle } = usePageTitle();
 
   const selectedTrack = createMemo(() => personal.lastAttempt()?.raw.track);
 
   onMount(() => {
-    props.setTitle("Live");
+    setTitle("Live");
   });
 
   return (

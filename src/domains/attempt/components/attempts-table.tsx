@@ -68,7 +68,7 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
   const showFilters = createMemo(() => props.showFilters ?? true);
   const gridColumns = createMemo(() => GRID_COLUMNS - (Number(!showTime()) + Number(!showTrack())));
 
-  const [selectedTrack, setSelectedTrack] = createSignal<string>(ALL_TRACKS);
+  const [selectedTrack, setSelectedTrack] = createSignal(ALL_TRACKS);
   const isSelectedTrack = createSelector(selectedTrack);
 
   createEffect((): void => {

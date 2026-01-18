@@ -5,9 +5,9 @@ import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
-import type { ViewProps } from "../domains/_core/utils/solid-js";
 import { cellCss } from "../domains/ui/css/cell-css";
 import { css } from "@emotion/css";
+import { usePageTitle } from "./compositions/use-page-title";
 import { usePersonalRepository } from "../domains/database/compositions/use-personal-repository";
 
 const sActions = css({
@@ -29,12 +29,13 @@ const sTime = cellCss({
   mono: true,
 });
 
-export const History: Component<ViewProps> = (props) => {
+export const History: Component = () => {
   const personal = usePersonalRepository();
-  const [selectedTrack, setSelectedTrack] = createSignal<string>(ALL_TRACKS);
+  const [selectedTrack, setSelectedTrack] = createSignal(ALL_TRACKS);
+  const { setTitle } = usePageTitle();
 
   onMount(() => {
-    props.setTitle("History");
+    setTitle("History");
   });
 
   const Header = (): JSX.Element => {

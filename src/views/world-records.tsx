@@ -3,9 +3,9 @@ import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
-import type { ViewProps } from "../domains/_core/utils/solid-js";
 import { cellCss } from "../domains/ui/css/cell-css";
 import { css } from "@emotion/css";
+import { usePageTitle } from "./compositions/use-page-title";
 import { useWorldRecordRepository } from "../domains/database/compositions/use-world-records-repository";
 
 const sCellMode = cellCss({
@@ -20,11 +20,12 @@ const sNoWrap = css({
   whiteSpace: "nowrap",
 });
 
-export const WorldRecords: Component<ViewProps> = (props) => {
+export const WorldRecords: Component = () => {
   const worldRecords = useWorldRecordRepository();
+  const { setTitle } = usePageTitle();
 
   onMount(() => {
-    props.setTitle("Worlds Records");
+    setTitle("Worlds Records");
   });
 
   return (
