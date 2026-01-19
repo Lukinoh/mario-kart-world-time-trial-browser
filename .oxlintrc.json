@@ -55,6 +55,8 @@
     "eslint/no-ternary": "off",
     "eslint/no-empty-pattern": "off",
     "eslint/no-undefined": "off",
+    // Enforced by TypeScript
+    "eslint/no-undef": "off",
     "eslint/sort-keys": "off",
     "eslint/operator-assignment": "off",
 

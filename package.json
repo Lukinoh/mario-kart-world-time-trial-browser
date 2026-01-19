@@ -14,6 +14,7 @@
     "fix:format": "prettier . --cache --write --experimental-cli",
     "fix:lint": "oxlint --type-aware --fix",
     "prepare": "husky && playwright install chromium",
+    "release": "node release.ts",
     "release:changelog": "git-conventional-commits changelog",
     "release:version": "git-conventional-commits version",
     "serve": "vite preview",
