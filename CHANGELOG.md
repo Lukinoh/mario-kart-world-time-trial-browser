@@ -1,3 +1,11 @@
+## **1.0.2**&emsp;<sub><sup>2026-01-26 (a7b28acb366d96a7a157fea352fd03de40ef90f8...2db62bf98548f724538104569e86cee223ca5f37)</sup></sub>
+
+### Bug Fixes
+
+- download of mkwttb\.html using firefox was not working (a7b28acb366d96a7a157fea352fd03de40ef90f8)
+
+<br>
+
 ## **1.0.1**&emsp;<sub><sup>2026-01-19 (131071ed7bbe367de5e34236d6d39e991a3c7f39...6fffade8b14e01aadc518c13e33e8ce5ceb8fbc4)</sup></sub>
 
 ### Bug Fixes
