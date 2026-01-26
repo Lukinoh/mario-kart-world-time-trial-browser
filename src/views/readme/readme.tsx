@@ -29,6 +29,10 @@ export const Readme: Component = () => {
         data is stored in your browser. You must have a capture card that captures video at least 720p.
       </p>
       <p>
+        You start the capture, and everything is done automatically.{" "}
+        <strong>No manual intervention is required.</strong>
+      </p>
+      <p>
         <Mkwttb /> provides additional features.
       </p>
       <ul>
