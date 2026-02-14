@@ -49,7 +49,13 @@ export const AppRoutes: Component = () => {
             <A href="/friends">Friends</A>
             <A href="/world-records">World Records</A>
 
-            <span class={sVersion}>{__APP_VERSION__}</span>
+            <A
+              target="_blank"
+              href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/blob/dev/CHANGELOG.md"
+              class={sVersion}
+            >
+              {__APP_VERSION__}
+            </A>
             <A href="/readme">Readme 🥺</A>
             <button title="Import" class={sImportExport} onClick={repositories.restore}>
               📥

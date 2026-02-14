@@ -13,7 +13,20 @@ export const FaqObsStudio: Component = () => {
         </summary>
         <p>
           Most probably, you cannot use both applications at the same time, because the card capture can only be
-          accessed by one application. The workaround is to configure an{" "}
+          accessed by one application.
+        </p>
+        <p>
+          If you have Windows 11 24H2 or later, it is possible to share your capture card. Just follow the{" "}
+          <A
+            target="_blank"
+            href="https://www.elevenforum.com/t/enable-or-disable-multiple-apps-to-use-camera-in-windows-11.31199"
+          >
+            following instructions
+          </A>
+          .
+        </p>
+        <p>
+          Otherwise, you can configure an{" "}
           <A target="_blank" href="https://obsproject.com/kb/virtual-camera-guide">
             OBS Virtual Camera
           </A>{" "}
