@@ -1,10 +1,8 @@
-import { Box } from "../box/box";
+import type { Box } from "../box/box";
 import type { Pixel } from "../pixel/pixel";
 import type { PixelFiltersFunction } from "../pixel/pixel-filters";
 
 export class EnhancedImageData extends ImageData {
-  readonly box: Box;
-
   // Keep the data reference
   static from(imageData: ImageData): EnhancedImageData {
     return new EnhancedImageData(imageData.data, imageData.width, imageData.height, {
@@ -46,7 +44,6 @@ export class EnhancedImageData extends ImageData {
 
   private constructor(data: ImageDataArray, sw: number, sh?: number, settings?: ImageDataSettings) {
     super(data, sw, sh, settings);
-    this.box = new Box(0, this.width, 0, this.height);
   }
 
   get pixelCount(): number {
