@@ -19,7 +19,7 @@ if (status !== "") {
 }
 
 exec(`git fetch --tags`);
-const version = exec("npm --silent run release:version");
+const version = exec("pnpm --silent run release:version");
 const wantRelease = await readAsync(
   `Do you want to create the release commits and tag for version ${version}? [yes/no]`,
 );
@@ -29,8 +29,8 @@ if (!["yes", "Y", "y"].includes(wantRelease)) {
 
 await updateVersion(version);
 exec(`git commit -am'build(release): bump project version to ${version}'`);
-exec(`npm run release:changelog -- --release ${version} --file 'CHANGELOG.md'`);
-exec(`npm run fix`);
+exec(`pnpm run release:changelog --release ${version} --file 'CHANGELOG.md'`);
+exec(`pnpm run fix`);
 exec(`git commit -am'docs(release): create ${version} change log entry'`);
 exec(`git tag -a -m'build(release): ${version}' 'v${version}'`);
 
