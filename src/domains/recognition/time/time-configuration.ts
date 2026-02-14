@@ -15,6 +15,6 @@ export const TimeRegions = {
 export const TimeRecognitionOptions: ImageRecognitionOptions = {
   identifier: "time",
   region: TimeRegions.second01,
-  filter: ImageFilters.blackAndWhite({ threshold: 200 }),
+  filter: ImageFilters.blackAndWhite({ threshold: 170 }),
   comparison: ImageSimilarity.mse(),
 };

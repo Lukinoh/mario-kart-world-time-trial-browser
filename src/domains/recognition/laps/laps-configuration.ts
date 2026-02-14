@@ -8,6 +8,6 @@ export const LapsRegion = new Box(661, 245, 684, 227);
 export const LapsRecognitionOptions: ImageRecognitionOptions = {
   identifier: "laps",
   region: LapsRegion,
-  filter: ImageFilters.blackAndWhite({ threshold: 200 }),
+  filter: ImageFilters.blackAndWhite({ threshold: 170 }),
   comparison: ImageSimilarity.mse(),
 };

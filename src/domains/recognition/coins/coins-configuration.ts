@@ -11,6 +11,6 @@ export const CoinsRegions = {
 export const CoinsRecognitionOptions: ImageRecognitionOptions = {
   identifier: "coins",
   region: CoinsRegions.coin01,
-  filter: ImageFilters.blackAndWhite({ threshold: 200 }),
+  filter: ImageFilters.blackAndWhite({ threshold: 170 }),
   comparison: ImageSimilarity.mse(),
 };
