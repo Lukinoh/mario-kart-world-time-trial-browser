@@ -12,7 +12,6 @@ import {
   last,
   map,
   pipe,
-  reduce,
   sortBy,
   sum,
   unique,
@@ -81,7 +80,7 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
       drop(Number(ignoreFirst ?? false)),
       filter((attempt) => attempt.raw.track === track),
       (attempts) => {
-        const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
+        const laps = attempts.reduce((maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
 
         const attemptEntity: AttemptEntity = {
           timestamp: 0,
@@ -117,7 +116,7 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
       values(),
       flatMap((attempts) => {
         const meaningfullyAttempts: Array<Attempt> = [];
-        const laps = reduce(attempts, (maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
+        const laps = attempts.reduce((maxLaps, attempt) => Math.max(maxLaps, attempt.raw.laps), 0);
         meaningfullyAttempts.push(...getRecordsByTime(attempts));
 
         for (let sIndex = 0; sIndex < laps; sIndex = sIndex + 1) {
