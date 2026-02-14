@@ -1,3 +1,17 @@
+## **1.1.0**&emsp;<sub><sup>2026-02-14 (fa081e0c1c4cb1c53c7520aa0b4c6a8e13bae45e...5f8d776f4be7268c38f6587ef34100b2d0d77b1a)</sup></sub>
+
+### Features
+
+- add how to import your best splits in the faq (0f78e7931cf1c9bc8eb095117a3c754bf79cf5f7)
+- add an alternative to share your webcam between mkwttb and obs in the faq (e09c751aa13635b3e567cc08f19d5c4e756ba74d)
+- click on the version open the github changelog (6d372f848a3cc657743022d898d282b6da17d8d5)
+
+### Bug Fixes
+
+- handle HDR stream from capture card (fa081e0c1c4cb1c53c7520aa0b4c6a8e13bae45e)
+
+<br>
+
 ## **1.0.2**&emsp;<sub><sup>2026-01-26 (a7b28acb366d96a7a157fea352fd03de40ef90f8...2db62bf98548f724538104569e86cee223ca5f37)</sup></sub>
 
 ### Bug Fixes
