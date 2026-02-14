@@ -54,6 +54,8 @@
     "eslint/no-magic-numbers": "off",
     "eslint/no-ternary": "off",
     "eslint/no-empty-pattern": "off",
+    // Enforced by TypeScript
+    "eslint/no-redeclare": "off",
     "eslint/no-undefined": "off",
     // Enforced by TypeScript
     "eslint/no-undef": "off",
@@ -65,6 +67,8 @@
     "import/no-default-export": "off",
     "import/no-named-export": "off",
     "import/no-namespace": ["error", { "ignore": ["valibot"] }],
+    "import/no-nodejs-modules": "off",
+    "import/no-relative-parent-imports": "off",
     "import/no-unassigned-import": [
       "error",
       {
@@ -96,6 +100,7 @@
     "typescript/array-type": ["error", { "default": "generic" }],
     "typescript/promise-function-async": "off",
     "typescript/no-unsafe-type-assertion": "warn",
+    "typescript/no-invalid-void-type": "off",
     "typescript/no-misused-promises": ["error", { "checksVoidReturn": false }],
     // Ideally, we should ignoreStatic, however, it seems the rule does not work as expected
     "typescript/unbound-method": ["off", { "ignoreStatic": true }],
