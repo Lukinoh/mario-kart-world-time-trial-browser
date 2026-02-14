@@ -54,7 +54,7 @@ export const AppRoutes: Component = () => {
 
             <A
               target="_blank"
-              href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/blob/dev/CHANGELOG.md"
+              href="https://github.com/Lukinoh/mario-kart-world-time-trial-browser/blob/release/CHANGELOG.md"
               class={sVersion}
             >
               {__APP_VERSION__}
