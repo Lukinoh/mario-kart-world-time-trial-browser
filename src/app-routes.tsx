@@ -24,6 +24,9 @@ const sNav = css({
 
 const sVersion = css({
   marginLeft: "auto",
+  textDecoration: "underline",
+  border: "none",
+  padding: 0,
 });
 
 const sImportExport = css({
