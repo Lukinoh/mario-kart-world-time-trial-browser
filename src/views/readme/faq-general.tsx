@@ -117,6 +117,26 @@ export const FaqGeneral: Component = () => {
           This is more technical, and implies the fact that you already know your splits (time, shrooms, and coins).
         </p>
       </details>
+
+      <details>
+        <summary>How can I import my best current splits?</summary>
+        <p>
+          This is quite technical. You have to modify the database manually by exporting your history and adding at
+          least two <em>fake</em> time trials.
+        </p>
+        <p>
+          One that contains all your best splits, but you do not set the last split. Keep the time trial incomplete.
+        </p>
+        <p>One that contains all fake splits with high times, except the last one where you define your best split.</p>
+        <p>
+          We must have two entries; otherwise the application would interpret it as your best personal record. Do some
+          time trial to see the expected data structure. The names of the tracks correspond exactly to the one used by{" "}
+          <A target="_blank" href={WORLD_RECORD_URL}>
+            mkwrs.com
+          </A>
+          .
+        </p>
+      </details>
     </>
   );
 };
