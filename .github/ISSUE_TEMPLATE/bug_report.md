@@ -20,8 +20,8 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Screenshots / Videos**
+If applicable, add screenshots or videos to help explain your problem.
 
 **Environment (please complete the following information):**
 
@@ -30,6 +30,7 @@ If applicable, add screenshots to help explain your problem.
 | OS                  | [e.g. Windows 11]  |
 | Browser and Version | [e.g. Firefox 147] |
 | Capture Card        | [e.g xcapture-1]   |
+| Dynamic Range       | [e.g. SDR or HDR]  |
 | Application Version | [e.g. v1.1.0]      |
 
 **Additional context**
