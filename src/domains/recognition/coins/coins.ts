@@ -14,14 +14,21 @@ const images = await loadImages(
 const CoinsRecognition = createImageRecognition(images, CoinsRecognitionOptions);
 
 export const Coins = {
-  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
+  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string | undefined {
     return pipe(
       CoinsRegions,
       mapValues((box) => CoinsRecognition.getMatch(image, box)),
       (matches) => {
         putImageData?.(matches.coin01.value, ...CoinsRegions.coin01.putImageData());
         putImageData?.(matches.coin10.value, ...CoinsRegions.coin10.putImageData());
-        return `${matches.coin10.filename.at(1)}${matches.coin01.filename.at(1)}`;
+
+        const coins = `${matches.coin10.filename.at(1)}${matches.coin01.filename.at(1)}`;
+
+        if (Number(coins) > 20) {
+          return undefined;
+        }
+
+        return coins;
       },
     );
   },

@@ -9,6 +9,7 @@ import { Shrooms } from "../../recognition/shrooms/shrooms";
 import { Time } from "../../recognition/time/time";
 import { Track } from "../../recognition/track/track";
 import { createAttemptHandler } from "../utils/attempt-handler";
+import { isDefined } from "remeda";
 import { useIsFinalTime } from "./use-is-final-time";
 
 type State = "WAITING_ATTEMPT" | "WAITING_SPLIT" | "WAITING_LAST_SPLIT";
@@ -31,8 +32,13 @@ function useAttemptManagerFactory() {
     putImageData?: CanvasImageData["putImageData"],
   ): AttemptEntity | undefined => {
     const time = Time.get(image, putImageData);
-    const lap = Lap.get(image, putImageData);
     const coins = Coins.get(image, putImageData);
+
+    if (!isDefined(time) || !isDefined(coins)) {
+      return undefined;
+    }
+
+    const lap = Lap.get(image, putImageData);
     const shrooms = Shrooms.get(image, putImageData);
 
     // RESET ATTEMPT

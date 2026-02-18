@@ -15,7 +15,7 @@ const images = await loadImages(
 const TimeRecognition = createImageRecognition(images, TimeRecognitionOptions);
 
 export const Time = {
-  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
+  get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string | undefined {
     return pipe(
       TimeRegions,
       mapValues((box) => TimeRecognition.getMatch(image, box)),
@@ -26,7 +26,13 @@ export const Time = {
         putImageData?.(matches.milisecond100.value, ...TimeRegions.milisecond100.putImageData());
         putImageData?.(matches.milisecond010.value, ...TimeRegions.milisecond010.putImageData());
         putImageData?.(matches.milisecond001.value, ...TimeRegions.milisecond001.putImageData());
-        return `${matches.minute.filename}:${matches.second10.filename}${matches.second01.filename}.${matches.milisecond100.filename}${matches.milisecond010.filename}${matches.milisecond001.filename}`;
+
+        const seconds = `${matches.second10.filename}${matches.second01.filename}`;
+        if (Number(seconds) > 59) {
+          return undefined;
+        }
+
+        return `${matches.minute.filename}:${seconds}.${matches.milisecond100.filename}${matches.milisecond010.filename}${matches.milisecond001.filename}`;
       },
     );
   },
