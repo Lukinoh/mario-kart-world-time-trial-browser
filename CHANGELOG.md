@@ -1,3 +1,12 @@
+## **1.1.1**&emsp;<sub><sup>2026-02-21 (699024ab8758cce31926b757fe68ac150f3b7c05...bb00f7789d8631471515c99a92ffdc557cc17fed)</sup></sub>
+
+### Bug Fixes
+
+- target release branch in the changelog url (699024ab8758cce31926b757fe68ac150f3b7c05)
+- analyse only images with coherent coins and time value (849f89f89ca3d79dbafca4478078aa72fbf3c201)
+
+<br>
+
 ## **1.1.0**&emsp;<sub><sup>2026-02-14 (fa081e0c1c4cb1c53c7520aa0b4c6a8e13bae45e...5f8d776f4be7268c38f6587ef34100b2d0d77b1a)</sup></sub>
 
 ### Features
