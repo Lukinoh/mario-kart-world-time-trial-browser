@@ -43,6 +43,32 @@ test.for([
       track: "Wario Shipyard",
     },
   },
+  {
+    source: import.meta.glob<string>("./regression-images/lakitu.png", { eager: true, import: `default` }),
+    expected: {
+      coins: "11",
+      lap: "1",
+      laps: "3",
+      pause: false,
+      shrooms: "0",
+      time: "1:11.111",
+      timeYellow: false,
+      track: "Wario Shipyard",
+    },
+  },
+  {
+    source: import.meta.glob<string>("./regression-images/loading.png", { eager: true, import: `default` }),
+    expected: {
+      coins: "11",
+      lap: "1",
+      laps: "3",
+      pause: false,
+      shrooms: "0",
+      time: "1:11.111",
+      timeYellow: false,
+      track: "Wario Shipyard",
+    },
+  },
 ])("validate $source (warnOnTrack = true)", async (params) => {
   await expectedRecognition(params, true);
 });
