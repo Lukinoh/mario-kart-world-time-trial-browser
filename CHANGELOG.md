@@ -1,3 +1,11 @@
+## **1.1.2**&emsp;<sub><sup>2026-02-26 (a0b740e1e9e92afb0a5df75f8ce4c76a770e0fbd...beaa625e5dbfea1a307b2b889ead16c03b145353)</sup></sub>
+
+### Bug Fixes
+
+- avoid the need to reload the application after accepting the data persistence in firefox (a0b740e1e9e92afb0a5df75f8ce4c76a770e0fbd)
+
+<br>
+
 ## **1.1.1**&emsp;<sub><sup>2026-02-21 (699024ab8758cce31926b757fe68ac150f3b7c05...bb00f7789d8631471515c99a92ffdc557cc17fed)</sup></sub>
 
 ### Bug Fixes
