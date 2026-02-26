@@ -5,6 +5,13 @@ import { JSONUtils } from "../../../_core/utils/json-utils";
 import { onMount } from "solid-js";
 import { useIndexedValue } from "./use-indexed-value";
 
+const persistent = await navigator.storage.persist();
+if (persistent) {
+  console.info("Storage will not be cleared except by explicit user action.");
+} else {
+  console.warn("Storage may be cleared by the UA under storage pressure.");
+}
+
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useIndexedStoreFactory<O extends object, S extends v.GenericSchema<unknown, O>>(
   key: string,
@@ -16,13 +23,6 @@ function useIndexedStoreFactory<O extends object, S extends v.GenericSchema<unkn
   const { promise: isMounted, resolve } = Promise.withResolvers<void>();
 
   onMount(async () => {
-    const persistent = await navigator.storage.persist();
-    if (persistent) {
-      console.info("Storage will not be cleared except by explicit user action.");
-    } else {
-      console.warn("Storage may be cleared by the UA under storage pressure.");
-    }
-
     setStoreInternal((await database.get()) ?? store);
     resolve();
   });
