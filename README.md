@@ -3,13 +3,19 @@
 A way to see times and splits of your time trials.
 And all you need is a browser.
 
+## Prerequisites
+
+- Use [Node.js](https://nodejs.org/en/) version 24 or higher.
+- The port 4400 and 4173 are used.
+
 ## Development
 
 ```bash
+corepack enable
 git clone git@github.com:Lukinoh/mario-kart-world-time-trial-browser.git
 cd mario-kart-world-time-trial-browser
 pnpm install
-npm run serve
+pnpm run serve
 # Open http://localhost:4400
 ```
 
@@ -18,8 +24,8 @@ Commits must follow the [Git Convential Commits](https://github.com/qoomon/git-c
 ## Build
 
 ```bash
-npm run build
-npm run preview
+pnpm run build
+pnpm run preview
 # Open http://localhost:4173
 # Or execute the index.html
 ```
@@ -27,7 +33,7 @@ npm run preview
 ## Test
 
 ```bash
-npm run test
+pnpm run test
 ```
 
 ## Information
@@ -36,7 +42,7 @@ What you start the development server, the images stored in `./src/assets/recogn
 A normalised image is an image where the valuable information was extracted and a filter (i.e. black and white, invert, etc.) was applied.
 If you make a change in the `raw` folder, you have to restart the server.
 
-Moreover, after running the tests, the normalised images are deleted. Hence, if you have a `npm run dev` running, you have to restart it manually.
+Moreover, after running the tests, the normalised images are deleted. Hence, if you have a `pnpm run dev` running, you have to restart it manually.
 
 ## Testing features
 

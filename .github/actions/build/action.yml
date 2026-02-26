@@ -6,12 +6,12 @@ runs:
   steps:
     - name: Run check (format, lint, types)
       shell: bash
-      run: npm run check
+      run: pnpm run check
 
     - name: Run tests
       shell: bash
-      run: npm run test
+      run: pnpm run test
 
     - name: Build
       shell: bash
-      run: npm run build
+      run: pnpm run build
