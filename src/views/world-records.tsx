@@ -57,7 +57,7 @@ export const WorldRecords: Component = () => {
             </dd>
           </dl>
         </GridColumn>
-        <AttemptsTable attempts={worldRecords.attempts()} showTime={false} showFilters={false} />
+        <AttemptsTable attempts={worldRecords.attempts()} showTime={false} />
       </div>
     </>
   );

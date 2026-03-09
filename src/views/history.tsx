@@ -1,4 +1,4 @@
-import { type Component, type JSX, Show, createSignal, onMount } from "solid-js";
+import { type Component, type JSX, Show, onMount } from "solid-js";
 import { ALL_TRACKS } from "../domains/attempt/constants";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { Cell } from "../domains/ui/components/grid/cell";
@@ -7,6 +7,7 @@ import { ValibotImportButton } from "../domains/database/components/valibot-impo
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
 import { cellCss } from "../domains/ui/css/cell-css";
 import { css } from "@emotion/css";
+import { useAttemptsFilter } from "../domains/attempt/components/attempts-filter/use-attempts-filter";
 import { usePageTitle } from "./compositions/use-page-title";
 import { usePersonalRepository } from "../domains/database/compositions/use-personal-repository";
 
@@ -29,16 +30,25 @@ const sTime = cellCss({
   mono: true,
 });
 
+const sHeader = css({
+  display: "flex",
+  gap: "var(--mk-spacing-large)",
+});
+
 export const History: Component = () => {
   const personal = usePersonalRepository();
-  const [selectedTrack, setSelectedTrack] = createSignal(ALL_TRACKS);
   const { setTitle } = usePageTitle();
+  const { selectedTrack, filtered, AttemptsFilter } = useAttemptsFilter({
+    input: {
+      attempts: personal.attempts,
+    },
+  });
 
   onMount(() => {
     setTitle("History");
   });
 
-  const Header = (): JSX.Element => {
+  const OverallData = (): JSX.Element => {
     return (
       <GridColumn class={sGrid} template="repeat(3, auto)" spacing="small" yAlign="center">
         <VerticalDivider row={2} />
@@ -76,7 +86,11 @@ export const History: Component = () => {
         <VerticalDivider />
         <button onClick={personal.shrink}>Shrink</button>
       </div>
-      <AttemptsTable attempts={personal.attempts()} onTrackSelected={setSelectedTrack} headerSlot={<Header />} />
+      <div class={sHeader}>
+        <AttemptsFilter />
+        <OverallData />
+      </div>
+      <AttemptsTable attempts={filtered().attempts}></AttemptsTable>
     </>
   );
 };

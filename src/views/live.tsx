@@ -1,17 +1,26 @@
-import { type Component, Match, Switch, createMemo, onMount } from "solid-js";
+import { type Component, Match, Switch, createEffect, onMount } from "solid-js";
 import { A } from "@solidjs/router";
 import { AttemptsComparisonTable } from "../domains/attempt/components/attempts-comparison-table/attempts-comparison-table";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
+import { useAttemptsFilter } from "../domains/attempt/components/attempts-filter/use-attempts-filter";
 import { usePageTitle } from "./compositions/use-page-title";
 import { usePersonalRepository } from "../domains/database/compositions/use-personal-repository";
 import { useRepositories } from "../domains/database/compositions/use-repositories";
 
 export const Live: Component = () => {
+  const ATTEMPTS_LIMIT = 7;
   const repositories = useRepositories();
   const personal = usePersonalRepository();
   const { setTitle } = usePageTitle();
+  const { filtered, selectedTrack, setFilter } = useAttemptsFilter({
+    input: {
+      attempts: personal.attempts,
+    },
+  });
 
-  const selectedTrack = createMemo(() => personal.lastAttempt()?.raw.track);
+  createEffect(() => {
+    setFilter(personal.lastAttempt()?.raw.track);
+  });
 
   onMount(() => {
     setTitle("Live");
@@ -41,14 +50,8 @@ export const Live: Component = () => {
           </Switch>
         </div>
         <div>
-          <h3>Last 7 attempts</h3>
-          <AttemptsTable
-            attempts={personal.attempts()}
-            track={selectedTrack()}
-            showFilters={false}
-            showTrack={false}
-            limit={7}
-          />
+          <h3>Last {ATTEMPTS_LIMIT} attempts</h3>
+          <AttemptsTable attempts={filtered().attempts} showTrack={false} limit={ATTEMPTS_LIMIT} />
         </div>
       </div>
     </>

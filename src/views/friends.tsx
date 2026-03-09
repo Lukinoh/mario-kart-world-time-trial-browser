@@ -3,6 +3,7 @@ import { AttemptsTable } from "../domains/attempt/components/attempts-table";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
 import { css } from "@emotion/css";
+import { useAttemptsFilter } from "../domains/attempt/components/attempts-filter/use-attempts-filter";
 import { useFriendsRepository } from "../domains/database/compositions/use-friends-repository";
 import { usePageTitle } from "./compositions/use-page-title";
 
@@ -19,6 +20,11 @@ const sActions = css({
 export const Friends: Component = () => {
   const friends = useFriendsRepository();
   const { setTitle } = usePageTitle();
+  const { filtered, AttemptsFilter } = useAttemptsFilter({
+    input: {
+      attempts: friends.attempts,
+    },
+  });
 
   onMount(() => {
     setTitle("Friends");
@@ -34,7 +40,8 @@ export const Friends: Component = () => {
         <VerticalDivider />
         <button onClick={friends.shrink}>Shrink</button>
       </div>
-      <AttemptsTable attempts={friends.attempts()} showTime={false} />
+      <AttemptsFilter />
+      <AttemptsTable attempts={filtered().attempts} showTime={false} />
     </>
   );
 };
