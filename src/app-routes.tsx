@@ -6,6 +6,7 @@ import { History } from "./views/history";
 import { Live } from "./views/live";
 import { Readme } from "./views/readme/readme";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
+import { ValibotImportButton } from "./domains/database/components/valibot-import-button/valibot-import-button";
 import { WorldRecords } from "./views/world-records";
 import { css } from "@emotion/css";
 import { displayVisible } from "./domains/ui/css/css";
@@ -60,9 +61,7 @@ export const AppRoutes: Component = () => {
               {__APP_VERSION__}
             </A>
             <A href="/readme">Readme 🥺</A>
-            <button title="Import" class={sImportExport} onClick={repositories.restore}>
-              📥
-            </button>
+            <ValibotImportButton symbol="📥" class={sImportExport} onClick={repositories.restore} />
             <button title="Export" class={sImportExport} onClick={repositories.download}>
               📤
             </button>

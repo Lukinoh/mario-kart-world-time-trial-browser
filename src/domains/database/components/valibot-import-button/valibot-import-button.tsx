@@ -12,7 +12,7 @@ const sSuccess = css({
 });
 
 interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: string;
+  children?: string;
   symbol?: string;
 }
 
