@@ -5,6 +5,7 @@ import { Friends } from "./views/friends";
 import { History } from "./views/history";
 import { Live } from "./views/live";
 import { Readme } from "./views/readme/readme";
+import { Result } from "./views/result";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { ValibotImportButton } from "./domains/database/components/valibot-import-button/valibot-import-button";
 import { WorldRecords } from "./views/world-records";
@@ -49,6 +50,7 @@ export const AppRoutes: Component = () => {
         <header>
           <nav class={sNav}>
             <A href="/live">Live</A>
+            <A href="/result">Result</A>
             <A href="/history">History</A>
             <A href="/friends">Friends</A>
             <A href="/world-records">World Records</A>
@@ -83,6 +85,7 @@ export const AppRoutes: Component = () => {
     <Route component={AppWrapper}>
       {/* The ci methods breaks hot reload */}
       <Route path="live" component={Live} />
+      <Route path="result" component={Result} />
       <Route path="history" component={History} />
       <Route path="friends" component={Friends} />
       <Route path="world-records" component={WorldRecords} />

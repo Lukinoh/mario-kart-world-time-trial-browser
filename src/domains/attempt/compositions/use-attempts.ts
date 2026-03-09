@@ -74,6 +74,7 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
       (attempts) => getRecordsByTime(attempts),
     );
 
+  // It returns an array to avoid having to handle the "undefined" case.
   const getSplitRecordByTrack = (track: string, ignoreFirst?: boolean): Array<Attempt> =>
     pipe(
       attempts(),
@@ -108,6 +109,13 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
         return [v.parse(AttemptSchema, attemptEntity)];
       },
     );
+
+  const getSplitRecords = (): Array<Attempt> => {
+    return pipe(
+      tracks(),
+      flatMap((track) => getSplitRecordByTrack(track)),
+    );
+  };
 
   const getFlattenRecords = (): Array<AttemptEntity> =>
     pipe(
@@ -159,6 +167,7 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
     tracks,
     getTimeRecords,
     getTimeRecordsByTrack,
+    getSplitRecords,
     getSplitRecordByTrack,
     getFlattenRecords,
     getSumTimeRecords,

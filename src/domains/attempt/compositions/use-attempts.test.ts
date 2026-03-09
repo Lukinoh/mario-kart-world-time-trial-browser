@@ -150,6 +150,55 @@ describe("getTimeRecordsByTrack", () => {
   });
 });
 
+describe("getSplitRecords", () => {
+  test("returns an empty array if no split records", () => {
+    const { getSplitRecords } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
+    expect(getSplitRecords()).toStrictEqual([]);
+  });
+
+  test("returns the split records for each track", () => {
+    const { createAttempt, createSplit } = useBuildAttempt(2, { track: "A" });
+    const splitRecordAttempt_1_A = createAttempt({ track: "A", splits: createSplit("1:10.000") });
+    const splitRecordAttempt_2_A = createAttempt({ track: "A", splits: createSplit("9:00.000", "1:20.000") });
+    const splitRecordAttempt_3_A = createAttempt({ track: "A", splits: createSplit("1:10.000", "9:00.000") });
+
+    const splitRecordAttempt_1_B = createAttempt({ track: "B", splits: createSplit("1:10.000") });
+    const splitRecordAttempt_2_B = createAttempt({ track: "B", splits: createSplit("9:00.000", "1:20.000") });
+    const splitRecordAttempt_3_B = createAttempt({ track: "B", splits: createSplit("1:10.000", "9:00.000") });
+
+    const splitRecordAttempt_1_C = createAttempt({ track: "C", splits: createSplit("1:05.000") });
+    const splitRecordAttempt_2_C = createAttempt({ track: "C", splits: createSplit("1:07.000") });
+
+    const { getSplitRecords } = createRoot(() =>
+      useAttempts({
+        version: 1,
+        attempts: [
+          splitRecordAttempt_1_A,
+          splitRecordAttempt_2_A,
+          splitRecordAttempt_3_A,
+          splitRecordAttempt_1_B,
+          splitRecordAttempt_2_B,
+          splitRecordAttempt_3_B,
+          splitRecordAttempt_1_C,
+          splitRecordAttempt_2_C,
+        ],
+      }),
+    );
+
+    const splitRecords_A = toEntities(getSplitRecords()).find((attempt) => attempt.track === "A");
+    expect(splitRecords_A?.splits.at(0)).toStrictEqual(splitRecords_A?.splits.at(0));
+    expect(splitRecords_A?.splits.at(1)).toStrictEqual(splitRecords_A?.splits.at(1));
+
+    const splitRecords_B = toEntities(getSplitRecords()).find((attempt) => attempt.track === "B");
+    expect(splitRecords_B?.splits.at(0)).toStrictEqual(splitRecords_B?.splits.at(0));
+    expect(splitRecords_B?.splits.at(1)).toStrictEqual(splitRecords_B?.splits.at(1));
+
+    const splitRecords_C = toEntities(getSplitRecords()).find((attempt) => attempt.track === "C");
+    expect(splitRecords_C?.splits.at(0)).toStrictEqual(splitRecords_C?.splits.at(0));
+    expect(splitRecords_C?.splits.at(1)).toBeUndefined();
+  });
+});
+
 describe("getSplitRecordByTrack", () => {
   test("returns an empty array if no split records by track is found", () => {
     const { getSplitRecordByTrack } = createRoot(() => useAttempts({ version: 1, attempts: [] }));
