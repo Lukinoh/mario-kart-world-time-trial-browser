@@ -58,13 +58,14 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
     ),
   );
 
-  const getTimeRecords = (): Array<Attempt> =>
+  const getTimeRecords = createMemo<Array<Attempt>>(() =>
     pipe(
       attempts(),
       groupBy((attempt) => attempt.raw.track),
       values(),
       flatMap((attempts) => getRecordsByTime(attempts)),
-    );
+    ),
+  );
 
   const getTimeRecordsByTrack = (track: string, ignoreFirst?: boolean): Array<Attempt> =>
     pipe(
@@ -110,14 +111,14 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
       },
     );
 
-  const getSplitRecords = (): Array<Attempt> => {
+  const getSplitRecords = createMemo<Array<Attempt>>(() => {
     return pipe(
       tracks(),
       flatMap((track) => getSplitRecordByTrack(track)),
     );
-  };
+  });
 
-  const getFlattenRecords = (): Array<AttemptEntity> =>
+  const getFlattenRecords = createMemo<Array<AttemptEntity>>(() =>
     pipe(
       attempts(),
       groupBy((attempt) => attempt.raw.track),
@@ -136,9 +137,10 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
       map((attempt) => attempt.raw),
       uniqueWith(isDeepEqual),
       sortBy((attempt) => -attempt.timestamp),
-    );
+    ),
+  );
 
-  const getSumTimeRecords = (): SumTimeRecords => {
+  const getSumTimeRecords = createMemo<SumTimeRecords>(() => {
     return pipe(
       getTimeRecords(),
       uniqueBy((attempt) => attempt.raw.track),
@@ -150,7 +152,7 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
         };
       },
     );
-  };
+  });
 
   const merge = (...attempts: Array<Array<AttemptEntity>>): Array<AttemptEntity> => {
     return pipe(
