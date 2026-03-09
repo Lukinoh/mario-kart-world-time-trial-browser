@@ -64,6 +64,22 @@ export const Readme: Component = () => {
         . So I would like to thank him for having opened the path.
       </p>
 
+      <h2>FAQ</h2>
+
+      <FaqSetup />
+
+      <FaqGeneral />
+
+      <FaqSourceFile />
+
+      <FaqObsStudio />
+
+      <FaqData />
+
+      <FaqKnownDetectionProblems />
+
+      <FaqMiscellaneous />
+
       <h2>Offline Mode</h2>
 
       <p>
@@ -85,22 +101,6 @@ export const Readme: Component = () => {
       <a class="button" href="index.html" download="mkwttb.html">
         Download
       </a>
-
-      <h2>FAQ</h2>
-
-      <FaqSetup />
-
-      <FaqGeneral />
-
-      <FaqSourceFile />
-
-      <FaqObsStudio />
-
-      <FaqData />
-
-      <FaqKnownDetectionProblems />
-
-      <FaqMiscellaneous />
 
       <h1>Thanks 🥹</h1>
     </>
