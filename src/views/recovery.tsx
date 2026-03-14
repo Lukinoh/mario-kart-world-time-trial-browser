@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { SymbolButton } from "../domains/ui/components/symbol-button";
+import { SymbolTextButton } from "../domains/ui/components/buttons/symbol-text-button";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { css } from "@emotion/css";
 import { useDatabases } from "../domains/database/compositions/use-databases";
@@ -31,10 +31,9 @@ export const Recovery: Component<RecoveryProps> = (props) => {
         <dt>Step 1</dt>
         <dd>
           <p>Export your database.</p>
-          {/*This component must be changed when rebasing release on dev*/}
-          <SymbolButton symbol="📤" onClick={databases.download}>
+          <SymbolTextButton symbol="📤" onClick={databases.download}>
             Export
-          </SymbolButton>
+          </SymbolTextButton>
         </dd>
         <dt>Step 2</dt>
         <dd>

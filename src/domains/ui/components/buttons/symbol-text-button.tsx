@@ -13,16 +13,16 @@ const sSymbol = css({
   fontVariantEmoji: "text",
 });
 
-interface SymbolButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
+interface SymbolTextButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   symbol: string;
 }
 
-export const SymbolButton: Component<SymbolButtonProps> = (props) => {
+export const SymbolTextButton: Component<SymbolTextButtonProps> = (props) => {
   return (
     <button {...props}>
       <div class={sContent}>
         <span class={sSymbol}>{props.symbol}</span>
-        {props.children}
+        <span>{props.children}</span>
       </div>
     </button>
   );

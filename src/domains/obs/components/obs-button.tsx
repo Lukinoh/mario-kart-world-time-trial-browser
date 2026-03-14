@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 import { OBS_POPUP_TARGET } from "../constants";
-import { SymbolButton } from "../../ui/components/symbol-button";
+import { SymbolTextButton } from "../../ui/components/buttons/symbol-text-button";
 import { useObsPopupProperties } from "../compositions/use-obs-popup-properties";
 import { useRouter } from "../../_core/compositions/use-router";
 
@@ -59,8 +59,8 @@ export const ObsButton: Component = () => {
   };
 
   return (
-    <SymbolButton symbol="🢅" onClick={openPopup}>
+    <SymbolTextButton symbol="🢅" onClick={openPopup}>
       OBS
-    </SymbolButton>
+    </SymbolTextButton>
   );
 };

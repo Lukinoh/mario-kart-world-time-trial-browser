@@ -1,9 +1,9 @@
 import * as v from "valibot";
 import type { AttemptsEntityIssue, AttemptsEntitySchema } from "../../schemas/attempts-entity";
 import { type Component, type JSX, createMemo, createSignal } from "solid-js";
-import { isDefined, isFunction, isString } from "remeda";
+import { isFunction, isString } from "remeda";
+import { AdaptativeButton } from "../../../ui/components/buttons/adaptative-button";
 import { Dialog } from "../../../ui/components/dialog";
-import { SymbolButton } from "../../../ui/components/symbol-button";
 import { ValibotErrorContent } from "./valibot-error-content";
 import { css } from "@emotion/css";
 
@@ -58,20 +58,11 @@ export const ValibotImportButton: Component<ValibotButtonProps> = (props) => {
     };
   });
 
-  const ImportButton = createMemo(() => {
-    if (isDefined(props.symbol)) {
-      return (
-        <SymbolButton {...args()} symbol={props.symbol}>
-          {props.children}
-        </SymbolButton>
-      );
-    }
-    return <button {...args()}>{props.children}</button>;
-  });
-
   return (
     <>
-      <ImportButton />
+      <AdaptativeButton {...args()} symbol={props.symbol}>
+        {props.children}
+      </AdaptativeButton>
       <Dialog ref={dialogSuccess}>
         <p class={sSuccess}>Import completed successfully</p>
       </Dialog>

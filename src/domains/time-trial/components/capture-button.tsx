@@ -1,5 +1,5 @@
 import { type Component, Match, Switch } from "solid-js";
-import { SymbolButton } from "../../ui/components/symbol-button";
+import { SymbolTextButton } from "../../ui/components/buttons/symbol-text-button";
 import { useTimeTrial } from "../compositions/use-time-trial";
 
 interface CaptureButton {
@@ -28,19 +28,19 @@ export const CaptureButton: Component<CaptureButton> = (props) => {
   return (
     <Switch>
       <Match when={timeTrial.isState("PAUSED")}>
-        <SymbolButton symbol="▶" onClick={onPlay}>
+        <SymbolTextButton symbol="▶" onClick={onPlay}>
           Capture
-        </SymbolButton>
+        </SymbolTextButton>
       </Match>
       <Match when={timeTrial.isState("PLAYING")}>
-        <SymbolButton symbol="⏹" onClick={onPause}>
+        <SymbolTextButton symbol="⏹" onClick={onPause}>
           Capture
-        </SymbolButton>
+        </SymbolTextButton>
       </Match>
       <Match when={timeTrial.isState("LOADING")}>
-        <SymbolButton symbol="⏳" disabled>
+        <SymbolTextButton symbol="⏳" disabled>
           Capture
-        </SymbolButton>
+        </SymbolTextButton>
       </Match>
     </Switch>
   );

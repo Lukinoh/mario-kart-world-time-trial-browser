@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import type { Component } from "solid-js";
-import { SymbolButton } from "../../domains/ui/components/symbol-button";
+import { SymbolTextButton } from "../../domains/ui/components/buttons/symbol-text-button";
 import { ValibotImportButton } from "../../domains/database/components/valibot-import-button/valibot-import-button";
 import { useRepositories } from "../../domains/database/compositions/use-repositories";
 
@@ -22,9 +22,9 @@ export const FaqData: Component = () => {
       </details>
       <details>
         <summary>How can I backup all my data?</summary>
-        <SymbolButton symbol="📤" onClick={repositories.download}>
+        <SymbolTextButton symbol="📤" onClick={repositories.download}>
           Export
-        </SymbolButton>
+        </SymbolTextButton>
         <p>A shortcut is available in the header.</p>
       </details>
       <details>

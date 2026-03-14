@@ -6,6 +6,7 @@ import { History } from "./views/history";
 import { Live } from "./views/live";
 import { Readme } from "./views/readme/readme";
 import { Result } from "./views/result";
+import { SymbolButton } from "./domains/ui/components/buttons/symbol-button";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { ValibotImportButton } from "./domains/database/components/valibot-import-button/valibot-import-button";
 import { WorldRecords } from "./views/world-records";
@@ -32,8 +33,6 @@ const sVersion = css({
 });
 
 const sImportExport = css({
-  fontVariantEmoji: "text",
-  padding: "0.10rem 0.25rem",
   margin: "0 0.25rem",
 });
 
@@ -63,10 +62,8 @@ export const AppRoutes: Component = () => {
               {__APP_VERSION__}
             </A>
             <A href="/readme">Readme 🥺</A>
-            <ValibotImportButton symbol="📥" class={sImportExport} onClick={repositories.restore} />
-            <button title="Export" class={sImportExport} onClick={repositories.download}>
-              📤
-            </button>
+            <ValibotImportButton class={sImportExport} title="Import" symbol="📥" onClick={repositories.restore} />
+            <SymbolButton class={sImportExport} title="Export" symbol="📤" onClick={repositories.download} />
           </nav>
         </header>
         <main>
