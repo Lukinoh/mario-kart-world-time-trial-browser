@@ -1,9 +1,10 @@
 import { type Component, Show, createMemo, createSelector, createSignal } from "solid-js";
+import { Dialog, type DialogRef } from "../../ui/components/dialog/dialog";
 import { SourceRadio, type SourceRadioState } from "./source-radio";
 import { displayVisible, span } from "../../ui/css/css";
 import { CaptureButton } from "./capture-button";
 import { Cell } from "../../ui/components/grid/cell";
-import { Dialog } from "../../ui/components/dialog";
+import { DialogFooterClose } from "../../ui/components/dialog/footers/dialog-footer-close";
 import { FeedbackCheckbox } from "./feedback-checkbox";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { ObsButton } from "../../obs/components/obs-button";
@@ -53,7 +54,7 @@ const sVideoCanvasItem = css({
 
 export const TimeTrialPlayer: Component = () => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialog!: HTMLDialogElement;
+  let dialog!: DialogRef;
 
   const timeTrial = useTimeTrial();
   const settings = useSettingsRepository();
@@ -65,7 +66,7 @@ export const TimeTrialPlayer: Component = () => {
 
   const onError = (error: unknown): void => {
     setRawError(error?.toString());
-    dialog.showModal();
+    dialog.open();
   };
 
   return (
@@ -97,6 +98,7 @@ export const TimeTrialPlayer: Component = () => {
           </Show>
         </div>
       </GridColumn>
+
       <Dialog ref={dialog} title="Failed to load the capture card source.">
         <p>Make sure you allowed the application to access the camera devices.</p>
         <p>Make sure your camera is not used by another application.</p>
@@ -117,6 +119,8 @@ export const TimeTrialPlayer: Component = () => {
           <summary>Raw error</summary>
           {rawError()}
         </details>
+
+        <DialogFooterClose></DialogFooterClose>
       </Dialog>
     </>
   );

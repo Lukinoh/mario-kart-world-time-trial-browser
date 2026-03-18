@@ -1,9 +1,10 @@
 import * as v from "valibot";
 import type { AttemptsEntityIssue, AttemptsEntitySchema } from "../../schemas/attempts-entity";
 import { type Component, type JSX, createMemo, createSignal } from "solid-js";
+import { Dialog, type DialogRef } from "../../../ui/components/dialog/dialog";
 import { isFunction, isString } from "remeda";
 import { AdaptativeButton } from "../../../ui/components/buttons/adaptative-button";
-import { Dialog } from "../../../ui/components/dialog";
+import { DialogFooterClose } from "../../../ui/components/dialog/footers/dialog-footer-close";
 import { ValibotErrorContent } from "./valibot-error-content";
 import { css } from "@emotion/css";
 
@@ -18,9 +19,9 @@ interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement>
 
 export const ValibotImportButton: Component<ValibotButtonProps> = (props) => {
   // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialogSuccess!: HTMLDialogElement;
+  let dialogSuccess!: DialogRef;
   // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialogError!: HTMLDialogElement;
+  let dialogError!: DialogRef;
   const [data, setData] = createSignal<Array<AttemptsEntityIssue> | undefined>(undefined);
 
   const args = createMemo<JSX.ButtonHTMLAttributes<HTMLButtonElement>>(() => {
@@ -31,11 +32,11 @@ export const ValibotImportButton: Component<ValibotButtonProps> = (props) => {
           try {
             await Promise.try(props.onClick, event);
             setData();
-            dialogSuccess.showModal();
+            dialogSuccess.open();
           } catch (error) {
             if (v.isValiError<typeof AttemptsEntitySchema>(error)) {
               setData(error.issues);
-              dialogError.showModal();
+              dialogError.open();
             } else if (isString(error)) {
               // Usually happen when the select file window is closed
               console.info(`Import window was ${error}`);
@@ -50,7 +51,7 @@ export const ValibotImportButton: Component<ValibotButtonProps> = (props) => {
                   message: error?.toString() ?? "Critical error",
                 },
               ]);
-              dialogError.showModal();
+              dialogError.open();
             }
           }
         }
@@ -65,9 +66,11 @@ export const ValibotImportButton: Component<ValibotButtonProps> = (props) => {
       </AdaptativeButton>
       <Dialog ref={dialogSuccess}>
         <p class={sSuccess}>Import completed successfully</p>
+        <DialogFooterClose />
       </Dialog>
       <Dialog ref={dialogError} title="An error happened during import">
         <ValibotErrorContent issues={data() ?? []} />
+        <DialogFooterClose />
       </Dialog>
     </>
   );
