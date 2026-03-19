@@ -26,8 +26,7 @@ interface DialogProps {
 }
 
 export const Dialog: Component<DialogProps> = (props) => {
-  // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialog!: HTMLDialogElement;
+  let dialog!: HTMLDialogElement; // oxlint-disable-line init-declarations no-unassigned-vars
 
   onMount(() => {
     if (isFunction(props.ref)) {

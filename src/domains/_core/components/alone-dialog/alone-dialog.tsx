@@ -3,8 +3,7 @@ import { Dialog, type DialogRef } from "../../../ui/components/dialog/dialog";
 import { useAlone } from "./use-alone";
 
 export const AloneDialog: Component = () => {
-  // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialog!: DialogRef;
+  let dialog!: DialogRef; // oxlint-disable-line init-declarations no-unassigned-vars
   const { alone } = useAlone();
 
   createEffect(() => {

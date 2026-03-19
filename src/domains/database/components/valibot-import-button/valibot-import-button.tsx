@@ -18,10 +18,8 @@ interface ValibotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 export const ValibotImportButton: Component<ValibotButtonProps> = (props) => {
-  // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialogSuccess!: DialogRef;
-  // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialogError!: DialogRef;
+  let dialogSuccess!: DialogRef; // oxlint-disable-line init-declarations no-unassigned-vars
+  let dialogError!: DialogRef; // oxlint-disable-line init-declarations no-unassigned-vars
   const [data, setData] = createSignal<Array<AttemptsEntityIssue> | undefined>(undefined);
 
   const args = createMemo<JSX.ButtonHTMLAttributes<HTMLButtonElement>>(() => {

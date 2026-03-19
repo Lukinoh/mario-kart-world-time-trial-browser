@@ -17,10 +17,8 @@ const sTable = css({
 });
 
 export const PopupObs: Component = () => {
-  // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let tableDiv!: HTMLDivElement;
-  // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let outerTableDiv!: HTMLDivElement;
+  let tableDiv!: HTMLDivElement; // oxlint-disable-line init-declarations no-unassigned-vars
+  let outerTableDiv!: HTMLDivElement; // oxlint-disable-line init-declarations no-unassigned-vars
 
   const { data } = useObsListener();
   const [scale, setScale] = createSignal(1);

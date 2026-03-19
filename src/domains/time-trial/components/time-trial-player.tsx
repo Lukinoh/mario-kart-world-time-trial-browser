@@ -53,8 +53,7 @@ const sVideoCanvasItem = css({
 });
 
 export const TimeTrialPlayer: Component = () => {
-  // oxlint-disable-next-line init-declarations no-unassigned-vars
-  let dialog!: DialogRef;
+  let dialog!: DialogRef; // oxlint-disable-line init-declarations no-unassigned-vars
 
   const timeTrial = useTimeTrial();
   const settings = useSettingsRepository();
