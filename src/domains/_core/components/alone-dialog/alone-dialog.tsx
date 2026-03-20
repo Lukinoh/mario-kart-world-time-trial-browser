@@ -1,4 +1,4 @@
-import { type Component, createEffect } from "solid-js";
+import { type Component, createEffect, onMount } from "solid-js";
 import { Dialog, type DialogRef } from "../../../ui/components/dialog/dialog";
 import { useAlone } from "./use-alone";
 
@@ -10,6 +10,12 @@ export const AloneDialog: Component = () => {
     if (!alone()) {
       dialog.open();
     }
+  });
+
+  onMount(() => {
+    dialog.ref.addEventListener("cancel", (event) => {
+      event.preventDefault();
+    });
   });
 
   return (

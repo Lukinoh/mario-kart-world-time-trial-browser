@@ -1,4 +1,4 @@
-import { type Component, type JSX, type Ref, Show, onMount } from "solid-js";
+import { type Component, type JSX, type Ref, Show } from "solid-js";
 import { DialogContent } from "./dialog-content";
 import { DialogContext } from "./dialog-context";
 import { Portal } from "solid-js/web";
@@ -15,6 +15,7 @@ const sDialog = css({
 });
 
 export interface DialogRef {
+  ref: HTMLDialogElement;
   open: () => void;
   close: () => void;
 }
@@ -28,9 +29,11 @@ interface DialogProps {
 export const Dialog: Component<DialogProps> = (props) => {
   let dialog!: HTMLDialogElement; // oxlint-disable-line init-declarations no-unassigned-vars
 
-  onMount(() => {
+  const setDialog = (ref: HTMLDialogElement): void => {
+    dialog = ref;
     if (isFunction(props.ref)) {
       props.ref({
+        ref: dialog,
         open: () => {
           dialog.showModal();
         },
@@ -39,11 +42,11 @@ export const Dialog: Component<DialogProps> = (props) => {
         },
       });
     }
-  });
+  };
 
   return (
     <Portal>
-      <dialog ref={dialog} class={sDialog}>
+      <dialog ref={setDialog} class={sDialog}>
         <DialogContext.Provider value={dialog}>
           <Show when={props.title}>
             <h3>{props.title}</h3>
