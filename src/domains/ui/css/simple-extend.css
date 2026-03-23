@@ -1,0 +1,12 @@
+/* Extend simple.css with secondary button */
+button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+button.secondary:hover {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}

@@ -119,7 +119,7 @@ export const TimeTrialPlayer: Component = () => {
           {rawError()}
         </details>
 
-        <DialogFooterClose></DialogFooterClose>
+        <DialogFooterClose />
       </Dialog>
     </>
   );

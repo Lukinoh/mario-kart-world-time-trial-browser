@@ -1,4 +1,5 @@
 import "simpledotcss/simple.min.css";
+import "./css/simple-extend.css";
 import { injectGlobal } from "@emotion/css";
 
 export const injectGlobalStyles = (): void => {
