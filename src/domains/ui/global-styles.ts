@@ -55,7 +55,10 @@ export const injectGlobalStyles = (): void => {
       height: "auto",
     },
     dialog: {
-      maxWidth: "80%",
+      maxWidth: "80% !important",
+    },
+    button: {
+      marginBottom: "0 !important",
     },
   });
 };

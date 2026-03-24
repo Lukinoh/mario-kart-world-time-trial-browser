@@ -1,3 +1,4 @@
+import { AttemptDeleteDialog, type AttemptDeleteDialogRef } from "../domains/attempt/components/attempt-delete-dialog";
 import { type Component, type JSX, Show, onMount } from "solid-js";
 import { ALL_TRACKS } from "../domains/attempt/constants";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
@@ -17,9 +18,6 @@ const sActions = css({
   alignContent: "center",
   alignItems: "center",
   marginBottom: "var(--mk-spacing-large)",
-  "> *": {
-    marginBottom: 0,
-  },
 });
 
 const sGrid = css({
@@ -36,6 +34,8 @@ const sHeader = css({
 });
 
 export const History: Component = () => {
+  let dialog!: AttemptDeleteDialogRef; // oxlint-disable-line init-declarations no-unassigned-vars
+
   const personal = usePersonalRepository();
   const { setTitle } = usePageTitle();
   const { selectedTrack, filtered, AttemptsFilter } = useAttemptsFilter({
@@ -90,7 +90,18 @@ export const History: Component = () => {
         <AttemptsFilter />
         <OverallData />
       </div>
-      <AttemptsTable attempts={filtered().attempts}></AttemptsTable>
+      <AttemptsTable
+        attempts={filtered().attempts}
+        onDelete={(attempt) => {
+          dialog.open(attempt);
+        }}
+      />
+      <AttemptDeleteDialog
+        ref={dialog}
+        onDelete={(attempt) => {
+          personal.deleteAttempt(attempt.raw);
+        }}
+      />
     </>
   );
 };

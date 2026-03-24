@@ -22,9 +22,9 @@ export const Result: Component = () => {
     <>
       <AttemptsFilter />
       <h2>Personal best</h2>
-      <AttemptsTable attempts={filtered().timeRecords}></AttemptsTable>
+      <AttemptsTable attempts={filtered().timeRecords} />
       <h2>Best personal splits</h2>
-      <AttemptsTable attempts={filtered().splitRecords}></AttemptsTable>
+      <AttemptsTable attempts={filtered().splitRecords} />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { entries, sum, values } from "remeda";
+import { entries, isDeepEqual, sum, values } from "remeda";
 import type { AttemptEntity } from "../schemas/attempt-entity";
 import type { AttemptsEntity } from "../schemas/attempts-entity";
 import type { Brand } from "../../_core/utils/brand";
@@ -46,6 +46,14 @@ function usePersonalRepositorySingleton() {
     );
   };
 
+  const deleteAttempt = (delAttempt: AttemptEntity): void => {
+    setStore(
+      produce((store) => {
+        store.attempts = store.attempts.filter((el) => !isDeepEqual(el, delAttempt));
+      }),
+    );
+  };
+
   const getAttemptsCountByTrack = (track: string): number => {
     return store.attemptsCountByTrack[track] ?? 0;
   };
@@ -82,6 +90,7 @@ function usePersonalRepositorySingleton() {
 
   return {
     upsertAttempt,
+    deleteAttempt,
     attempts,
     lastAttempt,
     getAttemptsCount,

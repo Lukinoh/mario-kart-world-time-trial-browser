@@ -6,9 +6,6 @@ const sFooter = css({
   display: "flex",
   justifyContent: "flex-end",
   gap: "var(--mk-spacing-medium)",
-  "> button": {
-    marginBottom: 0,
-  },
 });
 
 interface DialogFooterConfirmProps {

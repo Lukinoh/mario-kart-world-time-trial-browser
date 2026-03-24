@@ -3,17 +3,10 @@ import type { Attempt } from "../schemas/attempt";
 import { Cell } from "../../ui/components/grid/cell";
 import { GridColumn } from "../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../ui/components/grid/horizontal-divider";
+import { SymbolButton } from "../../ui/components/buttons/symbol-button";
 import { VerticalDivider } from "../../ui/components/grid/vertical-divider";
 import { cellCss } from "../../ui/css/cell-css";
 import { isDefined } from "remeda";
-
-const sFirstColumn = cellCss({
-  extraPadding: "left",
-});
-
-const sLastColumn = cellCss({
-  extraPadding: "right",
-});
 
 const sValue = cellCss({
   mono: true,
@@ -32,17 +25,21 @@ interface AttemptsTableProps {
   showTime?: boolean;
   showTrack?: boolean;
   limit?: number;
+  onDelete?: (attempt: Attempt) => void;
 }
 
 export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
-  const GRID_COLUMNS = 16;
+  const GRID_COLUMNS = 18;
   const GRID_SPLITS_COLUMNS = 7;
   const GRID_RESULT_COLUMNS = 3;
   const GRID_SEPARATION_THICKNESS = 2;
 
   const showTime = createMemo(() => props.showTime ?? true);
   const showTrack = createMemo(() => props.showTrack ?? true);
-  const gridColumns = createMemo(() => GRID_COLUMNS - (Number(!showTime()) + Number(!showTrack())));
+  const showAction = createMemo(() => Boolean(props.onDelete));
+  const gridColumns = createMemo(
+    () => GRID_COLUMNS - (Number(!showTime()) + Number(!showTrack()) + 2 * Number(!showAction())),
+  );
 
   const attempts = createMemo(() => props.attempts.slice(0, props.limit));
 
@@ -54,7 +51,7 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
             {(attempt, aIndex) => (
               <>
                 <Show when={aIndex() % 7 === 0}>
-                  <Cell text="Date" css={[sTitle, sInfo, sFirstColumn]} />
+                  <Cell text="Date" css={[sTitle, sInfo]} />
                   <Show when={showTime()}>
                     <Cell text="Time" css={[sTitle, sInfo]} />
                   </Show>
@@ -73,11 +70,15 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
                   <VerticalDivider />
                   <Cell text="⏱️" css={[sTitle]} />
                   <VerticalDivider />
-                  <Cell text="️🟡" css={[sTitle, sLastColumn]} />
+                  <Cell text="️🟡" css={[sTitle]} />
+                  <Show when={showAction()}>
+                    <VerticalDivider />
+                    <Cell text="⚙️" />
+                  </Show>
                   <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />
                 </Show>
 
-                <Cell row={attempt.rowSplits} text={attempt.date} css={[sFirstColumn, sInfo]} />
+                <Cell row={attempt.rowSplits} text={attempt.date} css={[sInfo]} />
                 <Show when={showTime()}>
                   <Cell row={attempt.rowSplits} text={attempt.datetime} css={[sInfo]} />
                 </Show>
@@ -119,14 +120,20 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
                             <VerticalDivider row={attempt.rowSplits} />
                             <Switch>
                               <Match when={!isDefined(attempt.time) && !isDefined(attempt.coins)}>
-                                <Cell column={GRID_RESULT_COLUMNS} row={attempt.rowSplits} css={[sLastColumn]} />
+                                <Cell column={GRID_RESULT_COLUMNS} row={attempt.rowSplits} />
                               </Match>
                               <Match when>
                                 <Cell row={attempt.rowSplits} text={attempt.time} css={[sValue]} />
                                 <VerticalDivider row={attempt.rowSplits} />
-                                <Cell row={attempt.rowSplits} text={attempt.coins} css={[sValue, sLastColumn]} />
+                                <Cell row={attempt.rowSplits} text={attempt.coins} css={[sValue]} />
                               </Match>
                             </Switch>
+                            <Show when={showAction()}>
+                              <VerticalDivider row={attempt.rowSplits} />
+                              <Cell row={attempt.rowSplits}>
+                                <SymbolButton symbol="🗑" onClick={() => props.onDelete?.(attempt)} />
+                              </Cell>
+                            </Show>
                             <HorizontalDivider column={GRID_SPLITS_COLUMNS} />
                           </Show>
                         </>
@@ -136,7 +143,13 @@ export const AttemptsTable: Component<AttemptsTableProps> = (props) => {
                   <Match when={true}>
                     <Cell column={GRID_SPLITS_COLUMNS} row={attempt.rowSplits} text="Not even one split 😭" />
                     <VerticalDivider row={attempt.rowSplits} />
-                    <Cell row={attempt.rowSplits} column={GRID_RESULT_COLUMNS} css={[sLastColumn]} />
+                    <Cell row={attempt.rowSplits} column={GRID_RESULT_COLUMNS} css={[]} />
+                    <Show when={showAction()}>
+                      <VerticalDivider row={attempt.rowSplits} />
+                      <Cell row={attempt.rowSplits}>
+                        <SymbolButton symbol="🗑" onClick={() => props.onDelete?.(attempt)} />
+                      </Cell>
+                    </Show>
                   </Match>
                 </Switch>
                 <HorizontalDivider column={gridColumns()} thicknessFactor={GRID_SEPARATION_THICKNESS} />

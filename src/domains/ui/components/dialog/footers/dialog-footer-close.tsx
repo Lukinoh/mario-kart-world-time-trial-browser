@@ -1,4 +1,4 @@
-import { type Component, type Ref, useContext } from "solid-js";
+import { type Component, useContext } from "solid-js";
 import { DialogContext } from "../dialog-context";
 import { css } from "@emotion/css";
 
@@ -6,21 +6,12 @@ const sFooter = css({
   display: "flex",
   justifyContent: "flex-end",
   gap: "var(--mk-spacing-medium)",
-  "> button": {
-    marginBottom: 0,
-  },
 });
 
-interface DialogFooterCloseProps {
-  onClose?: () => void;
-  ref?: Ref<HTMLDialogElement>;
-}
-
-export const DialogFooterClose: Component<DialogFooterCloseProps> = (props) => {
+export const DialogFooterClose: Component = () => {
   const dialog = useContext(DialogContext);
 
   const onClose = (): void => {
-    props.onClose?.();
     dialog?.close();
   };
 

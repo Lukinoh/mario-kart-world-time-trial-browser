@@ -12,9 +12,6 @@ const sActions = css({
   columnGap: "var(--mk-spacing-medium)",
   alignContent: "right",
   marginBottom: "var(--mk-spacing-large)",
-  "> *": {
-    marginBottom: 0,
-  },
 });
 
 export const Friends: Component = () => {

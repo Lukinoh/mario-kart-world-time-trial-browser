@@ -1,4 +1,4 @@
-import { type Component, createMemo } from "solid-js";
+import { type Component, type JSX, createMemo } from "solid-js";
 import type { CSSInterpolation } from "@emotion/css/create-instance";
 import { css } from "@emotion/css";
 import { isDefined } from "remeda";
@@ -9,6 +9,7 @@ export interface CellProps {
   row?: number;
   column?: number;
   css?: CSSInterpolation;
+  children?: JSX.Element;
 }
 
 export const Cell: Component<CellProps> = (props) => {
@@ -25,5 +26,5 @@ export const Cell: Component<CellProps> = (props) => {
     return list;
   });
 
-  return <div class={css(cssList())}>{props.text ?? "-"}</div>;
+  return <div class={css(cssList())}>{props.children ?? props.text ?? "-"}</div>;
 };
