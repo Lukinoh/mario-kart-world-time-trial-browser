@@ -6,7 +6,6 @@ import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
 import { VerticalDivider } from "../domains/ui/components/grid/vertical-divider";
-import { cellCss } from "../domains/ui/css/cell-css";
 import { css } from "@emotion/css";
 import { useAttemptsFilter } from "../domains/attempt/components/attempts-filter/use-attempts-filter";
 import { usePageTitle } from "./compositions/use-page-title";
@@ -22,10 +21,6 @@ const sActions = css({
 
 const sGrid = css({
   columnGap: "var(--mk-spacing-large)",
-});
-
-const sTime = cellCss({
-  mono: true,
 });
 
 const sHeader = css({
@@ -51,25 +46,14 @@ export const History: Component = () => {
   const OverallData = (): JSX.Element => {
     return (
       <GridColumn class={sGrid} template="repeat(3, auto)" spacing="small" yAlign="center">
-        <VerticalDivider row={2} />
+        <VerticalDivider />
         <Show when={selectedTrack() === ALL_TRACKS}>
-          <>
-            <Cell text="Tries" />
-            <Cell text={personal.getAttemptsCount()} />
-            <Cell text="Total time" />
-            <Cell
-              text={`${personal.getSumTimeRecords().time} (${personal.getSumTimeRecords().trackCount} tracks)`}
-              css={sTime}
-            />
-          </>
+          <Cell text="Tries" />
+          <Cell text={personal.getAttemptsCount()} />
         </Show>
         <Show when={selectedTrack() !== ALL_TRACKS}>
-          <>
-            <Cell text="Tries" />
-            <Cell text={personal.getAttemptsCountByTrack(selectedTrack())} />
-            <Cell text="Best time" />
-            <Cell text={personal.getTimeRecordsByTrack(selectedTrack()).at(0)?.time ?? "None"} css={sTime} />
-          </>
+          <Cell text="Tries" />
+          <Cell text={personal.getAttemptsCountByTrack(selectedTrack())} />
         </Show>
       </GridColumn>
     );
