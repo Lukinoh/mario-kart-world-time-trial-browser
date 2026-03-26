@@ -15,10 +15,10 @@ function useRepositoriesSingleton() {
 
   const getReferenceRecords = (track: string): ReferenceRecords => {
     return {
-      BPS: personal.getSplitRecordByTrack(track, true),
-      WR: worldRecords.getTimeRecordsByTrack(track),
-      FR: friends.getTimeRecordsByTrack(track),
       PB: personal.getTimeRecordsByTrack(track, true),
+      WR: worldRecords.getTimeRecordsByTrack(track),
+      BPS: personal.getSplitRecordByTrack(track, true),
+      FR: friends.getTimeRecordsByTrack(track),
     };
   };
 

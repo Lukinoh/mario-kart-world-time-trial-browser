@@ -1,6 +1,7 @@
 import { type Component, Match, Switch, createEffect, createMemo, createSignal, on, onMount } from "solid-js";
 import { VerticalAttemptsComparisonTable } from "../attempt/components/attempts-comparison-table/vertical-attempts-comparison-table";
 import { css } from "@emotion/css";
+import { omit } from "remeda";
 import { useObsListener } from "./compositions/use-obs-listener";
 
 const sOuterTable = css({
@@ -56,7 +57,7 @@ export const PopupObs: Component = () => {
             {(result) => (
               <VerticalAttemptsComparisonTable
                 last={result().last}
-                referenceRecords={result().references}
+                referenceRecords={omit(result().references, ["FR"])}
                 sumTimeRecords={result().sumTimeRecords}
               />
             )}

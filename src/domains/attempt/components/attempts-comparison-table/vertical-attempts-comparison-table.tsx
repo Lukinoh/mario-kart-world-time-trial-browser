@@ -1,4 +1,5 @@
-import { type Component, For, Match, Switch } from "solid-js";
+import { type Component, For, Match, Show, Switch } from "solid-js";
+import { entries, values } from "remeda";
 import type { Attempt } from "../../schemas/attempt";
 import { Cell } from "../../../ui/components/grid/cell";
 import { DeltaCell } from "./delta-cell";
@@ -10,7 +11,6 @@ import type { SumTimeRecords } from "../../types/sum-time-records";
 import { TimeWidthCell } from "./time-width-cell";
 import { cellCss } from "../../../ui/css/cell-css";
 import { delta } from "../../utils/delta";
-import { entries } from "remeda";
 
 const sTime = cellCss({
   mono: true,
@@ -32,7 +32,7 @@ export const VerticalAttemptsComparisonTable: Component<AttemptsComparisonTableP
   return (
     <GridColumn template={`repeat(${GRID_FULL_COLUMN}, max-content)`} xAlign="center" yAlign="center">
       {/* Line */}
-      <Cell text="Last" css={sTitle} />
+      <Cell text="" />
       <TimeWidthCell text="S" />
       <TimeWidthCell text="ΣS" />
 
@@ -128,11 +128,25 @@ export const VerticalAttemptsComparisonTable: Component<AttemptsComparisonTableP
       <HorizontalDivider column={GRID_FULL_COLUMN} thicknessFactor={2} />
 
       {/* Line */}
-      <Cell
-        column={GRID_FULL_COLUMN}
-        text={`Total record time (${props.sumTimeRecords.trackCount} tracks)`}
-        css={sTitle}
-      />
+      <For each={entries(props.referenceRecords)}>
+        {([type, references]) => (
+          <For each={references}>
+            {(reference) => (
+              <>
+                {/* Line */}
+                <Cell text={type} />
+                <Cell column={2} text={reference.time} css={sTime} />
+              </>
+            )}
+          </For>
+        )}
+      </For>
+      <Show when={values(props.referenceRecords).flat().length > 0}>
+        <HorizontalDivider column={GRID_FULL_COLUMN} thicknessFactor={2} />
+      </Show>
+
+      {/* Line */}
+      <Cell column={GRID_FULL_COLUMN} text={`Total PB time (${props.sumTimeRecords.trackCount} tracks)`} css={sTitle} />
 
       {/* Line */}
       <Cell column={GRID_FULL_COLUMN} text={props.sumTimeRecords.time} css={sTime} />
