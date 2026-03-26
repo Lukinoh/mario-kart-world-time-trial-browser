@@ -5,7 +5,7 @@ import { Friends } from "./views/friends";
 import { History } from "./views/history";
 import { Live } from "./views/live";
 import { Readme } from "./views/readme/readme";
-import { Result } from "./views/result";
+import { Results } from "./views/results";
 import { SymbolButton } from "./domains/ui/components/buttons/symbol-button";
 import { TimeTrialPlayer } from "./domains/time-trial/components/time-trial-player";
 import { ValibotImportButton } from "./domains/database/components/valibot-import-button/valibot-import-button";
@@ -49,7 +49,7 @@ export const AppRoutes: Component = () => {
         <header>
           <nav class={sNav}>
             <A href="/live">Live</A>
-            <A href="/result">Result</A>
+            <A href="/results">Results</A>
             <A href="/world-records">World Records</A>
             <A href="/history">History</A>
             <A href="/friends">Friends</A>
@@ -81,7 +81,7 @@ export const AppRoutes: Component = () => {
   return (
     <Route component={AppWrapper}>
       <Route path="live" component={Live} />
-      <Route path="result" component={Result} />
+      <Route path="results" component={Results} />
       <Route path="world-records" component={WorldRecords} />
       <Route path="history" component={History} />
       <Route path="friends" component={Friends} />

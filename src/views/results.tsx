@@ -22,7 +22,7 @@ const sTime = cellCss({
   mono: true,
 });
 
-export const Result: Component = () => {
+export const Results: Component = () => {
   const personal = usePersonalRepository();
   const { setTitle } = usePageTitle();
   const { filtered, AttemptsFilter } = useAttemptsFilter({
@@ -33,7 +33,7 @@ export const Result: Component = () => {
   });
 
   onMount(() => {
-    setTitle("Result");
+    setTitle("Results");
   });
 
   return (
