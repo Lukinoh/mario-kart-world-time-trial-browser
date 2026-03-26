@@ -50,9 +50,9 @@ export const AppRoutes: Component = () => {
           <nav class={sNav}>
             <A href="/live">Live</A>
             <A href="/result">Result</A>
+            <A href="/world-records">World Records</A>
             <A href="/history">History</A>
             <A href="/friends">Friends</A>
-            <A href="/world-records">World Records</A>
 
             <A
               target="_blank"
@@ -80,12 +80,11 @@ export const AppRoutes: Component = () => {
 
   return (
     <Route component={AppWrapper}>
-      {/* The ci methods breaks hot reload */}
       <Route path="live" component={Live} />
       <Route path="result" component={Result} />
+      <Route path="world-records" component={WorldRecords} />
       <Route path="history" component={History} />
       <Route path="friends" component={Friends} />
-      <Route path="world-records" component={WorldRecords} />
       <Route path="readme" component={Readme} />
       <Route path="*404" component={() => <Navigate href="live" />} />
     </Route>
