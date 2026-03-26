@@ -1,3 +1,11 @@
+## **1.2.0**&emsp;<sub><sup>2026-03-26 (471f45e425c8cc533965729fda41485cb13c5b75...b35d263c440fce39a11a5602bdc6f7520d876a06)</sup></sub>
+
+### Features
+
+- add recovery mode in case of database corruption (471f45e425c8cc533965729fda41485cb13c5b75)
+
+<br>
+
 ## **1.1.2**&emsp;<sub><sup>2026-02-26 (a0b740e1e9e92afb0a5df75f8ce4c76a770e0fbd...beaa625e5dbfea1a307b2b889ead16c03b145353)</sup></sub>
 
 ### Bug Fixes
