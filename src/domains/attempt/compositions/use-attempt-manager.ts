@@ -21,7 +21,7 @@ const ELAPSED_BEFORE_BEING_FINAL_MS = 1000;
 function useAttemptManagerFactory() {
   let state: State = "WAITING_ATTEMPT";
   let attempt = createAttemptHandler("Search for...", "?");
-  const { isFinalTime } = useIsFinalTime(ELAPSED_BEFORE_BEING_FINAL_MS);
+  const { deferFinalTime, isFinalTime } = useIsFinalTime(ELAPSED_BEFORE_BEING_FINAL_MS);
 
   /**
    * Returns an AttemptEntity object only if there was a creation or an update of an AttemptEntity
@@ -35,6 +35,7 @@ function useAttemptManagerFactory() {
     const coins = Coins.get(image, putImageData);
 
     if (!isDefined(time) || !isDefined(coins)) {
+      deferFinalTime();
       return undefined;
     }
 

@@ -9,7 +9,7 @@ function useIsFinalTimeFactory(beforeFinalMs: number) {
     const now = Date.now();
 
     if (isPause) {
-      lastTimestamp = now;
+      deferFinalTime(now);
       return false;
     }
 
@@ -32,8 +32,13 @@ function useIsFinalTimeFactory(beforeFinalMs: number) {
     return false;
   };
 
+  const deferFinalTime = (time?: number): void => {
+    lastTimestamp = time ?? Date.now();
+  };
+
   return {
     isFinalTime,
+    deferFinalTime,
   };
 }
 
