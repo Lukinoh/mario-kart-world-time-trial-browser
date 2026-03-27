@@ -7,7 +7,7 @@ import { F1Cell } from "./f1-cell";
 import { GridColumn } from "../../../ui/components/grid/grid-column";
 import { HorizontalDivider } from "../../../ui/components/grid/horizontal-divider";
 import type { ReferenceRecords } from "../../types/reference-records";
-import type { SumTimeRecords } from "../../types/sum-time-records";
+import type { TimeRecordsSum } from "../../types/time-records-sum";
 import { TimeWidthCell } from "./time-width-cell";
 import { cellCss } from "../../../ui/css/cell-css";
 import { delta } from "../../utils/delta";
@@ -23,7 +23,7 @@ const sTitle = cellCss({
 interface AttemptsComparisonTableProps {
   last: Attempt;
   referenceRecords: ReferenceRecords;
-  sumTimeRecords: SumTimeRecords;
+  timeRecordsSum: TimeRecordsSum;
 }
 
 export const VerticalAttemptsComparisonTable: Component<AttemptsComparisonTableProps> = (props) => {
@@ -146,10 +146,10 @@ export const VerticalAttemptsComparisonTable: Component<AttemptsComparisonTableP
       </Show>
 
       {/* Line */}
-      <Cell column={GRID_FULL_COLUMN} text={`Total PB time (${props.sumTimeRecords.trackCount} tracks)`} css={sTitle} />
+      <Cell column={GRID_FULL_COLUMN} text={`TimeSheet (${props.timeRecordsSum.trackCount} tracks)`} css={sTitle} />
 
       {/* Line */}
-      <Cell column={GRID_FULL_COLUMN} text={props.sumTimeRecords.time} css={sTime} />
+      <Cell column={GRID_FULL_COLUMN} text={props.timeRecordsSum.time} css={sTime} />
     </GridColumn>
   );
 };

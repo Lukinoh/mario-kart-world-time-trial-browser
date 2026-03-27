@@ -58,7 +58,7 @@ export const PopupObs: Component = () => {
               <VerticalAttemptsComparisonTable
                 last={result().last}
                 referenceRecords={omit(result().references, ["FR"])}
-                sumTimeRecords={result().sumTimeRecords}
+                timeRecordsSum={result().timeRecordsSum}
               />
             )}
           </Match>

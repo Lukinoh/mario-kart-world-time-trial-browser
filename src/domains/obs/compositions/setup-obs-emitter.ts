@@ -32,7 +32,7 @@ function setupObsEmitterSingleton() {
       response.data = {
         last: last,
         references: repositories.getReferenceRecords(last.raw.track),
-        sumTimeRecords: personal.getSumTimeRecords(),
+        timeRecordsSum: personal.getTimeRecordsSum(),
       };
     }
 

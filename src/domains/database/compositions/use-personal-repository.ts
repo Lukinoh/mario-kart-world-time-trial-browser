@@ -25,9 +25,10 @@ function usePersonalRepositorySingleton() {
     getFlattenRecords,
     getTimeRecords,
     getTimeRecordsByTrack,
+    getTimeRecordsSum,
     getSplitRecords,
     getSplitRecordByTrack,
-    getSumTimeRecords,
+    getSplitRecordsSum,
     merge,
   } = useAttempts(store);
 
@@ -97,9 +98,10 @@ function usePersonalRepositorySingleton() {
     getAttemptsCountByTrack,
     getTimeRecords,
     getTimeRecordsByTrack,
+    getTimeRecordsSum,
     getSplitRecords,
     getSplitRecordByTrack,
-    getSumTimeRecords,
+    getSplitRecordsSum,
     shrink,
 
     // JSON

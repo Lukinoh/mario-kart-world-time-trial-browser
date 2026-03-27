@@ -9,6 +9,7 @@ import {
   flatMap,
   groupBy,
   isDeepEqual,
+  isDefined,
   last,
   map,
   pipe,
@@ -23,11 +24,11 @@ import type { AttemptEntity } from "../../database/schemas/attempt-entity";
 import type { AttemptsEntity } from "../../database/schemas/attempts-entity";
 import type { Brand } from "../../_core/utils/brand";
 import type { Store } from "solid-js/store";
-import type { SumTimeRecords } from "../types/sum-time-records";
 import { Time } from "../utils/time";
+import type { TimeRecordsSum } from "../types/time-records-sum";
 import { createMemo } from "solid-js";
 
-function getRecordsBy<T extends Attempt>(attempts: Array<T>, by: Parameters<typeof groupBy<T>>[0]): Array<T> {
+function getRecordsBy(attempts: Array<Attempt>, by: Parameters<typeof groupBy<Attempt>>[0]): Array<Attempt> {
   return pipe(
     attempts,
     groupBy(by),
@@ -44,6 +45,21 @@ const getRecordsByTime = (attempts: Array<Attempt>): Array<Attempt> =>
 
 const getRecordsBySplitTime = (attempts: Array<Attempt>, sIndex: number): Array<Attempt> =>
   getRecordsBy(attempts, (attempt) => attempt.splits.at(sIndex)?.time);
+
+const getRecordsSum = (attempts: Array<Attempt>): TimeRecordsSum => {
+  return pipe(
+    attempts,
+    uniqueBy((attempt) => attempt.raw.track),
+    filter((record): record is Attempt & { time: string } => isDefined(record.time)),
+    map((record) => Time.parse(record.time) - Time.parse("0:00.000")),
+    (times) => {
+      return {
+        time: Time.formatH(Time.parse("0:00.000") + sum(times)),
+        trackCount: times.length,
+      };
+    },
+  );
+};
 
 // oxlint-disable-next-line explicit-function-return-type explicit-module-boundary-types
 function useAttemptsFactory(store: Store<AttemptsEntity>) {
@@ -140,18 +156,12 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
     ),
   );
 
-  const getSumTimeRecords = createMemo<SumTimeRecords>(() => {
-    return pipe(
-      getTimeRecords(),
-      uniqueBy((attempt) => attempt.raw.track),
-      map((record) => Time.parse(record.time ?? "0:00.000") - Time.parse("0:00.000")),
-      (times) => {
-        return {
-          time: Time.formatH(Time.parse("0:00.000") + sum(times)),
-          trackCount: times.length,
-        };
-      },
-    );
+  const getSplitRecordsSum = createMemo<TimeRecordsSum>(() => {
+    return getRecordsSum(getSplitRecords());
+  });
+
+  const getTimeRecordsSum = createMemo<TimeRecordsSum>(() => {
+    return getRecordsSum(getTimeRecords());
   });
 
   const merge = (...attempts: Array<Array<AttemptEntity>>): Array<AttemptEntity> => {
@@ -167,12 +177,13 @@ function useAttemptsFactory(store: Store<AttemptsEntity>) {
     attempts,
     lastAttempt,
     tracks,
+    getFlattenRecords,
     getTimeRecords,
     getTimeRecordsByTrack,
+    getTimeRecordsSum,
     getSplitRecords,
     getSplitRecordByTrack,
-    getFlattenRecords,
-    getSumTimeRecords,
+    getSplitRecordsSum,
     merge,
   };
 }

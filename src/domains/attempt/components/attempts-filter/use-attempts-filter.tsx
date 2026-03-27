@@ -18,8 +18,9 @@ export function useAttemptsFilter<Input extends Record<string, Accessor<Array<At
   const tracks = createMemo(() => {
     return unique(
       Object.values(props.input)
-        .flatMap((a) => a())
-        .map((a) => a.raw.track),
+        .flatMap((attempts) => attempts())
+        .map((a) => a.raw.track)
+        .toSorted(),
     );
   });
 

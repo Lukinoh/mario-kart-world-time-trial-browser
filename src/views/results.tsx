@@ -41,10 +41,15 @@ export const Results: Component = () => {
       <div class={sHeader}>
         <AttemptsFilter />
         <GridColumn class={sGrid} template="repeat(3, auto)" spacing="small" yAlign="center">
-          <VerticalDivider />
-          <Cell text="Sum of all your personal bests" />
+          <VerticalDivider row={2} />
+          <Cell text="TimeSheet (PB)" />
           <Cell
-            text={`${personal.getSumTimeRecords().time} (${personal.getSumTimeRecords().trackCount} tracks)`}
+            text={`${personal.getTimeRecordsSum().time} (${personal.getTimeRecordsSum().trackCount} tracks)`}
+            css={sTime}
+          />
+          <Cell text="TimeSheet (BPS)" />
+          <Cell
+            text={`${personal.getSplitRecordsSum().time} (${personal.getSplitRecordsSum().trackCount} tracks)`}
             css={sTime}
           />
         </GridColumn>

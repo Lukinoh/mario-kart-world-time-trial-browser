@@ -256,15 +256,15 @@ describe("getFlattenRecords", () => {
   });
 });
 
-describe("getSumTimeRecords", () => {
+describe("getSplitRecordsSum", () => {
   test("ignores tracks that does not have a final time", () => {
     const { createAttempt, createSplit } = useBuildAttempt(2);
 
-    const { getSumTimeRecords } = createRoot(() =>
+    const { getSplitRecordsSum } = createRoot(() =>
       useAttempts({ version: 1, attempts: [createAttempt({ splits: createSplit("1:10.000") })] }),
     );
 
-    const sumTimeRecords = getSumTimeRecords();
+    const sumTimeRecords = getSplitRecordsSum();
     expect(sumTimeRecords.time).toBe("00:00.000");
     expect(sumTimeRecords.trackCount).toBe(0);
   });
@@ -272,7 +272,7 @@ describe("getSumTimeRecords", () => {
   test("takes only one time by track", () => {
     const { createAttempt, createSplit } = useBuildAttempt(1);
 
-    const { getSumTimeRecords } = createRoot(() =>
+    const { getSplitRecordsSum } = createRoot(() =>
       useAttempts({
         version: 1,
         attempts: [
@@ -282,7 +282,39 @@ describe("getSumTimeRecords", () => {
       }),
     );
 
-    const sumTimeRecords = getSumTimeRecords();
+    const sumTimeRecords = getSplitRecordsSum();
+    expect(sumTimeRecords.time).toBe("01:10.000");
+    expect(sumTimeRecords.trackCount).toBe(1);
+  });
+});
+
+describe("getTimeRecordsSum", () => {
+  test("ignores tracks that does not have a final time", () => {
+    const { createAttempt, createSplit } = useBuildAttempt(2);
+
+    const { getTimeRecordsSum } = createRoot(() =>
+      useAttempts({ version: 1, attempts: [createAttempt({ splits: createSplit("1:10.000") })] }),
+    );
+
+    const sumTimeRecords = getTimeRecordsSum();
+    expect(sumTimeRecords.time).toBe("00:00.000");
+    expect(sumTimeRecords.trackCount).toBe(0);
+  });
+
+  test("takes only one time by track", () => {
+    const { createAttempt, createSplit } = useBuildAttempt(1);
+
+    const { getTimeRecordsSum } = createRoot(() =>
+      useAttempts({
+        version: 1,
+        attempts: [
+          createAttempt({ splits: createSplit("1:10.000") }),
+          createAttempt({ splits: createSplit("1:10.000") }),
+        ],
+      }),
+    );
+
+    const sumTimeRecords = getTimeRecordsSum();
     expect(sumTimeRecords.time).toBe("01:10.000");
     expect(sumTimeRecords.trackCount).toBe(1);
   });
