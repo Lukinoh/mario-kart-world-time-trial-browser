@@ -38,7 +38,7 @@ export const FaqObsStudio: Component = () => {
 
       <details>
         <summary>
-          How can I integrate <Mkwttb /> with OBS Studio?
+          How do I create an overlay of <Mkwttb /> on OBS Studio?
         </summary>
         <p>
           By clicking on the OBS button, it will open a view specifically developed for OBS. You may have to allow
@@ -72,6 +72,15 @@ export const FaqObsStudio: Component = () => {
           </li>
           <li>Adjust the additional settings if necessary</li>
         </ol>
+      </details>
+
+      <details>
+        <summary>Why my overlay is not updated on OBS Studio?</summary>
+        <p>
+          If your OBS popup is completely hidden by another window, Microsoft Windows does not redraw the window. They
+          do that to optimise resource management. So it is important that at least one pixel of your OBS popup stays
+          visible on your screen at any time. This ensures the redraw to be triggered.
+        </p>
       </details>
     </>
   );
