@@ -30,7 +30,9 @@ export const FaqObsStudio: Component = () => {
           <A target="_blank" href="https://obsproject.com/kb/virtual-camera-guide">
             OBS Virtual Camera
           </A>{" "}
-          that mirrors your capture card. Then you use the OBS Virtual Camera as a source in your browser.
+          that mirrors your capture card. In its settings, select <code>Source</code> as <code>Output Type</code>, and
+          your Switch source as <code>Output Selection</code>. Then, after starting it, in your browser, select OBS
+          Virtual Camera as a webcam.
         </p>
       </details>
 
@@ -45,12 +47,31 @@ export const FaqObsStudio: Component = () => {
         <p>
           On OBS Studio, add a new source <code>Window Capture</code>, and you select the popup. When you configure it
           for the first time, I suggest that you go on the track DK Spaceport as it is the worst-case scenario in terms
-          of number of splits. Do not forget to crop the header of the window 😊.
+          of height due to its high number of splits. Do not forget to crop the header of the window 😊.
         </p>
         <p>
           After the first configuration, every time you open again the popup, OBS Studio should capture it
           automatically.
         </p>
+        <p>Additionally, you can make the background of the OBS popup transparent by adding a filter.</p>
+        <ol>
+          <li>
+            Click right on your <code>Window Capture</code> source
+          </li>
+          <li>
+            Click on <code>Filters</code>
+          </li>
+          <li>
+            Add a new <code>Effect Filters</code> of type <code>Color Key</code>
+          </li>
+          <li>
+            Set <code>Key Color Type</code> to <code>Custom Color</code>
+          </li>
+          <li>
+            Set <code>Key Color</code> to <code>#212121</code>
+          </li>
+          <li>Adjust the additional settings if necessary</li>
+        </ol>
       </details>
     </>
   );
