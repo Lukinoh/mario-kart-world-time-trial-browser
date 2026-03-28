@@ -43,6 +43,40 @@ export const FaqSetup: Component = () => {
           in Safari and Firefox.
         </p>
       </details>
+
+      <details>
+        <summary>I have a black frame around the image, and the application does not work. What should I do?</summary>
+        <p>
+          It means you have <em>overscan</em>, and to fix it you configured the <code>Adjust Screen Size</code> to a
+          value smaller than 100% in your{" "}
+          <A
+            target="_blank"
+            href="https://www.nintendo.com/au/support/articles/how-to-adjust-the-display-settings-on-nintendo-switch-2/"
+          >
+            Switch settings
+          </A>
+        </p>
+        <p>
+          Usually, the overscan issue should be fixed directly on your TV. So, set the value back to do 100%. Then,
+          depending on your TV Brand try the following instructions. If you TV is not listed, please refer to the manual
+          of your TV.
+        </p>
+        <ul>
+          {/*Source: https://askubuntu.com/questions/4358/how-do-i-fix-overscan-on-my-hdmi-hdtv*/}
+          <li>
+            <strong>Samsung TV -</strong> Go to Menu / Picture / Picture Options / Size / Screen Fit (instead of 16:9).
+          </li>
+          <li>
+            <strong>LG TV -</strong> Go to Settings / Picture / Aspect Ratio / Just Scan (instead of 16:9)
+          </li>
+          <li>
+            <strong>Sony TV -</strong> Hit Home button, go to Settings / Screen / Display Area / Full Pixel
+          </li>
+          <li>
+            <strong>Sharp TV -</strong> Hit View Mode button, select "Dot by Dot" or "Full screen"
+          </li>
+        </ul>
+      </details>
     </>
   );
 };
