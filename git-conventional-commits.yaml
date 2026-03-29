@@ -29,10 +29,9 @@ changelog:
     perf: Performance Improvements
     merge: Merges
     breakingChange: BREAKING CHANGES
-
   ## GitHub
-  # commitUrl: https://github.com/ACCOUNT/REPOSITORY/commit/%commit%
-  # commitRangeUrl: https://github.com/ACCOUNT/REPOSITORY/compare/%from%...%to%?diff=split
+  commitUrl: https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/%commit%
+  commitRangeUrl: https://github.com/Lukinoh/mario-kart-world-time-trial-browser/compare/%from%...%to%?diff=split
 
   ## GitHub Issues
   # issueRegexPattern: "#[0-9]+"
