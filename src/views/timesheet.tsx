@@ -22,7 +22,7 @@ const sTime = cellCss({
   mono: true,
 });
 
-export const Results: Component = () => {
+export const Timesheet: Component = () => {
   const personal = usePersonalRepository();
   const { setTitle } = usePageTitle();
   const { filtered, AttemptsFilter } = useAttemptsFilter({
@@ -33,7 +33,7 @@ export const Results: Component = () => {
   });
 
   onMount(() => {
-    setTitle("Results");
+    setTitle("Timesheet");
   });
 
   return (
@@ -42,12 +42,12 @@ export const Results: Component = () => {
         <AttemptsFilter />
         <GridColumn class={sGrid} template="repeat(3, auto)" spacing="small" yAlign="center">
           <VerticalDivider row={2} />
-          <Cell text="TimeSheet (PB)" />
+          <Cell text="Timesheet (PB)" />
           <Cell
             text={`${personal.getTimeRecordsSum().time} (${personal.getTimeRecordsSum().trackCount} tracks)`}
             css={sTime}
           />
-          <Cell text="TimeSheet (BPS)" />
+          <Cell text="Timesheet (BPS)" />
           <Cell
             text={`${personal.getSplitRecordsSum().time} (${personal.getSplitRecordsSum().trackCount} tracks)`}
             css={sTime}

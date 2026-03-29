@@ -146,7 +146,7 @@ export const VerticalAttemptsComparisonTable: Component<AttemptsComparisonTableP
       </Show>
 
       {/* Line */}
-      <Cell column={GRID_FULL_COLUMN} text={`TimeSheet (${props.timeRecordsSum.trackCount} tracks)`} css={sTitle} />
+      <Cell column={GRID_FULL_COLUMN} text={`Timesheet (${props.timeRecordsSum.trackCount} tracks)`} css={sTitle} />
 
       {/* Line */}
       <Cell column={GRID_FULL_COLUMN} text={props.timeRecordsSum.time} css={sTime} />
