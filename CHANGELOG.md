@@ -1,3 +1,26 @@
+## **1.3.0**&emsp;<sub><sup>2026-03-29 ([cc89589...f39343f](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/compare/cc895898071f25808cc20c708329613314beebcf...f39343fdf48008644f431e67da4a57aa03000fd1?diff=split))</sup></sub>
+
+### Features
+
+- add a result page that displays only your personal best and personal best splits ([9fe9800](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/9fe98000589ee4767d39ed52720536ac1e929651))
+- add support for confirm/cancel modal ([1c6daa3](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/1c6daa3476584cc602abb7db34fab73b5b81fba9))
+- add possibility to delete an attempt on the history page ([b6b4bee](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/b6b4bee6a613e26158e476ff33fae0df2ab6c251))
+- add pb, wr, bps time to the popup obs ([c8ace9c](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/c8ace9ce88dee99b3b123a3b3d06c616f3d3c29c))
+- use timesheet as terminology for the sum of PB attempts and add BPS timesheet ([85a9093](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/85a9093165756e507f651e582a52d5a7c61ea488))
+- explain how to make obs integration window transparent ([189c9a2](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/189c9a21bfaca09d39ac6e1f57844219a8b10dc1))
+- add faq about the overlay not being updated on OBS Studio ([5cd748a](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/5cd748add94c9e707b45c9685a461109e078c15e))
+- add faq about black frame around the imaage \(overscan\) ([2b2a1e9](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/2b2a1e9fa57e1c4e3274f46b7cca662aadd72853))
+- add navigation to the switch menu as known detection problems ([fc31c03](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/fc31c03e55f80854dc006ead5efd2c247f5e09c3))
+
+### Bug Fixes
+
+- add validation on the import shortcut located in the header ([cc89589](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/cc895898071f25808cc20c708329613314beebcf))
+- make dialog error about application already open unclosable ([a477dc6](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/a477dc652e060e2e906dcf57fffa88be5b97fc92))
+- reduce probability of incorrect final time to be captured ([7955a26](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/7955a26055d606bf606fb36685d6b0c8ed5b7a41))
+- open the switch right menu \(keep pressing the home button\) should not break the application ([efa5a6b](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/efa5a6b92935b3e88f9f616f069f74c2ff0fbe5f))
+
+<br>
+
 ## **1.2.0**&emsp;<sub><sup>2026-03-26 ([471f45e...b35d263](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/compare/471f45e425c8cc533965729fda41485cb13c5b75...b35d263c440fce39a11a5602bdc6f7520d876a06?diff=split))</sup></sub>
 
 ### Features
