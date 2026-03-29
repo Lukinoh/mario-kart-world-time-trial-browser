@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import type { AttemptEntity } from "../../database/schemas/attempt-entity";
 import type { Brand } from "../../_core/utils/brand";
 import { Coins } from "../../recognition/coins/coins";
@@ -7,6 +8,7 @@ import { Laps } from "../../recognition/laps/laps";
 import { Pause } from "../../recognition/pause/pause";
 import { Shrooms } from "../../recognition/shrooms/shrooms";
 import { Time } from "../../recognition/time/time";
+import { TimeSchema } from "../../database/schemas/time";
 import { Track } from "../../recognition/track/track";
 import { createAttemptHandler } from "../utils/attempt-handler";
 import { isDefined } from "remeda";
@@ -83,13 +85,20 @@ function useAttemptManagerFactory() {
       const isPause = Pause.isPause(image, putImageData);
       const isNotEqualToLastSplit = !attempt.isEqualToLastSplit(time);
       const isFinished = isFinalTime(time, isPause, rate);
+      const finalSplit = attempt.getFinalSplit(time);
 
-      // If you restart a game during the last lap you could have false detection, hence the conditions on the last lap.
-      // The bump should not be problematic in this context (we rely on the fact that pause trigger a 1 as lap)
-      if (isNotEqualToLastSplit && isFinished && attempt.isRawLastLap(lap)) {
-        attempt.addFinalSplit({
+      // If you restart a game during the last lap, you could have false detection, hence the conditions on the last lap.
+      // The bump should not be problematic in this context (we rely on the fact that pause triggers a 1 recognized as the current lap).
+      // Moreover, it is possible that finalSplit to be negative (=not valid TimeSchema) if you keep pressed on the home button to display the side menu.
+      if (
+        isNotEqualToLastSplit &&
+        isFinished &&
+        attempt.isRawLastLap(lap) &&
+        v.safeParse(TimeSchema, finalSplit).success
+      ) {
+        attempt.addSplit({
           shrooms: shrooms,
-          time: time,
+          time: finalSplit,
           coins: coins,
         });
         state = "WAITING_ATTEMPT";

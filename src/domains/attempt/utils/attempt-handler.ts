@@ -24,15 +24,12 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
     });
   };
 
-  const addFinalSplit = (rawSplit: RawSplit): void => {
+  const getFinalSplit = (time: string): string => {
     // The final raw split has the particularity that the time is not the split time, but the total time.
-    const totalTime = Time.parse(rawSplit.time);
+    const totalTime = Time.parse(time);
     const splitTime = splits.reduce((acc, split): number => acc - Time.parse(split.time), totalTime);
 
-    addSplit({
-      ...rawSplit,
-      time: Time.format(splitTime),
-    });
+    return Time.format(splitTime);
   };
 
   const isEqualToLastSplit = (time: string): boolean => {
@@ -66,7 +63,7 @@ export function createAttemptHandlerFactory(pTrack: string, pRawLaps: string) {
 
   return {
     addSplit,
-    addFinalSplit,
+    getFinalSplit,
     isEqualToLastSplit,
     isLastLap,
     isRawLastLap,
