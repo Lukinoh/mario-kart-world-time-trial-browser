@@ -17,6 +17,14 @@ export const FaqKnownDetectionProblems: Component = () => {
           number of shrooms could be wrong, as the shrooms are partially hidden by the notification.
         </p>
       </details>
+
+      <details>
+        <summary>During navigation in the menu of the Switch during the final split</summary>
+        <p>
+          If you go on the menu of the Switch during the <strong>final</strong> split, there is a small possibility to
+          get a wrong split detection.
+        </p>
+      </details>
     </>
   );
 };
