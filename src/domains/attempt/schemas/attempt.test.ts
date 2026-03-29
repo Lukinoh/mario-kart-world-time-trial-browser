@@ -4,6 +4,7 @@ import { describe, expect, test } from "vitest";
 import type { AttemptEntity } from "../../database/schemas/attempt-entity";
 import { DateTime } from "../utils/date-time";
 import type { SplitEntity } from "../../database/schemas/split-entity";
+import { Time } from "../utils/time";
 
 const parse = (attemptEntity: AttemptEntity): Attempt => {
   return v.parse(AttemptSchema, attemptEntity);
@@ -11,7 +12,7 @@ const parse = (attemptEntity: AttemptEntity): Attempt => {
 
 const date = new Date();
 const timestamp = date.getTime();
-const timezoneOffsetMs = date.getTimezoneOffset() * 60 * 1000;
+const oneMinutes = Time.parse("1:00.000");
 
 describe("attemptSchema", () => {
   const attemptEntity: AttemptEntity = {
@@ -63,8 +64,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 3,
       time: "1:00.000",
       accumulatedTime: "1:00.000",
-      parsedTime: 60_000 + timezoneOffsetMs,
-      parsedAccumulatedTime: 60_000 + timezoneOffsetMs,
+      parsedTime: oneMinutes,
+      parsedAccumulatedTime: oneMinutes,
       raw: split_1,
     });
   });
@@ -81,8 +82,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 3,
       time: "1:00.000",
       accumulatedTime: "1:00.000",
-      parsedTime: 60_000 + timezoneOffsetMs,
-      parsedAccumulatedTime: 60_000 + timezoneOffsetMs,
+      parsedTime: oneMinutes,
+      parsedAccumulatedTime: oneMinutes,
       raw: split_1,
     });
     expect(attempt.splits.at(1)).toStrictEqual({
@@ -90,8 +91,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 1,
       time: "1:00.000",
       accumulatedTime: "2:00.000",
-      parsedTime: 60_000 + timezoneOffsetMs,
-      parsedAccumulatedTime: 2 * (60_000 + timezoneOffsetMs),
+      parsedTime: oneMinutes,
+      parsedAccumulatedTime: 2 * oneMinutes,
       raw: split_2,
     });
     expect(attempt.splits.at(2)).toStrictEqual({
@@ -99,8 +100,8 @@ describe("attemptSchema", () => {
       accumulatedCoins: 2,
       time: "1:00.000",
       accumulatedTime: "3:00.000",
-      parsedTime: 60_000 + timezoneOffsetMs,
-      parsedAccumulatedTime: 3 * (60_000 + timezoneOffsetMs),
+      parsedTime: oneMinutes,
+      parsedAccumulatedTime: 3 * oneMinutes,
       raw: split_3,
     });
   });
