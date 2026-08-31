@@ -1,7 +1,5 @@
-import { A } from "@solidjs/router";
 import type { Component } from "solid-js";
 import { Mkwttb } from "../../domains/_core/components/mkwttb";
-import { WORLD_RECORD_URL } from "../../domains/_core/constants/external-urls";
 
 export const FaqMiscellaneous: Component = () => {
   return (
@@ -22,20 +20,6 @@ export const FaqMiscellaneous: Component = () => {
           <Mkwttb /> is a web application that runs in your browser. It uses image comparison for data extraction, and
           it is less CPU intensive. It provides a lot more features, with one of its goals being "capture and forget".
           It automatically identifies tracks you are playing on and updates your records.
-        </p>
-      </details>
-
-      <details>
-        <summary>What is CodeTabs?</summary>
-        <p>
-          <A target="_blank" href="https://codetabs.com/">
-            CodeTabs
-          </A>{" "}
-          provides a cors proxy. It allows you to retrieve data from{" "}
-          <A target="_blank" href={WORLD_RECORD_URL}>
-            mkwrs.com
-          </A>
-          . Without, it would not be possible due to technical limitations.
         </p>
       </details>
 

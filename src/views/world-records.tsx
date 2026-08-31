@@ -1,5 +1,6 @@
 import { type Component, onMount } from "solid-js";
 import { AttemptsTable } from "../domains/attempt/components/attempts-table";
+import { CORS_PROXY } from "../domains/_core/constants/external-urls";
 import { Cell } from "../domains/ui/components/grid/cell";
 import { GridColumn } from "../domains/ui/components/grid/grid-column";
 import { ValibotImportButton } from "../domains/database/components/valibot-import-button/valibot-import-button";
@@ -37,7 +38,9 @@ export const WorldRecords: Component = () => {
           <Cell text="Manual" css={[sCellMode]} />
           <div>
             <ValibotImportButton onClick={worldRecords.automaticProcessForMkrws}>Refresh</ValibotImportButton>
-            <div class={sNoWrap}>powered by CodeTabs</div>
+            <div class={sNoWrap}>
+              powered by <a href={CORS_PROXY.SOURCE}>{CORS_PROXY.POWERED_BY}</a>
+            </div>
           </div>
           <dl>
             <dt>Step 1</dt>

@@ -1,4 +1,4 @@
-import { CORS_PROXY_URL, WORLD_RECORD_URL } from "../../_core/constants/external-urls";
+import { CORS_PROXY, WORLD_RECORD_URL } from "../../_core/constants/external-urls";
 import type { Brand } from "../../_core/utils/brand";
 import { JSONUtils } from "../../_core/utils/json-utils";
 import { MkwWrs } from "../../_core/utils/mkw-wrs";
@@ -16,7 +16,7 @@ function useWorldRecordsRepositorySingleton() {
   const { attempts, getTimeRecordsByTrack } = useAttempts(store);
 
   const automaticProcessForMkrws = async (): Promise<void> => {
-    const response = await fetch(`${CORS_PROXY_URL}${WORLD_RECORD_URL}`);
+    const response = await fetch(`${CORS_PROXY.URL}${WORLD_RECORD_URL}`);
     const text = await response.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(text, "text/html");
