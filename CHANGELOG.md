@@ -1,3 +1,11 @@
+## **1.3.1**&emsp;<sub><sup>2026-08-31 ([3edb784...5bd593b](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/compare/3edb7843d7acbe716b64de55efa52a1b9c875112...5bd593b5e5184daa2234143183b6d0962acc82b7?diff=split))</sup></sub>
+
+### Bug Fixes
+
+- replace codetabs by corx ([3edb784](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/3edb7843d7acbe716b64de55efa52a1b9c875112))
+
+<br>
+
 ## **1.3.0**&emsp;<sub><sup>2026-03-29 ([cc89589...f39343f](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/compare/cc895898071f25808cc20c708329613314beebcf...f39343fdf48008644f431e67da4a57aa03000fd1?diff=split))</sup></sub>
 
 ### Features
