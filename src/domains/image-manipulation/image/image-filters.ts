@@ -65,4 +65,30 @@ export const ImageFilters = {
       }
     };
   },
+  normalize(): ImageFiltersFunction {
+    return (imageData: EnhancedImageData): void => {
+      const { pixelCount } = imageData;
+
+      let min = 255;
+      let max = 0;
+
+      for (let position = 0; position < pixelCount; position = position + 1) {
+        const [r, g, b] = imageData.getPixelRGB(position);
+        min = Math.min(min, r, g, b);
+        max = Math.max(max, r, g, b);
+      }
+
+      const scale = 255 / Math.max(max - min, 1);
+
+      for (let position = 0; position < pixelCount; position = position + 1) {
+        const { r, g, b, a } = imageData.getPixel(position);
+        imageData.setPixel(position, {
+          r: Math.round((r - min) * scale),
+          g: Math.round((g - min) * scale),
+          b: Math.round((b - min) * scale),
+          a: a,
+        });
+      }
+    };
+  },
 } satisfies Record<string, AnyArgsFunction<ImageFiltersFunction>>;
