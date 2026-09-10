@@ -1,3 +1,15 @@
+## **1.4.0**&emsp;<sub><sup>2026-09-10 ([f55bcf5...22dcb85](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/compare/f55bcf5d07d16618417943ea0b6a350a4ffcba08...22dcb8535df7fb3bf7e82e4e3050f6c1485259b1?diff=split))</sup></sub>
+
+### Features
+
+- add support for mkw 1\.8\.0 and the ten new maps ([f55bcf5](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/f55bcf5d07d16618417943ea0b6a350a4ffcba08))
+
+### Bug Fixes
+
+- add normalization for tracks to reduce false identification in HDR ([c791e2e](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/commit/c791e2e2d5ee9d7e93584ec0a6be8086ae840c5b))
+
+<br>
+
 ## **1.3.1**&emsp;<sub><sup>2026-08-31 ([3edb784...5bd593b](https://github.com/Lukinoh/mario-kart-world-time-trial-browser/compare/3edb7843d7acbe716b64de55efa52a1b9c875112...5bd593b5e5184daa2234143183b6d0962acc82b7?diff=split))</sup></sub>
 
 ### Bug Fixes
