@@ -482,6 +482,167 @@ test.for([
       track: "Whistlestop Summit",
     },
   },
+  /* Ver.1.8.0 - Free Update */
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Choco Island 1.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Choco Island 1",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Choco Island 2.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Choco Island 2",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Ghost Valley 1.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Ghost Valley 1",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Ghost Valley 2.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Ghost Valley 2",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Koopa Beach 1.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Koopa Beach 1",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Mario Circuit 1.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Mario Circuit 1",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Mario Circuit 2.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Mario Circuit 2",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Mario Circuit 3.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Mario Circuit 3",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Ghost Valley 3.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Ghost Valley 3",
+    },
+  },
+  {
+    source: import.meta.glob<string>("../../../assets/recognitions/raw/track/SNES Vanilla Lake 1.png", {
+      eager: true,
+      import: `default`,
+    }),
+    expected: {
+      coins: "00",
+      lap: "1",
+      laps: "5",
+      pause: false,
+      shrooms: "3",
+      time: "0:00.000",
+      timeYellow: false,
+      track: "SNES Vanilla Lake 1",
+    },
+  },
 ])("validate $source", async (params) => {
   await expectedRecognition(params, false);
 });

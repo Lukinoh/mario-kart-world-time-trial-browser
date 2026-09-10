@@ -5,11 +5,12 @@ export type ImageAssertFunction = (imageData: EnhancedImageData) => boolean;
 
 export const ImageAssert = {
   hasOneYellowishAndBlackishPixel(imageData: EnhancedImageData): boolean {
+    const { pixelCount } = imageData;
     let hasYellowish = false;
     let hasBlackish = false;
 
-    for (let index = 0; index < imageData.pixelCount; index = index + 1) {
-      const pixel = imageData.getPixel(index);
+    for (let position = 0; position < pixelCount; position = position + 1) {
+      const pixel = imageData.getPixel(position);
 
       if (PixelAssert.isYellowish(pixel)) {
         hasYellowish = true;

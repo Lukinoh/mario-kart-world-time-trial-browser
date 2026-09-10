@@ -41,7 +41,7 @@
     "eslint/id-length": [
       "error",
       {
-        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T", "v", "S", "O", "K"]
+        "exceptions": ["_", "r", "g", "b", "a", "x", "y", "P", "T", "v", "S", "O", "K", "k"]
       }
     ],
     "eslint/max-lines": "off",

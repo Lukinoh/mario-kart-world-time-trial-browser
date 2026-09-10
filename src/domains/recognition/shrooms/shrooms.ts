@@ -13,7 +13,7 @@ const ShroomsRecognition = createImageRecognition(images, ShroomsRecognitionOpti
 export const Shrooms = {
   get(image: EnhancedImageData, putImageData?: CanvasImageData["putImageData"]): string {
     return pipe(ShroomsRecognition.getMatch(image, ShroomsRegion), (match) => {
-      if (match.score < 0.9) {
+      if (match.score < 0.94) {
         return "0";
       }
 

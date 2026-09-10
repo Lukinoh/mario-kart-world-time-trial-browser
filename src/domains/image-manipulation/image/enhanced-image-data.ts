@@ -1,5 +1,5 @@
+import type { Pixel, PixelRGB } from "../pixel/pixel";
 import type { Box } from "../box/box";
-import type { Pixel } from "../pixel/pixel";
 import type { PixelFiltersFunction } from "../pixel/pixel-filters";
 
 export class EnhancedImageData extends ImageData {
@@ -61,6 +61,12 @@ export class EnhancedImageData extends ImageData {
     };
   }
 
+  getPixelRGB(position: number): PixelRGB {
+    const index = position * 4;
+
+    return [this.data[index], this.data[index + 1], this.data[index + 2]];
+  }
+
   setPixel(position: number, newPixel: Pixel): void {
     const index = position * 4;
 
@@ -76,8 +82,8 @@ export class EnhancedImageData extends ImageData {
 
   applyPixelFilter(filter: PixelFiltersFunction): void {
     const { pixelCount } = this;
-    for (let index = 0; index < pixelCount; index = index + 1) {
-      this.updatePixel(index, filter);
+    for (let position = 0; position < pixelCount; position = position + 1) {
+      this.updatePixel(position, filter);
     }
   }
 }

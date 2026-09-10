@@ -26,6 +26,7 @@
     "@solidjs/router": "0.15.4",
     "date-and-time": "4.2.0",
     "idb-keyval": "6.2.2",
+    "ml-kmeans": "7.0.1",
     "remeda": "2.33.6",
     "simpledotcss": "2.3.7",
     "solid-js": "1.9.11",
